@@ -24,12 +24,20 @@ export async function getCatalog(catalogId: string, skip: number = 0): Promise<C
   const catalogDef = CATALOG_MAP[catalogId];
   if (!catalogDef) return [];
 
-  const page = Math.floor(skip / 20) + 1;
+  const page = Math.floor(skip / 24) + 1;
   let url: string;
-  if (page > 1) {
-    url = `${BASE_URL}/page/${page}${catalogDef.path}`;
+  if (catalogDef.isQuery) {
+    if (page > 1) {
+      url = `${BASE_URL}/page/${page}${catalogDef.path}`;
+    } else {
+      url = `${BASE_URL}${catalogDef.path}`;
+    }
   } else {
-    url = `${BASE_URL}/${catalogDef.path}`;
+    if (page > 1) {
+      url = `${BASE_URL}${catalogDef.path}page/${page}/`;
+    } else {
+      url = `${BASE_URL}${catalogDef.path}`;
+    }
   }
 
   if (isDebug()) console.log(`[Provider] Fetching catalog: ${url}`);
@@ -71,7 +79,7 @@ export async function searchContent(query: string, skip: number = 0): Promise<Ca
 
   const allItems: CatalogItem[] = [];
   const maxPages = 3;
-  const startPage = Math.floor(skip / 20) + 1;
+  const startPage = Math.floor(skip / 24) + 1;
 
   for (let page = startPage; page < startPage + maxPages; page++) {
     try {
