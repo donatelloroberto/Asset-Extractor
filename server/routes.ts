@@ -5,6 +5,8 @@ import { buildManifest } from "./stremio/manifest";
 import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider";
 import { buildNurgayManifest } from "./nurgay/manifest";
 import { getNurgayCatalog, searchNurgayContent, getNurgayMeta, getNurgayStreams } from "./nurgay/provider";
+import { buildFxggxtManifest } from "./fxggxt/manifest";
+import { getFxggxtCatalog, searchFxggxtContent, getFxggxtMeta, getFxggxtStreams } from "./fxggxt/provider";
 import { getCacheStats, clearAllCaches } from "./stremio/cache";
 import { log } from "./index";
 
@@ -28,8 +30,16 @@ function isNurgayId(id: string): boolean {
   return id.startsWith("nurgay:");
 }
 
+function isFxggxtId(id: string): boolean {
+  return id.startsWith("fxggxt:");
+}
+
 function isNurgayCatalog(id: string): boolean {
   return id.startsWith("nurgay-");
+}
+
+function isFxggxtCatalog(id: string): boolean {
+  return id.startsWith("fxggxt-");
 }
 
 export async function registerRoutes(
@@ -51,6 +61,84 @@ export async function registerRoutes(
   app.get("/nurgay/manifest.json", (_req, res) => {
     const manifest = buildNurgayManifest();
     res.json(manifest);
+  });
+
+  app.get("/fxggxt/manifest.json", (_req, res) => {
+    const manifest = buildFxggxtManifest();
+    res.json(manifest);
+  });
+
+  app.get("/fxggxt/catalog/:type/:id.json", async (req, res) => {
+    try {
+      const { type, id } = req.params;
+      const skip = parseInt((req.query as any).skip || "0", 10);
+      const search = (req.query as any).search as string | undefined;
+
+      log(`Fxggxt catalog request: ${id}, skip=${skip}, search=${search || "none"}`, "stremio");
+
+      let metas;
+      if (id === "fxggxt-search" && search) {
+        metas = await searchFxggxtContent(search, skip);
+      } else {
+        metas = await getFxggxtCatalog(id, skip);
+      }
+
+      res.json({ metas });
+    } catch (err: any) {
+      log(`Fxggxt catalog error: ${err.message}`, "stremio");
+      res.json({ metas: [] });
+    }
+  });
+
+  app.get("/fxggxt/catalog/:type/:id/:extra.json", async (req, res) => {
+    try {
+      const { type, id, extra } = req.params;
+      const extraPairs = parseStremioExtra(extra);
+      const skip = parseInt(extraPairs.skip || "0", 10);
+      const search = extraPairs.search || undefined;
+
+      log(`Fxggxt catalog request: ${id}, skip=${skip}, search=${search || "none"}`, "stremio");
+
+      let metas;
+      if (id === "fxggxt-search" && search) {
+        metas = await searchFxggxtContent(search, skip);
+      } else {
+        metas = await getFxggxtCatalog(id, skip);
+      }
+
+      res.json({ metas });
+    } catch (err: any) {
+      log(`Fxggxt catalog error: ${err.message}`, "stremio");
+      res.json({ metas: [] });
+    }
+  });
+
+  app.get("/fxggxt/meta/:type/:id.json", async (req, res) => {
+    try {
+      const { id } = req.params;
+      log(`Fxggxt meta request: ${id}`, "stremio");
+      const meta = await getFxggxtMeta(id);
+      if (!meta) {
+        return res.json({ meta: null });
+      }
+      res.json({ meta });
+    } catch (err: any) {
+      log(`Fxggxt meta error: ${err.message}`, "stremio");
+      res.json({ meta: null });
+    }
+  });
+
+  app.get("/fxggxt/stream/:type/:id.json", async (req, res) => {
+    try {
+      const { id } = req.params;
+      log(`Fxggxt stream request: ${id}`, "stremio");
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const streams = await getFxggxtStreams(id, baseUrl);
+      res.json({ streams });
+    } catch (err: any) {
+      log(`Fxggxt stream error: ${err.message}`, "stremio");
+      res.json({ streams: [] });
+    }
   });
 
   app.get("/nurgay/catalog/:type/:id.json", async (req, res) => {
@@ -139,6 +227,10 @@ export async function registerRoutes(
         metas = await searchNurgayContent(search, skip);
       } else if (isNurgayCatalog(id)) {
         metas = await getNurgayCatalog(id, skip);
+      } else if (id === "fxggxt-search" && search) {
+        metas = await searchFxggxtContent(search, skip);
+      } else if (isFxggxtCatalog(id)) {
+        metas = await getFxggxtCatalog(id, skip);
       } else if (id === "gxtapes-search" && search) {
         metas = await searchContent(search, skip);
       } else {
@@ -166,6 +258,10 @@ export async function registerRoutes(
         metas = await searchNurgayContent(search, skip);
       } else if (isNurgayCatalog(id)) {
         metas = await getNurgayCatalog(id, skip);
+      } else if (id === "fxggxt-search" && search) {
+        metas = await searchFxggxtContent(search, skip);
+      } else if (isFxggxtCatalog(id)) {
+        metas = await getFxggxtCatalog(id, skip);
       } else if (id === "gxtapes-search" && search) {
         metas = await searchContent(search, skip);
       } else {
@@ -187,6 +283,8 @@ export async function registerRoutes(
       let meta;
       if (isNurgayId(id)) {
         meta = await getNurgayMeta(id);
+      } else if (isFxggxtId(id)) {
+        meta = await getFxggxtMeta(id);
       } else {
         meta = await getMeta(id);
       }
@@ -210,6 +308,8 @@ export async function registerRoutes(
       let streams;
       if (isNurgayId(id)) {
         streams = await getNurgayStreams(id, baseUrl);
+      } else if (isFxggxtId(id)) {
+        streams = await getFxggxtStreams(id, baseUrl);
       } else {
         streams = await getStreams(id);
       }
@@ -283,12 +383,13 @@ export async function registerRoutes(
   app.get("/api/status", (_req, res) => {
     const gxtapesManifest = buildManifest();
     const nurgayManifest = buildNurgayManifest();
+    const fxggxtManifest = buildFxggxtManifest();
     const cacheStats = getCacheStats();
     res.json({
       name: "Stremio Add-ons",
       version: "1.0.0",
       uptime: Math.floor((Date.now() - startTime) / 1000),
-      catalogs: gxtapesManifest.catalogs.length + nurgayManifest.catalogs.length,
+      catalogs: gxtapesManifest.catalogs.length + nurgayManifest.catalogs.length + fxggxtManifest.catalogs.length,
       cacheStats,
       addons: [
         {
@@ -303,10 +404,17 @@ export async function registerRoutes(
           catalogs: nurgayManifest.catalogs.length,
           manifestPath: "/nurgay/manifest.json",
         },
+        {
+          name: fxggxtManifest.name,
+          version: fxggxtManifest.version,
+          catalogs: fxggxtManifest.catalogs.length,
+          manifestPath: "/fxggxt/manifest.json",
+        },
       ],
       endpoints: [
         { path: "/manifest.json", description: "GXtapes manifest" },
         { path: "/nurgay/manifest.json", description: "Nurgay manifest" },
+        { path: "/fxggxt/manifest.json", description: "Fxggxt manifest" },
         { path: "/catalog/movie/{catalogId}.json", description: "Browse catalogs" },
         { path: "/meta/movie/{id}.json", description: "Content metadata" },
         { path: "/stream/movie/{id}.json", description: "Stream links" },
@@ -317,9 +425,11 @@ export async function registerRoutes(
   app.get("/api/catalogs", (_req, res) => {
     const gxtapes = buildManifest();
     const nurgay = buildNurgayManifest();
+    const fxggxt = buildFxggxtManifest();
     res.json({
       gxtapes: gxtapes.catalogs,
       nurgay: nurgay.catalogs,
+      fxggxt: fxggxt.catalogs,
     });
   });
 
@@ -334,6 +444,10 @@ export async function registerRoutes(
         items = await searchNurgayContent(search, skip);
       } else if (isNurgayCatalog(id)) {
         items = await getNurgayCatalog(id, skip);
+      } else if (id === "fxggxt-search" && search) {
+        items = await searchFxggxtContent(search, skip);
+      } else if (isFxggxtCatalog(id)) {
+        items = await getFxggxtCatalog(id, skip);
       } else if (id === "gxtapes-search" && search) {
         items = await searchContent(search, skip);
       } else {
@@ -351,6 +465,8 @@ export async function registerRoutes(
       let meta;
       if (isNurgayId(id)) {
         meta = await getNurgayMeta(id);
+      } else if (isFxggxtId(id)) {
+        meta = await getFxggxtMeta(id);
       } else {
         meta = await getMeta(id);
       }

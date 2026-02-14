@@ -48,6 +48,7 @@ interface CatalogEntry {
 interface CatalogsResponse {
   gxtapes: CatalogEntry[];
   nurgay: CatalogEntry[];
+  fxggxt: CatalogEntry[];
 }
 
 function formatUptime(seconds: number): string {
@@ -97,7 +98,7 @@ export default function Dashboard() {
                 Stremio Add-ons Dashboard
               </h1>
               <p className="text-muted-foreground text-sm">
-                GXtapes + Nurgay - Cloudstream 3 extensions converted to Stremio add-ons
+                GXtapes + Nurgay + Fxggxt - Cloudstream 3 extensions converted to Stremio add-ons
               </p>
             </div>
           </div>
@@ -337,7 +338,7 @@ export default function Dashboard() {
 }
 
 function CatalogList({ baseUrl }: { baseUrl: string }) {
-  const [activeTab, setActiveTab] = useState<"gxtapes" | "nurgay">("gxtapes");
+  const [activeTab, setActiveTab] = useState<"gxtapes" | "nurgay" | "fxggxt">("gxtapes");
 
   const { data: catalogs, isLoading } = useQuery<CatalogsResponse>({
     queryKey: ["/api/catalogs"],
@@ -361,7 +362,7 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
     return null;
   }
 
-  const activeCatalogs = activeTab === "gxtapes" ? catalogs.gxtapes : catalogs.nurgay;
+  const activeCatalogs = activeTab === "gxtapes" ? catalogs.gxtapes : activeTab === "nurgay" ? catalogs.nurgay : catalogs.fxggxt;
 
   return (
     <Card>
@@ -386,6 +387,14 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
             data-testid="button-tab-nurgay"
           >
             Nurgay ({catalogs.nurgay?.length || 0})
+          </Button>
+          <Button
+            variant={activeTab === "fxggxt" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveTab("fxggxt")}
+            data-testid="button-tab-fxggxt"
+          >
+            Fxggxt ({catalogs.fxggxt?.length || 0})
           </Button>
         </div>
 
