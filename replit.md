@@ -10,9 +10,9 @@ A Stremio add-on converted from a Cloudstream 3 extension (GXtapes). The app ser
 - **Dashboard API**: `/api/status`, `/api/catalogs`, `/api/catalog/:id`, `/api/meta/:id`, `/api/cache/clear`
 
 ## Key Files
-- `server/stremio/manifest.ts` - Stremio manifest definition and catalog mapping
+- `server/stremio/manifest.ts` - Stremio manifest definition and 32 catalog mappings (categories + studios)
 - `server/stremio/provider.ts` - Main scraping provider (catalog, search, meta, streams)
-- `server/stremio/extractors.ts` - Video host extractors (88z.io, 44x.io, VID, DoodStream, GXtapes)
+- `server/stremio/extractors.ts` - Video host extractors (74k.io packed JS, 88z.io, 44x.io, VID, DoodStream)
 - `server/stremio/http.ts` - HTTP client with retries and user-agent rotation
 - `server/stremio/cache.ts` - In-memory caching layer (NodeCache)
 - `server/stremio/ids.ts` - ID encoding/decoding (base64url of source URLs)
@@ -26,3 +26,15 @@ A Stremio add-on converted from a Cloudstream 3 extension (GXtapes). The app ser
 
 ## ID Scheme
 Content IDs use format: `gxtapes:{base64url(sourceUrl)}`
+
+## Video Extraction
+- **74k.io**: Uses packed JavaScript (eval/function(p,a,c,k,e,d)) with JWPlayer. Unpacker extracts `var links={}` containing HLS stream URLs (hls2, hls3, hls4 variants). Uses balanced parenthesis scanning + string boundary detection for robust unpacking.
+- **44x.io / vi.44x.io**: Embed player with direct `src:` property containing HLS URLs
+- **88z.io**: SPA with encrypted API - attempts packed script extraction, falls back to src/file patterns
+- **DoodStream**: MD5 token-based URL construction
+- **VID Xtapes**: Direct src extraction
+
+## Domain
+Site domain: `gay.xtapes.tw` (changed from `gay.xtapes.in`)
+- Category URLs use mixed formats: `/slug/` and `/{numeric-id}/`
+- Pagination: `/{category}/page/{n}/` for categories, `/page/{n}/?params` for query-based
