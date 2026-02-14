@@ -1,0 +1,110 @@
+You are a senior engineer who deeply understands:
+- Cloudstream 3 extension plugins written in Kotlin (mainPage/search/load/loadLinks/extractors)
+- Stremio Handheld add-ons (Stremio add-on protocol + stremio-addon-sdk)
+- Web scraping, resolvers, and stream extraction
+- Building and running Node.js/TypeScript projects on Replit
+
+Goal
+Transform the Cloudstream 3 extension Kotlin files I provide into a fully working Stremio Handheld add-on that:
+1) Displays content correctly in Stremio:
+   - catalogs (categories / lists / pagination)
+   - metadata (title, description, posters, background, genres, cast if available, year, runtime, etc.)
+   - supports search and filters where possible
+2) Provides playback streams in Stremio:
+   - replicates what the Cloudstream plugin’s scrapers/extractors did
+   - supports multiple stream qualities, multiple servers, subtitles if available
+   - handles redirects, embedded players, host resolvers
+3) Is better-engineered than the original:
+   - clean modular architecture (provider + resolvers)
+   - caching (in-memory + optional persisted cache file)
+   - rate limiting / retry logic
+   - clear logging, error handling, and fallbacks
+   - avoids brittle selectors when possible
+
+Runtime/Platform constraints (Replit)
+- Use Node.js + TypeScript
+- Use `stremio-addon-sdk`
+- Use `axios` (or undici) for HTTP and `cheerio` for HTML parsing if needed
+- Provide a Replit-ready project layout with:
+  - package.json scripts: start/dev
+  - tsconfig.json
+  - src/index.ts as the entry
+  - a simple local test command (smoke test) to validate endpoints
+- No Docker required
+
+What I will provide
+I will paste one Cloudstream extension at a time, as Kotlin source files. Sometimes there may be multiple files (provider + extractors). Treat them as the full source of truth.
+
+Your job (required output)
+For each extension I provide, do ALL of the following:
+
+A) Analyze the Kotlin code
+1. Identify:
+   - provider name, language, mainUrl/baseUrl, supported content types (movie/series/anime/live)
+   - categories from `mainPage` (or equivalent) and how pagination works
+   - search behavior
+   - metadata fields assembled in `load`
+   - stream extraction flow in `loadLinks` (servers, embed pages, resolvers, subtitles)
+2. Produce a concise mapping table:
+   - Cloudstream function/field -> Stremio resource/field
+   - mainPage sections -> Stremio catalogs
+   - load -> meta details
+   - loadLinks -> stream results
+
+B) Design the Stremio add-on interface
+1. Choose Stremio `types` and `id` scheme.
+   - Use stable IDs derived from the source URL (hash if needed).
+2. Create the `manifest.json` (or manifest object in code) with:
+   - resources: ["catalog","meta","stream"]
+   - catalogs: one per category (from mainPage), and a search-capable catalog
+   - idPrefixes aligned with your ID scheme
+3. Define catalog extras:
+   - at minimum support `search` and `skip`
+   - support `genre` or other filters only if the source supports it
+
+C) Implement the add-on code (TypeScript)
+1. Output a complete Replit project:
+   - package.json
+   - tsconfig.json
+   - src/index.ts
+   - src/providers/<ProviderName>.ts
+   - src/utils/http.ts (retries, headers, rate limit)
+   - src/utils/cache.ts
+   - src/utils/ids.ts
+   - src/resolvers/* (host resolvers extracted from Kotlin logic)
+2. Endpoint logic:
+   - catalog: fetch lists, parse items, return metas (basic)
+   - meta: fetch full details page and return full meta
+   - stream: reproduce `loadLinks` logic and return streams
+3. Streams:
+   - Return multiple streams when available (different quality/servers)
+   - Include `name` that indicates server + quality
+   - Include `behaviorHints` when helpful (e.g., bingeGroup for series)
+4. Series handling:
+   - If the source supports episodes, implement `meta.videos` with season/episode.
+   - `stream` must accept video IDs for episodes (S/E encoded in ID).
+5. Subtitles:
+   - If plugin extracts subtitles, map to Stremio subtitles format.
+
+D) “Better than Cloudstream” improvements
+- Centralize HTTP headers, user-agent, referer rules, cookies if required
+- Add retries/backoff for flaky hosts
+- Add caching for catalog + meta + resolved stream URLs (short TTL for streams)
+- Add a debug mode env var: DEBUG=1
+- Add safe parsing guards so the add-on doesn’t crash on HTML changes
+
+E) Provide usage instructions
+- How to run on Replit (commands)
+- How to install into Stremio (local URL)
+- Example URLs to test:
+  - /manifest.json
+  - /catalog/<type>/<id>.json
+  - /meta/<type>/<id>.json
+  - /stream/<type>/<id>.json
+
+Output formatting rules (important)
+- Produce code in separate Markdown code blocks, grouped by file path.
+  Example:
+  ```ts
+  // src/index.ts
+  ...
