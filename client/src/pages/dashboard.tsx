@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import {
   Activity,
   Database,
@@ -20,7 +21,34 @@ import {
   XCircle,
   Trash2,
 } from "lucide-react";
-import type { AddonStatus } from "@shared/schema";
+
+interface AddonInfo {
+  name: string;
+  version: string;
+  catalogs: number;
+  manifestPath: string;
+}
+
+interface StatusResponse {
+  name: string;
+  version: string;
+  uptime: number;
+  catalogs: number;
+  cacheStats: { hits: number; misses: number; keys: number };
+  addons: AddonInfo[];
+  endpoints: { path: string; description: string }[];
+}
+
+interface CatalogEntry {
+  type: string;
+  id: string;
+  name: string;
+}
+
+interface CatalogsResponse {
+  gxtapes: CatalogEntry[];
+  nurgay: CatalogEntry[];
+}
 
 function formatUptime(seconds: number): string {
   const days = Math.floor(seconds / 86400);
@@ -36,7 +64,7 @@ function formatUptime(seconds: number): string {
 export default function Dashboard() {
   const { toast } = useToast();
 
-  const { data: status, isLoading, refetch } = useQuery<AddonStatus>({
+  const { data: status, isLoading, refetch } = useQuery<StatusResponse>({
     queryKey: ["/api/status"],
     refetchInterval: 5000,
   });
@@ -50,8 +78,6 @@ export default function Dashboard() {
   });
 
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
-  const manifestUrl = `${baseUrl}/manifest.json`;
-  const stremioInstallUrl = `stremio://${window.location.host}/manifest.json`;
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -68,10 +94,10 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight" data-testid="text-addon-title">
-                GXtapes Stremio Add-on
+                Stremio Add-ons Dashboard
               </h1>
               <p className="text-muted-foreground text-sm">
-                Cloudstream 3 extension converted to Stremio add-on
+                GXtapes + Nurgay - Cloudstream 3 extensions converted to Stremio add-ons
               </p>
             </div>
           </div>
@@ -120,7 +146,7 @@ export default function Dashboard() {
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Layers className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Catalogs</span>
+                    <span className="text-sm text-muted-foreground">Total Catalogs</span>
                   </div>
                   <span className="text-lg font-semibold" data-testid="text-catalogs">
                     {status.catalogs}
@@ -143,49 +169,64 @@ export default function Dashboard() {
               </Card>
             </div>
 
+            {status.addons && status.addons.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {status.addons.map((addon) => (
+                  <Card key={addon.manifestPath}>
+                    <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
+                      <CardTitle className="text-base font-semibold">{addon.name}</CardTitle>
+                      <Badge variant="secondary" className="text-xs">{addon.catalogs} catalogs</Badge>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div className="space-y-2">
+                        <label className="text-sm text-muted-foreground">Manifest URL</label>
+                        <div className="flex items-center gap-2">
+                          <code
+                            className="flex-1 text-xs bg-muted px-3 py-2 rounded-md overflow-x-auto font-mono"
+                            data-testid={`text-manifest-url-${addon.name.toLowerCase()}`}
+                          >
+                            {baseUrl}{addon.manifestPath}
+                          </code>
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            onClick={() => copyToClipboard(`${baseUrl}${addon.manifestPath}`, `${addon.name} Manifest URL`)}
+                            data-testid={`button-copy-manifest-${addon.name.toLowerCase()}`}
+                          >
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 flex-wrap">
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => {
+                            const host = window.location.host;
+                            window.open(`stremio://${host}${addon.manifestPath}`, "_blank");
+                          }}
+                          data-testid={`button-install-${addon.name.toLowerCase()}`}
+                        >
+                          <ExternalLink className="w-3 h-3 mr-1" />
+                          Open in Stremio
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(`${baseUrl}${addon.manifestPath}`, "_blank")}
+                          data-testid={`button-view-manifest-${addon.name.toLowerCase()}`}
+                        >
+                          View Manifest
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
-                  <CardTitle className="text-base font-semibold">Install in Stremio</CardTitle>
-                  <Server className="w-4 h-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-sm text-muted-foreground">Manifest URL</label>
-                    <div className="flex items-center gap-2">
-                      <code
-                        className="flex-1 text-xs bg-muted px-3 py-2 rounded-md overflow-x-auto font-mono"
-                        data-testid="text-manifest-url"
-                      >
-                        {manifestUrl}
-                      </code>
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => copyToClipboard(manifestUrl, "Manifest URL")}
-                        data-testid="button-copy-manifest"
-                      >
-                        <Copy className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <Button
-                      variant="default"
-                      onClick={() => window.open(stremioInstallUrl, "_blank")}
-                      data-testid="button-install-stremio"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Open in Stremio
-                    </Button>
-                    <p className="text-xs text-muted-foreground">
-                      Or paste the manifest URL into Stremio's add-on search bar.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
                   <CardTitle className="text-base font-semibold">Cache Statistics</CardTitle>
@@ -245,56 +286,35 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
+                  <CardTitle className="text-base font-semibold">API Endpoints</CardTitle>
+                  <Zap className="w-4 h-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {status.endpoints.map((ep) => (
+                      <div
+                        key={ep.path}
+                        className="flex items-center justify-between gap-2 py-2 border-b last:border-b-0"
+                        data-testid={`row-endpoint-${ep.path.replace(/\//g, "-")}`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <Badge variant="secondary" className="text-xs shrink-0">GET</Badge>
+                          <code className="text-xs font-mono text-muted-foreground truncate">{ep.path}</code>
+                        </div>
+                        <span className="text-xs text-muted-foreground shrink-0 hidden sm:block">
+                          {ep.description}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
-                <CardTitle className="text-base font-semibold">API Endpoints</CardTitle>
-                <Zap className="w-4 h-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {status.endpoints.map((ep) => (
-                    <div
-                      key={ep.path}
-                      className="flex items-center justify-between gap-2 py-2 border-b last:border-b-0"
-                      data-testid={`row-endpoint-${ep.path.replace(/\//g, "-")}`}
-                    >
-                      <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <Badge variant="secondary" className="text-xs shrink-0">GET</Badge>
-                        <code className="text-xs font-mono text-muted-foreground truncate">{ep.path}</code>
-                      </div>
-                      <span className="text-xs text-muted-foreground shrink-0 hidden sm:block">
-                        {ep.description}
-                      </span>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => {
-                          const testPath = ep.path
-                            .replace("{catalogId}", "gxtapes-latest")
-                            .replace("{id}", "test");
-                          window.open(`${baseUrl}${testPath}`, "_blank");
-                        }}
-                        data-testid={`button-test-${ep.path.replace(/\//g, "-")}`}
-                      >
-                        <ExternalLink className="w-3 h-3" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
-                <CardTitle className="text-base font-semibold">Available Catalogs</CardTitle>
-                <Layers className="w-4 h-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <CatalogList baseUrl={baseUrl} />
-              </CardContent>
-            </Card>
+            <CatalogList baseUrl={baseUrl} />
           </>
         ) : (
           <Card>
@@ -317,48 +337,87 @@ export default function Dashboard() {
 }
 
 function CatalogList({ baseUrl }: { baseUrl: string }) {
-  const { data: catalogs, isLoading } = useQuery<Array<{ type: string; id: string; name: string }>>({
+  const [activeTab, setActiveTab] = useState<"gxtapes" | "nurgay">("gxtapes");
+
+  const { data: catalogs, isLoading } = useQuery<CatalogsResponse>({
     queryKey: ["/api/catalogs"],
   });
 
   if (isLoading) {
     return (
-      <div className="space-y-2">
-        {[...Array(5)].map((_, i) => (
-          <Skeleton key={i} className="h-10 w-full" />
-        ))}
-      </div>
+      <Card>
+        <CardContent className="p-4">
+          <div className="space-y-2">
+            {[...Array(5)].map((_, i) => (
+              <Skeleton key={i} className="h-10 w-full" />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
-  if (!catalogs || catalogs.length === 0) {
-    return <p className="text-sm text-muted-foreground">No catalogs available.</p>;
+  if (!catalogs) {
+    return null;
   }
 
+  const activeCatalogs = activeTab === "gxtapes" ? catalogs.gxtapes : catalogs.nurgay;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-      {catalogs.map((cat) => (
-        <div
-          key={cat.id}
-          className="flex items-center justify-between gap-2 p-3 rounded-md border"
-          data-testid={`card-catalog-${cat.id}`}
-        >
-          <div className="min-w-0 flex-1">
-            <span className="text-sm font-medium truncate block">{cat.name}</span>
-            <span className="text-xs text-muted-foreground font-mono">{cat.id}</span>
-          </div>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
+        <CardTitle className="text-base font-semibold">Available Catalogs</CardTitle>
+        <Layers className="w-4 h-4 text-muted-foreground" />
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex gap-2">
           <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => {
-              window.open(`${baseUrl}/catalog/movie/${cat.id}.json`, "_blank");
-            }}
-            data-testid={`button-test-catalog-${cat.id}`}
+            variant={activeTab === "gxtapes" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveTab("gxtapes")}
+            data-testid="button-tab-gxtapes"
           >
-            <ExternalLink className="w-3 h-3" />
+            GXtapes ({catalogs.gxtapes?.length || 0})
+          </Button>
+          <Button
+            variant={activeTab === "nurgay" ? "default" : "outline"}
+            size="sm"
+            onClick={() => setActiveTab("nurgay")}
+            data-testid="button-tab-nurgay"
+          >
+            Nurgay ({catalogs.nurgay?.length || 0})
           </Button>
         </div>
-      ))}
-    </div>
+
+        {activeCatalogs && activeCatalogs.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {activeCatalogs.map((cat) => (
+              <div
+                key={cat.id}
+                className="flex items-center justify-between gap-2 p-3 rounded-md border"
+                data-testid={`card-catalog-${cat.id}`}
+              >
+                <div className="min-w-0 flex-1">
+                  <span className="text-sm font-medium truncate block">{cat.name}</span>
+                  <span className="text-xs text-muted-foreground font-mono">{cat.id}</span>
+                </div>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => {
+                    window.open(`${baseUrl}/catalog/movie/${cat.id}.json`, "_blank");
+                  }}
+                  data-testid={`button-test-catalog-${cat.id}`}
+                >
+                  <ExternalLink className="w-3 h-3" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground">No catalogs available.</p>
+        )}
+      </CardContent>
+    </Card>
   );
 }

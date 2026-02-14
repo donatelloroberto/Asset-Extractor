@@ -1,4 +1,32 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import https from "https";
+
+const insecureAgent = new https.Agent({
+  rejectUnauthorized: false,
+});
+
+const INSECURE_HOSTS = [
+  "ds2video.com",
+  "d0o0d.com",
+  "d-s.io",
+  "doodstream.com",
+  "vide0.net",
+  "bigwarp.io",
+  "bigwarp.cc",
+  "bgwp.cc",
+  "vidoza.net",
+  "filemoon.to",
+  "filemoon.sx",
+];
+
+function needsInsecureAgent(url: string): boolean {
+  try {
+    const hostname = new URL(url).hostname;
+    return INSECURE_HOSTS.some(h => hostname.includes(h));
+  } catch {
+    return false;
+  }
+}
 
 const USER_AGENTS = [
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -30,6 +58,7 @@ export async function fetchPage(url: string, options: {
       ...headers,
     },
     maxRedirects: 5,
+    ...(needsInsecureAgent(url) ? { httpsAgent: insecureAgent } : {}),
   };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
