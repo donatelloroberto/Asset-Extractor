@@ -11,12 +11,15 @@ const INSECURE_HOSTS = [
   "d-s.io",
   "doodstream.com",
   "vide0.net",
+  "myvidplay.com",
   "bigwarp.io",
   "bigwarp.cc",
   "bgwp.cc",
   "vidoza.net",
   "filemoon.to",
   "filemoon.sx",
+  "vinovo.to",
+  "vinovo.si",
 ];
 
 function needsInsecureAgent(url: string): boolean {

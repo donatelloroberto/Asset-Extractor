@@ -11,14 +11,15 @@ export interface ExtractedStream {
 }
 
 const SUPPORTED_HOSTS = [
-  "voe.sx", "jilliandescribecompany.com",
-  "doodstream.com", "ds2video.com", "d0o0d.com", "d-s.io", "vide0.net",
+  "voe.sx", "voe.to", "jilliandescribecompany.com", "markstylecompany.com", "primaryclassaliede.com",
+  "doodstream.com", "ds2video.com", "d0o0d.com", "d-s.io", "vide0.net", "myvidplay.com", "dood.",
   "streamtape.com", "tapepops.com",
   "filemoon.to", "filemoon.sx",
   "bigwarp.io", "bigwarp.cc", "bgwp.cc",
   "listmirror.com",
   "mixdrop.co", "mixdrop.to",
-  "vinovo.si",
+  "vinovo.si", "vinovo.to",
+  "vidoza.net",
 ];
 
 function isStreamHost(url: string): boolean {
@@ -101,10 +102,13 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   const url = embedUrl.startsWith("//") ? `https:${embedUrl}` : embedUrl;
   const hostname = new URL(url).hostname;
 
-  if (hostname.includes("voe.sx") || hostname.includes("voe.") || hostname.includes("jilliandescribecompany.com") || hostname.includes("markstylecompany.com") || hostname.includes("primaryclassaliede.com")) {
+  if (hostname.includes("voe.sx") || hostname.includes("voe.to") || hostname.includes("jilliandescribecompany.com") || hostname.includes("markstylecompany.com") || hostname.includes("primaryclassaliede.com")) {
     return extractVoe(url, referer);
   }
-  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.")) {
+  if (hostname.includes("vinovo")) {
+    return extractVoe(url, referer);
+  }
+  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay")) {
     return extractDood(url, referer);
   }
   if (hostname.includes("streamtape") || hostname.includes("tapepops")) {
@@ -119,6 +123,9 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   if (hostname.includes("filemoon")) {
     return extractFilemoon(url);
   }
+  if (hostname.includes("vidoza")) {
+    return extractVidoza(url, referer);
+  }
 
   return extractGeneric(url);
 }
@@ -126,6 +133,9 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
 async function extractVoe(url: string, referer?: string): Promise<ExtractedStream[]> {
   const streams: ExtractedStream[] = [];
   try {
+    const hostname = new URL(url).hostname;
+    const label = hostname.includes("vinovo") ? "Vinovo" : "Voe";
+
     const html = await fetchPage(url, { referer: referer || url });
 
     const sourcesMatch = html.match(/const\s+sources\s*=\s*(\{[^}]+\})/);
@@ -133,7 +143,7 @@ async function extractVoe(url: string, referer?: string): Promise<ExtractedStrea
       const hlsMatch = sourcesMatch[1].match(/"hls"\s*:\s*"([^"]+)"/);
       if (hlsMatch) {
         streams.push({
-          name: "Voe",
+          name: label,
           url: hlsMatch[1],
           referer: url,
         });
@@ -144,7 +154,7 @@ async function extractVoe(url: string, referer?: string): Promise<ExtractedStrea
       const hlsFallback = html.match(/https?:\/\/[^\s"']+\.m3u8[^\s"']*/);
       if (hlsFallback) {
         streams.push({
-          name: "Voe",
+          name: label,
           url: hlsFallback[0],
           referer: url,
         });
@@ -155,7 +165,7 @@ async function extractVoe(url: string, referer?: string): Promise<ExtractedStrea
       const mp4Match = html.match(/https?:\/\/[^\s"']+\.mp4[^\s"']*/);
       if (mp4Match) {
         streams.push({
-          name: "Voe",
+          name: label,
           url: mp4Match[0],
           referer: url,
         });
@@ -286,30 +296,133 @@ async function extractBigwarp(url: string): Promise<ExtractedStream[]> {
   return streams;
 }
 
+async function extractVidoza(url: string, referer?: string): Promise<ExtractedStream[]> {
+  const streams: ExtractedStream[] = [];
+  try {
+    const html = await fetchPage(url, { referer: referer || url });
+
+    const sourceMatch = html.match(/sourcesCode\s*=\s*(\[[\s\S]*?\])\s*;/);
+    if (sourceMatch) {
+      const srcRegex = /src:\s*["']([^"']+)["']/g;
+      let m;
+      while ((m = srcRegex.exec(sourceMatch[1])) !== null) {
+        streams.push({
+          name: "Vidoza",
+          url: m[1],
+          referer: url,
+        });
+      }
+    }
+
+    if (streams.length === 0) {
+      const sourceTagRegex = /<source\s+src=["']([^"']+)["'][^>]*>/gi;
+      let m;
+      while ((m = sourceTagRegex.exec(html)) !== null) {
+        if (m[1].includes(".mp4") || m[1].includes(".m3u8")) {
+          streams.push({
+            name: "Vidoza",
+            url: m[1],
+            referer: url,
+          });
+        }
+      }
+    }
+
+    if (streams.length === 0) {
+      const fileMatch = html.match(/file\s*:\s*["'](https?:\/\/[^"']+\.(?:mp4|m3u8)[^"']*)["']/);
+      if (fileMatch) {
+        streams.push({
+          name: "Vidoza",
+          url: fileMatch[1],
+          referer: url,
+        });
+      }
+    }
+
+    if (streams.length === 0) {
+      const mp4Match = html.match(/https?:\/\/[^\s"'<>]+\.mp4[^\s"'<>]*/);
+      if (mp4Match) {
+        streams.push({
+          name: "Vidoza",
+          url: mp4Match[0],
+          referer: url,
+        });
+      }
+    }
+  } catch (err: any) {
+    if (isDebug()) console.error("[Vidoza] Extraction error:", err.message);
+  }
+  return streams;
+}
+
 async function extractListMirror(url: string, referer: string): Promise<ExtractedStream[]> {
   const streams: ExtractedStream[] = [];
   try {
-    const html = await fetchPage(url);
+    const html = await fetchPage(url, { referer: referer || "https://nurgay.to/" });
+    const $ = cheerio.load(html);
 
-    const sourcesMatch = html.match(/sources\s*=\s*(\[[\s\S]*?\]);/);
-    if (sourcesMatch) {
-      const jsonStr = sourcesMatch[1].replace(/'/g, '"');
-      try {
-        const sources = JSON.parse(jsonStr);
-        for (const source of sources) {
-          if (source.url) {
-            const resolved = await resolveEmbed(source.url, referer);
-            streams.push(...resolved);
+    const mirrorUrls: string[] = [];
+    $("a.mirror-opt, .dropdown-item.mirror-opt").each((_, el) => {
+      const dataUrl = $(el).attr("data-url");
+      if (dataUrl && dataUrl !== "#" && dataUrl.trim()) {
+        mirrorUrls.push(dataUrl.startsWith("//") ? `https:${dataUrl}` : dataUrl);
+      }
+    });
+
+    if (mirrorUrls.length > 0) {
+      if (isDebug()) console.log(`[ListMirror] Found ${mirrorUrls.length} mirrors from dropdown:`, mirrorUrls);
+      const embedPromises = mirrorUrls.map(async (mirrorUrl) => {
+        try {
+          return await resolveEmbed(mirrorUrl, referer);
+        } catch (err: any) {
+          if (isDebug()) console.error(`[ListMirror] Mirror ${mirrorUrl} failed: ${err.message}`);
+          return [];
+        }
+      });
+      const results = await Promise.allSettled(embedPromises);
+      for (const result of results) {
+        if (result.status === "fulfilled") {
+          streams.push(...result.value);
+        }
+      }
+    }
+
+    if (streams.length === 0) {
+      const sourcesMatch = html.match(/(?:const\s+)?sources\s*=\s*(\[[\s\S]*?\])\s*;/);
+      if (sourcesMatch) {
+        if (isDebug()) console.log(`[ListMirror] Found sources JS array`);
+        const jsonStr = sourcesMatch[1].replace(/'/g, '"');
+        try {
+          const sources = JSON.parse(jsonStr);
+          for (const source of sources) {
+            if (source.url) {
+              try {
+                const resolved = await resolveEmbed(source.url, referer);
+                streams.push(...resolved);
+              } catch {}
+            }
+          }
+        } catch {
+          const urlRegex = /"url"\s*:\s*"([^"]+)"/g;
+          let m;
+          while ((m = urlRegex.exec(sourcesMatch[1])) !== null) {
+            try {
+              const resolved = await resolveEmbed(m[1], referer);
+              streams.push(...resolved);
+            } catch {}
           }
         }
-      } catch {
-        const urlMatches = sourcesMatch[1].matchAll(/"url"\s*:\s*"([^"]+)"/g);
-        for (const m of urlMatches) {
-          try {
-            const resolved = await resolveEmbed(m[1], referer);
-            streams.push(...resolved);
-          } catch {}
-        }
+      }
+    }
+
+    if (streams.length === 0) {
+      const iframeSrc = $("iframe.mirror-iframe, iframe").attr("src");
+      if (iframeSrc && iframeSrc !== url) {
+        const fullSrc = iframeSrc.startsWith("//") ? `https:${iframeSrc}` : iframeSrc;
+        try {
+          const resolved = await resolveEmbed(fullSrc, referer);
+          streams.push(...resolved);
+        } catch {}
       }
     }
   } catch (err: any) {

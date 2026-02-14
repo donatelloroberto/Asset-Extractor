@@ -45,3 +45,4 @@ integrations = ["github:1.0.0"]
 [userenv]
 
 [userenv.development]
+DEBUG = "1"
