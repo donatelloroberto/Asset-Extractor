@@ -52,6 +52,78 @@ export async function registerRoutes(
     res.json(manifest);
   });
 
+  app.get("/nurgay/catalog/:type/:id.json", async (req, res) => {
+    try {
+      const { type, id } = req.params;
+      const skip = parseInt((req.query as any).skip || "0", 10);
+      const search = (req.query as any).search as string | undefined;
+
+      log(`Nurgay catalog request: ${id}, skip=${skip}, search=${search || "none"}`, "stremio");
+
+      let metas;
+      if (id === "nurgay-search" && search) {
+        metas = await searchNurgayContent(search, skip);
+      } else {
+        metas = await getNurgayCatalog(id, skip);
+      }
+
+      res.json({ metas });
+    } catch (err: any) {
+      log(`Nurgay catalog error: ${err.message}`, "stremio");
+      res.json({ metas: [] });
+    }
+  });
+
+  app.get("/nurgay/catalog/:type/:id/:extra.json", async (req, res) => {
+    try {
+      const { type, id, extra } = req.params;
+      const extraPairs = parseStremioExtra(extra);
+      const skip = parseInt(extraPairs.skip || "0", 10);
+      const search = extraPairs.search || undefined;
+
+      log(`Nurgay catalog request: ${id}, skip=${skip}, search=${search || "none"}`, "stremio");
+
+      let metas;
+      if (id === "nurgay-search" && search) {
+        metas = await searchNurgayContent(search, skip);
+      } else {
+        metas = await getNurgayCatalog(id, skip);
+      }
+
+      res.json({ metas });
+    } catch (err: any) {
+      log(`Nurgay catalog error: ${err.message}`, "stremio");
+      res.json({ metas: [] });
+    }
+  });
+
+  app.get("/nurgay/meta/:type/:id.json", async (req, res) => {
+    try {
+      const { id } = req.params;
+      log(`Nurgay meta request: ${id}`, "stremio");
+      const meta = await getNurgayMeta(id);
+      if (!meta) {
+        return res.json({ meta: null });
+      }
+      res.json({ meta });
+    } catch (err: any) {
+      log(`Nurgay meta error: ${err.message}`, "stremio");
+      res.json({ meta: null });
+    }
+  });
+
+  app.get("/nurgay/stream/:type/:id.json", async (req, res) => {
+    try {
+      const { id } = req.params;
+      log(`Nurgay stream request: ${id}`, "stremio");
+      const streams = await getNurgayStreams(id);
+      res.json({ streams });
+    } catch (err: any) {
+      log(`Nurgay stream error: ${err.message}`, "stremio");
+      res.json({ streams: [] });
+    }
+  });
+
   app.get("/catalog/:type/:id.json", async (req, res) => {
     try {
       const { type, id } = req.params;
