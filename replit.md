@@ -48,12 +48,17 @@ Two Stremio add-ons converted from Cloudstream 3 extensions. The app serves Stre
 - **VID Xtapes**: Direct src extraction
 
 ### Nurgay Extractors
-- **Voe.sx**: HLS extraction from `sources` object or m3u8 URL pattern
-- **DoodStream / ds2video**: MD5 token-based URL construction
+- **Vidoza**: Direct MP4 extraction from `sourcesCode` array or `<source>` tags. Streams proxied through `/proxy/stream` endpoint with proper Referer headers.
+- **Voe.sx / Vinovo**: Anti-bot protected (Cloudflare). Falls back to `externalUrl` for browser playback.
+- **DoodStream / myvidplay**: Turnstile CAPTCHA protected. Falls back to `externalUrl` for browser playback.
 - **StreamTape / tapepops**: Token assembly from innerHTML assignment
 - **Bigwarp**: file/src property extraction
 - **FileMoon**: Packed JS unpacker for HLS URLs
-- **ListMirror**: Sources array parsing, delegates to other extractors
+- **ListMirror**: Parses dropdown `data-url` attributes to discover all mirror embed URLs, then resolves each
+
+### Stream Proxy
+- `/proxy/stream?url=...&referer=...` - Proxies video streams with proper headers (Referer, User-Agent). Supports range requests for seeking. Used for hosts like Vidoza where direct URLs need specific headers.
+- Streams are NOT cached because URLs expire quickly (session-based tokens)
 
 ## Domains
 - GXtapes: `gay.xtapes.tw` (changed from `gay.xtapes.in`)

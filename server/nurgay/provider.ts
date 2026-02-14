@@ -152,7 +152,7 @@ export async function getNurgayMeta(id: string): Promise<StremioMeta | null> {
   }
 }
 
-export async function getNurgayStreams(id: string): Promise<StremioStream[]> {
+export async function getNurgayStreams(id: string, baseUrl?: string): Promise<StremioStream[]> {
   try {
     const url = extractUrl(id);
     if (isDebug()) console.log(`[Nurgay] Getting streams for: ${url}`);
@@ -167,14 +167,18 @@ export async function getNurgayStreams(id: string): Promise<StremioStream[]> {
         };
       }
 
-      const hints: any = { notWebReady: true };
-      if (s.referer) {
-        hints.proxyHeaders = { request: { Referer: s.referer } };
+      let streamUrl = s.url!;
+      if (baseUrl) {
+        const params = new URLSearchParams({ url: streamUrl });
+        if (s.referer) params.set("referer", s.referer);
+        streamUrl = `${baseUrl}/proxy/stream?${params.toString()}`;
       }
+
+      const hints: any = { notWebReady: false };
       return {
         name: s.name,
         title: s.quality ? `${s.name} - ${s.quality}` : s.name,
-        url: s.url,
+        url: streamUrl,
         behaviorHints: hints,
       };
     });

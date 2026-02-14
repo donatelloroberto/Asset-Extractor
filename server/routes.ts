@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import axios from "axios";
 import { buildManifest } from "./stremio/manifest";
 import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider";
 import { buildNurgayManifest } from "./nurgay/manifest";
@@ -116,7 +117,8 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Nurgay stream request: ${id}`, "stremio");
-      const streams = await getNurgayStreams(id);
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const streams = await getNurgayStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
       log(`Nurgay stream error: ${err.message}`, "stremio");
@@ -204,9 +206,10 @@ export async function registerRoutes(
       const { id } = req.params;
       log(`Stream request: ${id}`, "stremio");
 
+      const baseUrl = `${req.protocol}://${req.get("host")}`;
       let streams;
       if (isNurgayId(id)) {
-        streams = await getNurgayStreams(id);
+        streams = await getNurgayStreams(id, baseUrl);
       } else {
         streams = await getStreams(id);
       }
@@ -215,6 +218,65 @@ export async function registerRoutes(
     } catch (err: any) {
       log(`Stream error: ${err.message}`, "stremio");
       res.json({ streams: [] });
+    }
+  });
+
+  app.get("/proxy/stream", async (req, res) => {
+    try {
+      const streamUrl = req.query.url as string;
+      const referer = req.query.referer as string || "";
+
+      if (!streamUrl) {
+        return res.status(400).json({ error: "Missing url parameter" });
+      }
+
+      log(`Proxy stream: ${streamUrl}`, "stremio");
+
+      const headers: Record<string, string> = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "*/*",
+      };
+      if (referer) {
+        headers["Referer"] = referer;
+      }
+
+      const rangeHeader = req.headers.range;
+      if (rangeHeader) {
+        headers["Range"] = rangeHeader;
+      }
+
+      const response = await axios.get(streamUrl, {
+        headers,
+        responseType: "stream",
+        timeout: 30000,
+        maxRedirects: 5,
+      });
+
+      res.setHeader("Content-Type", response.headers["content-type"] || "video/mp4");
+      if (response.headers["content-length"]) {
+        res.setHeader("Content-Length", response.headers["content-length"]);
+      }
+      if (response.headers["content-range"]) {
+        res.setHeader("Content-Range", response.headers["content-range"]);
+      }
+      if (response.headers["accept-ranges"]) {
+        res.setHeader("Accept-Ranges", response.headers["accept-ranges"]);
+      }
+      res.status(response.status);
+
+      response.data.pipe(res);
+
+      response.data.on("error", (err: any) => {
+        log(`Proxy stream pipe error: ${err.message}`, "stremio");
+        if (!res.headersSent) {
+          res.status(502).json({ error: "Stream error" });
+        }
+      });
+    } catch (err: any) {
+      log(`Proxy stream error: ${err.message}`, "stremio");
+      if (!res.headersSent) {
+        res.status(502).json({ error: "Failed to proxy stream" });
+      }
     }
   });
 
