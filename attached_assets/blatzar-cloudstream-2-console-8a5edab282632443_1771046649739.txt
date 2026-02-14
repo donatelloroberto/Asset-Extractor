@@ -1,0 +1,91 @@
+Directory structure:
+└── blatzar-cloudstream-2-console/
+    ├── README.md
+    ├── CloudStream2Console.sln
+    └── CloudStream2Console/
+        └── CloudStream2Console.csproj
+
+================================================
+FILE: README.md
+================================================
+# CloudStream-2-Console
+The console version of https://github.com/LagradOst/CloudStream-2
+
+***To navigate use:***
+
++ Up and Down arror to select
+
++ Left and Right arrow to switch between seasons
+
++ Esc to go back
+
+
+
+================================================
+FILE: CloudStream2Console.sln
+================================================
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudStream2Console", "CloudStream2Console\CloudStream2Console.csproj", "{DEF4E7AF-5C6B-4A43-B26E-A9CFDFD2C80E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEF4E7AF-5C6B-4A43-B26E-A9CFDFD2C80E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF4E7AF-5C6B-4A43-B26E-A9CFDFD2C80E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF4E7AF-5C6B-4A43-B26E-A9CFDFD2C80E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF4E7AF-5C6B-4A43-B26E-A9CFDFD2C80E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {061E3097-E03B-4A4E-8ACF-5FA2F9AE20D1}
+	EndGlobalSection
+EndGlobal
+
+
+
+================================================
+FILE: CloudStream2Console/CloudStream2Console.csproj
+================================================
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>0df0d515-ea1e-40ee-a18b-349e56100562</UserSecretsId>
+    <ApplicationIcon>bicon.ico</ApplicationIcon>
+    <StartupObject>CloudStream2Console.Program</StartupObject>
+	<PublishToSingleFile>true</PublishToSingleFile>
+	<Version>1.1.0</Version>
+	<RepositoryUrl>https://github.com/LagradOst/CloudStream-2-Console</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants />
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <ErrorReport>none</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jint" Version="2.11.58" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
+
+

@@ -1,0 +1,938 @@
+Directory structure:
+└── blatzar-scraping-tutorial/
+    ├── README.md
+    ├── devtools_detectors.md
+    ├── disguising_your_scraper.md
+    ├── finding_video_links.md
+    ├── patch_firefox_old.md
+    ├── starting.md
+    └── using_apis.md
+
+================================================
+FILE: README.md
+================================================
+## Requests based scraping tutorial
+
+
+You want to start scraping? Well this guide will teach you, and not some baby selenium scraping. This guide only uses raw requests and has examples in both python and kotlin. Only basic programming knowlege in one of those languages is required to follow along in the guide. 
+
+If you find any aspect of this guide confusing please open an issue about it and I will try to improve things.
+
+If you do not know programming at all then this guide will __not__ help you, learn programming first! Real scraping cannot be done by copy pasting with a vauge understanding.
+
+
+0. [Starting scraping from zero](https://github.com/Blatzar/scraping-tutorial/blob/master/starting.md)
+1. [Properly scraping JSON apis often found on sites](https://github.com/Blatzar/scraping-tutorial/blob/master/using_apis.md)
+2. [Evading developer tools detection when scraping](https://github.com/Blatzar/scraping-tutorial/blob/master/devtools_detectors.md)
+3. [Why your requests fail and how to fix them](https://github.com/Blatzar/scraping-tutorial/blob/master/disguising_your_scraper.md)
+4. [Finding links and scraping videos](https://github.com/Blatzar/scraping-tutorial/blob/master/finding_video_links.md)
+
+Once you've read and understood the concepts behind scraping take a look at [a provider in CloudStream](https://github.com/LagradOst/CloudStream-3/blob/3a78f41aad93dc5755ce9e105db9ab19287b912a/app/src/main/java/com/lagradost/cloudstream3/movieproviders/VidEmbedProvider.kt). I added tons of comments to make every aspect of writing CloudStream providers clear. Even if you're not planning on contributing to Cloudstream looking at the code may help. 
+
+Take a look at [Thenos](https://github.com/LagradOst/CloudStream-3/blob/3a78f41aad93dc5755ce9e105db9ab19287b912a/app/src/main/java/com/lagradost/cloudstream3/movieproviders/ThenosProvider.kt) for an example of json based scraping in kotlin.
+
+
+
+================================================
+FILE: devtools_detectors.md
+================================================
+**TL;DR**: You are going to get fucked by sites detecting your devtools. You need to know what techniques are used to bypass them.
+
+Many sites use some sort of debugger detection to prevent you from looking at the important requests made by the browser.
+
+You can test the devtools detector here: https://blog.aepkill.com/demos/devtools-detector/ *(does not feature source mapping detection)*
+Code for the detector found here: https://github.com/AEPKILL/devtools-detector
+
+# How are they detecting the tools?
+
+One or more of the following methods are used to prevent devtools in the majority of cases (if not all):
+
+**1.**
+Calling `debugger` in an endless loop.
+This is very easy to bypass. You can either right click the offending line (in chrome) and disable all debugger calls from that line or you can disable the whole debugger.
+
+**2.**
+Attaching a custom `.toString()` function to an expression and printing it with `console.log()`.
+When devtools are open (even while not in console) all `console.log()` calls will be resloved and the custom `.toString()` function will be called. Functions can also be triggered by how dates, regex and functions are formatted in the console.
+
+This lets the site know the millisecond you bring up devtools. Doing `const console = null` and other js hacks have not worked for me (the console function gets cached by the detector). 
+
+If you can find the offending js responsible for the detection you can bypass it by redifining the function in violentmonkey, but I recommend against it since it's often hidden and obfuscated. The best way to bypass this issue is to re-compile firefox or chrome with a switch to disable the console.
+
+**3.**
+Invoking the debugger as a constructor? Looks something like this in the wild:
+```js
+function _0x39426c(e) {
+    function t(e) {
+        if ("string" == typeof e)
+            return function(e) {}
+            .constructor("while (true) {}").apply("counter");
+        1 !== ("" + e / e).length || e % 20 == 0 ? function() {
+            return !0;
+        }
+        .constructor("debugger").call("action") : function() {
+            return !1;
+        }
+        .constructor("debugger").apply("stateObject"),
+        t(++e);
+    }
+    try {
+        if (e)
+            return t;
+        t(0);
+    } catch (e) {}
+}
+setInterval(function() {
+    _0x39426c();
+}, 4e3);
+```
+This function can be tracked down to this [script](https://github.com/javascript-obfuscator/javascript-obfuscator/blob/6de7c41c3f10f10c618da7cd96596e5c9362a25f/src/custom-code-helpers/debug-protection/templates/debug-protection-function/DebuggerTemplate.ts)
+
+This instantly freezes the webpage in firefox and makes it very unresponsive in chrome and does not rely on `console.log()`. You could bypass this by doing `const _0x39426c = null` in violentmonkey, but this bypass is not doable with heavily obfuscated js.
+
+Cutting out all the unnessecary stuff the remaining function is the following:
+```js
+setInterval(() => {
+    for (let i = 0; i < 100_00; i++) {
+        _ = function() {}.constructor("debugger").call(); // also works with apply
+    }
+}, 1e2);
+```
+Basically running `.constructor("debugger").call();` as much as possible without using while(true) (that locks up everything regardless).
+This is very likely a bug in the browser.
+
+**4.**
+Detecting window size. As you open developer tools your window size will change in a way that can be detected.
+This is both impossible to truly circumvent and simultaneously easily sidestepped.
+To bypass this what you need to do is open the devtools and click settings in top right corner and then select separate window.
+If the devtools are in a separate window they cannot be detected by this technique.
+
+**5.**
+Using source maps to detect the devtools making requests when opened. See https://weizmangal.com/page-js-anti-debug-1/ for further details.
+
+# How to bypass the detection?
+
+I have contributed patches to Librewolf to bypass some detection techniques. 
+Use Librewolf or compile Firefox yourself with [my patches](https://github.com/Blatzar/scraping-tutorial/blob/master/patch_firefox_old.md).
+
+1. Get librewolf at https://librewolf.net/
+2. Go to `about:config`
+3. Set `librewolf.console.logging_disabled` to true to disable **method 2**
+4. Set `librewolf.debugger.force_detach` to true to disable **method 1** and **method 3**
+5. Make devtools open in a separate window to disable **method 4**
+6. Disable source maps in [developer tools settings](https://github.com/Blatzar/scraping-tutorial/assets/46196380/f0ff2f24-6b8d-419c-86ac-9f47d98db749) to disable **method 5**
+7. Now you have completely undetectable devtools!
+
+---
+
+### Next up: [Why your requests fail](https://github.com/Blatzar/scraping-tutorial/blob/master/disguising_your_scraper.md)
+
+
+
+================================================
+FILE: disguising_your_scraper.md
+================================================
+<h2 align="center">Disguishing your scrapers</h2>
+
+<p align="center">
+If you're writing a <b>Selenium</b> scraper, be aware that your skill level doesn't match the minimum requirements for this page.
+</p>
+
+<h3>Why is scraping not appreciated?</h3>
+
+- It obliterates ads and hence, blocks the site revenue.
+- It is more than usually used to spam the content serving networks, hence, affecting the server performance.
+- It is more than usually also used to steal content off of a site and serve in other.
+- Competent scrapers usually look for exploits on site. Among these, the open source scrapers may leak site exploits to a wider audience.
+
+<h3>Why do you need to disguise your scraper?</h3>
+
+Like the above points suggest, scraping is a good act. There are mechanisms to actively kill scrapers and only allow the humans in. You will need to make your scraper's identity as narrow as possible to a browser's identity.
+
+Some sites check the client using headers and on-site javascript challenges. This will result in invalid responses along the status code of 400-499. 
+
+*Keep in mind that there are sites that produce responses without giving out the appropriate status codes.*
+
+<h3>Custom Headers</h3>
+
+Here are some headers you need to check for:
+
+| Header | What's the purpose of this? | What should I change this to? |
+| --- | --- | --- |
+| `User-Agent` | Specifies your client's name along with the versions. | Probably the user-agent used by your browser. |
+| `Referer` | Specifies which site referred the current site. | The url from which **you** obtained the scraping url. |
+| `X-Requested-With` | Specifies what caused the request to that site. This is prominent in site's AJAX / API. | Usually: `XMLHttpRequest`, it may vary based on the site's JS |
+| `Cookie` | Cookie required to access the site. | Whatever the cookie was when you accessed the site in your normal browser. |
+| `Authorization` | Authorization tokens / credentials required for site access. | Correct authorization tokens or credentials for site access. |
+
+Usage of correct headers will give you site content access given you can access it through your web browser.
+
+**Keep in mind that this is only the fraction of what the possible headers can be.**
+
+<h3>Appropriate Libraries</h3>
+
+In Python, `requests` and `httpx` have differences.
+
+```py
+>>> import requests, httpx
+>>> requests.get("http://www.crunchyroll.com/", headers={"User-Agent": "justfoolingaround/1", "Referer": "https://example.com/"})
+<Response [403]>
+>>> httpx.get("http://www.crunchyroll.com/", headers={"User-Agent": "justfoolingaround/1", "Referer": "https://example.com/"})
+<Response [200 OK]>
+```
+
+As we can see, the former response is a 403. This is a forbidden response and generally specifies that the content is not present. The latter however is a 200, OK response. In this response, content is available.
+
+This is the result of varying internal mechanisms. 
+
+The only cons to `httpx` in this case might be the fact that it has fully encoded headers, whilst `requests` does not. This means header keys consisting of non-ASCII characters may not be able to bypass some sites.
+
+<h3>Response handling algorithms</h3>
+
+A session class is an object available in many libraries. This thing is like a house for your outgoing requests and incoming responses. A well written library has a session class that even accounts for appropriate cookie handling. Meaning, if you ever send a request to a site you need not need to worry about the cookie of that site for the next site you visit.
+
+No matter how cool session classes may be, at the end of the day, they are mere objects. That means, you, as a user can easily change what is within it. (This may require a high understanding of the library and the language.)
+
+This is done through inheritance. You inherit a session class and modify whats within.
+
+For example:
+
+```py
+class QuiteANoise(httpx.Client):
+
+    def request(self, *args, **kwargs):
+        print("Ooh, I got a request with arguments: {!r}, and keyword arguments: {!r}.".format(args, kwargs))
+        response = super().request(*args, **kwargs)
+        print("That request has a {!r}!".format(response))
+        return response
+```
+
+In the above inherited session, what we do is *quite noisy*. We announced a request that is about to be sent and a response that was just recieved.
+
+`super`, in Python, allows you to get the class that the current class inherits.
+
+Do not forget to return your `response`, else your program will be dumbfounded since nothing ever gets out of your request!
+
+So, we're going to abuse this fancy technique to effectively bypass some hinderances.
+
+Namely `hCaptcha`, `reCaptcha` and `Cloudflare`.
+
+```py
+"""
+This code is completely hypothetical, you probably 
+do not have a hCaptcha, reCaptcha and a Cloudflare
+bypass. 
+
+This code is a mere reference and may not suffice
+your need.
+"""
+from . import hcaptcha
+from . import grecaptcha
+
+import httpx
+
+class YourScraperSession(httpx.Client):
+
+    def request(self, *args, **kwargs):
+        
+        response = super().request(*args, **kwargs)
+
+        if response.status_code >= 400:
+
+            if hcaptcha.has_cloudflare(response):
+                cloudflare_cookie = hcaptcha.cloudflare_clearance_jar(self, response, *args, **kwargs)
+                self.cookies.update(cloudflare_cookie)
+                return self.request(self, *args, **kwargs)
+
+            # Further methods to bypass something else.
+            return self.request(self, *args, **kwargs) # psssssst. RECURSIVE HELL, `return response` is safer
+
+
+        hcaptcha_sk, type_of = hcaptcha.deduce_sitekey(self, response)
+        
+        if hcaptcha_sk:
+            if type_of == 'hsw':
+                token = hcaptcha.get_hsw_token(self, response, hcaptcha_sk)
+            else:
+                token = hcaptcha.get_hsl_token(self, response, hcaptcha_sk)
+            
+            setattr(response, 'hcaptcha_token', token)
+
+        recaptcha_sk, type_of = grecaptcha.sitekey_on_site(self, response)
+
+        if recaptcha_sk:
+            if isinstance(type_of, int):
+                token = grecaptcha.recaptcha_solve(self, response, recaptcha_sk, v=type_of)
+            else:
+                token = type_of
+
+            setattr(response, 'grecaptcha_token', token)
+            
+        return response
+```
+
+So, let's see what happens here.
+
+Firstly, we check whether the response has a error or not. This is done by checking if the response's status code is **greater than or equal to** 400.
+
+After this, we check if the site has Cloudflare, if the site has Cloudflare, we let the hypothetical function do its magic and give us the bypass cookies. Then after, we update our session class' cookie. Cookie vary across sites but in this case, our hypothetical function will take the session and make it so that the cookie only applies to that site url within and with the correct headers.
+
+After a magical cloudflare bypass (people wish they have this, you will too, probably.), we call the overridden function `.request` again to ensure the response following this will be bypassed to. This is recursion. 
+
+If anything else is required, you should add your own code to execute bypasses so that your responses will be crisp and never error-filled.
+
+Else, we just return the fresh `.request`.
+
+Keep in mind that if you cannot bypass the 400~ error, your responses might end up in a permanent recursive hell, at least in the code above.
+
+To not make your responses never return, you might want to return the non-bypassed response.
+
+The next part mainly focuses on CAPTCHA bypasses and what we do is quite simple. A completed CAPTCHA *usually* returns a token. 
+
+Returning this token with the response is not a good idea as the entire return type will change. We use a sneaky little function here. Namely `setattr`. What this does is, it sets an attribute of an object.
+
+The algorithm in easier terms is:
+
+Task: Bypass a donkey check with your human.
+
+- Yell "hee~haw". (Prove that you're a donkey, this is how the hypothetical functions work.)
+- Be handed the ribbon. (In our case, this is the token.)
+
+Now the problem is, the ribbon is not a human but still needs to come back. How does a normal human do this? Wear the ribbon.
+
+Wearing the ribbon is `setattr`. We can wear the ribbon everywhere. Leg, foot, butt.. you name it. No matter where you put it, you get the ribbon, so just be a bit reasonable with it. Like a decent developer and a decent human, wear the ribbon on the left side of your chest. In the code above, this reasonable place is `<captcha_name>_token`.
+
+Let's get out of this donkey business.
+
+After this reasonable token placement, we get the response back.
+
+This token can now, always be accessed in reasonable places, reasonably.
+
+
+```py
+client = YourScraperSession()
+
+bypassed_response = client.get("https://kwik.cx/f/2oHQioeCvHtx")
+print(bypassed_response.hcaptcha_token)
+```
+
+Keep in mind that if there is no ribbon/token, there is no way of reasonably accessing it.
+
+In any case, this is how you, as a decent developer, handle the response properly.
+
+### Next up: [Finding video links](https://github.com/Blatzar/scraping-tutorial/blob/master/finding_video_links.md)
+
+
+
+================================================
+FILE: finding_video_links.md
+================================================
+# Finding video links
+
+Now you know the basics, enough to scrape most stuff from most sites, but not streaming sites.
+Because of the high costs of video hosting the video providers really don't want anyone scraping the video and bypassing the ads.
+This is why they often obfuscate, encrypt and hide their links which makes scraping really hard.
+Some sites even put V3 Google Captcha on their links to prevent scraping while the majority IP/time/referer lock the video links to prevent sharing.
+You will almost never find a plain \<video\> element with a mp4 link.
+
+**This is why you should always scrape the video first when trying to scrape a video hosting site. Sometimes getting the video link can be too hard.**
+
+I will therefore explain how to do more advanced scraping, how to get these video links.
+
+What you want to do is:
+
+1. Find the iFrame/Video host.*
+2. Open the iFrame in a separate tab to ease clutter.*
+3. Find the video link.
+4. Work backwards from the video link to find the source.
+
+* *Step 1 and 2 is not applicable to all sites.* 
+
+Let's explain further:
+**Step 1**: Most sites use an iFrame system to show their videos. This is essentially loading a separate page within the page. 
+This is most evident in [Gogoanime](https://gogoanime.gg/yakusoku-no-neverland-episode-1), link gets updated often, google the name and find their page if link isn't found.
+The easiest way of spotting these iframes is looking at the network tab trying to find requests not from the original site. I recommend using the HTML filter.
+
+![finding](https://user-images.githubusercontent.com/46196380/149821806-7426ca0f-133f-4722-8e7f-ebae26ea2ef1.png)
+  
+Once you have found the iFrame, in this case a fembed-hd link open it in another tab and work from there. (**Step 2**)
+If you only have the iFrame it is much easier to find the necessary stuff to generate the link since a lot of useless stuff from the original site is filtered out.
+
+**Step 3**: Find the video link. This is often quite easy, either filter all media requests or simply look for a request ending in .m3u8 or .mp4
+What this allows you to do is limit exclude many requests (only look at the requests before the video link) and start looking for the link origin (**Step 4**).
+
+![video_link](https://user-images.githubusercontent.com/46196380/149821919-f65e2f72-b413-4151-a4a3-db7012e2ed18.png)
+  
+I usually search for stuff in the video link and see if any text/headers from the preceding requests contain it. 
+In this case fvs.io redirected to the mp4 link, now do the same steps for the fvs.io link to follow the request backwards to the origin. Like images are showing.
+
+  
+![fvs](https://user-images.githubusercontent.com/46196380/149821967-00c01103-5b4a-48dd-be18-e1fdfb967e4c.png)
+  
+  
+  
+![fvs_redirector](https://user-images.githubusercontent.com/46196380/149821984-0720addd-40a7-4a9e-a429-fec45ec28901.png)
+  
+  
+  
+![complete](https://user-images.githubusercontent.com/46196380/149821989-49b2ba8c-36b1-49a7-a41b-3c69df278a9f.png)
+
+  
+  
+**NOTE: Some sites use encrypted JS to generate the video links. You need to use the browser debugger to step by step find how the links are generated in that case**
+
+## **What to do when the site uses a captcha?**
+
+You pretty much only have 3 options when that happens:
+
+1. Try to use a fake / no captcha token. Some sites actually doesn't check that the captcha token is valid.
+2. Use Webview or some kind of browser in the background to load the site in your stead.
+3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser:
+
+Before showing a code example, I'll explain some of the logic so it's easier to visualize what's happening. Our end goal is to make a request to `https://www.google.com/recaptcha/api2/anchor` with some parameters that we can hardcode, since they're not bound to change, but we also need to pass 3 parameters that are dynamic. These include: `k` (stands for key), `co` and `v` (stands for vtoken).
+
+Here is a proof of concept code example of how you can get a captcha token programmatically (this can vary for various websites):
+```sh
+key=$(curl -s "$main_page" | sed -nE "s@.*recaptcha_site_key = '(.*)'.*@\1@p") # the main_page variable in this example is the home page for our website, for example https://zoro.to
+co=$(printf "%s:443" "$main_page" | base64 | tr "=" ".") # here, we would be base64 encoding the following url: https://zoro.to:443 => aHR0cHM6Ly96b3JvLnRvOjQ0Mzo0NDM.
+vtoken=$(curl -s "https://www.google.com/recaptcha/api.js?render=$key" | sed -nE "s_.*po\.src=.*releases/(.*)/recaptcha.*_\1_p")
+recaptcha_token=$(curl -s "https://www.google.com/recaptcha/api2/anchor?ar=1&hl=en\
+		&size=invisible&cb=cs3&k=${key}&co=${co}&v=${vtoken}" |
+  sed -nE 's_.*id="recaptcha-token" value="([^"]*)".*_\1_p')
+curl -s "$main_page/some_url_requiring_token?token=${recaptcha_token}" # now we can use the recaptcha token to pass the verification on the site
+```
+
+
+
+================================================
+FILE: patch_firefox_old.md
+================================================
+## NOTE: This section is old and unncessecary since these patches are already contributed to Librewolf.
+
+I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
+
+**Linux build**: https://mega.nz/file/YSAESJzb#x036cCtphjj9kB-kP_EXReTTkF7L7xN8nKw6sQN7gig
+
+**Windows build**: https://mega.nz/file/ZWAURAyA#qCrJ1BBxTLONHSTdE_boXMhvId-r0rk_kuPJWrPDiwg
+
+**Mac build**: https://mega.nz/file/Df5CRJQS#azO61dpP0_xgR8k-MmHaU_ufBvbl8_DlYky46SNSI0s
+
+about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
+
+about:config `devtools.debugger.bypass` completely disables the debugger, useful to bypass **method 3**. 
+
+If you want to compile firefox yourself with these bypasses you can, using the line changes below in the described files.
+
+**BUILD: 101.0a1 (2022-04-19)**
+`./devtools/server/actors/thread.js`
+At line 390
+```js
+  attach(options) {
+    let devtoolsBypass = Services.prefs.getBoolPref("devtools.debugger.bypass", true);
+    if (devtoolsBypass)
+        return;
+```
+
+`./devtools/server/actors/webconsole/listeners/console-api.js`
+At line 92
+```js
+observe(message, topic) {
+let devtoolsBypass = Services.prefs.getBoolPref("devtools.console.bypass", true);
+if (!this.handler || devtoolsBypass) {
+  return;
+}
+```
+`./browser/app/profile/firefox.js`
+At line 23
+
+```js
+// Bypasses
+pref("devtools.console.bypass", true);
+pref("devtools.debugger.bypass", true);
+```
+
+
+
+================================================
+FILE: starting.md
+================================================
+# Introduction
+
+All webpages work by doing requests back and forth with the website server. A request is a way to ask the server for some piece of content, like asking a person what their name is. The question can be though of as the url and can look like this:
+
+*GET* https://example.com/name
+
+**which translates to:**
+
+*Question*: what is your name?
+
+----
+
+Scraping is just downloading a webpage and getting the wanted information from it.
+Usually the information is not directly available on the page you want, meaning you need to do multiple requests. It may sound confusing, but try to understand these two images by the end:
+
+Your browser works like this:
+![Browser request](/images/browser_request.jpg) 
+
+
+When you scrape you want to replicate what the browser does like this:
+![Scraper request](/images/scraper_request.jpg)
+
+Every time you visit a website you make a request to the server, the server responds to the request with a response, containing what the browser asked for. This is like asking your friend to give you a copy of his lecture notes for studying.
+
+
+Scraping is usually more advanced than that, one request leads to the other in complicated ways you cannot debug. To get the information you want you need to use the information found on one page to visit to the next. To continue the anology with lecture notes, this would be like asking your friend for his lecture notes and in the notes you find the email to the teacher. With the email to the teacher you then ask them a question about the course. 
+
+Scrapers are all about writing code to make that process happen automatically, and it can be done in different ways. You can operate an invisible web browser with code using something like selenium. This is the equivalent of simulating an entire brain to read the lecture notes to find the email, which is very slow. You can also take the content, parse it with a regex to instantly find any emails. This is like making a robot do ctrl+f in the lecture notes to find any emails, much more efficent, but requiring more fine tuning to get what you want.
+
+-------
+
+To demonstrate how requests work we will be scraping the Readme.
+
+I'll use khttp for the kotlin implementation because of the ease of use, if you want something company-tier I'd recommend OkHttp.
+
+(**Update**: I have made an okhttp wrapper **for android apps**, check out [NiceHttp](https://github.com/Blatzar/NiceHttp))
+
+
+# **1. Scraping the Readme** 
+
+This basically does what the first image does, it asks the web server with a GET request to give the content for the url. The .get(url) implies it is a GET request, and is basically the equivalent to saying "Give me the content for this url". This is used to get stuff like html, images and videos.
+
+There are multiple different request types, but this one is the most important, with the second most important being POST requests which we will look at later.
+
+**Python**
+```python
+import requests
+url = "https://raw.githubusercontent.com/Blatzar/scraping-tutorial/master/README.md"
+response = requests.get(url)
+print(response.text)  # Prints the readme
+```
+
+**Kotlin**
+
+In build.gradle:
+```
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	// Other dependencies above
+	compile group: 'khttp', name: 'khttp', version: '1.0.0'
+}
+```
+In main.kt
+```java
+fun main() {
+    val url = "https://raw.githubusercontent.com/Blatzar/scraping-tutorial/master/README.md"
+    val response = khttp.get(url)
+    println(response.text)
+}
+```
+
+**Shell**
+```sh
+curl "https://raw.githubusercontent.com/Blatzar/scraping-tutorial/master/README.md"
+```
+
+
+# **2. Getting the github project description** 
+Scraping is all about getting what you want in a good format you can use to automate stuff.
+
+Start by opening up the developer tools, using
+
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> 
+
+or 
+
+<kbd>f12</kbd> 
+
+or 
+
+Right click and press *Inspect*
+
+In here you can look at all the network requests the browser is making and much more, but the important part currently is the HTML displayed. You need to find the HTML responsible for showing the project description, but how? 
+
+Either click the small mouse in the top left of the developer tools or press 
+
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> 
+
+This makes your mouse highlight any element you hover over. Press the description to highlight up the element responsible for showing it.
+
+Your HTML will now be focused on something like:
+
+
+```cshtml
+<p class="f4 mt-3">
+      Work in progress tutorial for scraping streaming sites
+</p>
+```
+
+Now there's multiple ways to get the text, but the 2 methods I always use is Regex and CSS selectors. Regex is basically a ctrl+f on steroids, you can search for anything. CSS selectors is a way to parse the HTML like a browser and select an element in it.
+
+## CSS Selectors
+
+The element is a paragraph tag, eg `<p>`, which can be found using the CSS selector: "p".
+
+classes helps to narrow down the CSS selector search, in this case: `class="f4 mt-3"`
+
+This can be represented with 
+```css
+p.f4.mt-3
+```
+a dot for every class ([full list of CSS selectors found here](https://www.w3schools.com/cssref/css_selectors.asp))
+
+You can test if this CSS selector works by opening the console tab and typing:
+
+```js
+document.querySelectorAll("p.f4.mt-3");
+```
+
+This prints:
+```java
+NodeList [p.f4.mt-3]
+```
+
+### **NOTE**: You may not get the same results when scraping from command line, classes and elements are sometimes created by javascript on the site.
+
+
+**Python**
+
+```python
+import requests
+from bs4 import BeautifulSoup  # Full documentation at https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+url = "https://github.com/Blatzar/scraping-tutorial"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'lxml')
+element = soup.select("p.f4.mt-3")  # Using the CSS selector
+print(element[0].text.strip())  # Selects the first element, gets the text and strips it (removes starting and ending spaces)
+```
+
+**Kotlin**
+
+In build.gradle:
+```
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	// Other dependencies above
+	implementation "org.jsoup:jsoup:1.11.3"
+	compile group: 'khttp', name: 'khttp', version: '1.0.0'
+}
+```
+In main.kt
+```java
+fun main() {
+    val url = "https://github.com/Blatzar/scraping-tutorial"
+    val response = khttp.get(url)
+    val soup = Jsoup.parse(response.text)
+    val element = soup.select("p.f4.mt-3") // Using the CSS selector
+    println(element.text().trim()) // Gets the text and strips it (removes starting and ending spaces)
+}
+```
+
+**Shell**
+In order to avoid premature heart attacks, the shell scraping example which relies on regex can be found in the regex section.
+*Note*: 
+Although there are external libraries which can be used to parse html in shellscripts, such as htmlq and pup, these are often slower at parsing than sed (a built-in stream editor command on unix systems).
+This is why using sed with the extended regex flag `-E` is a preferrable way of parsing scraped data when writing shellscripts.
+
+
+## **Regex:**
+
+When working with Regex I highly recommend using https://regex101.com/ (using the python flavor)
+
+Press <kbd>Ctrl</kbd> + <kbd>U</kbd> 
+
+to get the whole site document as text and copy everything
+
+Paste it in the test string in regex101 and try to write an expression to only capture the text you want.
+
+In this case the elements is 
+
+```cshtml
+<p class="f4 mt-3">
+      Work in progress tutorial for scraping streaming sites
+    </p>
+```
+
+Maybe we can search for `<p class="f4 mt-3">` (backslashes for ")
+
+```regex
+<p class=\"f4 mt-3\">
+```
+
+Gives a match, so lets expand the match to all characters between the two brackets ( p>....</ )
+
+Some important tokens for that would be:
+
+`.*?` to indicate everything except a newline any number of times, but take as little as possible
+
+`\s*` to indicate whitespaces except a newline any number of times
+
+`(*expression inside*)` to indicate groups
+
+Which gives:
+
+```regex
+<p class=\"f4 mt-3\">\s*(.*)?\s*<
+```
+**Explained**: 
+
+Any text exactly matching `<p class="f4 mt-3">`
+
+then any number of whitespaces
+
+then any number of any characters (which will be stored in group 1)
+
+then any number of whitespaces
+
+then the text `<`
+
+
+In code:
+
+**Python**
+
+```python
+import requests
+import re  # regex
+
+url = "https://github.com/Blatzar/scraping-tutorial"
+response = requests.get(url)
+description_regex = r"<p class=\"f4 mt-3\">\s*(.*)?\s*<"  # r"" stands for raw, which makes blackslashes work better, used for regexes
+description = re.search(description_regex, response.text).groups()[0]
+print(description)
+```
+
+**Kotlin**
+In main.kt
+```java
+fun main() {
+    val url = "https://github.com/Blatzar/scraping-tutorial"
+    val response = khttp.get(url)
+    val descriptionRegex = Regex("""<p class="f4 mt-3">\s*(.*)?\s*<""")
+    val description = descriptionRegex.find(response.text)?.groups?.get(1)?.value
+    println(description)
+}
+```
+
+**Shell**
+Here is an example of how html data can be parsed using sed with the extended regex flag:
+```sh
+printf 'some html data then data-id="123" other data and title here: title="Foo Bar" and more html\n' |
+  sed -nE "s/.*data-id=\"([0-9]*)\".*title=\"([^\"]*)\".*/Title: \2\nID: \1/p" # note that we use .* at the beginning and end of the pattern in order to avoid printing everything that preceeds and follows the actual patterns we are matching
+```
+
+# Closing words
+
+Make sure you understand everything here before moving on, this is the absolute fundamentals when it comes to scraping.
+Some people come this far, but they do not quite understand how powerful this technique is.
+Let's say you have a website which when you click a button opens another website. You want to do what the button press does, but when you look at the html the url to the other site is nowhere to be found. How would you solve it?
+
+If you know a bit of how websites work you might figure out that the is because the button link gets generated by JavaScript. The obvious solution would then be to run the JavaScript and generate the button link. This is both impractical, inefficent and not what was used so far in this guide.
+
+What you should do instead is inspect the button link url and check for something unique. For example if the button url is "https://example.com/click/487a162?key=748" then I would look through the webpage for any instances of "487a162" and "748" and figure out a way to get those strings automatically, because that's everything required to make the link.
+
+
+The secret to scraping is: You have all information required to make anything your browser does, you just need to figure out how. You almost never need to run some website JavaScript to get what you want. It is like a puzzle on how to get to the next request url, you have all the pieces, you just need to figure out how they fit.
+
+### Next up: [Properly scraping JSON apis](https://github.com/Blatzar/scraping-tutorial/blob/master/using_apis.md)
+
+
+
+================================================
+FILE: using_apis.md
+================================================
+### About
+Whilst scraping a site is always a nice option, using it's API is way better. <br/>
+And sometimes its the only way `(eg: the site uses its API to load the content, so scraping doesn't work)`.
+
+Anyways, this guide won't teach the same concepts over and over again, <br/>
+so if you can't even make requests to an API then this will not tell you how to do that.
+
+Refer to [starting.md](./starting.md) on how to make http/https requests.
+And yes, this guide expects you to have basic knowledge on both Python and Kotlin.
+
+### Using an API (and parsing json)
+So, the API I will use is the [SWAPI](https://swapi.dev/). <br/>
+
+To parse that json data in python you would do:
+```python
+import requests
+
+url = "https://swapi.dev/api/planets/1/"
+json = requests.get(url).json()
+
+""" What the variable json looks like
+{
+	"name": "Tatooine",
+	"rotation_period": "23",
+	"orbital_period": "304",
+	"diameter": "10465",
+	"climate": "arid",
+	"gravity": "1 standard",
+	"terrain": "desert",
+	"surface_water": "1",
+	"population": "200000",
+	"residents": [
+		"https://swapi.dev/api/people/1/"
+	],
+	"films": [
+		"https://swapi.dev/api/films/1/"
+	],
+	"created": "2014-12-09T13:50:49.641000Z",
+	"edited": "2014-12-20T20:58:18.411000Z",
+	"url": "https://swapi.dev/api/planets/1/"
+}
+"""
+```
+Now, that is way too simple in python, sadly I am here to get your hopes down, and say that its not as simple in kotlin. <br/>
+
+First of all, we are going to use a library named Jackson by FasterXML. <br/>
+In build.gradle:
+```
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	...
+	...
+	implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.3"
+	compile group: 'khttp', name: 'khttp', version: '1.0.0'
+}
+```
+After we have installed the dependencies needed, we have to define a schema for the json. <br/>
+Essentially, we are going to write the structure of the json in order for jackson to parse our json. <br/>
+This is an advantage for us, since it also means that we get the nice IDE autocomplete/suggestions and typehints! <br/><br/>
+
+Getting the json data:
+```kotlin
+val jsonString = khttp.get("https://swapi.dev/api/planets/1/").text
+```
+
+First step is to build a mapper that reads the json string, in order to do that we need to import some things first.
+
+```kotlin
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+```
+After that we initialize the mapper:
+```kotlin
+val mapper: JsonMapper = JsonMapper.builder().addModule(KotlinModule())
+    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).build()
+```
+
+The next step is to...write down the structure of our json!
+This is the boring part for some, but it can be automated by using websites like [json2kt](https://www.json2kt.com/) or [quicktype](https://app.quicktype.io/) to generate the entire code for you.
+<br/><br/>
+
+First step to declaring the structure for a json is to import the JsonProperty annotation.
+```kotlin
+import com.fasterxml.jackson.annotation.JsonProperty
+```
+Second step is to write down a data class that represents said json.
+```kotlin
+// example json = {"cat": "meow", "dog": ["w", "o", "o", "f"]}
+
+data class Example (
+    @JsonProperty("cat") val cat: String,
+    @JsonProperty("dog") val dog: List<String>
+)
+```
+This is as simple as it gets. <br/> <br/>
+
+Enough of the examples, this is the representation of `https://swapi.dev/api/planets/1/` in kotlin:
+```kotlin
+data class Planet (
+    @JsonProperty("name") val name: String,
+    @JsonProperty("rotation_period") val rotationPeriod: String,
+    @JsonProperty("orbital_period") val orbitalPeriod: String,
+    @JsonProperty("diameter") val diameter: String,
+    @JsonProperty("climate") val climate: String,
+    @JsonProperty("gravity") val gravity: String,
+    @JsonProperty("terrain") val terrain: String,
+    @JsonProperty("surface_water") val surfaceWater: String,
+    @JsonProperty("population") val population: String,
+    @JsonProperty("residents") val residents: List<String>,
+    @JsonProperty("films") val films: List<String>,
+    @JsonProperty("created") val created: String,
+    @JsonProperty("edited") val edited: String,
+    @JsonProperty("url") val url: String
+)
+```
+**For json that don't necessarily contain a key, or its type can be either the expected type or null, you need to write that type as nullable in the representation of that json.** <br/>
+Example of the above situation:
+```json
+[
+   {
+      "cat":"meow"
+   },
+   {
+      "dog":"woof",
+      "cat":"meow"
+   },
+   {
+      "fish":"meow",
+      "cat":"f"
+   }
+]
+```
+It's representation would be:
+```kotlin
+data class Example (
+    @JsonProperty("cat") val cat: String,
+    @JsonProperty("dog") val dog: String?,
+    @JsonProperty("fish") val fish: String?
+)
+```
+As you can see, `dog` and `fish` are nullable because they are properties that are missing in an item. <br/>
+Whilst `cat` is not nullable because it is available in all of the items. <br/>
+Basic nullable detection is implemented in [json2kt](https://www.json2kt.com/) so its recommended to use that. <br/>
+But it is very likely that it might fail to detect some nullable types, so it's up to us to validate the generated code.
+
+Second step to parsing json is...to just call our `mapper` instance.
+```kotlin
+val json = mapper.readValue<Planet>(jsonString)
+```
+And voila! <br/>
+We have successfully parsed our json within kotlin. <br/>
+One thing to note is that you don't need to add all of the json key/value pairs to the structure, you can just have what you need.
+
+**Shell**
+Here is how you could extract the values for the different keys in the json, using sed and tr:
+
+1) Extract the `climate` value:
+```sh
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"climate\":\"([^\"]*)\".*/\1/p" # note that we are using the [^\"]* pattern as a replacement for greedy matching in standard regex, as posix sed does not support greedy matching; we are also escaping the quotation mark
+```
+The regex pattern above can be visualized as such:
+![Regex-visualizer](/images/sed_regex.png)
+
+2) More advanced example:
+Extract all values for the `films` key:
+```sh
+curl "https://swapi.dev/api/planets/1/" | sed -nE "s/.*\"films\":\[([^]]*)\].*/\1/p" | sed "s/,/\n/g;s/\"//g" # the first sed pattern has the same logic as in the previous example. for the second one the semicolon character is used for separating 2 sed commands, meaning that this sample command can be translated to human language as: transform all (/g is the global flag, which means it'll perform for all instances on a single line and not just the first one) the commas into new lines, and also delete all quotation marks from the input
+```
+
+Additionally, a pattern I recommend using when parsing json without `jq`, only using posix shell commands, is `tr ',' '\n'`. This makes the json easier to parse using sed.
+
+### Note
+Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties. <br/>
+If a json may or may not include some info, make those properties as nullable in the structure you build.
+
+### Next up: [Evading developer tools detection](https://github.com/Blatzar/scraping-tutorial/blob/master/devtools_detectors.md)
+
+

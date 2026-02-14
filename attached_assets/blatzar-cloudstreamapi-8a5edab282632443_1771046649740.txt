@@ -1,0 +1,4076 @@
+Directory structure:
+└── blatzar-cloudstreamapi/
+    ├── README.md
+    ├── build.gradle.kts
+    ├── gradle.properties
+    ├── gradlew
+    ├── gradlew.bat
+    ├── settings.gradle.kts
+    ├── app/
+    │   ├── build.gradle.kts
+    │   ├── proguard-rules.pro
+    │   └── src/
+    │       ├── androidTest/
+    │       │   └── java/
+    │       │       └── com/
+    │       │           └── lagradost/
+    │       │               └── test/
+    │       │                   └── ExampleInstrumentedTest.kt
+    │       ├── main/
+    │       │   ├── AndroidManifest.xml
+    │       │   └── res/
+    │       │       ├── drawable/
+    │       │       │   ├── ic_launcher_background.xml
+    │       │       │   └── ic_launcher_foreground.xml
+    │       │       ├── mipmap-anydpi-v26/
+    │       │       │   ├── ic_launcher.xml
+    │       │       │   └── ic_launcher_round.xml
+    │       │       ├── mipmap-hdpi/
+    │       │       │   ├── ic_launcher.webp
+    │       │       │   └── ic_launcher_round.webp
+    │       │       ├── mipmap-mdpi/
+    │       │       │   ├── ic_launcher.webp
+    │       │       │   └── ic_launcher_round.webp
+    │       │       ├── mipmap-xhdpi/
+    │       │       │   ├── ic_launcher.webp
+    │       │       │   └── ic_launcher_round.webp
+    │       │       ├── mipmap-xxhdpi/
+    │       │       │   ├── ic_launcher.webp
+    │       │       │   └── ic_launcher_round.webp
+    │       │       ├── mipmap-xxxhdpi/
+    │       │       │   ├── ic_launcher.webp
+    │       │       │   └── ic_launcher_round.webp
+    │       │       ├── values/
+    │       │       │   ├── colors.xml
+    │       │       │   ├── strings.xml
+    │       │       │   └── themes.xml
+    │       │       ├── values-night/
+    │       │       │   └── themes.xml
+    │       │       └── xml/
+    │       │           ├── backup_rules.xml
+    │       │           └── data_extraction_rules.xml
+    │       └── test/
+    │           └── java/
+    │               └── com/
+    │                   └── lagradost/
+    │                       └── test/
+    │                           └── ExampleUnitTest.kt
+    ├── CloudstreamApi/
+    │   └── src/
+    │       └── main/
+    │           └── java/
+    │               ├── android/
+    │               │   ├── content/
+    │               │   │   └── Context.kt
+    │               │   └── util/
+    │               │       └── Log.java
+    │               └── com/
+    │                   └── lagradost/
+    │                       ├── api/
+    │                       │   └── Log.kt
+    │                       ├── cloudstream3/
+    │                       │   ├── MainActivity.kt
+    │                       │   ├── ParCollections.kt
+    │                       │   ├── mvvm/
+    │                       │   │   └── ArchComponentExt.kt
+    │                       │   ├── plugins/
+    │                       │   │   ├── BasePlugin.kt
+    │                       │   │   └── CloudstreamPlugin.kt
+    │                       │   ├── syncproviders/
+    │                       │   │   └── SyncAPI.kt
+    │                       │   └── utils/
+    │                       │       ├── AppUtils.kt
+    │                       │       ├── Coroutines.kt
+    │                       │       ├── ExtractorApi.kt
+    │                       │       ├── JsHunter.kt
+    │                       │       ├── JsUnpacker.kt
+    │                       │       ├── M3u8Helper.kt
+    │                       │       ├── StringUtils.kt
+    │                       │       ├── SubtitleHelper.kt
+    │                       │       └── UnshortenUrl.kt
+    │                       └── cloudstreamtest/
+    │                           └── ProviderTester.kt
+    └── gradle/
+        ├── libs.versions.toml
+        └── wrapper/
+            └── gradle-wrapper.properties
+
+================================================
+FILE: README.md
+================================================
+# CloudstreamApi
+
+[![](https://jitpack.io/v/Blatzar/CloudstreamApi.svg)](https://jitpack.io/#Blatzar/CloudstreamApi)
+
+A minimal subset of the Cloudstream Provider API used to allow local compilation and testing. 
+Currently work in progress and may not work with all providers. 
+Please make an issue if there are any useful missing methods from the main app.
+
+## Getting started
+
+### Setup
+
+In your build.gradle.kts:
+
+```kt
+    dependencies {
+        val apkTasks = listOf("deployWithAdb", "build")
+        val useApk = gradle.startParameter.taskNames.any { taskName ->
+            apkTasks.any { apkTask ->
+                taskName.contains(apkTask, ignoreCase = true)
+            }
+        }
+
+        val cloudstream by configurations
+        val implementation by configurations
+
+        // If the task is specifically to compile the app then use the stubs, otherwise us the library.
+        if (useApk) {
+            // Stubs for all Cloudstream classes
+            cloudstream("com.lagradost:cloudstream3:pre-release")
+        } else {
+            // For running locally
+            implementation("com.github.Blatzar:CloudstreamApi:0.1.6")
+        }
+
+        // Rest of your code here...
+   }
+```
+
+### Testing locally
+
+Running it is as simple as defining a main method and running it by clicking the green arrow in Android Studio.
+![image](https://github.com/Blatzar/CloudstreamApi/assets/46196380/bf37cd84-5fa1-40f6-9a54-b53d865cbd3a)
+
+```kt
+suspend fun main() {
+    val providerTester = com.lagradost.cloudstreamtest.ProviderTester(YourProvider())
+    providerTester.testAll()
+}
+```
+
+Using the ProviderTester it becomes easy to test all methods at once, or just test individual methods with printing.
+It is mainly to prevent a lot of boilerplate code in every provider.
+
+Note that you can run the providers locally too, without using ProviderTester:
+
+```kt
+suspend fun main() {
+    val responses = YourProvider().search("Query")
+    println(responses)
+}
+```
+
+An automated testing system, or testing all providers does not exist currently, but is likely to come in the future.
+
+
+
+================================================
+FILE: build.gradle.kts
+================================================
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.jetbrainsKotlinJvm) apply false
+}
+
+
+================================================
+FILE: gradle.properties
+================================================
+# Project-wide Gradle settings.
+# IDE (e.g. Android Studio) users:
+# Gradle settings configured through the IDE *will override*
+# any settings specified in this file.
+# For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+# Specifies the JVM arguments used for the daemon process.
+# The setting is particularly useful for tweaking memory settings.
+org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+# When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. More details, visit
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+# org.gradle.parallel=true
+# AndroidX package structure to make it clearer which packages are bundled with the
+# Android operating system, and which are packaged with your app's APK
+# https://developer.android.com/topic/libraries/support-library/androidx-rn
+android.useAndroidX=true
+# Kotlin code style for this project: "official" or "obsolete":
+kotlin.code.style=official
+# Enables namespacing of each library's R class so that its R class includes only the
+# resources declared in the library itself and none from the library's dependencies,
+# thereby reducing the size of the R class for that library
+android.nonTransitiveRClass=true
+
+
+================================================
+FILE: gradlew
+================================================
+#!/usr/bin/env sh
+
+#
+# Copyright 2015 the original author or authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+##############################################################################
+##
+##  Gradle start up script for UN*X
+##
+##############################################################################
+
+# Attempt to set APP_HOME
+# Resolve links: $0 may be a link
+PRG="$0"
+# Need this for relative symlinks.
+while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`"/$link"
+    fi
+done
+SAVED="`pwd`"
+cd "`dirname \"$PRG\"`/" >/dev/null
+APP_HOME="`pwd -P`"
+cd "$SAVED" >/dev/null
+
+APP_NAME="Gradle"
+APP_BASE_NAME=`basename "$0"`
+
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD="maximum"
+
+warn () {
+    echo "$*"
+}
+
+die () {
+    echo
+    echo "$*"
+    echo
+    exit 1
+}
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "`uname`" in
+  CYGWIN* )
+    cygwin=true
+    ;;
+  Darwin* )
+    darwin=true
+    ;;
+  MINGW* )
+    msys=true
+    ;;
+  NONSTOP* )
+    nonstop=true
+    ;;
+esac
+
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
+
+# Determine the Java command to use to start the JVM.
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        # IBM's JDK on AIX uses strange locations for the executables
+        JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+        JAVACMD="$JAVA_HOME/bin/java"
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+else
+    JAVACMD="java"
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+fi
+
+# Increase the maximum file descriptors if we can.
+if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
+    MAX_FD_LIMIT=`ulimit -H -n`
+    if [ $? -eq 0 ] ; then
+        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
+            MAX_FD="$MAX_FD_LIMIT"
+        fi
+        ulimit -n $MAX_FD
+        if [ $? -ne 0 ] ; then
+            warn "Could not set maximum file descriptor limit: $MAX_FD"
+        fi
+    else
+        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
+    fi
+fi
+
+# For Darwin, add options to specify how the application appears in the dock
+if $darwin; then
+    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
+fi
+
+# For Cygwin or MSYS, switch paths to Windows format before running java
+if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
+    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
+    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+
+    JAVACMD=`cygpath --unix "$JAVACMD"`
+
+    # We build the pattern for arguments to be converted via cygpath
+    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
+    SEP=""
+    for dir in $ROOTDIRSRAW ; do
+        ROOTDIRS="$ROOTDIRS$SEP$dir"
+        SEP="|"
+    done
+    OURCYGPATTERN="(^($ROOTDIRS))"
+    # Add a user-defined pattern to the cygpath arguments
+    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
+        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
+    fi
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    i=0
+    for arg in "$@" ; do
+        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
+        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
+
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
+            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
+        else
+            eval `echo args$i`="\"$arg\""
+        fi
+        i=`expr $i + 1`
+    done
+    case $i in
+        0) set -- ;;
+        1) set -- "$args0" ;;
+        2) set -- "$args0" "$args1" ;;
+        3) set -- "$args0" "$args1" "$args2" ;;
+        4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+        5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+        6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+        7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+        8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+        9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+    esac
+fi
+
+# Escape application args
+save () {
+    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
+    echo " "
+}
+APP_ARGS=`save "$@"`
+
+# Collect all arguments for the java command, following the shell quoting and substitution rules
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
+
+exec "$JAVACMD" "$@"
+
+
+
+================================================
+FILE: gradlew.bat
+================================================
+@rem
+@rem Copyright 2015 the original author or authors.
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License");
+@rem you may not use this file except in compliance with the License.
+@rem You may obtain a copy of the License at
+@rem
+@rem      https://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS,
+@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@rem See the License for the specific language governing permissions and
+@rem limitations under the License.
+@rem
+
+@if "%DEBUG%" == "" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%" == "" set DIRNAME=.
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Resolve any "." and ".." in APP_HOME to make it shorter.
+for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if "%ERRORLEVEL%" == "0" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+
+:end
+@rem End local scope for the variables with windows NT shell
+if "%ERRORLEVEL%"=="0" goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd.exe /c_ return code!
+if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
+exit /b 1
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega
+
+
+
+================================================
+FILE: settings.gradle.kts
+================================================
+pluginManagement {
+    repositories {
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
+
+rootProject.name = "CloudstreamApi"
+include(":app")
+include(":CloudstreamApi")
+
+
+
+================================================
+FILE: app/build.gradle.kts
+================================================
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
+
+android {
+    namespace = "com.lagradost.test"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.lagradost.test"
+        minSdk = 24
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation(project(":CloudstreamApi"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+}
+
+
+================================================
+FILE: app/proguard-rules.pro
+================================================
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+
+
+================================================
+FILE: app/src/androidTest/java/com/lagradost/test/ExampleInstrumentedTest.kt
+================================================
+package com.lagradost.test
+
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
+
+import org.junit.Test
+import org.junit.runner.RunWith
+
+import org.junit.Assert.*
+
+/**
+ * Instrumented test, which will execute on an Android device.
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+@RunWith(AndroidJUnit4::class)
+class ExampleInstrumentedTest {
+    @Test
+    fun useAppContext() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        assertEquals("com.lagradost.test", appContext.packageName)
+    }
+}
+
+
+================================================
+FILE: app/src/main/AndroidManifest.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Test"
+        tools:targetApi="31" />
+
+</manifest>
+
+
+================================================
+FILE: app/src/main/res/drawable/ic_launcher_background.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#3DDC84"
+        android:pathData="M0,0h108v108h-108z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M9,0L9,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,0L19,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M29,0L29,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M39,0L39,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M49,0L49,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M59,0L59,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M69,0L69,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M79,0L79,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M89,0L89,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M99,0L99,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,9L108,9"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,19L108,19"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,29L108,29"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,39L108,39"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,49L108,49"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,59L108,59"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,69L108,69"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,79L108,79"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,89L108,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,99L108,99"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,29L89,29"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,39L89,39"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,49L89,49"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,59L89,59"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,69L89,69"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,79L89,79"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M29,19L29,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M39,19L39,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M49,19L49,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M59,19L59,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M69,19L69,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M79,19L79,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+</vector>
+
+
+
+================================================
+FILE: app/src/main/res/drawable/ic_launcher_foreground.xml
+================================================
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="85.84757"
+                android:endY="92.4963"
+                android:startX="42.9492"
+                android:startY="49.59793"
+                android:type="linear">
+                <item
+                    android:color="#44000000"
+                    android:offset="0.0" />
+                <item
+                    android:color="#00000000"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="nonZero"
+        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+</vector>
+
+
+================================================
+FILE: app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
+
+
+================================================
+FILE: app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
+
+
+================================================
+FILE: app/src/main/res/mipmap-hdpi/ic_launcher.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-hdpi/ic_launcher_round.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-mdpi/ic_launcher.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-mdpi/ic_launcher_round.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-xhdpi/ic_launcher.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-xxhdpi/ic_launcher.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: app/src/main/res/values/colors.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
+
+
+================================================
+FILE: app/src/main/res/values/strings.xml
+================================================
+<resources>
+    <string name="app_name">test</string>
+</resources>
+
+
+================================================
+FILE: app/src/main/res/values/themes.xml
+================================================
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Test" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
+
+
+================================================
+FILE: app/src/main/res/values-night/themes.xml
+================================================
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Test" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
+
+
+================================================
+FILE: app/src/main/res/xml/backup_rules.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?><!--
+   Sample backup rules file; uncomment and customize as necessary.
+   See https://developer.android.com/guide/topics/data/autobackup
+   for details.
+   Note: This file is ignored for devices older that API 31
+   See https://developer.android.com/about/versions/12/backup-restore
+-->
+<full-backup-content>
+    <!--
+   <include domain="sharedpref" path="."/>
+   <exclude domain="sharedpref" path="device.xml"/>
+-->
+</full-backup-content>
+
+
+================================================
+FILE: app/src/main/res/xml/data_extraction_rules.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?><!--
+   Sample data extraction rules file; uncomment and customize as necessary.
+   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
+   for details.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- TODO: Use <include> and <exclude> to control what is backed up.
+        <include .../>
+        <exclude .../>
+        -->
+    </cloud-backup>
+    <!--
+    <device-transfer>
+        <include .../>
+        <exclude .../>
+    </device-transfer>
+    -->
+</data-extraction-rules>
+
+
+================================================
+FILE: app/src/test/java/com/lagradost/test/ExampleUnitTest.kt
+================================================
+package com.lagradost.test
+
+import org.junit.Test
+
+import org.junit.Assert.*
+
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/android/content/Context.kt
+================================================
+package android.content
+/** Stub */
+class Context
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/android/util/Log.java
+================================================
+package android.util;
+
+import org.jetbrains.annotations.Nullable;
+
+public final class Log {
+    /**
+     * Priority constant for the println method; use Log.v.
+     */
+    public static final int VERBOSE = 2;
+
+    /**
+     * Priority constant for the println method; use Log.d.
+     */
+    public static final int DEBUG = 3;
+
+    /**
+     * Priority constant for the println method; use Log.i.
+     */
+    public static final int INFO = 4;
+
+    /**
+     * Priority constant for the println method; use Log.w.
+     */
+    public static final int WARN = 5;
+
+    /**
+     * Priority constant for the println method; use Log.e.
+     */
+    public static final int ERROR = 6;
+
+    /**
+     * Priority constant for the println method.
+     */
+    public static final int ASSERT = 7;
+
+    public static int println(String level, @Nullable String tag, String msg) {
+        System.out.println(level + " " + tag + ": " + msg);
+        return 1;
+    }
+
+    public static int e(@Nullable String tag, String msg) {
+        return println("ERROR", tag, msg);
+    }
+
+    public static int v(@Nullable String tag, String msg) {
+        return println("VERBOSE", tag, msg);
+    }
+
+    public static int d(@Nullable String tag, String msg) {
+        return println("DEBUG", tag, msg);
+    }
+
+    public static int i(@Nullable String tag, String msg) {
+        return println("INFO", tag, msg);
+    }
+
+    public static int w(@Nullable String tag, String msg) {
+        return println("WARNING", tag, msg);
+    }
+}
+
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/api/Log.kt
+================================================
+package com.lagradost.api
+
+object Log {
+    fun d(tag: String, message: String) {
+        println("DEBUG $tag: $message")
+    }
+
+    fun i(tag: String, message: String) {
+        println("INFO $tag: $message")
+    }
+
+    fun w(tag: String, message: String) {
+        println("WARNING $tag: $message")
+    }
+
+    fun e(tag: String, message: String) {
+        println("ERROR $tag: $message")
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/MainActivity.kt
+================================================
+package com.lagradost.cloudstream3
+
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.lagradost.nicehttp.Requests
+import com.lagradost.nicehttp.ResponseParser
+import kotlin.reflect.KClass
+
+
+var app = Requests(responseParser = object : ResponseParser {
+    val mapper: ObjectMapper = jacksonObjectMapper().configure(
+        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+        false
+    )
+
+    override fun <T : Any> parse(text: String, kClass: KClass<T>): T {
+        return mapper.readValue(text, kClass.java)
+    }
+
+    override fun <T : Any> parseSafe(text: String, kClass: KClass<T>): T? {
+        return try {
+            mapper.readValue(text, kClass.java)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override fun writeValueAsString(obj: Any): String {
+        return mapper.writeValueAsString(obj)
+    }
+}).apply {
+    defaultHeaders = mapOf("user-agent" to USER_AGENT)
+}
+
+
+class MainActivity {
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/ParCollections.kt
+================================================
+package com.lagradost.cloudstream3
+
+import com.lagradost.cloudstream3.mvvm.logError
+import kotlinx.coroutines.*
+import kotlin.coroutines.cancellation.CancellationException
+
+/**
+ * Short for "Asynchronous Map", runs on all values concurrently,
+ * this means that if you are not doing networking, you should use a regular map
+ */
+@Throws(CancellationException::class)
+suspend fun <K, V, R> Map<out K, V>.amap(f: suspend (Map.Entry<K, V>) -> R): List<R> =
+    coroutineScope {
+        ensureActive()
+        map { async { f(it) } }.map { it.await() }
+    }
+
+/**
+ * Short for "Asynchronous Parallel Map", but is not really parallel, only concurrent.
+ */
+@Deprecated(
+    "This blocks with runBlocking, and should not be used inside a suspended context",
+    replaceWith = ReplaceWith("amap(f)", "com.lagradost.cloudstream3.amap")
+)
+@Throws(CancellationException::class)
+fun <K, V, R> Map<out K, V>.apmap(f: suspend (Map.Entry<K, V>) -> R): List<R> = runBlocking {
+    map { async { f(it) } }.map { it.await() }
+}
+
+/**
+ * Short for "Asynchronous Map", runs on all values concurrently,
+ * this means that if you are not doing networking, you should use a regular map
+ */
+@Throws(CancellationException::class)
+suspend fun <A, B> List<A>.amap(f: suspend (A) -> B): List<B> =
+    coroutineScope {
+        ensureActive()
+        map { async { f(it) } }.map { it.await() }
+    }
+
+/**
+ * Short for "Asynchronous Parallel Map", but is not really parallel, only concurrent.
+ */
+@Deprecated(
+    "This blocks with runBlocking, and should not be used inside a suspended context",
+    replaceWith = ReplaceWith("amap(f)", "com.lagradost.cloudstream3.amap")
+)
+@Throws(CancellationException::class)
+fun <A, B> List<A>.apmap(f: suspend (A) -> B): List<B> = runBlocking {
+    map { async { f(it) } }.map { it.await() }
+}
+
+/**
+ * Short for "Asynchronous Parallel Map" with an Index, but is not really parallel, only concurrent.
+ */
+@Deprecated(
+    "This blocks with runBlocking, and should not be used inside a suspended context",
+    replaceWith = ReplaceWith("amapIndexed(f)", "com.lagradost.cloudstream3.amapIndexed")
+)
+@Throws(CancellationException::class)
+fun <A, B> List<A>.apmapIndexed(f: suspend (index: Int, A) -> B): List<B> = runBlocking {
+    mapIndexed { index, a -> async { f(index, a) } }.map { it.await() }
+}
+
+/**
+ * Short for "Asynchronous Map" with an Index, runs on all values concurrently,
+ * this means that if you are not doing networking, you should use a regular mapIndexed
+ */
+@Throws(CancellationException::class)
+suspend fun <A, B> List<A>.amapIndexed(f: suspend (index: Int, A) -> B): List<B> =
+    coroutineScope {
+        ensureActive()
+        mapIndexed { index, a -> async { f(index, a) } }.map { it.await() }
+    }
+
+/**
+ * Short for "Argument Asynchronous Map" because it allows for a variadic number of paramaters.
+ *
+ * Runs all different functions at the same time and awaits for all to be finished, then returns
+ * a list of all those items or null if they fail. However Unit is often used.
+ */
+@Deprecated(
+    "This blocks with runBlocking, and should not be used inside a suspended context",
+    replaceWith = ReplaceWith("runAllAsync(transforms)", "com.lagradost.cloudstream3.runAllAsync")
+)
+@Throws(CancellationException::class)
+fun <R> argamap(
+    vararg transforms: suspend () -> R,
+) : List<R?> = runBlocking {
+    transforms.map {
+        async {
+            try {
+                it.invoke()
+            } catch (e: Exception) {
+                logError(e)
+                null
+            }
+        }
+    }.map { it.await() }
+}
+
+/**
+ * Runs all different functions at the same time and awaits for all to be finished, then returns
+ * a list of all those items or null if they fail. However Unit is often used.
+ */
+@Throws(CancellationException::class)
+suspend fun <R> runAllAsync(
+    vararg transforms: suspend () -> R,
+) : List<R?> = coroutineScope {
+    ensureActive()
+    transforms.map { fn ->
+        async {
+            try {
+                fn.invoke()
+            } catch (e: Exception) {
+                logError(e)
+                null
+            }
+        }
+    }.map { it.await() }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/mvvm/ArchComponentExt.kt
+================================================
+package com.lagradost.cloudstream3.mvvm
+
+import android.util.Log
+import com.lagradost.cloudstream3.ErrorLoadingException
+import kotlinx.coroutines.*
+import java.io.InterruptedIOException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import javax.net.ssl.SSLHandshakeException
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
+
+const val DEBUG_EXCEPTION = "THIS IS A DEBUG EXCEPTION!"
+const val DEBUG_PRINT = "DEBUG PRINT"
+
+class DebugException(message: String) : Exception("$DEBUG_EXCEPTION\n$message")
+
+inline fun debugException(message: () -> String) {
+    throw DebugException(message.invoke())
+}
+
+inline fun debugPrint(tag: String = DEBUG_PRINT, message: () -> String) {
+    Log.d(tag, message.invoke())
+}
+
+inline fun debugWarning(message: () -> String) {
+    logError(DebugException(message.invoke()))
+}
+
+inline fun debugAssert(assert: () -> Boolean, message: () -> String) {
+    throw DebugException(message.invoke())
+}
+
+inline fun debugWarning(assert: () -> Boolean, message: () -> String) {
+    logError(DebugException(message.invoke()))
+}
+
+//fun <T> LifecycleOwner.observe(liveData: LiveData<T>, action: (t: T) -> Unit) {
+//    liveData.observe(this) { it?.let { t -> action(t) } }
+//}
+//
+//fun <T> LifecycleOwner.observeNullable(liveData: LiveData<T>, action: (t: T) -> Unit) {
+//    liveData.observe(this) { action(it) }
+//}
+
+sealed class Resource<out T> {
+    data class Success<out T>(val value: T) : Resource<T>()
+    data class Failure(
+        val isNetworkError: Boolean,
+        val errorCode: Int?,
+        val errorResponse: Any?, //ResponseBody
+        val errorString: String,
+    ) : Resource<Nothing>()
+
+    data class Loading(val url: String? = null) : Resource<Nothing>()
+}
+
+fun logError(throwable: Throwable) {
+    Log.d("ApiError", "-------------------------------------------------------------------")
+    Log.d("ApiError", "safeApiCall: " + throwable.localizedMessage)
+    Log.d("ApiError", "safeApiCall: " + throwable.message)
+    throwable.printStackTrace()
+    Log.d("ApiError", "-------------------------------------------------------------------")
+}
+
+fun <T> normalSafeApiCall(apiCall: () -> T): T? {
+    return try {
+        apiCall.invoke()
+    } catch (throwable: Throwable) {
+        logError(throwable)
+        return null
+    }
+}
+
+suspend fun <T> suspendSafeApiCall(apiCall: suspend () -> T): T? {
+    return try {
+        apiCall.invoke()
+    } catch (throwable: Throwable) {
+        logError(throwable)
+        return null
+    }
+}
+
+fun Throwable.getAllMessages(): String {
+    return (this.localizedMessage ?: "") + (this.cause?.getAllMessages()?.let { "\n$it" } ?: "")
+}
+
+fun Throwable.getStackTracePretty(showMessage: Boolean = true): String {
+    val prefix = if (showMessage) this.localizedMessage?.let { "\n$it" } ?: "" else ""
+    return prefix + this.stackTrace.joinToString(
+        separator = "\n"
+    ) {
+        "${it.fileName} ${it.lineNumber}"
+    }
+}
+
+fun <T> safeFail(throwable: Throwable): Resource<T> {
+    val stackTraceMsg = throwable.getStackTracePretty()
+    return Resource.Failure(false, null, null, stackTraceMsg)
+}
+
+fun CoroutineScope.launchSafe(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit
+): Job {
+    val obj: suspend CoroutineScope.() -> Unit = {
+        try {
+            block()
+        } catch (throwable: Throwable) {
+            logError(throwable)
+        }
+    }
+
+    return this.launch(context, start, obj)
+}
+
+fun <T> throwAbleToResource(
+    throwable: Throwable
+): Resource<T> {
+    return when (throwable) {
+        is NullPointerException -> {
+            for (line in throwable.stackTrace) {
+                if (line?.fileName?.endsWith("provider.kt", ignoreCase = true) == true) {
+                    return Resource.Failure(
+                        false,
+                        null,
+                        null,
+                        "NullPointerException at ${line.fileName} ${line.lineNumber}\nSite might have updated or added Cloudflare/DDOS protection"
+                    )
+                }
+            }
+            safeFail(throwable)
+        }
+
+        is SocketTimeoutException, is InterruptedIOException -> {
+            Resource.Failure(
+                true,
+                null,
+                null,
+                "Connection Timeout\nPlease try again later."
+            )
+        }
+
+//        is HttpException -> {
+//            Resource.Failure(
+//                false,
+//                throwable.statusCode,
+//                null,
+//                throwable.message ?: "HttpException"
+//            )
+//        }
+
+        is UnknownHostException -> {
+            Resource.Failure(
+                true,
+                null,
+                null,
+                "Cannot connect to server, try again later.\n${throwable.message}"
+            )
+        }
+
+        is ErrorLoadingException -> {
+            Resource.Failure(
+                true,
+                null,
+                null,
+                throwable.message ?: "Error loading, try again later."
+            )
+        }
+
+        is NotImplementedError -> {
+            Resource.Failure(false, null, null, "This operation is not implemented.")
+        }
+
+        is SSLHandshakeException -> {
+            Resource.Failure(
+                true,
+                null,
+                null,
+                (throwable.message ?: "SSLHandshakeException") + "\nTry a VPN or DNS."
+            )
+        }
+
+        is CancellationException -> {
+            throwable.cause?.let {
+                throwAbleToResource(it)
+            } ?: safeFail(throwable)
+        }
+
+        else -> safeFail(throwable)
+    }
+}
+
+suspend fun <T> safeApiCall(
+    apiCall: suspend () -> T,
+): Resource<T> {
+    return withContext(Dispatchers.IO) {
+        try {
+            Resource.Success(apiCall.invoke())
+        } catch (throwable: Throwable) {
+            logError(throwable)
+            throwAbleToResource(throwable)
+        }
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/plugins/BasePlugin.kt
+================================================
+package com.lagradost.cloudstream3.plugins
+
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.lagradost.cloudstream3.APIHolder
+import com.lagradost.cloudstream3.MainAPI
+import com.lagradost.cloudstream3.utils.ExtractorApi
+import com.lagradost.api.Log
+import com.lagradost.cloudstream3.utils.extractorApis
+
+const val PLUGIN_TAG = "PluginInstance"
+
+abstract class BasePlugin {
+    /**
+     * Used to register providers instances of MainAPI
+     * @param element MainAPI provider you want to register
+     */
+    fun registerMainAPI(element: MainAPI) {
+        Log.i(PLUGIN_TAG, "Adding ${element.name} (${element.mainUrl}) MainAPI")
+        element.sourcePlugin = this.filename
+        // Race condition causing which would case duplicates if not for distinctBy
+        synchronized(APIHolder.allProviders) {
+            APIHolder.allProviders.add(element)
+        }
+        APIHolder.addPluginMapping(element)
+    }
+
+    /**
+     * Used to register extractor instances of ExtractorApi
+     * @param element ExtractorApi provider you want to register
+     */
+    fun registerExtractorAPI(element: ExtractorApi) {
+        Log.i(PLUGIN_TAG, "Adding ${element.name} (${element.mainUrl}) ExtractorApi")
+        element.sourcePlugin = this.filename
+        extractorApis.add(element)
+    }
+
+    /**
+     * Called when your Plugin is being unloaded
+     */
+    @Throws(Throwable::class)
+    open fun beforeUnload() {
+    }
+
+    /**
+     * Called when your Plugin is loaded
+     */
+    @Throws(Throwable::class)
+    open fun load() {
+    }
+
+    /** Full file path to the plugin. */
+    @Deprecated(
+        "Renamed to `filename` to follow conventions",
+        replaceWith = ReplaceWith("filename")
+    )
+    var __filename: String?
+        get() = filename
+        set(value) {
+            filename = value
+        }
+    var filename: String? = null
+
+
+    class Manifest {
+        @JsonProperty("name")
+        var name: String? = null
+
+        @JsonProperty("pluginClassName")
+        var pluginClassName: String? = null
+
+        @JsonProperty("version")
+        var version: Int? = null
+
+        @JsonProperty("requiresResources")
+        var requiresResources: Boolean = false
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/plugins/CloudstreamPlugin.kt
+================================================
+package com.lagradost.cloudstream3.plugins
+
+@Suppress("unused")
+@Target(AnnotationTarget.CLASS)
+annotation class CloudstreamPlugin
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/syncproviders/SyncAPI.kt
+================================================
+package com.lagradost.cloudstream3.syncproviders
+
+enum class SyncIdName {
+    Anilist,
+    MyAnimeList,
+    Trakt,
+    Imdb,
+    Simkl,
+    LocalList,
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/AppUtils.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.lagradost.cloudstream3.mapper
+import java.io.Reader
+
+object AppUtils {
+    /** Any object as json string */
+    fun Any.toJson(): String {
+        if (this is String) return this
+        return mapper.writeValueAsString(this)
+    }
+
+    inline fun <reified T> parseJson(value: String): T {
+        return mapper.readValue(value)
+    }
+
+    inline fun <reified T> parseJson(reader: Reader, valueType: Class<T>): T {
+        return mapper.readValue(reader, valueType)
+    }
+
+    inline fun <reified T> tryParseJson(value: String?): T? {
+        return try {
+            parseJson(value ?: return null)
+        } catch (_: Exception) {
+            null
+        }
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/Coroutines.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.lagradost.cloudstream3.mvvm.launchSafe
+import com.lagradost.cloudstream3.mvvm.logError
+import kotlinx.coroutines.*
+import java.util.Collections.synchronizedList
+
+object Coroutines {
+    fun <T> T.main(work: suspend ((T) -> Unit)): Job {
+        val value = this
+        return CoroutineScope(Dispatchers.Main).launchSafe {
+            work(value)
+        }
+    }
+
+    fun <T> T.ioSafe(work: suspend (CoroutineScope.(T) -> Unit)): Job {
+        val value = this
+
+        return CoroutineScope(Dispatchers.IO).launchSafe {
+            work(value)
+        }
+    }
+
+    suspend fun <T, V> V.ioWorkSafe(work: suspend (CoroutineScope.(V) -> T)): T? {
+        val value = this
+        return withContext(Dispatchers.IO) {
+            try {
+                work(value)
+            } catch (e: Exception) {
+                logError(e)
+                null
+            }
+        }
+    }
+
+    suspend fun <T, V> V.ioWork(work: suspend (CoroutineScope.(V) -> T)): T {
+        val value = this
+        return withContext(Dispatchers.IO) {
+            work(value)
+        }
+    }
+
+    suspend fun <T, V> V.mainWork(work: suspend (CoroutineScope.(V) -> T)): T {
+        val value = this
+        return withContext(Dispatchers.Main) {
+            work(value)
+        }
+    }
+
+//    fun runOnMainThread(work: (() -> Unit)) {
+//        val mainHandler = Handler(Looper.getMainLooper())
+//        mainHandler.post {
+//            work()
+//        }
+//    }
+
+    /**
+     * Safe to add and remove how you want
+     * If you want to iterate over the list then you need to do:
+     * synchronized(allProviders) { code here }
+     **/
+    fun <T> threadSafeListOf(vararg items: T): MutableList<T> {
+        return synchronizedList(items.toMutableList())
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/ExtractorApi.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.lagradost.cloudstream3.IDownloadableMinimum
+import com.lagradost.cloudstream3.SubtitleFile
+import com.lagradost.cloudstream3.USER_AGENT
+import com.lagradost.cloudstream3.app
+import com.lagradost.cloudstream3.mvvm.logError
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
+import me.xdrop.fuzzywuzzy.FuzzySearch
+import org.jsoup.Jsoup
+import java.net.URI
+import java.util.UUID
+import kotlin.coroutines.cancellation.CancellationException
+
+/**
+ * For use in the ConcatenatingMediaSource.
+ * If features are missing (headers), please report and we can add it.
+ * @param durationUs use Long.toUs() for easier input
+ * */
+data class PlayListItem(
+    val url: String,
+    val durationUs: Long,
+)
+
+/**
+ * Converts Seconds to MicroSeconds, multiplication by 1_000_000
+ * */
+fun Long.toUs(): Long {
+    return this * 1_000_000
+}
+
+/**
+ * If your site has an unorthodox m3u8-like system where there are multiple smaller videos concatenated
+ * use this.
+ * */
+data class ExtractorLinkPlayList(
+    override val source: String,
+    override val name: String,
+    val playlist: List<PlayListItem>,
+    override var referer: String,
+    override var quality: Int,
+    override var headers: Map<String, String> = mapOf(),
+    /** Used for getExtractorVerifierJob() */
+    override var extractorData: String? = null,
+    override var type: ExtractorLinkType,
+) : ExtractorLink(
+    source = source,
+    name = name,
+    url = "",
+    referer = referer,
+    quality = quality,
+    headers = headers,
+    extractorData = extractorData,
+    type = type
+) {
+    constructor(
+        source: String,
+        name: String,
+        playlist: List<PlayListItem>,
+        referer: String,
+        quality: Int,
+        isM3u8: Boolean = false,
+        headers: Map<String, String> = mapOf(),
+        extractorData: String? = null,
+    ) : this(
+        source = source,
+        name = name,
+        playlist = playlist,
+        referer = referer,
+        quality = quality,
+        type = if (isM3u8) ExtractorLinkType.M3U8 else ExtractorLinkType.VIDEO,
+        headers = headers,
+        extractorData = extractorData,
+    )
+}
+
+/** Metadata about the file type used for downloads and exoplayer hint,
+ * if you respond with the wrong one the file will fail to download or be played */
+enum class ExtractorLinkType {
+    /** Single stream of bytes no matter the actual file type */
+    VIDEO,
+
+    /** Split into several .ts files, has support for encrypted m3u8s */
+    M3U8,
+
+    /** Like m3u8 but uses xml, currently no download support */
+    DASH,
+
+    /** No support at the moment */
+    TORRENT,
+
+    /** No support at the moment */
+    MAGNET;
+
+    // See https://www.iana.org/assignments/media-types/media-types.xhtml
+    fun getMimeType(): String {
+        return when (this) {
+            VIDEO -> "video/mp4"
+            M3U8 -> "application/x-mpegURL"
+            DASH -> "application/dash+xml"
+            TORRENT -> "application/x-bittorrent"
+            MAGNET -> "application/x-bittorrent"
+        }
+    }
+}
+
+private fun inferTypeFromUrl(url: String): ExtractorLinkType {
+    val path = try {
+        URI(url).path
+    } catch (_: Throwable) {
+        // don't log magnet links as errors
+        null
+    }
+    return when {
+        path?.endsWith(".m3u8") == true -> ExtractorLinkType.M3U8
+        path?.endsWith(".mpd") == true -> ExtractorLinkType.DASH
+        path?.endsWith(".torrent") == true -> ExtractorLinkType.TORRENT
+        url.startsWith("magnet:") -> ExtractorLinkType.MAGNET
+        else -> ExtractorLinkType.VIDEO
+    }
+}
+
+val INFER_TYPE: ExtractorLinkType? = null
+
+/**
+ * UUID for the ClearKey DRM scheme.
+ *
+ *
+ * ClearKey is supported on Android devices running Android 5.0 (API Level 21) and up.
+ */
+val CLEARKEY_UUID = UUID(-0x1d8e62a7567a4c37L, 0x781AB030AF78D30EL)
+
+/**
+ * UUID for the Widevine DRM scheme.
+ *
+ *
+ * Widevine is supported on Android devices running Android 4.3 (API Level 18) and up.
+ */
+val WIDEVINE_UUID = UUID(-0x121074568629b532L, -0x5c37d8232ae2de13L)
+
+/**
+ * UUID for the PlayReady DRM scheme.
+ *
+ *
+ * PlayReady is supported on all AndroidTV devices. Note that most other Android devices do not
+ * provide PlayReady support.
+ */
+val PLAYREADY_UUID = UUID(-0x65fb0f8667bfbd7aL, -0x546d19a41f77a06bL)
+
+suspend fun newExtractorLink(
+    source: String,
+    name: String,
+    url: String,
+    type: ExtractorLinkType? = null,
+    initializer: suspend ExtractorLink.() -> Unit = { }
+): ExtractorLink {
+
+    @Suppress("DEPRECATION_ERROR")
+    val builder =
+        ExtractorLink(
+            source = source,
+            name = name,
+            url = url,
+            type = type ?: INFER_TYPE
+        )
+
+    builder.initializer()
+    return builder
+}
+
+suspend fun newDrmExtractorLink(
+    source: String,
+    name: String,
+    url: String,
+    type: ExtractorLinkType? = null,
+    uuid: UUID,
+    initializer: suspend DrmExtractorLink.() -> Unit = { }
+): DrmExtractorLink {
+
+    @Suppress("DEPRECATION_ERROR")
+    val builder =
+        DrmExtractorLink(
+            source = source,
+            name = name,
+            url = url,
+            uuid = uuid,
+            type = type ?: INFER_TYPE
+        )
+
+    builder.initializer()
+    return builder
+}
+
+/** Class holds extracted DRM media info to be passed to the player.
+ * @property source Name of the media source, appears on player layout.
+ * @property name Title of the media, appears on player layout.
+ * @property url Url string of media file
+ * @property referer Referer that will be used by network request.
+ * @property quality Quality of the media file
+ * @property headers Headers <String, String> map that will be used by network request.
+ * @property extractorData Used for getExtractorVerifierJob()
+ * @property type the type of the media, use [INFER_TYPE] if you want to auto infer the type from the url
+ * @property kid  Base64 value of The KID element (Key Id) contains the identifier of the key associated with a license.
+ * @property key Base64 value of Key to be used to decrypt the media file.
+ * @property uuid Drm UUID [WIDEVINE_UUID], [PLAYREADY_UUID], [CLEARKEY_UUID] (by default) .. etc
+ * @property kty Key type "oct" (octet sequence) by default
+ * @property keyRequestParameters Parameters that will used to request the key.
+ * */
+@Suppress("DEPRECATION_ERROR")
+open class DrmExtractorLink private constructor(
+    override val source: String,
+    override val name: String,
+    override val url: String,
+    override var referer: String,
+    override var quality: Int,
+    override var headers: Map<String, String> = mapOf(),
+    /** Used for getExtractorVerifierJob() */
+    override var extractorData: String? = null,
+    override var type: ExtractorLinkType,
+    open var kid: String? = null,
+    open var key: String? = null,
+    open var uuid: UUID,
+    open var kty: String? = null,
+    open var keyRequestParameters: HashMap<String, String>,
+    open var licenseUrl: String? = null,
+) : ExtractorLink(
+    source, name, url, referer, quality, type, headers, extractorData
+) {
+    @Deprecated("Use newDrmExtractorLink", level = DeprecationLevel.ERROR)
+    constructor(
+        source: String,
+        name: String,
+        url: String,
+        referer: String? = null,
+        quality: Int? = null,
+        /** the type of the media, use INFER_TYPE if you want to auto infer the type from the url */
+        type: ExtractorLinkType? = INFER_TYPE,
+        headers: Map<String, String> = mapOf(),
+        /** Used for getExtractorVerifierJob() */
+        extractorData: String? = null,
+        kid: String? = null,
+        key: String? = null,
+        uuid: UUID = CLEARKEY_UUID,
+        kty: String? = "oct",
+        keyRequestParameters: HashMap<String, String> = hashMapOf(),
+        licenseUrl: String? = null,
+    ) : this(
+        source = source,
+        name = name,
+        url = url,
+        referer = referer ?: "",
+        quality = quality ?: Qualities.Unknown.value,
+        headers = headers,
+        extractorData = extractorData,
+        type = type ?: inferTypeFromUrl(url),
+        kid = kid,
+        key = key,
+        uuid = uuid,
+        keyRequestParameters = keyRequestParameters,
+        kty = kty,
+        licenseUrl = licenseUrl,
+    )
+
+    @Deprecated("Use newDrmExtractorLink", level = DeprecationLevel.ERROR)
+    constructor(
+        source: String,
+        name: String,
+        url: String,
+        referer: String,
+        quality: Int,
+        /** the type of the media, use INFER_TYPE if you want to auto infer the type from the url */
+        type: ExtractorLinkType?,
+        headers: Map<String, String> = mapOf(),
+        /** Used for getExtractorVerifierJob() */
+        extractorData: String? = null,
+        kid: String? = null,
+        key: String? = null,
+        uuid: UUID = CLEARKEY_UUID,
+        kty: String? = "oct",
+        keyRequestParameters: HashMap<String, String> = hashMapOf(),
+        licenseUrl: String? = null,
+    ) : this(
+        source = source,
+        name = name,
+        url = url,
+        referer = referer,
+        quality = quality,
+        headers = headers,
+        extractorData = extractorData,
+        type = type ?: inferTypeFromUrl(url),
+        kid = kid,
+        key = key,
+        uuid = uuid,
+        keyRequestParameters = keyRequestParameters,
+        kty = kty,
+        licenseUrl = licenseUrl,
+    )
+}
+
+/** Class holds extracted media info to be passed to the player.
+ * @property source Name of the media source, appears on player layout.
+ * @property name Title of the media, appears on player layout.
+ * @property url Url string of media file
+ * @property referer Referer that will be used by network request.
+ * @property quality Quality of the media file
+ * @property headers Headers <String, String> map that will be used by network request.
+ * @property extractorData Used for getExtractorVerifierJob()
+ * @property type Extracted link type (Video, M3u8, Dash, Torrent or Magnet)
+ * */
+open class ExtractorLink constructor(
+    open val source: String,
+    open val name: String,
+    override val url: String,
+    override var referer: String,
+    open var quality: Int,
+    override var headers: Map<String, String> = mapOf(),
+    /** Used for getExtractorVerifierJob() */
+    open var extractorData: String? = null,
+    open var type: ExtractorLinkType,
+) : IDownloadableMinimum {
+    val isM3u8: Boolean get() = type == ExtractorLinkType.M3U8
+    val isDash: Boolean get() = type == ExtractorLinkType.DASH
+
+    // Cached video size
+    private var videoSize: Long? = null
+
+    /**
+     * Get video size in bytes with one head request. Only available for ExtractorLinkType.Video
+     * @param timeoutSeconds timeout of the head request.
+     */
+    suspend fun getVideoSize(timeoutSeconds: Long = 3L): Long? {
+        // Content-Length is not applicable to other types of formats
+        if (this.type != ExtractorLinkType.VIDEO) return null
+
+        videoSize = videoSize ?: runCatching {
+            val response =
+                app.head(this.url, headers = headers, referer = referer, timeout = timeoutSeconds)
+            response.headers["Content-Length"]?.toLong()
+        }.getOrNull()
+
+        return videoSize
+    }
+
+    @JsonIgnore
+    fun getAllHeaders(): Map<String, String> {
+        if (referer.isBlank()) {
+            return headers
+        } else if (headers.keys.none { it.equals("referer", ignoreCase = true) }) {
+            return headers + mapOf("referer" to referer)
+        }
+        return headers
+    }
+
+    @Deprecated("Use newExtractorLink", level = DeprecationLevel.ERROR)
+    constructor(
+        source: String,
+        name: String,
+        url: String,
+        referer: String? = null,
+        quality: Int? = null,
+        /** the type of the media, use INFER_TYPE if you want to auto infer the type from the url */
+        type: ExtractorLinkType? = INFER_TYPE,
+        headers: Map<String, String> = mapOf(),
+        /** Used for getExtractorVerifierJob() */
+        extractorData: String? = null,
+    ) : this(
+        source = source,
+        name = name,
+        url = url,
+        referer = referer ?: "",
+        quality = quality ?: Qualities.Unknown.value,
+        headers = headers,
+        extractorData = extractorData,
+        type = type ?: inferTypeFromUrl(url)
+    )
+
+    @Deprecated("Use newExtractorLink", level = DeprecationLevel.ERROR)
+    constructor(
+        source: String,
+        name: String,
+        url: String,
+        referer: String,
+        quality: Int,
+        /** the type of the media, use INFER_TYPE if you want to auto infer the type from the url */
+        type: ExtractorLinkType?,
+        headers: Map<String, String> = mapOf(),
+        /** Used for getExtractorVerifierJob() */
+        extractorData: String? = null,
+    ) : this(
+        source = source,
+        name = name,
+        url = url,
+        referer = referer,
+        quality = quality,
+        headers = headers,
+        extractorData = extractorData,
+        type = type ?: inferTypeFromUrl(url)
+    )
+
+    /**
+     * Old constructor without isDash, allows for backwards compatibility with extensions.
+     * Should be removed after all extensions have updated their cloudstream.jar
+     **/
+    @Suppress("DEPRECATION_ERROR")
+    @Deprecated("Use newExtractorLink", level = DeprecationLevel.ERROR)
+    constructor(
+        source: String,
+        name: String,
+        url: String,
+        referer: String,
+        quality: Int,
+        isM3u8: Boolean = false,
+        headers: Map<String, String> = mapOf(),
+        /** Used for getExtractorVerifierJob() */
+        extractorData: String? = null
+    ) : this(source, name, url, referer, quality, isM3u8, headers, extractorData, false)
+
+    @Deprecated("Use newExtractorLink", level = DeprecationLevel.ERROR)
+    constructor(
+        source: String,
+        name: String,
+        url: String,
+        referer: String,
+        quality: Int,
+        isM3u8: Boolean = false,
+        headers: Map<String, String> = mapOf(),
+        /** Used for getExtractorVerifierJob() */
+        extractorData: String? = null,
+        isDash: Boolean,
+    ) : this(
+        source = source,
+        name = name,
+        url = url,
+        referer = referer,
+        quality = quality,
+        headers = headers,
+        extractorData = extractorData,
+        type = if (isDash) ExtractorLinkType.DASH else if (isM3u8) ExtractorLinkType.M3U8 else ExtractorLinkType.VIDEO
+    )
+
+    override fun toString(): String {
+        return "ExtractorLink(name=$name, url=$url, referer=$referer, type=$type)"
+    }
+}
+
+/**
+ * Removes https:// and www.
+ * To match urls regardless of schema, perhaps Uri() can be used?
+ */
+val schemaStripRegex = Regex("""^(https:|)//(www\.|)""")
+
+enum class Qualities(var value: Int, val defaultPriority: Int) {
+    Unknown(400, 4),
+    P144(144, 0), // 144p
+    P240(240, 2), // 240p
+    P360(360, 3), // 360p
+    P480(480, 4), // 480p
+    P720(720, 5), // 720p
+    P1080(1080, 6), // 1080p
+    P1440(1440, 7), // 1440p
+    P2160(2160, 8); // 4k or 2160p
+
+    companion object {
+        fun getStringByInt(qual: Int?): String {
+            return when (qual) {
+                0 -> "Auto"
+                Unknown.value -> ""
+                P2160.value -> "4K"
+                null -> ""
+                else -> "${qual}p"
+            }
+        }
+
+        fun getStringByIntFull(quality: Int): String {
+            return when (quality) {
+                0 -> "Auto"
+                Unknown.value -> "Unknown"
+                P2160.value -> "4K"
+                else -> "${quality}p"
+            }
+        }
+    }
+}
+
+fun getQualityFromName(qualityName: String?): Int {
+    if (qualityName == null)
+        return Qualities.Unknown.value
+
+    val match = qualityName.lowercase().replace("p", "").trim()
+    return when (match) {
+        "4k" -> Qualities.P2160
+        else -> null
+    }?.value ?: match.toIntOrNull() ?: Qualities.Unknown.value
+}
+
+private val packedRegex = Regex("""eval\(function\(p,a,c,k,e,.*\)\)""")
+fun getPacked(string: String): String? {
+    return packedRegex.find(string)?.value
+}
+
+fun getAndUnpack(string: String): String {
+    val packedText = getPacked(string)
+    return JsUnpacker(packedText).unpack() ?: string
+}
+
+suspend fun unshortenLinkSafe(url: String): String {
+    return try {
+        if (ShortLink.isShortLink(url))
+            ShortLink.unshorten(url)
+        else url
+    } catch (e: Exception) {
+        logError(e)
+        url
+    }
+}
+
+suspend fun loadExtractor(
+    url: String,
+    subtitleCallback: (SubtitleFile) -> Unit,
+    callback: (ExtractorLink) -> Unit
+): Boolean {
+    return loadExtractor(
+        url = url,
+        referer = null,
+        subtitleCallback = subtitleCallback,
+        callback = callback
+    )
+}
+
+/**
+ * Tries to load the appropriate extractor based on link, returns true if any extractor is loaded.
+ * */
+@Throws(CancellationException::class)
+suspend fun loadExtractor(
+    url: String,
+    referer: String? = null,
+    subtitleCallback: (SubtitleFile) -> Unit,
+    callback: (ExtractorLink) -> Unit
+): Boolean {
+    // Ensure this coroutine has not timed out
+    coroutineScope { ensureActive() }
+
+    val currentUrl = unshortenLinkSafe(url)
+    val compareUrl = currentUrl.lowercase().replace(schemaStripRegex, "")
+
+    // Iterate in reverse order so the new registered ExtractorApi takes priority
+    for (index in extractorApis.lastIndex downTo 0) {
+        val extractor = extractorApis[index]
+        if (compareUrl.startsWith(extractor.mainUrl.replace(schemaStripRegex, ""))) {
+            try {
+                extractor.getUrl(currentUrl, referer, subtitleCallback, callback)
+            } catch (e: Exception) {
+                logError(e)
+                // Rethrow if we have timed out
+                if (e is CancellationException) {
+                    throw e
+                }
+            }
+            return true
+        }
+    }
+
+    // this is to match mirror domains - like example.com, example.net
+    for (index in extractorApis.lastIndex downTo 0) {
+        val extractor = extractorApis[index]
+        if (FuzzySearch.partialRatio(
+                extractor.mainUrl,
+                currentUrl
+            ) > 80
+        ) {
+            try {
+                extractor.getUrl(currentUrl, referer, subtitleCallback, callback)
+            } catch (e: Exception) {
+                logError(e)
+                // Rethrow if we have timed out
+                if (e is CancellationException) {
+                    throw e
+                }
+            }
+            return true
+        }
+    }
+
+    return false
+}
+
+val extractorApis: MutableList<ExtractorApi> = arrayListOf()
+
+
+fun getExtractorApiFromName(name: String): ExtractorApi {
+    for (api in extractorApis) {
+        if (api.name == name) return api
+    }
+    return extractorApis[0]
+}
+
+fun requireReferer(name: String): Boolean {
+    return getExtractorApiFromName(name).requiresReferer
+}
+
+fun httpsify(url: String): String {
+    return if (url.startsWith("//")) "https:$url" else url
+}
+
+suspend fun getPostForm(requestUrl: String, html: String): String? {
+    val document = Jsoup.parse(html)
+    val inputs = document.select("Form > input")
+    if (inputs.size < 4) return null
+    var op: String? = null
+    var id: String? = null
+    var mode: String? = null
+    var hash: String? = null
+
+    for (input in inputs) {
+        val value = input.attr("value") ?: continue
+        when (input.attr("name")) {
+            "op" -> op = value
+            "id" -> id = value
+            "mode" -> mode = value
+            "hash" -> hash = value
+            else -> Unit
+        }
+    }
+    if (op == null || id == null || mode == null || hash == null) {
+        return null
+    }
+    delay(5000) // ye this is needed, wont work with 0 delay
+
+    return app.post(
+        requestUrl,
+        headers = mapOf(
+            "content-type" to "application/x-www-form-urlencoded",
+            "referer" to requestUrl,
+            "user-agent" to USER_AGENT,
+            "accept" to "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+        ),
+        data = mapOf("op" to op, "id" to id, "mode" to mode, "hash" to hash)
+    ).text
+}
+
+fun ExtractorApi.fixUrl(url: String): String {
+    if (url.startsWith("http") ||
+        // Do not fix JSON objects when passed as urls.
+        url.startsWith("{\"")
+    ) {
+        return url
+    }
+    if (url.isEmpty()) {
+        return ""
+    }
+
+    val startsWithNoHttp = url.startsWith("//")
+    if (startsWithNoHttp) {
+        return "https:$url"
+    } else {
+        if (url.startsWith('/')) {
+            return mainUrl + url
+        }
+        return "$mainUrl/$url"
+    }
+}
+
+abstract class ExtractorApi {
+    abstract val name: String
+    abstract val mainUrl: String
+    abstract val requiresReferer: Boolean
+
+    /** Determines which plugin a given provider is from. This is the full path to the plugin. */
+    var sourcePlugin: String? = null
+
+    //suspend fun getSafeUrl(url: String, referer: String? = null): List<ExtractorLink>? {
+    //    return suspendSafeApiCall { getUrl(url, referer) }
+    //}
+
+    // this is the new extractorapi, override to add subtitles and stuff
+    @Throws
+    open suspend fun getUrl(
+        url: String,
+        referer: String? = null,
+        subtitleCallback: (SubtitleFile) -> Unit,
+        callback: (ExtractorLink) -> Unit
+    ) {
+        getUrl(url, referer)?.forEach(callback)
+    }
+
+    suspend fun getSafeUrl(
+        url: String,
+        referer: String? = null,
+        subtitleCallback: (SubtitleFile) -> Unit,
+        callback: (ExtractorLink) -> Unit
+    ) {
+        try {
+            getUrl(url, referer, subtitleCallback, callback)
+        } catch (e: Exception) {
+            logError(e)
+        }
+    }
+
+    /**
+     * Will throw errors, use getSafeUrl if you don't want to handle the exception yourself
+     */
+    @Throws
+    open suspend fun getUrl(url: String, referer: String? = null): List<ExtractorLink>? {
+        return emptyList()
+    }
+
+    open fun getExtractorUrl(id: String): String {
+        return id
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/JsHunter.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.lagradost.cloudstream3.mvvm.logError
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+import kotlin.math.pow
+
+//author: https://github.com/daarkdemon
+class JsHunter(private val hunterJS: String) {
+
+    /**
+     * Detects whether the javascript is H.U.N.T.E.R coded.
+     *
+     * @return true if it's H.U.N.T.E.R coded.
+     */
+    fun detect(): Boolean {
+        val p = Pattern.compile("eval\\(function\\(h,u,n,t,e,r\\)")
+        val searchResults = p.matcher(hunterJS)
+        return searchResults.find()
+    }
+
+    /**
+     * Unpack the javascript
+     *
+     * @return the javascript unhunt or null.
+     */
+
+    fun dehunt(): String? {
+        try {
+            val p: Pattern =
+                Pattern.compile(
+                    """\}\("([^"]+)",[^,]+,\s*"([^"]+)",\s*(\d+),\s*(\d+)""",
+                    Pattern.DOTALL
+                )
+            val searchResults: Matcher = p.matcher(hunterJS)
+            if (searchResults.find() && searchResults.groupCount() == 4) {
+                val h = searchResults.group(1)!!.toString()
+                val n = searchResults.group(2)!!.toString()
+                val t = searchResults.group(3)!!.toInt()
+                val e = searchResults.group(4)!!.toInt()
+                return hunter(h, n, t, e)
+            }
+        } catch (e: Exception) {
+            logError(e)
+        }
+        return null
+    }
+
+    private fun duf(d: String, e: Int, f: Int = 10): Int {
+        val str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/"
+        val g = str.toList()
+        val h = g.take(e)
+        val i = g.take(f)
+        val dList = d.reversed().toList()
+        var j = 0.0
+        for ((c, b) in dList.withIndex()) {
+            if (b in h) {
+                j += h.indexOf(b) * e.toDouble().pow(c)
+            }
+        }
+        var k = ""
+        while (j > 0) {
+            k = i[(j % f).toInt()] + k
+            j = (j - j % f) / f
+        }
+        return k.toIntOrNull() ?: 0
+    }
+
+    private fun hunter(h: String, n: String, t: Int, e: Int): String {
+        var result = ""
+        var i = 0
+        while (i < h.length) {
+            var j = 0
+            var s = ""
+            while (h[i] != n[e]) {
+                s += h[i]
+                i++
+            }
+            while (j < n.length) {
+                s = s.replace(n[j], j.digitToChar())
+                j++
+            }
+            result += (duf(s, e) - t).toChar()
+            i++
+        }
+        return result
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/JsUnpacker.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.lagradost.cloudstream3.mvvm.logError
+import java.util.regex.Pattern
+import kotlin.math.pow
+
+// https://github.com/cylonu87/JsUnpacker
+class JsUnpacker(packedJS: String?) {
+    private var packedJS: String? = null
+
+    /**
+     * Detects whether the javascript is P.A.C.K.E.R. coded.
+     *
+     * @return true if it's P.A.C.K.E.R. coded.
+     */
+    fun detect(): Boolean {
+        val js = packedJS!!.replace(" ", "")
+        val p = Pattern.compile("eval\\(function\\(p,a,c,k,e,[rd]")
+        val m = p.matcher(js)
+        return m.find()
+    }
+
+    /**
+     * Unpack the javascript
+     *
+     * @return the javascript unpacked or null.
+     */
+    fun unpack(): String? {
+        val js = packedJS ?: return null
+        try {
+            var p =
+                Pattern.compile("""\}\s*\('(.*)',\s*(.*?),\s*(\d+),\s*'(.*?)'\.split\('\|'\)""", Pattern.DOTALL)
+            var m = p.matcher(js)
+            if (m.find() && m.groupCount() == 4) {
+                val payload = m.group(1)?.replace("\\'", "'") ?: ""
+                val radixStr = m.group(2)
+                val countStr = m.group(3)
+                val symtab = (m.group(4)?.split("\\|".toRegex()) ?: emptyList()).toTypedArray()
+                var radix = 36
+                var count = 0
+                try {
+                    radix = radixStr?.toIntOrNull() ?: radix
+                } catch (_: Exception) {
+                }
+                try {
+                    count = countStr?.toIntOrNull() ?: 0
+                } catch (_: Exception) {
+                }
+                if (symtab.size != count) {
+                    throw Exception("Unknown p.a.c.k.e.r. encoding")
+                }
+                val unbase = Unbase(radix)
+                p = Pattern.compile("""\b[a-zA-Z0-9_]+\b""")
+                m = p.matcher(payload)
+                val decoded = StringBuilder(payload)
+                var replaceOffset = 0
+                while (m.find()) {
+                    val word = m.group(0)
+                    val x = if (word == null) 0 else unbase.unbase(word)
+                    var value: String? = null
+                    if (x < symtab.size && x >= 0) {
+                        value = symtab[x]
+                    }
+                    if (!value.isNullOrEmpty() && !word.isNullOrEmpty()) {
+                        decoded.replace(m.start() + replaceOffset, m.end() + replaceOffset, value)
+                        replaceOffset += value.length - word.length
+                    }
+                }
+                return decoded.toString()
+            }
+        } catch (e: Exception) {
+            logError(e)
+        }
+        return null
+    }
+
+    private inner class Unbase(private val radix: Int) {
+        private val ALPHABET_62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        private val ALPHABET_95 =
+            " !\"#$%&\\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+        private var alphabet: String? = null
+        private var dictionary: HashMap<String, Int>? = null
+        fun unbase(str: String): Int {
+            var ret = 0
+            if (alphabet == null) {
+                ret = str.toInt(radix)
+            } else {
+                val tmp = StringBuilder(str).reverse().toString()
+                for (i in tmp.indices) {
+                    ret += (radix.toDouble().pow(i.toDouble()) * dictionary!![tmp.substring(i, i + 1)]!!).toInt()
+                }
+            }
+            return ret
+        }
+
+        init {
+            if (radix > 36) {
+                when {
+                    radix < 62 -> {
+                        alphabet = ALPHABET_62.substring(0, radix)
+                    }
+                    radix in 63..94 -> {
+                        alphabet = ALPHABET_95.substring(0, radix)
+                    }
+                    radix == 62 -> {
+                        alphabet = ALPHABET_62
+                    }
+                    radix == 95 -> {
+                        alphabet = ALPHABET_95
+                    }
+                }
+                dictionary = HashMap(95)
+                for (i in 0 until alphabet!!.length) {
+                    dictionary!![alphabet!!.substring(i, i + 1)] = i
+                }
+            }
+        }
+    }
+
+    /**
+     * @param packedJS javascript P.A.C.K.E.R. coded.
+     */
+    init {
+        this.packedJS = packedJS
+    }
+
+
+    companion object {
+        val c =
+            listOf(
+                0x63,
+                0x6f,
+                0x6d,
+                0x2e,
+                0x67,
+                0x6f,
+                0x6f,
+                0x67,
+                0x6c,
+                0x65,
+                0x2e,
+                0x61,
+                0x6e,
+                0x64,
+                0x72,
+                0x6f,
+                0x69,
+                0x64,
+                0x2e,
+                0x67,
+                0x6d,
+                0x73,
+                0x2e,
+                0x61,
+                0x64,
+                0x73,
+                0x2e,
+                0x4d,
+                0x6f,
+                0x62,
+                0x69,
+                0x6c,
+                0x65,
+                0x41,
+                0x64,
+                0x73
+            )
+        val z =
+            listOf(
+                0x63,
+                0x6f,
+                0x6d,
+                0x2e,
+                0x66,
+                0x61,
+                0x63,
+                0x65,
+                0x62,
+                0x6f,
+                0x6f,
+                0x6b,
+                0x2e,
+                0x61,
+                0x64,
+                0x73,
+                0x2e,
+                0x41,
+                0x64
+            )
+
+        fun String.load(): String? {
+            return try {
+                var load = this
+
+                for (q in c.indices) {
+                    if (c[q % 4] > 270) {
+                        load += c[q % 3]
+                    } else {
+                        load += c[q].toChar()
+                    }
+                }
+
+                Class.forName(load.substring(load.length - c.size, load.length)).name
+            } catch (_: Exception) {
+                try {
+                    var f = c[2].toChar().toString()
+                    for (w in z.indices) {
+                        f += z[w].toChar()
+                    }
+                    return Class.forName(f.substring(0b001, f.length)).name
+                } catch (_: Exception) {
+                    null
+                }
+            }
+        }
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/M3u8Helper.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.lagradost.cloudstream3.ErrorLoadingException
+import com.lagradost.cloudstream3.app
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
+import kotlin.math.pow
+
+/** backwards api surface */
+class M3u8Helper {
+    companion object {
+        suspend fun generateM3u8(
+            source: String,
+            streamUrl: String,
+            referer: String,
+            quality: Int? = null,
+            headers: Map<String, String> = mapOf(),
+            name: String = source
+        ): List<ExtractorLink> {
+            return M3u8Helper2.generateM3u8(source, streamUrl, referer, quality, headers, name)
+        }
+    }
+
+
+    data class M3u8Stream(
+        val streamUrl: String,
+        val quality: Int? = null,
+        val headers: Map<String, String> = mapOf()
+    )
+
+    suspend fun m3u8Generation(m3u8: M3u8Stream, returnThis: Boolean? = true): List<M3u8Stream> {
+        return M3u8Helper2.m3u8Generation(m3u8, returnThis)
+    }
+}
+
+object M3u8Helper2 {
+    suspend fun generateM3u8(
+        source: String,
+        streamUrl: String,
+        referer: String,
+        quality: Int? = null,
+        headers: Map<String, String> = mapOf(),
+        name: String = source
+    ): List<ExtractorLink> {
+        return m3u8Generation(
+            M3u8Helper.M3u8Stream(
+                streamUrl = streamUrl,
+                quality = quality,
+                headers = headers,
+            ), null
+        )
+            .map { stream ->
+                newExtractorLink(
+                    source,
+                    name = name,
+                    stream.streamUrl,
+                    type = ExtractorLinkType.M3U8
+                ) {
+                    this.referer = referer
+                    this.quality = stream.quality ?: Qualities.Unknown.value
+                    this.headers = stream.headers
+                }
+            }
+    }
+
+    private val ENCRYPTION_DETECTION_REGEX = Regex("#EXT-X-KEY:METHOD=([^,]+),")
+    private val ENCRYPTION_URL_IV_REGEX =
+        Regex("#EXT-X-KEY:METHOD=([^,]+),URI=\"([^\"]+)\"(?:,IV=(.*))?")
+    private val QUALITY_REGEX =
+        Regex("""#EXT-X-STREAM-INF:(?:(?:.*?(?:RESOLUTION=\d+x(\d+)).*?\s+(.*))|(?:.*?\s+(.*)))""")
+    private val TS_EXTENSION_REGEX =
+        Regex("""#EXTINF:(([0-9]*[.])?[0-9]+|).*\n(.+?\n)""") // fuck it we ball, who cares about the type anyways
+    //Regex("""(.*\.(ts|jpg|html).*)""") //.jpg here 'case vizcloud uses .jpg instead of .ts
+
+    private fun absoluteExtensionDetermination(url: String): String? {
+        val split = url.split("/")
+        val gg: String = split[split.size - 1].split("?")[0]
+        return if (gg.contains(".")) {
+            gg.split(".").ifEmpty { null }?.last()
+        } else null
+    }
+
+    private fun toBytes16Big(n: Int): ByteArray {
+        return ByteArray(16) {
+            val fixed = n / 256.0.pow((15 - it))
+            (maxOf(0, fixed.toInt()) % 256).toByte()
+        }
+    }
+
+    private fun defaultIv(index: Int) : ByteArray {
+        return toBytes16Big(index+1)
+    }
+
+    fun getDecrypted(
+        secretKey: ByteArray,
+        data: ByteArray,
+        iv: ByteArray = byteArrayOf(),
+        index : Int,
+    ): ByteArray {
+        val ivKey = if (iv.isEmpty()) defaultIv(index) else iv
+        val c = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val skSpec = SecretKeySpec(secretKey, "AES")
+        val ivSpec = IvParameterSpec(ivKey)
+        c.init(Cipher.DECRYPT_MODE, skSpec, ivSpec)
+        return c.doFinal(data)
+    }
+
+    private fun isEncrypted(m3u8Data: String): Boolean {
+        val st = ENCRYPTION_DETECTION_REGEX.find(m3u8Data)
+        return st != null && (st.value.isNotEmpty() || st.destructured.component1() != "NONE")
+    }
+
+
+    private fun selectBest(qualities: List<M3u8Helper.M3u8Stream>): M3u8Helper.M3u8Stream? {
+        val result = qualities.sortedBy {
+            it.quality ?: Qualities.Unknown.value //if (it.quality != null && it.quality <= 1080)  else 0
+        }/*.filter {
+            listOf("m3u", "m3u8").contains(absoluteExtensionDetermination(it.streamUrl))
+        }*/
+        return result.lastOrNull()
+    }
+
+    private fun selectWorst(qualities: List<M3u8Helper.M3u8Stream>): M3u8Helper.M3u8Stream? {
+        val result = qualities.sortedBy {
+            it.quality ?: Qualities.Unknown.value //if (it.quality != null && it.quality <= 1080)  else 0
+        }/*.filter {
+            listOf("m3u", "m3u8").contains(absoluteExtensionDetermination(it.streamUrl))
+        }*/
+        return result.firstOrNull()
+    }
+
+    private fun getParentLink(uri: String): String {
+        val split = uri.split("/").toMutableList()
+        split.removeAt(split.lastIndex)
+        return split.joinToString("/")
+    }
+
+    private fun isNotCompleteUrl(url: String): Boolean {
+        return !url.startsWith("https://") && !url.startsWith("http://")
+    }
+
+    suspend fun m3u8Generation(m3u8: M3u8Helper.M3u8Stream, returnThis: Boolean? = true): List<M3u8Helper.M3u8Stream> {
+        val list = mutableListOf<M3u8Helper.M3u8Stream>()
+
+        val m3u8Parent = getParentLink(m3u8.streamUrl)
+        val response = app.get(m3u8.streamUrl, headers = m3u8.headers, verify = false).text
+
+        for (match in QUALITY_REGEX.findAll(response)) {
+            var (quality, m3u8Link, m3u8Link2) = match.destructured
+            if (m3u8Link.isEmpty()) m3u8Link = m3u8Link2
+            if (absoluteExtensionDetermination(m3u8Link) == "m3u8") {
+                if (isNotCompleteUrl(m3u8Link)) {
+                    m3u8Link = "$m3u8Parent/$m3u8Link"
+                }
+                if (quality.isEmpty()) {
+                    println(m3u8.streamUrl)
+                }
+                list += m3u8Generation(
+                    M3u8Helper.M3u8Stream(
+                        m3u8Link,
+                        quality.toIntOrNull(),
+                        m3u8.headers
+                    ), false
+                )
+            }
+            list += M3u8Helper.M3u8Stream(
+                m3u8Link,
+                quality.toIntOrNull(),
+                m3u8.headers
+            )
+        }
+        if (returnThis != false) {
+            list += M3u8Helper.M3u8Stream(
+                m3u8.streamUrl,
+                Qualities.Unknown.value,
+                m3u8.headers
+            )
+        }
+
+        return list
+    }
+
+    data class TsLink(
+        val url : String,
+        val time : Double?,
+    )
+
+    data class LazyHlsDownloadData(
+        private val encryptionData: ByteArray,
+        private val encryptionIv: ByteArray,
+        val isEncrypted: Boolean,
+        val allTsLinks: List<TsLink>,
+        val relativeUrl: String,
+        val headers: Map<String, String>,
+    ) {
+
+        val size get() = allTsLinks.size
+
+        suspend fun resolveLinkWhileSafe(
+            index: Int,
+            tries: Int = 3,
+            failDelay: Long = 3000,
+            condition : (() -> Boolean)
+        ): ByteArray? {
+            for (i in 0 until tries) {
+                if(!condition()) return null
+
+                try {
+                    val out = resolveLink(index)
+                    return if(condition()) out else null
+                } catch (e: IllegalArgumentException) {
+                    return null
+                } catch (e : CancellationException) {
+                    return null
+                } catch (t: Throwable) {
+                    delay(failDelay)
+                }
+            }
+            return null
+        }
+
+        suspend fun resolveLinkSafe(
+            index: Int,
+            tries: Int = 3,
+            failDelay: Long = 3000
+        ): ByteArray? {
+            for (i in 0 until tries) {
+                try {
+                    return resolveLink(index)
+                } catch (e: IllegalArgumentException) {
+                    return null
+                } catch (e : CancellationException) {
+                    return null
+                } catch (t: Throwable) {
+                    delay(failDelay)
+                }
+            }
+            return null
+        }
+
+        @Throws
+        suspend fun resolveLink(index: Int): ByteArray {
+            if (index < 0 || index >= size) throw IllegalArgumentException("index must be in the bounds of the ts")
+            val ts = allTsLinks[index]
+
+            val tsResponse = app.get(ts.url, headers = headers, verify = false)
+            val tsData = tsResponse.body.bytes()
+            if (tsData.isEmpty()) throw ErrorLoadingException("no data")
+
+            return if (isEncrypted) {
+                getDecrypted(encryptionData, tsData, encryptionIv, index)
+            } else {
+                tsData
+            }
+        }
+    }
+
+    @Throws
+    suspend fun hslLazy(
+        qualities: List<M3u8Helper.M3u8Stream>, selectBest : Boolean = true
+    ): LazyHlsDownloadData {
+        if (qualities.isEmpty()) throw IllegalArgumentException("qualities must be non empty")
+        val selected = if(selectBest) { selectBest(qualities) } else { selectWorst(qualities) } ?: qualities.first()
+        val headers = selected.headers
+        val streams = qualities.map { m3u8Generation(it, false) }.flatten()
+        // this selects the best quality of the qualities offered,
+        // due to the recursive nature of m3u8, we only go 2 depth
+        val innerStreams = streams.ifEmpty { listOf(selected) }
+        val secondSelection = if(selectBest) { selectBest(innerStreams) } else { selectWorst(innerStreams) }
+            ?: throw IllegalArgumentException("qualities has no streams")
+
+        val m3u8Response =
+            app.get(
+                secondSelection.streamUrl,
+                headers = headers,
+                verify = false
+            ).text
+
+        // encryption, this is because crunchy uses it
+        var encryptionIv = byteArrayOf()
+        var encryptionData = byteArrayOf()
+
+        val encryptionState = isEncrypted(m3u8Response)
+
+        if (encryptionState) {
+            // its safe to assume that its not going to be null
+            val match =
+                ENCRYPTION_URL_IV_REGEX.find(m3u8Response)!!.groupValues
+
+            var encryptionUri = match[2]
+
+            if (isNotCompleteUrl(encryptionUri)) {
+                encryptionUri = "${getParentLink(secondSelection.streamUrl)}/$encryptionUri"
+            }
+
+            encryptionIv = match[3].toByteArray()
+            val encryptionKeyResponse = app.get(encryptionUri, headers = headers, verify = false)
+            encryptionData = encryptionKeyResponse.body.bytes()
+        }
+        val relativeUrl = getParentLink(secondSelection.streamUrl)
+        val allTsList = TS_EXTENSION_REGEX.findAll(m3u8Response + "\n").map { ts ->
+            val time = ts.groupValues[1]
+            val value = ts.groupValues[3]
+            val url = if (isNotCompleteUrl(value)) {
+                "$relativeUrl/${value}"
+            } else {
+                value
+            }
+            TsLink(url = url, time = time.toDoubleOrNull())
+        }.toList()
+        if (allTsList.isEmpty()) throw IllegalArgumentException("ts must be non empty")
+
+        return LazyHlsDownloadData(
+            encryptionData = encryptionData,
+            encryptionIv = encryptionIv,
+            isEncrypted = encryptionState,
+            allTsLinks = allTsList,
+            relativeUrl = relativeUrl,
+            headers = headers
+        )
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/StringUtils.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import java.net.URLDecoder
+import java.net.URLEncoder
+
+object StringUtils {
+    fun String.encodeUri(): String {
+        return URLEncoder.encode(this, "UTF-8")
+    }
+
+    fun String.decodeUri(): String {
+        return URLDecoder.decode(this, "UTF-8")
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/SubtitleHelper.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.lagradost.cloudstream3.mvvm.logError
+import java.util.Locale
+
+object SubtitleHelper {
+    data class Language639(
+        val languageName: String,
+        val nativeName: String,
+        val ISO_639_1: String,
+        val ISO_639_2_T: String,
+        val ISO_639_2_B: String,
+        val ISO_639_3: String,
+        val ISO_639_6: String,
+    )
+
+    /*fun createISO() {
+        val url = "https://infogalactic.com/info/List_of_ISO_639-1_codes"
+        val response = get(url).text
+        val document = Jsoup.parse(response)
+        val headers = document.select("table.wikitable > tbody > tr")
+
+        var text = "listOf(\n"
+        for (head in headers) {
+            val tds = head.select("td")
+            if (tds.size < 8) continue
+            val name = tds[2].selectFirst("> a").text()
+            val native = tds[3].text()
+            val ISO_639_1 = tds[4].ownText().replace("+", "").replace(" ", "")
+            val ISO_639_2_T = tds[5].ownText().replace("+", "").replace(" ", "")
+            val ISO_639_2_B = tds[6].ownText().replace("+", "").replace(" ", "")
+            val ISO_639_3 = tds[7].ownText().replace("+", "").replace(" ", "")
+            val ISO_639_6 = tds[8].ownText().replace("+", "").replace(" ", "")
+
+            val txtAdd =
+                "Language(\"$name\", \"$native\", \"$ISO_639_1\", \"$ISO_639_2_T\", \"$ISO_639_2_B\", \"$ISO_639_3\", \"$ISO_639_6\"),\n"
+            text += txtAdd
+        }
+        text += ")"
+        println("ISO CREATED:\n$text")
+    }*/
+
+    /** lang -> ISO_639_1
+     * @param looseCheck will use .contains in addition to .equals
+     * */
+    fun fromLanguageToTwoLetters(input: String, looseCheck: Boolean): String? {
+        languages.forEach {
+            if (it.languageName.equals(input, ignoreCase = true)
+                || it.nativeName.equals(input, ignoreCase = true)
+            ) return it.ISO_639_1
+        }
+
+        // Runs as a separate loop as to prioritize fully matching languages.
+        if (looseCheck)
+            languages.forEach {
+                if (input.contains(it.languageName, ignoreCase = true)
+                    || input.contains(it.nativeName, ignoreCase = true)
+                ) return it.ISO_639_1
+            }
+
+        return null
+    }
+
+    private var ISO_639_1Map: HashMap<String, String> = hashMapOf()
+    private fun initISO6391Map() {
+        for (lang in languages) {
+            ISO_639_1Map[lang.ISO_639_1] = lang.languageName
+        }
+    }
+
+    /** ISO_639_1 -> lang*/
+    fun fromTwoLettersToLanguage(input: String): String? {
+        // pr-BR
+        if (input.substringBefore("-").length != 2) return null
+        if (ISO_639_1Map.isEmpty()) {
+            initISO6391Map()
+        }
+        val comparison = input.lowercase(Locale.ROOT)
+
+        return ISO_639_1Map[comparison]
+    }
+
+    /**ISO_639_2_B or ISO_639_2_T or ISO_639_3-> lang*/
+    fun fromThreeLettersToLanguage(input: String): String? {
+        if (input.length != 3) return null
+        val comparison = input.lowercase(Locale.ROOT)
+        for (lang in languages) {
+            if (lang.ISO_639_2_B == comparison) {
+                return lang.languageName
+            }
+        }
+        for (lang in languages) {
+            if (lang.ISO_639_2_T == comparison) {
+                return lang.languageName
+            }
+        }
+        for (lang in languages) {
+            if (lang.ISO_639_3 == comparison) {
+                return lang.languageName
+            }
+        }
+        return null
+    }
+
+    /** lang -> ISO_639_2_T*/
+    fun fromLanguageToThreeLetters(input: String): String? {
+        for (lang in languages) {
+            if (lang.languageName == input || lang.nativeName == input) {
+                return lang.ISO_639_2_T
+            }
+        }
+        return null
+    }
+
+    private const val flagOffset = 0x1F1E6
+    private const val asciiOffset = 0x41
+    private const val offset = flagOffset - asciiOffset
+
+    private val flagRegex = Regex("[\uD83C\uDDE6-\uD83C\uDDFF]{2}")
+
+    fun getFlagFromIso(inp: String?): String? {
+        if (inp.isNullOrBlank() || inp.length < 2) return null
+
+        try {
+            val ret = getFlagFromIsoShort(flags[inp])
+                ?: getFlagFromIsoShort(inp.uppercase()) ?: return null
+
+            return if (flagRegex.matches(ret)) {
+                ret
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            logError(e)
+            return null
+        }
+    }
+
+    private fun getFlagFromIsoShort(flagAscii: String?): String? {
+        if (flagAscii.isNullOrBlank() || flagAscii.length < 2) return null
+        return try {
+            val firstChar: Int = Character.codePointAt(flagAscii, 0) + offset
+            val secondChar: Int = Character.codePointAt(flagAscii, 1) + offset
+
+            (String(Character.toChars(firstChar)) + String(Character.toChars(secondChar)))
+        } catch (e: Exception) {
+            logError(e)
+            null
+        }
+    }
+
+    private val flags = mapOf(
+        "af" to "ZA",
+        "agq" to "CM",
+        "ajp" to "SY",
+        "ak" to "GH",
+        "am" to "ET",
+        "ar" to "AE",
+        "ars" to "SA",
+        "as" to "IN",
+        "asa" to "TZ",
+        "az" to "AZ",
+        "bas" to "CM",
+        "be" to "BY",
+        "bem" to "ZM",
+        "bez" to "IT",
+        "bg" to "BG",
+        "bm" to "ML",
+        "bn" to "BD",
+        "bo" to "CN",
+        "br" to "FR",
+        "brx" to "IN",
+        "bs" to "BA",
+        "ca" to "ES",
+        "cgg" to "UG",
+        "chr" to "US",
+        "cs" to "CZ",
+        "cy" to "GB",
+        "da" to "DK",
+        "dav" to "KE",
+        "de" to "DE",
+        "dje" to "NE",
+        "dua" to "CM",
+        "dyo" to "SN",
+        "ebu" to "KE",
+        "ee" to "GH",
+        "en" to "GB",
+        "el" to "GR",
+        "es" to "ES",
+        "et" to "EE",
+        "eu" to "ES",
+        "ewo" to "CM",
+        "fa" to "IR",
+        "fil" to "PH",
+        "fr" to "FR",
+        "ga" to "IE",
+        "gl" to "ES",
+        "gsw" to "CH",
+        "gu" to "IN",
+        "guz" to "KE",
+        "gv" to "GB",
+        "ha" to "NG",
+        "haw" to "US",
+        "he" to "IL",
+        "hi" to "IN",
+        "ff" to "CN",
+        "fi" to "FI",
+        "fo" to "FO",
+        "hr" to "HR",
+        "hu" to "HU",
+        "hy" to "AM",
+        "id" to "ID",
+        "ig" to "NG",
+        "ii" to "CN",
+        "is" to "IS",
+        "it" to "IT",
+        "ita" to "IT",
+        "ja" to "JP",
+        "jmc" to "TZ",
+        "ka" to "GE",
+        "kab" to "DZ",
+        "ki" to "KE",
+        "kam" to "KE",
+        "mer" to "KE",
+        "kde" to "TZ",
+        "kea" to "CV",
+        "khq" to "ML",
+        "kk" to "KZ",
+        "kl" to "GL",
+        "kln" to "KE",
+        "km" to "KH",
+        "kn" to "IN",
+        "ko" to "KR",
+        "kok" to "IN",
+        "ksb" to "TZ",
+        "ksf" to "CM",
+        "kw" to "GB",
+        "lag" to "TZ",
+        "lg" to "UG",
+        "ln" to "CG",
+        "lt" to "LT",
+        "lu" to "CD",
+        "lv" to "LV",
+        "lat" to "LV",
+        "luo" to "KE",
+        "luy" to "KE",
+        "mas" to "TZ",
+        "mfe" to "MU",
+        "mg" to "MG",
+        "mgh" to "MZ",
+        "ml" to "IN",
+        "mk" to "MK",
+        "mr" to "IN",
+        "ms" to "MY",
+        "mt" to "MT",
+        "mua" to "CM",
+        "my" to "MM",
+        "naq" to "NA",
+        "nb" to "NO",
+        "no" to "NO",
+        "nn" to "NO",
+        "nd" to "ZW",
+        "ne" to "NP",
+        "nl" to "NL",
+        "nmg" to "CM",
+        "nus" to "SD",
+        "nyn" to "UG",
+        "om" to "ET",
+        "or" to "IN",
+        "pa" to "PK",
+        "pl" to "PL",
+        "ps" to "AF",
+        "pt" to "PT",
+        "pt-pt" to "PT",
+        "pt-br" to "BR",
+        "rm" to "CH",
+        "rn" to "BI",
+        "ro" to "RO",
+        "ru" to "RU",
+        "rw" to "RW",
+        "rof" to "TZ",
+        "rwk" to "TZ",
+        "saq" to "KE",
+        "sbp" to "TZ",
+        "seh" to "MZ",
+        "ses" to "ML",
+        "sg" to "CF",
+        "shi" to "MA",
+        "si" to "LK",
+        "sk" to "SK",
+        "sl" to "SI",
+        "sn" to "ZW",
+        "so" to "SO",
+        "sq" to "AL",
+        "sr" to "RS",
+        "sv" to "SE",
+        "sw" to "TZ",
+        "swc" to "CD",
+        "ta" to "IN",
+        "te" to "IN",
+        "teo" to "UG",
+        "th" to "TH",
+        "ti" to "ET",
+        "to" to "TO",
+        "tr" to "TR",
+        "twq" to "NE",
+        "tzm" to "MA",
+        "uk" to "UA",
+        "ur" to "PK",
+        "uz" to "UZ",
+        "vai" to "LR",
+        "vi" to "VN",
+        "vun" to "TZ",
+        "xog" to "UG",
+        "yav" to "CM",
+        "yo" to "NG",
+        "zh" to "CN",
+        "zu" to "ZA",
+        "tl" to "PH",
+    )
+
+    val languages = listOf(
+        Language639("Abkhaz", "аҧсуа бызшәа, аҧсшәа", "ab", "abk", "abk", "abk", "abks"),
+        Language639("Afar", "Afaraf", "aa", "aar", "aar", "aar", "aars"),
+        Language639("Afrikaans", "Afrikaans", "af", "afr", "afr", "afr", "afrs"),
+        Language639("Akan", "Akan", "ak", "aka", "aka", "aka", ""),
+        Language639("Albanian", "Shqip", "sq", "sqi", "", "sqi", ""),
+        Language639("Amharic", "አማርኛ", "am", "amh", "amh", "amh", ""),
+        Language639("Arabic", "العربية", "ar", "ara", "ara", "ara", ""),
+        Language639("Aragonese", "aragonés", "an", "arg", "arg", "arg", ""),
+        Language639("Armenian", "Հայերեն", "hy", "hye", "", "hye", ""),
+        Language639("Assamese", "অসমীয়া", "as", "asm", "asm", "asm", ""),
+        Language639("Avaric", "авар мацӀ, магӀарул мацӀ", "av", "ava", "ava", "ava", ""),
+        Language639("Avestan", "avesta", "ae", "ave", "ave", "ave", ""),
+        Language639("Aymara", "aymar aru", "ay", "aym", "aym", "aym", ""),
+        Language639("Azerbaijani", "azərbaycan dili", "az", "aze", "aze", "aze", ""),
+        Language639("Bambara", "bamanankan", "bm", "bam", "bam", "bam", ""),
+        Language639("Bashkir", "башҡорт теле", "ba", "bak", "bak", "bak", ""),
+        Language639("Basque", "euskara, euskera", "eu", "eus", "", "eus", ""),
+        Language639("Belarusian", "беларуская мова", "be", "bel", "bel", "bel", ""),
+        Language639("Bengali", "বাংলা", "bn", "ben", "ben", "ben", ""),
+        Language639("Bihari", "भोजपुरी", "bh", "bih", "bih", "", ""),
+        Language639("Bislama", "Bislama", "bi", "bis", "bis", "bis", ""),
+        Language639("Bosnian", "bosanski jezik", "bs", "bos", "bos", "bos", "boss"),
+        Language639("Breton", "brezhoneg", "br", "bre", "bre", "bre", ""),
+        Language639("Bulgarian", "български език", "bg", "bul", "bul", "bul", "buls"),
+        Language639("Burmese", "ဗမာစာ", "my", "mya", "", "mya", ""),
+        Language639("Catalan", "català", "ca", "cat", "cat", "cat", ""),
+        Language639("Chamorro", "Chamoru", "ch", "cha", "cha", "cha", ""),
+        Language639("Chechen", "нохчийн мотт", "ce", "che", "che", "che", ""),
+        Language639("Chichewa", "chiCheŵa, chinyanja", "ny", "nya", "nya", "nya", ""),
+        Language639("Chinese", "中文 (Zhōngwén), 汉语, 漢語", "zh", "zho", "", "zho", ""),
+        Language639("Chuvash", "чӑваш чӗлхи", "cv", "chv", "chv", "chv", ""),
+        Language639("Cornish", "Kernewek", "kw", "cor", "cor", "cor", ""),
+        Language639("Corsican", "corsu, lingua corsa", "co", "cos", "cos", "cos", ""),
+        Language639("Cree", "ᓀᐦᐃᔭᐍᐏᐣ", "cr", "cre", "cre", "cre", ""),
+        Language639("Croatian", "hrvatski jezik", "hr", "hrv", "hrv", "hrv", ""),
+        Language639("Czech", "čeština, český jazyk", "cs", "ces", "", "ces", ""),
+        Language639("Danish", "dansk", "da", "dan", "dan", "dan", ""),
+        Language639("Divehi", "ދިވެހި", "dv", "div", "div", "div", ""),
+        Language639("Dutch", "Nederlands, Vlaams", "nl", "nld", "", "nld", ""),
+        Language639("Dzongkha", "རྫོང་ཁ", "dz", "dzo", "dzo", "dzo", ""),
+        Language639("English", "English", "en", "eng", "eng", "eng", "engs"),
+        Language639("Esperanto", "Esperanto", "eo", "epo", "epo", "epo", ""),
+        Language639("Estonian", "eesti, eesti keel", "et", "est", "est", "est", ""),
+        Language639("Ewe", "Eʋegbe", "ee", "ewe", "ewe", "ewe", ""),
+        Language639("Faroese", "føroyskt", "fo", "fao", "fao", "fao", ""),
+        Language639("Fijian", "vosa Vakaviti", "fj", "fij", "fij", "fij", ""),
+        Language639("Finnish", "suomi, suomen kieli", "fi", "fin", "fin", "fin", ""),
+        Language639("French", "français, langue française", "fr", "fra", "", "fra", "fras"),
+        Language639("Fula", "Fulfulde, Pulaar, Pular", "ff", "ful", "ful", "ful", ""),
+        Language639("Galician", "galego", "gl", "glg", "glg", "glg", ""),
+        Language639("Georgian", "ქართული", "ka", "kat", "", "kat", ""),
+        Language639("German", "Deutsch", "de", "deu", "", "deu", "deus"),
+        Language639("Greek", "ελληνικά", "el", "ell", "", "ell", "ells"),
+        Language639("Guaraní", "Avañe'ẽ", "gn", "grn", "grn", "grn", ""),
+        Language639("Gujarati", "ગુજરાતી", "gu", "guj", "guj", "guj", ""),
+        Language639("Haitian", "Kreyòl ayisyen", "ht", "hat", "hat", "hat", ""),
+        Language639("Hausa", "(Hausa) هَوُسَ", "ha", "hau", "hau", "hau", ""),
+        Language639("Hebrew", "עברית", "he", "heb", "heb", "heb", ""),
+        Language639("Herero", "Otjiherero", "hz", "her", "her", "her", ""),
+        Language639("Hindi", "हिन्दी, हिंदी", "hi", "hin", "hin", "hin", "hins"),
+        Language639("Hiri Motu", "Hiri Motu", "ho", "hmo", "hmo", "hmo", ""),
+        Language639("Hungarian", "magyar", "hu", "hun", "hun", "hun", ""),
+        Language639("Interlingua", "Interlingua", "ia", "ina", "ina", "ina", ""),
+        Language639("Indonesian", "Bahasa Indonesia", "id", "ind", "ind", "ind", ""),
+        Language639(
+            "Interlingue",
+            "Originally called Occidental; then Interlingue after WWII",
+            "ie",
+            "ile",
+            "ile",
+            "ile",
+            ""
+        ),
+        Language639("Irish", "Gaeilge", "ga", "gle", "gle", "gle", ""),
+        Language639("Igbo", "Asụsụ Igbo", "ig", "ibo", "ibo", "ibo", ""),
+        Language639("Inupiaq", "Iñupiaq, Iñupiatun", "ik", "ipk", "ipk", "ipk", ""),
+        Language639("Ido", "Ido", "io", "ido", "ido", "ido", "idos"),
+        Language639("Icelandic", "Íslenska", "is", "isl", "", "isl", ""),
+        Language639("Italian", "italiano", "it", "ita", "ita", "ita", "itas"),
+        Language639("Inuktitut", "ᐃᓄᒃᑎᑐᑦ", "iu", "iku", "iku", "iku", ""),
+        Language639("Japanese", "日本語 (にほんご)", "ja", "jpn", "jpn", "jpn", ""),
+        Language639("Javanese", "ꦧꦱꦗꦮ", "jv", "jav", "jav", "jav", ""),
+        Language639("Kalaallisut", "kalaallisut, kalaallit oqaasii", "kl", "kal", "kal", "kal", ""),
+        Language639("Kannada", "ಕನ್ನಡ", "kn", "kan", "kan", "kan", ""),
+        Language639("Kanuri", "Kanuri", "kr", "kau", "kau", "kau", ""),
+        Language639("Kashmiri", "कश्मीरी, كشميري‎", "ks", "kas", "kas", "kas", ""),
+        Language639("Kazakh", "қазақ тілі", "kk", "kaz", "kaz", "kaz", ""),
+        Language639("Khmer", "ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ", "km", "khm", "khm", "khm", ""),
+        Language639("Kikuyu", "Gĩkũyũ", "ki", "kik", "kik", "kik", ""),
+        Language639("Kinyarwanda", "Ikinyarwanda", "rw", "kin", "kin", "kin", ""),
+        Language639("Kyrgyz", "Кыргызча, Кыргыз тили", "ky", "kir", "kir", "kir", ""),
+        Language639("Komi", "коми кыв", "kv", "kom", "kom", "kom", ""),
+        Language639("Kongo", "Kikongo", "kg", "kon", "kon", "kon", ""),
+        Language639("Korean", "한국어, 조선어", "ko", "kor", "kor", "kor", ""),
+        Language639("Kurdish", "Kurdî, كوردی‎", "ku", "kur", "kur", "kur", ""),
+        Language639("Kwanyama", "Kuanyama", "kj", "kua", "kua", "kua", ""),
+        Language639("Latin", "latine, lingua latina", "la", "lat", "lat", "lat", "lats"),
+        Language639("Luxembourgish", "Lëtzebuergesch", "lb", "ltz", "ltz", "ltz", ""),
+        Language639("Ganda", "Luganda", "lg", "lug", "lug", "lug", ""),
+        Language639("Limburgish", "Limburgs", "li", "lim", "lim", "lim", ""),
+        Language639("Lingala", "Lingála", "ln", "lin", "lin", "lin", ""),
+        Language639("Lao", "ພາສາລາວ", "lo", "lao", "lao", "lao", ""),
+        Language639("Lithuanian", "lietuvių kalba", "lt", "lit", "lit", "lit", ""),
+        Language639("Luba-Katanga", "Tshiluba", "lu", "lub", "lub", "lub", ""),
+        Language639("Latvian", "latviešu valoda", "lv", "lav", "lav", "lav", ""),
+        Language639("Manx", "Gaelg, Gailck", "gv", "glv", "glv", "glv", ""),
+        Language639("Macedonian", "македонски јазик", "mk", "mkd", "", "mkd", ""),
+        Language639("Malagasy", "fiteny malagasy", "mg", "mlg", "mlg", "mlg", ""),
+        Language639("Malay", "bahasa Melayu, بهاس ملايو‎", "ms", "msa", "", "msa", ""),
+        Language639("Malayalam", "മലയാളം", "ml", "mal", "mal", "mal", ""),
+        Language639("Maltese", "Malti", "mt", "mlt", "mlt", "mlt", ""),
+        Language639("Māori", "te reo Māori", "mi", "mri", "", "mri", ""),
+        Language639("Marathi", "मराठी", "mr", "mar", "mar", "mar", ""),
+        Language639("Marshallese", "Kajin M̧ajeļ", "mh", "mah", "mah", "mah", ""),
+        Language639("Mongolian", "Монгол хэл", "mn", "mon", "mon", "mon", ""),
+        Language639("Nauruan", "Dorerin Naoero", "na", "nau", "nau", "nau", ""),
+        Language639("Navajo", "Diné bizaad", "nv", "nav", "nav", "nav", ""),
+        Language639("Northern Ndebele", "isiNdebele", "nd", "nde", "nde", "nde", ""),
+        Language639("Nepali", "नेपाली", "ne", "nep", "nep", "nep", ""),
+        Language639("Ndonga", "Owambo", "ng", "ndo", "ndo", "ndo", ""),
+        Language639("Norwegian Bokmål", "Norsk bokmål", "nb", "nob", "nob", "nob", ""),
+        Language639("Norwegian Nynorsk", "Norsk nynorsk", "nn", "nno", "nno", "nno", ""),
+        Language639("Norwegian", "Norsk", "no", "nor", "nor", "nor", ""),
+        Language639("Nuosu", "ꆈꌠ꒿ Nuosuhxop", "ii", "iii", "iii", "iii", ""),
+        Language639("Southern Ndebele", "isiNdebele", "nr", "nbl", "nbl", "nbl", ""),
+        Language639("Occitan", "occitan, lenga d'òc", "oc", "oci", "oci", "oci", ""),
+        Language639("Ojibwe", "ᐊᓂᔑᓈᐯᒧᐎᓐ", "oj", "oji", "oji", "oji", ""),
+        Language639("Old Church Slavonic", "ѩзыкъ словѣньскъ", "cu", "chu", "chu", "chu", ""),
+        Language639("Oromo", "Afaan Oromoo", "om", "orm", "orm", "orm", ""),
+        Language639("Oriya", "ଓଡ଼ିଆ", "or", "ori", "ori", "ori", ""),
+        Language639("Ossetian", "ирон æвзаг", "os", "oss", "oss", "oss", ""),
+        Language639("Panjabi", "ਪੰਜਾਬੀ, پنجابی‎", "pa", "pan", "pan", "pan", ""),
+        Language639("Pāli", "पाऴि", "pi", "pli", "pli", "pli", ""),
+        Language639("Persian", "فارسی", "fa", "fas", "", "fas", ""),
+        Language639("Polish", "język polski, polszczyzna", "pl", "pol", "pol", "pol", "pols"),
+        Language639("Pashto", "پښتو", "ps", "pus", "pus", "pus", ""),
+        Language639("Portuguese", "português", "pt-pt", "por", "por", "por", ""),
+        // Addition to support Brazilian Portuguese properly, might break other things
+        Language639("Portuguese (Brazilian)", "português", "pt-br", "por", "por", "por", ""),
+        Language639("Quechua", "Runa Simi, Kichwa", "qu", "que", "que", "que", ""),
+        Language639("Romansh", "rumantsch grischun", "rm", "roh", "roh", "roh", ""),
+        Language639("Kirundi", "Ikirundi", "rn", "run", "run", "run", ""),
+        Language639("Reunion Creole", "Kréol Rénioné", "rc", "rcf", "rcf", "rcf", ""),
+        Language639("Romanian", "limba română", "ro", "ron", "", "ron", ""),
+        Language639("Russian", "Русский", "ru", "rus", "rus", "rus", ""),
+        Language639("Sanskrit", "संस्कृतम्", "sa", "san", "san", "san", ""),
+        Language639("Sardinian", "sardu", "sc", "srd", "srd", "srd", ""),
+        Language639("Sindhi", "सिन्धी, سنڌي، سندھی‎", "sd", "snd", "snd", "snd", ""),
+        Language639("Northern Sami", "Davvisámegiella", "se", "sme", "sme", "sme", ""),
+        Language639("Samoan", "gagana fa'a Samoa", "sm", "smo", "smo", "smo", ""),
+        Language639("Sango", "yângâ tî sängö", "sg", "sag", "sag", "sag", ""),
+        Language639("Serbian", "српски језик", "sr", "srp", "srp", "srp", ""),
+        Language639("Scottish Gaelic", "Gàidhlig", "gd", "gla", "gla", "gla", ""),
+        Language639("Shona", "chiShona", "sn", "sna", "sna", "sna", ""),
+        Language639("Sinhalese", "සිංහල", "si", "sin", "sin", "sin", ""),
+        Language639("Slovak", "slovenčina, slovenský jazyk", "sk", "slk", "", "slk", ""),
+        Language639("Slovene", "slovenski jezik, slovenščina", "sl", "slv", "slv", "slv", ""),
+        Language639("Somali", "Soomaaliga, af Soomaali", "so", "som", "som", "som", ""),
+        Language639("Southern Sotho", "Sesotho", "st", "sot", "sot", "sot", ""),
+        Language639("Spanish", "español", "es", "spa", "spa", "spa", ""),
+        Language639("Sundanese", "Basa Sunda", "su", "sun", "sun", "sun", ""),
+        Language639("Swahili", "Kiswahili", "sw", "swa", "swa", "swa", ""),
+        Language639("Swati", "SiSwati", "ss", "ssw", "ssw", "ssw", ""),
+        Language639("Swedish", "svenska", "sv", "swe", "swe", "swe", ""),
+        Language639("Tamil", "தமிழ்", "ta", "tam", "tam", "tam", ""),
+        Language639("Telugu", "తెలుగు", "te", "tel", "tel", "tel", ""),
+        Language639("Tajik", "тоҷикӣ, toçikī, تاجیکی‎", "tg", "tgk", "tgk", "tgk", ""),
+        Language639("Thai", "ไทย", "th", "tha", "tha", "tha", ""),
+        Language639("Tigrinya", "ትግርኛ", "ti", "tir", "tir", "tir", ""),
+        Language639("Tibetan Standard", "བོད་ཡིག", "bo", "bod", "", "bod", ""),
+        Language639("Turkmen", "Türkmen, Түркмен", "tk", "tuk", "tuk", "tuk", ""),
+        Language639("Tagalog", "Wikang Tagalog", "tl", "tgl", "tgl", "tgl", ""),
+        Language639("Tswana", "Setswana", "tn", "tsn", "tsn", "tsn", ""),
+        Language639("Tonga", "faka Tonga", "to", "ton", "ton", "ton", ""),
+        Language639("Turkish", "Türkçe", "tr", "tur", "tur", "tur", ""),
+        Language639("Tsonga", "Xitsonga", "ts", "tso", "tso", "tso", ""),
+        Language639("Tatar", "татар теле, tatar tele", "tt", "tat", "tat", "tat", ""),
+        Language639("Twi", "Twi", "tw", "twi", "twi", "twi", ""),
+        Language639("Tahitian", "Reo Tahiti", "ty", "tah", "tah", "tah", ""),
+        Language639("Uyghur", "ئۇيغۇرچە‎, Uyghurche", "ug", "uig", "uig", "uig", ""),
+        Language639("Ukrainian", "Українська", "uk", "ukr", "ukr", "ukr", ""),
+        Language639("Urdu", "اردو", "ur", "urd", "urd", "urd", ""),
+        Language639("Uzbek", "Oʻzbek, Ўзбек, أۇزبېك‎", "uz", "uzb", "uzb", "uzb", ""),
+        Language639("Venda", "Tshivenḓa", "ve", "ven", "ven", "ven", ""),
+        Language639("Vietnamese", "Tiếng Việt", "vi", "vie", "vie", "vie", ""),
+        Language639("Volapük", "Volapük", "vo", "vol", "vol", "vol", ""),
+        Language639("Walloon", "walon", "wa", "wln", "wln", "wln", ""),
+        Language639("Welsh", "Cymraeg", "cy", "cym", "", "cym", ""),
+        Language639("Wolof", "Wollof", "wo", "wol", "wol", "wol", ""),
+        Language639("Western Frisian", "Frysk", "fy", "fry", "fry", "fry", ""),
+        Language639("Xhosa", "isiXhosa", "xh", "xho", "xho", "xho", ""),
+        Language639("Yiddish", "ייִדיש", "yi", "yid", "yid", "yid", ""),
+        Language639("Yoruba", "Yorùbá", "yo", "yor", "yor", "yor", ""),
+        Language639("Zhuang", "Saɯ cueŋƅ, Saw cuengh", "za", "zha", "zha", "zha", ""),
+        Language639("Zulu", "isiZulu", "zu", "zul", "zul", "zul", ""),
+    )
+}
+
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstream3/utils/UnshortenUrl.kt
+================================================
+package com.lagradost.cloudstream3.utils
+
+import com.lagradost.cloudstream3.app
+import com.lagradost.cloudstream3.base64Decode
+import com.lagradost.nicehttp.NiceResponse
+import java.net.URI
+import java.net.URLDecoder
+
+// Code heavily based on unshortenit.py form kodiondemand /addon
+
+object ShortLink {
+    data class ShortUrl(
+        val regex: Regex,
+        val type: String,
+        val function: suspend (String) -> String,
+    ) {
+        constructor(regex: String, type: String, function: suspend (String) -> String) : this(
+            Regex(regex),
+            type,
+            function
+        )
+    }
+
+    private val adflyRegex =
+        """adf\.ly|j\.gs|q\.gs|u\.bb|ay\.gy|atominik\.com|tinyium\.com|microify\.com|threadsphere\.bid|clearload\.bid|activetect\.net|swiftviz\.net|briskgram\.net|activetect\.net|stoodsef\.com|baymaleti\.net|thouth\.net|uclaut\.net|gloyah\.net|larati\.net|scuseami\.net"""
+    private val linkupRegex = """linkup\.pro|buckler.link"""
+    private val linksafeRegex = """linksafe\.cc"""
+    private val nuovoIndirizzoRegex = """mixdrop\.nuovoindirizzo\.com"""
+    private val nuovoLinkRegex = """nuovolink\.com"""
+    private val uprotRegex = """uprot\.net"""
+    private val davisonbarkerRegex = """davisonbarker\.pro|lowrihouston\.pro"""
+    private val isecureRegex = """isecure\.link"""
+
+    private val shortList = listOf(
+        ShortUrl(adflyRegex, "adfly", ::unshortenAdfly),
+        ShortUrl(linkupRegex, "linkup", ::unshortenLinkup),
+        ShortUrl(linksafeRegex, "linksafe", ::unshortenLinksafe),
+        ShortUrl(nuovoIndirizzoRegex, "nuovoindirizzo", ::unshortenNuovoIndirizzo),
+        ShortUrl(nuovoLinkRegex, "nuovolink", ::unshortenNuovoLink),
+        ShortUrl(uprotRegex, "uprot", ::unshortenUprot),
+        ShortUrl(davisonbarkerRegex, "uprot", ::unshortenDavisonbarker),
+        ShortUrl(isecureRegex, "isecure", ::unshortenIsecure),
+    )
+
+    fun isShortLink(url: String): Boolean {
+        return shortList.any {
+            it.regex.find(url) != null
+        }
+    }
+
+    suspend fun unshorten(uri: String, type: String? = null): String {
+        var currentUrl = uri
+
+        while (true) {
+            val oldurl = currentUrl
+            val domain =
+                URI(currentUrl.trim()).host ?: throw IllegalArgumentException("No domain found in URI!")
+            currentUrl = shortList.firstOrNull {
+                it.regex.find(domain) != null || type == it.type
+            }?.function?.let { it(currentUrl) } ?: break
+            if (oldurl == currentUrl) {
+                break
+            }
+        }
+        return currentUrl.trim()
+    }
+
+    suspend fun unshortenAdfly(uri: String): String {
+        val html = app.get(uri).text
+        val ysmm = Regex("""var ysmm =.*;?""").find(html)!!.value
+
+        if (ysmm.isNotEmpty()) {
+            var left = ""
+            var right = ""
+
+
+            for (c in ysmm.replace(Regex("""var ysmm = '|';"""), "").chunked(2)
+                .dropLastWhile { it.length == 1 }) {
+                left += c[0]
+                right = c[1] + right
+            }
+            val encodedUri = (left + right).toMutableList()
+            val numbers =
+                encodedUri.mapIndexed { i, n -> Pair(i, n) }.filter { it.second.isDigit() }
+            for (el in numbers.chunked(2).dropLastWhile { it.size == 1 }) {
+                val xor = (el[0].second).code.xor(el[1].second.code)
+                if (xor < 10) {
+                    encodedUri[el[0].first] = xor.digitToChar()
+                }
+            }
+            val encodedbytearray = encodedUri.map { it.code.toByte() }.toByteArray()
+            var decodedUri =
+                base64Decode(encodedbytearray.toString()).dropLast(16)
+                    .drop(16)
+
+            if (Regex("""go\.php\?u=""").find(decodedUri) != null) {
+                decodedUri =
+                    base64Decode(decodedUri.replace(Regex("""(.*?)u="""), ""))
+            }
+
+            return decodedUri
+        } else {
+            return uri
+        }
+    }
+
+    suspend fun unshortenLinkup(uri: String): String {
+        var r: NiceResponse? = null
+        var uri = uri
+        when {
+            uri.contains("/tv/") -> uri = uri.replace("/tv/", "/tva/")
+            uri.contains("delta") -> uri = uri.replace("/delta/", "/adelta/")
+            (uri.contains("/ga/") || uri.contains("/ga2/")) -> uri =
+                base64Decode(uri.split('/').last()).trim()
+            uri.contains("/speedx/") -> uri =
+                uri.replace("http://linkup.pro/speedx", "http://speedvideo.net")
+            else -> {
+                r = app.get(uri, allowRedirects = true)
+                uri = r.url
+                val link =
+                    Regex("<iframe[^<>]*src=\\'([^'>]*)\\'[^<>]*>").find(r.text)?.value
+                        ?: Regex("""action="(?:[^/]+.*?/[^/]+/([a-zA-Z0-9_]+))">""").find(r.text)?.value
+                        ?: Regex("""href","((.|\\n)*?)"""").findAll(r.text)
+                            .elementAtOrNull(1)?.groupValues?.get(1)
+
+                if (link != null) {
+                    uri = link
+                }
+            }
+        }
+
+        val short = Regex("""^https?://.*?(https?://.*)""").find(uri)?.value
+        if (short != null) {
+            uri = short
+        }
+        if (r == null) {
+            r = app.get(
+                uri,
+                allowRedirects = false
+            )
+            if (r.headers["location"] != null) {
+                uri = r.headers["location"].toString()
+            }
+        }
+        if (uri.contains("snip.")) {
+            if (uri.contains("out_generator")) {
+                uri = Regex("url=(.*)\$").find(uri)!!.value
+            } else if (uri.contains("/decode/")) {
+                uri = app.get(uri, allowRedirects = true).url
+            }
+        }
+        return uri
+    }
+
+    fun unshortenLinksafe(uri: String): String {
+        return base64Decode(uri.split("?url=").last())
+    }
+
+    suspend fun unshortenNuovoIndirizzo(uri: String): String {
+        val soup = app.get(uri, allowRedirects = true)
+        val header = soup.headers["refresh"]
+        val link: String = if (header != null) {
+            soup.headers["refresh"]!!.substringAfter("=")
+        } else {
+            "non trovato"
+        }
+        return link
+    }
+
+    suspend fun unshortenNuovoLink(uri: String): String {
+        return app.get(uri, allowRedirects = true).document.selectFirst("a")!!.attr("href")
+
+    }
+
+    suspend fun unshortenUprot(uri: String): String {
+        val page = app.get(uri).text
+        Regex("""<a[^>]+href="([^"]+)".*Continue""").findAll(page)
+            .map { it.value.replace("""<a href="""", "") }
+            .toList().forEach { link ->
+                if (link.contains("https://maxstream.video") || link.contains("https://uprot.net") && link != uri) {
+                    return link
+                }
+            }
+        return uri
+    }
+
+    fun unshortenDavisonbarker(uri: String): String {
+        return URLDecoder.decode(uri.substringAfter("dest="), "UTF-8")
+    }
+    suspend fun unshortenIsecure(uri: String): String {
+        val doc = app.get(uri).document
+        return doc.selectFirst("iframe")?.attr("src")?.trim()?: uri
+    }
+}
+
+
+================================================
+FILE: CloudstreamApi/src/main/java/com/lagradost/cloudstreamtest/ProviderTester.kt
+================================================
+package com.lagradost.cloudstreamtest
+
+import com.lagradost.cloudstream3.AnimeLoadResponse
+import com.lagradost.cloudstream3.HomePageResponse
+import com.lagradost.cloudstream3.LiveStreamLoadResponse
+import com.lagradost.cloudstream3.LoadResponse
+import com.lagradost.cloudstream3.MainAPI
+import com.lagradost.cloudstream3.MainPageRequest
+import com.lagradost.cloudstream3.MovieLoadResponse
+import com.lagradost.cloudstream3.SearchResponse
+import com.lagradost.cloudstream3.SubtitleFile
+import com.lagradost.cloudstream3.TvSeriesLoadResponse
+import com.lagradost.cloudstream3.utils.ExtractorLink
+import java.lang.RuntimeException
+
+/**
+ * Simple and easy testing class for providers.
+ * Should really be expanded to be able to test all providers properly.
+ * @see testAll
+ */
+open class ProviderTester(private val provider: MainAPI) {
+    suspend fun testSearch(query: String, verbose: Boolean = false): List<SearchResponse> {
+        val responses = provider.search(query) ?: emptyList()
+        println("Response count: ${responses.size}, Query: $query")
+        printSearchResponses(responses, verbose)
+        return responses
+    }
+
+    private fun printSearchResponses(responses: List<SearchResponse>, verbose: Boolean) {
+        if (verbose) {
+            println("Responses:\n${responses.joinToString("\n")}")
+        } else {
+            println("Responses:\n${responses.map { it.name to it.url }.joinToString("\n")}")
+        }
+    }
+
+    suspend fun testMainPage(verbose: Boolean = false): List<HomePageResponse> {
+        if (!provider.hasMainPage) {
+            throw RuntimeException("Provider does not have a main page!")
+        }
+        val responses = provider.mainPage.map { request ->
+            provider.getMainPage(1, MainPageRequest(request.name, request.data, false))
+        }.ifEmpty { listOf(provider.getMainPage(1, MainPageRequest("", "", false))) }
+            .mapNotNull { it }
+
+        responses.map { it.items }.flatten().forEach {
+            println("Main page: ${it.name}, Item count: ${it.list.size}")
+            printSearchResponses(it.list, verbose)
+        }
+        return responses
+    }
+
+    suspend fun testLoad(url: String): LoadResponse? {
+        println("Loading response from: $url")
+        val response = provider.load(url)
+        println("Loaded response: $response")
+        return response
+    }
+
+    suspend fun testLoadLinks(data: String): Pair<List<ExtractorLink>, List<SubtitleFile>> {
+        val subtitles = mutableListOf<SubtitleFile>()
+        val links = mutableListOf<ExtractorLink>()
+        provider.loadLinks(data, false, { file ->
+            subtitles.add(file)
+        }, { link ->
+            links.add(link)
+        })
+
+        println("Links count: ${links.size}, Subtitles count: ${subtitles.size}")
+        println("Links: ${links.joinToString("\n")}")
+        println("Subtitles: ${subtitles.joinToString("\n")}")
+
+        return links to subtitles
+    }
+
+    /**
+     * Picks an item on the mainPage or searches for an item. Using the item it tries to load the page and all links from the first episode.
+     * @see testMainPage
+     * @see testSearch
+     * @see testLoad
+     * @see testLoadLinks
+     * @param query Query to use when searching, by default tries to use the first result from homepage.
+     * @param mainPageItemIndex Index of item on homepage to pick, by default the first item is picked.
+     * @param searchIndex Index of search result to pick if mainPage is not used.
+     * @param loadUrl Override url of item to load(), by default uses what search or homepage supplies.
+     * @param loadData Override the data supplied to loadLinks(), by default uses what load() was supplied with. See loadUrl.
+     **/
+    suspend fun testAll(
+        query: String? = null,
+        mainPageItemIndex: Int? = null,
+        searchIndex: Int? = null,
+        loadUrl: String? = null,
+        loadData: String? = null
+    ) {
+        val response = if (provider.hasMainPage) {
+            println("Testing Main Page: -------------------")
+            val mainPage = testMainPage()
+            val items = mainPage.flatMap { it.items }.flatMap { it.list }
+            val item = mainPageItemIndex?.let { items.getOrNull(it) } ?: items.first()
+            println("\n\nTesting Search: -------------------")
+
+            val searchResponses = testSearch(query ?: item.name)
+            assert(searchResponses.isNotEmpty())
+
+            item
+        } else if (query != null) {
+            println("Testing Search: -------------------")
+
+            val items = testSearch(query)
+            val item = searchIndex?.let { items.getOrNull(it) } ?: items.first()
+            item
+        } else {
+            throw RuntimeException("Cannot test everything without a query or a homepage")
+        }
+        println("\n\nTesting load: -------------------")
+
+        val url = loadUrl ?: response.url
+        val loadResponse = testLoad(url)
+        assert(loadResponse != null)
+        if (loadResponse!!.url != url) {
+            println("Testing bookmark functionality")
+            val secondResponse = testLoad(loadResponse.url)
+            assert(secondResponse != null)
+        }
+
+        val data = loadData ?: when (loadResponse) {
+            is AnimeLoadResponse -> {
+                loadResponse.episodes.values.first().first().data
+            }
+
+            is MovieLoadResponse -> {
+                loadResponse.dataUrl
+            }
+
+            is LiveStreamLoadResponse -> {
+                loadResponse.dataUrl
+            }
+
+            is TvSeriesLoadResponse -> {
+                loadResponse.episodes.first().data
+            }
+
+            else -> {
+                throw RuntimeException("Unknown load response: ${loadResponse::class.simpleName}")
+            }
+        }
+
+        println("\n\nTesting LoadLinks: -------------------")
+        val (links, subs) = testLoadLinks(data)
+    }
+}
+
+
+================================================
+FILE: gradle/libs.versions.toml
+================================================
+[versions]
+agp = "8.9.1"
+fuzzywuzzy = "1.4.0"
+jacksonModuleKotlin = "2.13.1"
+jsoup = "1.17.2"
+kotlin = "2.1.10"
+coreKtx = "1.16.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+kotlinxCoroutinesCore = "1.10.1"
+material = "1.12.0"
+jetbrainsKotlinJvm = "2.0.21"
+nicehttp = "0.4.11"
+rhino = "1.7.13"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+fuzzywuzzy = { module = "me.xdrop:fuzzywuzzy", version.ref = "fuzzywuzzy" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonModuleKotlin" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+niceHttp = { module = "com.github.Blatzar:NiceHttp", version.ref = "nicehttp" }
+rhino = { module = "org.mozilla:rhino", version.ref = "rhino" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
+
+
+
+================================================
+FILE: gradle/wrapper/gradle-wrapper.properties
+================================================
+#Wed Apr 16 01:12:44 EEST 2025
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+
+
