@@ -6,7 +6,7 @@ import { extractStreams } from "./extractors";
 import { CATALOG_MAP } from "./manifest";
 import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
 
-const BASE_URL = "https://gay.xtapes.in";
+const BASE_URL = "https://gay.xtapes.tw";
 const isDebug = () => process.env.DEBUG === "1";
 
 function fixUrl(url: string): string {
