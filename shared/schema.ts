@@ -21,7 +21,8 @@ export const stremioMetaSchema = z.object({
 export const stremioStreamSchema = z.object({
   name: z.string().optional(),
   title: z.string().optional(),
-  url: z.string(),
+  url: z.string().optional(),
+  externalUrl: z.string().optional(),
   behaviorHints: z.object({
     notWebReady: z.boolean().optional(),
     bingeGroup: z.string().optional(),

@@ -5,7 +5,8 @@ const isDebug = () => process.env.DEBUG === "1";
 
 export interface ExtractedStream {
   name: string;
-  url: string;
+  url?: string;
+  externalUrl?: string;
   quality?: string;
   referer?: string;
 }
@@ -31,6 +32,23 @@ function isStreamHost(url: string): boolean {
   }
 }
 
+function getHostLabel(url: string): string {
+  try {
+    const hostname = new URL(url).hostname;
+    if (hostname.includes("voe")) return "VOE";
+    if (hostname.includes("vinovo")) return "Vinovo";
+    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay")) return "DoodStream";
+    if (hostname.includes("streamtape") || hostname.includes("tapepops")) return "StreamTape";
+    if (hostname.includes("filemoon")) return "FileMoon";
+    if (hostname.includes("bigwarp") || hostname.includes("bgwp")) return "Bigwarp";
+    if (hostname.includes("vidoza")) return "Vidoza";
+    if (hostname.includes("mixdrop")) return "MixDrop";
+    return hostname;
+  } catch {
+    return "Unknown";
+  }
+}
+
 export async function extractNurgayStreams(pageUrl: string): Promise<ExtractedStream[]> {
   const streams: ExtractedStream[] = [];
 
@@ -38,43 +56,57 @@ export async function extractNurgayStreams(pageUrl: string): Promise<ExtractedSt
     const html = await fetchPage(pageUrl, { referer: "https://nurgay.to/" });
     const $ = cheerio.load(html);
 
+    const allEmbedUrls: { url: string; label: string }[] = [];
+
     const iframeSrc = $(".video-player iframe, .responsive-player iframe").attr("src");
     if (iframeSrc) {
       const fullSrc = iframeSrc.startsWith("//") ? `https:${iframeSrc}` : iframeSrc;
       if (isDebug()) console.log(`[Nurgay] Found iframe: ${fullSrc}`);
-      try {
-        const iframeStreams = await resolveEmbed(fullSrc, pageUrl);
-        streams.push(...iframeStreams);
-      } catch (err: any) {
-        if (isDebug()) console.error(`[Nurgay] Iframe extraction failed: ${err.message}`);
+      if (fullSrc.includes("listmirror")) {
+        try {
+          const listMirrorEmbeds = await getListMirrorEmbeds(fullSrc, pageUrl);
+          allEmbedUrls.push(...listMirrorEmbeds);
+        } catch (err: any) {
+          if (isDebug()) console.error(`[Nurgay] ListMirror parsing failed: ${err.message}`);
+          allEmbedUrls.push({ url: fullSrc, label: "ListMirror" });
+        }
+      } else {
+        allEmbedUrls.push({ url: fullSrc, label: getHostLabel(fullSrc) });
       }
     }
 
-    const mirrorUrls = new Set<string>();
-
     $("ul#mirrorMenu a.mirror-opt, a.dropdown-item.mirror-opt").each((_, el) => {
       const dataUrl = $(el).attr("data-url");
+      const label = $(el).text().trim();
       if (dataUrl && dataUrl !== "#" && dataUrl.trim()) {
-        mirrorUrls.add(dataUrl.startsWith("//") ? `https:${dataUrl}` : dataUrl);
+        const fullUrl = dataUrl.startsWith("//") ? `https:${dataUrl}` : dataUrl;
+        if (!allEmbedUrls.some(e => e.url === fullUrl)) {
+          allEmbedUrls.push({ url: fullUrl, label: label || getHostLabel(fullUrl) });
+        }
       }
     });
 
     $(".notranslate a[href], .entry-content a[href]").each((_, el) => {
       const href = $(el).attr("href");
       if (href && isStreamHost(href)) {
-        mirrorUrls.add(href);
+        if (!allEmbedUrls.some(e => e.url === href)) {
+          allEmbedUrls.push({ url: href, label: getHostLabel(href) });
+        }
       }
     });
 
-    if (isDebug()) console.log(`[Nurgay] Found ${mirrorUrls.size} mirror URLs`);
+    if (isDebug()) console.log(`[Nurgay] Found ${allEmbedUrls.length} embed URLs:`, allEmbedUrls.map(e => `${e.label}: ${e.url}`));
 
-    const embedPromises = Array.from(mirrorUrls).map(async (mirrorUrl) => {
+    const embedPromises = allEmbedUrls.map(async (embed) => {
       try {
-        const resolved = await resolveEmbed(mirrorUrl, pageUrl);
-        return resolved;
+        const resolved = await resolveEmbed(embed.url, pageUrl);
+        if (resolved.length > 0) {
+          return resolved;
+        }
+        return [{ name: `${embed.label} (Browser)`, externalUrl: embed.url }];
       } catch (err: any) {
-        if (isDebug()) console.error(`[Nurgay] Mirror ${mirrorUrl} failed: ${err.message}`);
-        return [];
+        if (isDebug()) console.error(`[Nurgay] Embed ${embed.url} failed: ${err.message}`);
+        return [{ name: `${embed.label} (Browser)`, externalUrl: embed.url }];
       }
     });
 
@@ -90,18 +122,81 @@ export async function extractNurgayStreams(pageUrl: string): Promise<ExtractedSt
 
   const unique = new Map<string, ExtractedStream>();
   for (const s of streams) {
-    if (!unique.has(s.url)) {
-      unique.set(s.url, s);
+    const key = s.url || s.externalUrl || s.name;
+    if (!unique.has(key)) {
+      unique.set(key, s);
     }
   }
 
   return Array.from(unique.values());
 }
 
+async function getListMirrorEmbeds(url: string, referer: string): Promise<{ url: string; label: string }[]> {
+  const embeds: { url: string; label: string }[] = [];
+  try {
+    const html = await fetchPage(url, { referer: referer || "https://nurgay.to/" });
+    const $ = cheerio.load(html);
+
+    $("a.mirror-opt, .dropdown-item.mirror-opt").each((_, el) => {
+      const dataUrl = $(el).attr("data-url");
+      const label = $(el).text().trim();
+      if (dataUrl && dataUrl !== "#" && dataUrl.trim()) {
+        embeds.push({
+          url: dataUrl.startsWith("//") ? `https:${dataUrl}` : dataUrl,
+          label: label || getHostLabel(dataUrl),
+        });
+      }
+    });
+
+    if (embeds.length === 0) {
+      const iframeSrc = $("iframe.mirror-iframe, iframe").attr("src");
+      if (iframeSrc && iframeSrc !== url) {
+        const fullSrc = iframeSrc.startsWith("//") ? `https:${iframeSrc}` : iframeSrc;
+        embeds.push({ url: fullSrc, label: getHostLabel(fullSrc) });
+      }
+    }
+
+    if (embeds.length === 0) {
+      const sourcesMatch = html.match(/(?:const\s+)?sources\s*=\s*(\[[\s\S]*?\])\s*;/);
+      if (sourcesMatch) {
+        const urlRegex = /"url"\s*:\s*"([^"]+)"/g;
+        let m;
+        while ((m = urlRegex.exec(sourcesMatch[1])) !== null) {
+          embeds.push({ url: m[1], label: getHostLabel(m[1]) });
+        }
+      }
+    }
+  } catch (err: any) {
+    if (isDebug()) console.error("[ListMirror] Parse error:", err.message);
+  }
+  return embeds;
+}
+
 async function resolveEmbed(embedUrl: string, referer: string): Promise<ExtractedStream[]> {
   const url = embedUrl.startsWith("//") ? `https:${embedUrl}` : embedUrl;
   const hostname = new URL(url).hostname;
 
+  if (hostname.includes("listmirror")) {
+    const embeds = await getListMirrorEmbeds(url, referer);
+    const streams: ExtractedStream[] = [];
+    for (const embed of embeds) {
+      try {
+        const resolved = await resolveEmbed(embed.url, referer);
+        if (resolved.length > 0) {
+          streams.push(...resolved);
+        } else {
+          streams.push({ name: `${embed.label} (Browser)`, externalUrl: embed.url });
+        }
+      } catch {
+        streams.push({ name: `${embed.label} (Browser)`, externalUrl: embed.url });
+      }
+    }
+    return streams;
+  }
+
+  if (hostname.includes("vidoza")) {
+    return extractVidoza(url, referer);
+  }
   if (hostname.includes("voe.sx") || hostname.includes("voe.to") || hostname.includes("jilliandescribecompany.com") || hostname.includes("markstylecompany.com") || hostname.includes("primaryclassaliede.com")) {
     return extractVoe(url, referer);
   }
@@ -117,14 +212,8 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   if (hostname.includes("bigwarp") || hostname.includes("bgwp")) {
     return extractBigwarp(url);
   }
-  if (hostname.includes("listmirror")) {
-    return extractListMirror(url, referer);
-  }
   if (hostname.includes("filemoon")) {
     return extractFilemoon(url);
-  }
-  if (hostname.includes("vidoza")) {
-    return extractVidoza(url, referer);
   }
 
   return extractGeneric(url);
@@ -134,7 +223,7 @@ async function extractVoe(url: string, referer?: string): Promise<ExtractedStrea
   const streams: ExtractedStream[] = [];
   try {
     const hostname = new URL(url).hostname;
-    const label = hostname.includes("vinovo") ? "Vinovo" : "Voe";
+    const label = hostname.includes("vinovo") ? "Vinovo" : "VOE";
 
     const html = await fetchPage(url, { referer: referer || url });
 
@@ -172,7 +261,7 @@ async function extractVoe(url: string, referer?: string): Promise<ExtractedStrea
       }
     }
   } catch (err: any) {
-    if (isDebug()) console.error("[Voe] Extraction error:", err.message);
+    if (isDebug()) console.error(`[Voe] Extraction error: ${err.message}`);
   }
   return streams;
 }
@@ -301,15 +390,26 @@ async function extractVidoza(url: string, referer?: string): Promise<ExtractedSt
   try {
     const html = await fetchPage(url, { referer: referer || url });
 
-    const sourceMatch = html.match(/sourcesCode\s*=\s*(\[[\s\S]*?\])\s*;/);
+    const sourceMatch = html.match(/sourcesCode\s*[:=]\s*(\[[\s\S]*?\])\s*[;,]/);
     if (sourceMatch) {
       const srcRegex = /src:\s*["']([^"']+)["']/g;
+      const resRegex = /res:\s*["']?(\d+)["']?/g;
       let m;
+      const srcs: string[] = [];
       while ((m = srcRegex.exec(sourceMatch[1])) !== null) {
+        srcs.push(m[1]);
+      }
+      const ress: string[] = [];
+      while ((m = resRegex.exec(sourceMatch[1])) !== null) {
+        ress.push(m[1]);
+      }
+      for (let i = 0; i < srcs.length; i++) {
+        const quality = ress[i] ? `${ress[i]}p` : undefined;
         streams.push({
-          name: "Vidoza",
-          url: m[1],
-          referer: url,
+          name: `Vidoza${quality ? ` ${quality}` : ""}`,
+          url: srcs[i],
+          quality,
+          referer: "https://vidoza.net/",
         });
       }
     }
@@ -322,7 +422,7 @@ async function extractVidoza(url: string, referer?: string): Promise<ExtractedSt
           streams.push({
             name: "Vidoza",
             url: m[1],
-            referer: url,
+            referer: "https://vidoza.net/",
           });
         }
       }
@@ -334,7 +434,7 @@ async function extractVidoza(url: string, referer?: string): Promise<ExtractedSt
         streams.push({
           name: "Vidoza",
           url: fileMatch[1],
-          referer: url,
+          referer: "https://vidoza.net/",
         });
       }
     }
@@ -345,88 +445,12 @@ async function extractVidoza(url: string, referer?: string): Promise<ExtractedSt
         streams.push({
           name: "Vidoza",
           url: mp4Match[0],
-          referer: url,
+          referer: "https://vidoza.net/",
         });
       }
     }
   } catch (err: any) {
     if (isDebug()) console.error("[Vidoza] Extraction error:", err.message);
-  }
-  return streams;
-}
-
-async function extractListMirror(url: string, referer: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
-  try {
-    const html = await fetchPage(url, { referer: referer || "https://nurgay.to/" });
-    const $ = cheerio.load(html);
-
-    const mirrorUrls: string[] = [];
-    $("a.mirror-opt, .dropdown-item.mirror-opt").each((_, el) => {
-      const dataUrl = $(el).attr("data-url");
-      if (dataUrl && dataUrl !== "#" && dataUrl.trim()) {
-        mirrorUrls.push(dataUrl.startsWith("//") ? `https:${dataUrl}` : dataUrl);
-      }
-    });
-
-    if (mirrorUrls.length > 0) {
-      if (isDebug()) console.log(`[ListMirror] Found ${mirrorUrls.length} mirrors from dropdown:`, mirrorUrls);
-      const embedPromises = mirrorUrls.map(async (mirrorUrl) => {
-        try {
-          return await resolveEmbed(mirrorUrl, referer);
-        } catch (err: any) {
-          if (isDebug()) console.error(`[ListMirror] Mirror ${mirrorUrl} failed: ${err.message}`);
-          return [];
-        }
-      });
-      const results = await Promise.allSettled(embedPromises);
-      for (const result of results) {
-        if (result.status === "fulfilled") {
-          streams.push(...result.value);
-        }
-      }
-    }
-
-    if (streams.length === 0) {
-      const sourcesMatch = html.match(/(?:const\s+)?sources\s*=\s*(\[[\s\S]*?\])\s*;/);
-      if (sourcesMatch) {
-        if (isDebug()) console.log(`[ListMirror] Found sources JS array`);
-        const jsonStr = sourcesMatch[1].replace(/'/g, '"');
-        try {
-          const sources = JSON.parse(jsonStr);
-          for (const source of sources) {
-            if (source.url) {
-              try {
-                const resolved = await resolveEmbed(source.url, referer);
-                streams.push(...resolved);
-              } catch {}
-            }
-          }
-        } catch {
-          const urlRegex = /"url"\s*:\s*"([^"]+)"/g;
-          let m;
-          while ((m = urlRegex.exec(sourcesMatch[1])) !== null) {
-            try {
-              const resolved = await resolveEmbed(m[1], referer);
-              streams.push(...resolved);
-            } catch {}
-          }
-        }
-      }
-    }
-
-    if (streams.length === 0) {
-      const iframeSrc = $("iframe.mirror-iframe, iframe").attr("src");
-      if (iframeSrc && iframeSrc !== url) {
-        const fullSrc = iframeSrc.startsWith("//") ? `https:${iframeSrc}` : iframeSrc;
-        try {
-          const resolved = await resolveEmbed(fullSrc, referer);
-          streams.push(...resolved);
-        } catch {}
-      }
-    }
-  } catch (err: any) {
-    if (isDebug()) console.error("[ListMirror] Extraction error:", err.message);
   }
   return streams;
 }

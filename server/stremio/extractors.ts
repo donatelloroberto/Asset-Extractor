@@ -95,7 +95,7 @@ async function extractGXtapes(url: string): Promise<ExtractedStream[]> {
     if (linksMatch) {
       try {
         const linksContent = linksMatch[1];
-        const urlPairs = linksContent.matchAll(/"([^"]+)"\s*:\s*"([^"]+)"/g);
+        const urlPairs = Array.from(linksContent.matchAll(/"([^"]+)"\s*:\s*"([^"]+)"/g));
         for (const pair of urlPairs) {
           const quality = pair[1];
           let streamUrl = pair[2];

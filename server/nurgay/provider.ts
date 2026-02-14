@@ -153,16 +153,20 @@ export async function getNurgayMeta(id: string): Promise<StremioMeta | null> {
 }
 
 export async function getNurgayStreams(id: string): Promise<StremioStream[]> {
-  const cacheKey = `nurgay-stream:${id}`;
-  const cached = getCached<StremioStream[]>("stream", cacheKey);
-  if (cached) return cached;
-
   try {
     const url = extractUrl(id);
     if (isDebug()) console.log(`[Nurgay] Getting streams for: ${url}`);
 
     const extracted = await extractNurgayStreams(url);
     const streams: StremioStream[] = extracted.map(s => {
+      if (s.externalUrl && !s.url) {
+        return {
+          name: s.name,
+          title: `${s.name} - Open in Browser`,
+          externalUrl: s.externalUrl,
+        };
+      }
+
       const hints: any = { notWebReady: true };
       if (s.referer) {
         hints.proxyHeaders = { request: { Referer: s.referer } };
@@ -175,9 +179,6 @@ export async function getNurgayStreams(id: string): Promise<StremioStream[]> {
       };
     });
 
-    if (streams.length > 0) {
-      setCached("stream", cacheKey, streams);
-    }
     return streams;
   } catch (err: any) {
     if (isDebug()) console.error(`[Nurgay] Stream error:`, err.message);
