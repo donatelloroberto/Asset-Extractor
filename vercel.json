@@ -2,19 +2,16 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
+  "routes": [
+    { "src": "^/api/(.*)$", "dest": "/api/[...path]" },
 
-    { "source": "/health", "destination": "/api/health" },
-    { "source": "/manifest.json", "destination": "/api/manifest.json" },
+    { "src": "^/health$", "dest": "/api/[...path]" },
+    { "src": "^/manifest\\.json$", "dest": "/api/[...path]" },
+    { "src": "^/(catalog|meta|stream|proxy)/(.*)$", "dest": "/api/[...path]" },
 
-    { "source": "/catalog/(.*)", "destination": "/api/catalog/$1" },
-    { "source": "/meta/(.*)", "destination": "/api/meta/$1" },
-    { "source": "/stream/(.*)", "destination": "/api/stream/$1" },
-    { "source": "/proxy/(.*)", "destination": "/api/proxy/$1" },
+    { "src": "^/(gx|nurgay|fxggxt|justthegays|besthdgayporn|boyfriendtv|gaycock4u|gaystream)/(.*)$", "dest": "/api/[...path]" },
 
-    { "source": "/(gx|nurgay|fxggxt|justthegays|besthdgayporn|boyfriendtv|gaycock4u|gaystream)/(.*)", "destination": "/api/$1/$2" },
-
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "handle": "filesystem" },
+    { "src": "^(.*)$", "dest": "/index.html" }
   ]
 }
