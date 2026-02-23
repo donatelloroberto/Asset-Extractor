@@ -1,28 +1,18 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/[...path].ts", "use": "@vercel/node" },
-    { "src": "dist/public/**", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "^/(health)$", "dest": "/api/health" },
-    { "src": "^/(manifest\\.json)$", "dest": "/api/manifest.json" },
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/public",
+  "functions": {
+    "api/[...path].ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
 
-    { "src": "^/(catalog/.*)$", "dest": "/api/$1" },
-    { "src": "^/(meta/.*)$", "dest": "/api/$1" },
-    { "src": "^/(stream/.*)$", "dest": "/api/$1" },
+    { "source": "/manifest.json", "destination": "/api/manifest.json" },
+    { "source": "/(gx|nurgay|fxggxt|justthegays|besthdgayporn|boyfriendtv|gaycock4u|gaystream)/(.*)", "destination": "/api/$1/$2" },
 
-    { "src": "^/(nurgay/.*)$", "dest": "/api/$1" },
-    { "src": "^/(fxggxt/.*)$", "dest": "/api/$1" },
-    { "src": "^/(justthegays/.*)$", "dest": "/api/$1" },
-    { "src": "^/(besthdgayporn/.*)$", "dest": "/api/$1" },
-    { "src": "^/(boyfriendtv/.*)$", "dest": "/api/$1" },
-    { "src": "^/(gaycock4u/.*)$", "dest": "/api/$1" },
-    { "src": "^/(gaystream/.*)$", "dest": "/api/$1" },
-
-    { "src": "^/api/(.*)$", "dest": "/api/$1" },
-
-    { "handle": "filesystem" },
-    { "src": "^(.*)$", "dest": "/dist/public/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
