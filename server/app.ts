@@ -39,7 +39,16 @@ export async function buildApp() {
       const duration = Date.now() - start;
       if (path.startsWith("/api") || path.endsWith(".json") || path === "/health") {
         let line = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-        if (capturedJsonResponse) line += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+        
+        if (capturedJsonResponse) {
+          // Fix: Truncate large payloads to prevent log bloat and memory lockups
+          let logString = JSON.stringify(capturedJsonResponse);
+          if (logString.length > 500) {
+            logString = logString.substring(0, 500) + "... [truncated]";
+          }
+          line += ` :: ${logString}`;
+        }
+        
         log(line);
       }
     });
@@ -47,12 +56,13 @@ export async function buildApp() {
     next();
   });
 
-  await registerRoutes(app);
-
-  // Health check (useful for Vercel + uptime monitors)
+  // Fix: Health check moved UP to ensure it bypasses catch-all routes
+  // (useful for Vercel + uptime monitors)
   app.get("/health", (_req, res) => {
     res.status(200).json({ ok: true });
   });
+
+  await registerRoutes(app);
 
   // Error handler
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
