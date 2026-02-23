@@ -49,6 +49,11 @@ interface CatalogsResponse {
   gxtapes: CatalogEntry[];
   nurgay: CatalogEntry[];
   fxggxt: CatalogEntry[];
+  justthegays: CatalogEntry[];
+  besthdgayporn: CatalogEntry[];
+  boyfriendtv: CatalogEntry[];
+  gaycock4u: CatalogEntry[];
+  gaystream: CatalogEntry[];
 }
 
 function formatUptime(seconds: number): string {
@@ -98,7 +103,7 @@ export default function Dashboard() {
                 Stremio Add-ons Dashboard
               </h1>
               <p className="text-muted-foreground text-sm">
-                GXtapes + Nurgay + Fxggxt - Cloudstream 3 extensions converted to Stremio add-ons
+                8 Cloudstream 3 extensions converted to Stremio add-ons
               </p>
             </div>
           </div>
@@ -337,8 +342,21 @@ export default function Dashboard() {
   );
 }
 
+type AddonKey = "gxtapes" | "nurgay" | "fxggxt" | "justthegays" | "besthdgayporn" | "boyfriendtv" | "gaycock4u" | "gaystream";
+
+const ADDON_LABELS: Record<AddonKey, string> = {
+  gxtapes: "GXtapes",
+  nurgay: "Nurgay",
+  fxggxt: "Fxggxt",
+  justthegays: "Justthegays",
+  besthdgayporn: "BestHDgayporn",
+  boyfriendtv: "BoyfriendTV",
+  gaycock4u: "Gaycock4U",
+  gaystream: "GayStream",
+};
+
 function CatalogList({ baseUrl }: { baseUrl: string }) {
-  const [activeTab, setActiveTab] = useState<"gxtapes" | "nurgay" | "fxggxt">("gxtapes");
+  const [activeTab, setActiveTab] = useState<AddonKey>("gxtapes");
 
   const { data: catalogs, isLoading } = useQuery<CatalogsResponse>({
     queryKey: ["/api/catalogs"],
@@ -362,7 +380,8 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
     return null;
   }
 
-  const activeCatalogs = activeTab === "gxtapes" ? catalogs.gxtapes : activeTab === "nurgay" ? catalogs.nurgay : catalogs.fxggxt;
+  const activeCatalogs = catalogs[activeTab] || [];
+  const addonKeys = Object.keys(ADDON_LABELS) as AddonKey[];
 
   return (
     <Card>
@@ -371,34 +390,21 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
         <Layers className="w-4 h-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex gap-2">
-          <Button
-            variant={activeTab === "gxtapes" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setActiveTab("gxtapes")}
-            data-testid="button-tab-gxtapes"
-          >
-            GXtapes ({catalogs.gxtapes?.length || 0})
-          </Button>
-          <Button
-            variant={activeTab === "nurgay" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setActiveTab("nurgay")}
-            data-testid="button-tab-nurgay"
-          >
-            Nurgay ({catalogs.nurgay?.length || 0})
-          </Button>
-          <Button
-            variant={activeTab === "fxggxt" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setActiveTab("fxggxt")}
-            data-testid="button-tab-fxggxt"
-          >
-            Fxggxt ({catalogs.fxggxt?.length || 0})
-          </Button>
+        <div className="flex gap-2 flex-wrap">
+          {addonKeys.map((key) => (
+            <Button
+              key={key}
+              variant={activeTab === key ? "default" : "outline"}
+              size="sm"
+              onClick={() => setActiveTab(key)}
+              data-testid={`button-tab-${key}`}
+            >
+              {ADDON_LABELS[key]} ({catalogs[key]?.length || 0})
+            </Button>
+          ))}
         </div>
 
-        {activeCatalogs && activeCatalogs.length > 0 ? (
+        {activeCatalogs.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {activeCatalogs.map((cat) => (
               <div
