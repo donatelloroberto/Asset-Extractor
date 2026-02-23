@@ -794,8 +794,27 @@ export async function registerRoutes(app: Express): Promise<void> {
       const streamUrl = req.query.url as string;
       const referer = req.query.referer as string || "";
 
+      // FIX: Added SSRF (Server-Side Request Forgery) protection
+      // Validates that a URL is provided, has a valid HTTP/HTTPS protocol, 
+      // and isn't pointing to a local/internal network address.
       if (!streamUrl) {
         return res.status(400).json({ error: "Missing url parameter" });
+      }
+
+      let parsedUrl: URL;
+      try {
+        parsedUrl = new URL(streamUrl);
+        if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
+          return res.status(400).json({ error: "Invalid protocol. Only HTTP/HTTPS allowed." });
+        }
+        
+        // Block requests to localhost or local IPs to protect your server
+        const forbiddenHosts = ['localhost', '127.0.0.1', '0.0.0.0', '::1'];
+        if (forbiddenHosts.includes(parsedUrl.hostname)) {
+          return res.status(403).json({ error: "Forbidden network target" });
+        }
+      } catch (e) {
+        return res.status(400).json({ error: "Invalid URL format" });
       }
 
       log(`Proxy stream: ${streamUrl}`, "stremio");
