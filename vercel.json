@@ -3,14 +3,19 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
   "functions": {
-    "api/[...path].ts": {
-      "runtime": "nodejs20.x"
-    }
+    "api/[...path].ts": { "runtime": "nodejs20.x" }
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
 
+    { "source": "/health", "destination": "/api/health" },
     { "source": "/manifest.json", "destination": "/api/manifest.json" },
+
+    { "source": "/catalog/(.*)", "destination": "/api/catalog/$1" },
+    { "source": "/meta/(.*)", "destination": "/api/meta/$1" },
+    { "source": "/stream/(.*)", "destination": "/api/stream/$1" },
+    { "source": "/proxy/(.*)", "destination": "/api/proxy/$1" },
+
     { "source": "/(gx|nurgay|fxggxt|justthegays|besthdgayporn|boyfriendtv|gaycock4u|gaystream)/(.*)", "destination": "/api/$1/$2" },
 
     { "source": "/(.*)", "destination": "/index.html" }
