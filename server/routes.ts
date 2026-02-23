@@ -1,5 +1,4 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import axios from "axios";
 import { buildManifest } from "./stremio/manifest";
 import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider";
@@ -18,7 +17,7 @@ import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGayco
 import { buildGaystreamManifest } from "./gaystream/manifest";
 import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider";
 import { getCacheStats, clearAllCaches } from "./stremio/cache";
-import { log } from "./index";
+import { log } from "./logger";
 
 const startTime = Date.now();
 
@@ -92,10 +91,7 @@ function isGaystreamCatalog(id: string): boolean {
   return id.startsWith("gaystream-");
 }
 
-export async function registerRoutes(
-  httpServer: Server,
-  app: Express
-): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<void> {
   app.use((_req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "*");
@@ -979,5 +975,5 @@ export async function registerRoutes(
     res.json({ success: true });
   });
 
-  return httpServer;
+  return;
 }
