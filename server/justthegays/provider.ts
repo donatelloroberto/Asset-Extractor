@@ -18,11 +18,13 @@ function fixUrl(url: string): string {
 
 function parseArticles($: cheerio.CheerioAPI): CatalogItem[] {
   const items: CatalogItem[] = [];
-  $("div.col-xl-4").each((_, el) => {
+  $("article.video, article.type-video").each((_, el) => {
     const $el = $(el);
     const title = $el.find("h3.post-title a").text().trim();
-    const href = $el.find("div.item-img a").attr("href");
-    const poster = $el.find("div.item-img img").attr("src");
+    const href = $el.find("div.item-img a").first().attr("href")
+      || $el.find("h3.post-title a").attr("href");
+    const poster = $el.find("div.item-img img").attr("src")
+      || $el.find("img.wp-post-image").attr("src");
 
     if (href && title) {
       const fullUrl = fixUrl(href);

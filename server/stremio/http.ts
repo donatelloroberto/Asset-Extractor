@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import https from "https";
+import vm from "vm";
 
 const insecureAgent = new https.Agent({
   rejectUnauthorized: false,
@@ -67,8 +68,36 @@ export async function fetchPage(url: string, options: {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       if (isDebug()) console.log(`[HTTP] GET ${url} (attempt ${attempt})`);
-      const response: AxiosResponse = await axios.get(url, config);
-      return response.data;
+
+      const probeConfig = { ...config, maxRedirects: 0, validateStatus: () => true };
+      const probeResponse: AxiosResponse = await axios.get(url, probeConfig);
+      const probeHtml = typeof probeResponse.data === "string" ? probeResponse.data : String(probeResponse.data);
+
+      const sucuriCookie = solveSucuriChallenge(probeHtml);
+      if (sucuriCookie) {
+        if (isDebug()) console.log(`[HTTP] Sucuri challenge detected (status ${probeResponse.status}), solving...`);
+        const existingCookies = (config.headers?.Cookie as string) || "";
+        const newConfig = {
+          ...config,
+          headers: {
+            ...config.headers,
+            Cookie: existingCookies ? `${existingCookies}; ${sucuriCookie}` : sucuriCookie,
+          },
+        };
+        const retryResponse: AxiosResponse = await axios.get(url, newConfig);
+        return typeof retryResponse.data === "string" ? retryResponse.data : String(retryResponse.data);
+      }
+
+      if (probeResponse.status >= 300 && probeResponse.status < 400) {
+        const response: AxiosResponse = await axios.get(url, config);
+        return typeof response.data === "string" ? response.data : String(response.data);
+      }
+
+      if (probeResponse.status >= 400) {
+        throw new Error(`HTTP ${probeResponse.status} for ${url}`);
+      }
+
+      return probeHtml;
     } catch (err: any) {
       if (isDebug()) console.error(`[HTTP] Error on attempt ${attempt}:`, err.message);
       if (attempt === maxRetries) {
@@ -79,6 +108,44 @@ export async function fetchPage(url: string, options: {
   }
 
   throw new Error(`Unreachable`);
+}
+
+function solveSucuriChallenge(html: string): string | null {
+  if (!html.includes("sucuri_cloudproxy_js")) return null;
+
+  try {
+    const sMatch = html.match(/sucuri_cloudproxy_js='',S='([^']+)'/);
+    if (!sMatch) return null;
+
+    const encoded = sMatch[1];
+    const decoded = Buffer.from(encoded, "base64").toString("utf-8");
+
+    const cookieResult: { name: string; value: string } = { name: "", value: "" };
+
+    const sandbox = {
+      String: String,
+      document: {
+        cookie: "",
+        set cookie(val: string) {
+          cookieResult.name = val.split("=")[0];
+          cookieResult.value = val.split(";")[0];
+        },
+      },
+      location: { reload: () => {} },
+    };
+
+    vm.createContext(sandbox);
+    vm.runInContext(decoded, sandbox, { timeout: 2000 });
+
+    if (cookieResult.value) {
+      if (isDebug()) console.log(`[HTTP] Sucuri cookie solved: ${cookieResult.value.substring(0, 30)}...`);
+      return cookieResult.value;
+    }
+  } catch (err: any) {
+    if (isDebug()) console.error(`[HTTP] Sucuri challenge solving failed: ${err.message}`);
+  }
+
+  return null;
 }
 
 export async function fetchText(url: string, options: {

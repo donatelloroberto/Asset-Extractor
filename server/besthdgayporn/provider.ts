@@ -20,9 +20,13 @@ function parseItems($: cheerio.CheerioAPI): CatalogItem[] {
   const items: CatalogItem[] = [];
   $("div.aiovg-item-video").each((_, el) => {
     const $el = $(el);
-    const title = $el.find(".aiovg-link-title").text().trim();
-    const href = $el.find("a").first().attr("href");
-    const poster = $el.find("img").attr("src");
+    const title = $el.find("a.aiovg-link-title").text().trim()
+      || $el.find(".aiovg-link-title").text().trim();
+    const href = $el.find("a.aiovg-responsive-container").attr("href")
+      || $el.find("a.aiovg-link-title").attr("href")
+      || $el.find("a").first().attr("href");
+    const poster = $el.find("img.aiovg-responsive-element").attr("src")
+      || $el.find("img").attr("src");
 
     if (href && title) {
       const fullUrl = fixUrl(href);
