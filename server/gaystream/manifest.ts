@@ -1,23 +1,23 @@
 import type { StremioManifest } from "../stremio/manifest";
 
 export const GAYSTREAM_CATALOG_MAP: Record<string, { path: string; name: string }> = {
-  "gaystream-latest": { path: "/", name: "Latest" },
-  "gaystream-4k": { path: "/video/category/4k", name: "4K" },
-  "gaystream-anal": { path: "/video/category/anal", name: "Anal" },
-  "gaystream-asian": { path: "/video/category/asian", name: "Asian" },
-  "gaystream-dp": { path: "/video/category/dp", name: "DP" },
-  "gaystream-group": { path: "/video/category/group", name: "Group" },
-  "gaystream-homemade": { path: "/video/category/homemade", name: "Homemade" },
-  "gaystream-hunk": { path: "/video/category/hunk", name: "Hunk" },
-  "gaystream-interracial": { path: "/video/category/interracial", name: "Interracial" },
-  "gaystream-latino": { path: "/video/category/latino", name: "Latino" },
-  "gaystream-mature": { path: "/video/category/mature", name: "Mature" },
-  "gaystream-muscle": { path: "/video/category/muscle", name: "Muscle" },
-  "gaystream-promotion": { path: "/video/category/promotion", name: "Promotion" },
-  "gaystream-threesome": { path: "/video/category/threesome", name: "Threesome" },
-  "gaystream-uniforms": { path: "/video/category/uniforms", name: "Uniforms" },
-  "gaystream-betabetapi": { path: "/video/channel/betabetapi", name: "Beta Beta Pi" },
-  "gaystream-caninolatino": { path: "/video/channel/caninolatino", name: "Canino Latino" },
+ "gaystream-latest": { path: "/", name: "GStream-Latest" },
+  "gaystream-4k": { path: "/video/category/4k", name: "GStream-4K" },
+  "gaystream-anal": { path: "/video/category/anal", name: "GStream-Anal" },
+  "gaystream-asian": { path: "/video/category/asian", name: "GStream-Asian" },
+  "gaystream-dp": { path: "/video/category/dp", name: "GStream-DP" },
+  "gaystream-group": { path: "/video/category/group", name: "GStream-Group" },
+  "gaystream-homemade": { path: "/video/category/homemade", name: "GStream-Homemade" },
+  "gaystream-hunk": { path: "/video/category/hunk", name: "GStream-Hunk" },
+  "gaystream-interracial": { path: "/video/category/interracial", name: "GStream-Interracial" },
+  "gaystream-latino": { path: "/video/category/latino", name: "GStream-Latino" },
+  "gaystream-mature": { path: "/video/category/mature", name: "GStream-Mature" },
+  "gaystream-muscle": { path: "/video/category/muscle", name: "GStream-Muscle" },
+  "gaystream-promotion": { path: "/video/category/promotion", name: "GStream-Promotion" },
+  "gaystream-threesome": { path: "/video/category/threesome", name: "GStream-Threesome" },
+  "gaystream-uniforms": { path: "/video/category/uniforms", name: "GStream-Uniforms" },
+  "gaystream-betabetapi": { path: "/video/channel/betabetapi", name: "GStream-Beta Beta Pi" },
+  "gaystream-caninolatino": { path: "/video/channel/caninolatino", name: "GStream-Canino Latino" }
 };
 
 export function buildGaystreamManifest(): StremioManifest {
