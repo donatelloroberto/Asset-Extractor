@@ -1,19 +1,16 @@
 import type { StremioManifest } from "../stremio/manifest";
 
 export const BOYFRIENDTV_CATALOG_MAP: Record<string, { path: string; name: string; isQuery?: boolean }> = {
-  "boyfriendtv-trending": { path: "/", name: "Trending" },
+  "boyfriendtv-trending": { path: "/", name: "BFTV-Trending" },
   "boyfriendtv-newest": { path: "/?filter_quality=hd&s=&sort=newest", name: "Newest", isQuery: true },
-  "boyfriendtv-popular": { path: "/?filter_quality=hd&s=&sort=most-popular", name: "Most Popular", isQuery: true },
-  "boyfriendtv-vietnamese": { path: "/search/?q=Vietnamese", name: "Vietnamese", isQuery: true },
-  "boyfriendtv-asian": { path: "/search/?q=asian&hot=", name: "Asian", isQuery: true },
-  "boyfriendtv-chinese": { path: "/search/?q=chinese&hot=&quality=hd", name: "Chinese", isQuery: true },
-  "boyfriendtv-brazilian": { path: "/tags/brazilian/?filter_quality=hd", name: "Brazilian" },
-  "boyfriendtv-gangbang": { path: "/tags/gangbang/?filter_quality=hd", name: "Gangbang" },
-  "boyfriendtv-latinos": { path: "/tags/latinos/?filter_quality=hd", name: "Latinos" },
-  "boyfriendtv-facedown": { path: "/search/?q=facedownassup&quality=hd", name: "Face Down Ass Up", isQuery: true },
-  "boyfriendtv-sketchysex": { path: "/search/?q=sketchysex&quality=hd", name: "Sketchy Sex", isQuery: true },
-  "boyfriendtv-fraternity": { path: "/search/?q=fraternity&quality=hd", name: "Fraternity X", isQuery: true },
-  "boyfriendtv-slamrush": { path: "/search/?q=slamrush", name: "Slam Rush", isQuery: true },
+  "boyfriendtv-popular": { path: "/?filter_quality=hd&s=&sort=most-popular", name: "BFTV-Most Popular", isQuery: true },
+  "boyfriendtv-brazilian": { path: "/tags/brazilian/?filter_quality=hd", name: "BFTV-Brazilian" },
+  "boyfriendtv-gangbang": { path: "/tags/gangbang/?filter_quality=hd", name: "BFTV-Gangbang" },
+  "boyfriendtv-latinos": { path: "/tags/latinos/?filter_quality=hd", name: "BFTV-Latinos" },
+  "boyfriendtv-facedown": { path: "/search/?q=facedownassup&quality=hd", name: "BFTV-Face Down Ass Up", isQuery: true },
+  "boyfriendtv-sketchysex": { path: "/search/?q=sketchysex&quality=hd", name: "BFTV-Sketchy Sex", isQuery: true },
+  "boyfriendtv-fraternity": { path: "/search/?q=fraternity&quality=hd", name: "BFTV-Fraternity X", isQuery: true },
+  "boyfriendtv-slamrush": { path: "/search/?q=slamrush", name: "BFTV-Slam Rush", isQuery: true },
 };
 
 export function buildBoyfriendtvManifest(): StremioManifest {
