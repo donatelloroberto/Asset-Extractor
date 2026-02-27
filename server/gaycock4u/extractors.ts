@@ -15,7 +15,7 @@ function getHostLabel(url: string): string {
   try {
     const hostname = new URL(url).hostname;
     if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) return "VOE";
-    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay")) return "DoodStream";
+    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) return "DoodStream";
     if (hostname.includes("streamtape") || hostname.includes("tapepops")) return "StreamTape";
     if (hostname.includes("filemoon")) return "FileMoon";
     if (hostname.includes("mixdrop")) return "MixDrop";
@@ -33,15 +33,35 @@ export async function extractGaycock4uStreams(pageUrl: string): Promise<Extracte
     const $ = cheerio.load(html);
 
     const iframeSrcs: string[] = [];
-    $("iframe[src], iframe[data-src]").each((_, el) => {
-      const src = $(el).attr("src") || $(el).attr("data-src");
-      if (src) {
+    $("iframe[src], iframe[data-src], iframe[data-lazy-src]").each((_, el) => {
+      const src = $(el).attr("data-lazy-src") || $(el).attr("data-src") || $(el).attr("src");
+      if (src && src !== "about:blank") {
         const normalized = src.startsWith("//") ? `https:${src}` : src;
         if (normalized.startsWith("http")) {
           iframeSrcs.push(normalized);
         }
       }
     });
+    if (iframeSrcs.length === 0) {
+      $("noscript").each((_, el) => {
+        const nhtml = $(el).html();
+        if (nhtml) {
+          const n$ = cheerio.load(nhtml);
+          n$("iframe[src]").each((_, iel) => {
+            const src = n$(iel).attr("src");
+            if (src && src !== "about:blank" && src.startsWith("http")) {
+              iframeSrcs.push(src);
+            }
+          });
+        }
+      });
+    }
+    if (iframeSrcs.length === 0) {
+      const metaEmbed = $('meta[itemprop="embedURL"]').attr("content");
+      if (metaEmbed) {
+        iframeSrcs.push(metaEmbed);
+      }
+    }
 
     if (iframeSrcs.length === 0) {
       if (isDebug()) console.log(`[Gaycock4U] No iframes found on ${pageUrl}`);
@@ -84,7 +104,7 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) {
     return extractVoe(url, referer);
   }
-  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay")) {
+  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) {
     return extractDood(url, referer);
   }
   if (hostname.includes("streamtape") || hostname.includes("tapepops")) {

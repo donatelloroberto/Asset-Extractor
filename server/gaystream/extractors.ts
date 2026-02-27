@@ -24,7 +24,7 @@ function getHostLabel(url: string): string {
   try {
     const hostname = new URL(url).hostname;
     if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) return "VOE";
-    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay")) return "DoodStream";
+    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) return "DoodStream";
     if (hostname.includes("streamtape") || hostname.includes("tapepops")) return "StreamTape";
     if (hostname.includes("filemoon")) return "FileMoon";
     if (hostname.includes("bigwarp")) return "Bigwarp";
@@ -106,7 +106,7 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) {
     return extractVoe(url, referer);
   }
-  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay")) {
+  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) {
     return extractDood(url, referer);
   }
   if (hostname.includes("streamtape") || hostname.includes("tapepops")) {

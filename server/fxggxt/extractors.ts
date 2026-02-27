@@ -13,8 +13,8 @@ export interface ExtractedStream {
 
 const SUPPORTED_HOSTS = [
   "voe.sx", "voe.to", "jilliandescribecompany.com", "markstylecompany.com", "primaryclassaliede.com",
-  "doodstream.com", "ds2video.com", "d0o0d.com", "d-s.io", "vide0.net", "myvidplay.com", "dood.",
-  "streamtape.com", "tapepops.com",
+  "doodstream.com", "ds2video.com", "d0o0d.com", "d-s.io", "vide0.net", "myvidplay.com", "dood.", "dsvplay.com",
+  "streamtape.com", "streamtape.to", "tapepops.com",
   "filemoon.to", "filemoon.sx",
   "mixdrop.co", "mixdrop.to",
 ];
@@ -23,7 +23,7 @@ function getHostLabel(url: string): string {
   try {
     const hostname = new URL(url).hostname;
     if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) return "VOE";
-    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay")) return "DoodStream";
+    if (hostname.includes("dood") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) return "DoodStream";
     if (hostname.includes("streamtape") || hostname.includes("tapepops")) return "StreamTape";
     if (hostname.includes("filemoon")) return "FileMoon";
     if (hostname.includes("mixdrop")) return "MixDrop";
@@ -40,8 +40,22 @@ export async function extractFxggxtStreams(pageUrl: string): Promise<ExtractedSt
     const html = await fetchPage(pageUrl, { referer: "https://fxggxt.com/" });
     const $ = cheerio.load(html);
 
-    const embedUrl = $("div.responsive-player iframe").attr("src");
-    if (!embedUrl) {
+    let embedUrl: string | undefined;
+    const iframeEl = $("div.responsive-player iframe").first();
+    if (iframeEl.length) {
+      embedUrl = iframeEl.attr("data-lazy-src") || iframeEl.attr("data-src") || iframeEl.attr("src");
+    }
+    if (!embedUrl || embedUrl === "about:blank") {
+      const noscriptHtml = $("div.responsive-player noscript").html();
+      if (noscriptHtml) {
+        const noscript$ = cheerio.load(noscriptHtml);
+        embedUrl = noscript$("iframe").attr("src");
+      }
+    }
+    if (!embedUrl || embedUrl === "about:blank") {
+      embedUrl = $('meta[itemprop="embedURL"]').attr("content");
+    }
+    if (!embedUrl || embedUrl === "about:blank") {
       if (isDebug()) console.log(`[Fxggxt] No iframe found on ${pageUrl}`);
       return streams;
     }
@@ -82,7 +96,7 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) {
     return extractVoe(url, referer);
   }
-  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay")) {
+  if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) {
     return extractDood(url, referer);
   }
   if (hostname.includes("streamtape") || hostname.includes("tapepops")) {

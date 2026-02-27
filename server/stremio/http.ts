@@ -11,6 +11,7 @@ const INSECURE_HOSTS = [
   "d0o0d.com",
   "d-s.io",
   "doodstream.com",
+  "dsvplay.com",
   "vide0.net",
   "myvidplay.com",
   "bigwarp.io",
@@ -21,6 +22,9 @@ const INSECURE_HOSTS = [
   "filemoon.sx",
   "vinovo.to",
   "vinovo.si",
+  "voe.sx",
+  "voe.to",
+  "streamtape.to",
 ];
 
 function needsInsecureAgent(url: string): boolean {
@@ -94,6 +98,10 @@ export async function fetchPage(url: string, options: {
       }
 
       if (probeResponse.status >= 400) {
+        if (probeHtml.includes("DDoS-Guard") || probeHtml.includes("ddos-guard")) {
+          if (isDebug()) console.log(`[HTTP] DDoS-Guard challenge on ${url} - cannot bypass server-side`);
+          return probeHtml;
+        }
         throw new Error(`HTTP ${probeResponse.status} for ${url}`);
       }
 

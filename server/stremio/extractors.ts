@@ -65,7 +65,7 @@ async function resolveEmbed(embedUrl: string): Promise<ExtractedStream[]> {
   if (url.includes("vid.xtapes")) {
     return extractVID(url);
   }
-  if (url.includes("dood") || url.includes("doodstream") || url.includes("d0o0d") || url.includes("ds2play")) {
+  if (url.includes("dood") || url.includes("doodstream") || url.includes("d0o0d") || url.includes("ds2play") || url.includes("dsvplay") || url.includes("myvidplay")) {
     return extractDoodStream(url);
   }
 
