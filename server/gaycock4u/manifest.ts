@@ -1,22 +1,22 @@
 import type { StremioManifest } from "../stremio/manifest";
 
 export const GAYCOCK4U_CATALOG_MAP: Record<string, { path: string; name: string }> = {
-  "gaycock4u-latest": { path: "/", name: "Latest Updates" },
-  "gaycock4u-amateur": { path: "/category/amateur/", name: "Amateur" },
-  "gaycock4u-bareback": { path: "/category/bareback/", name: "Bareback" },
-  "gaycock4u-bigcock": { path: "/category/bigcock/", name: "Big Cock" },
-  "gaycock4u-group": { path: "/category/group/", name: "Group" },
-  "gaycock4u-hardcore": { path: "/category/hardcore/", name: "Hardcore" },
-  "gaycock4u-latino": { path: "/category/latino/", name: "Latino" },
-  "gaycock4u-interracial": { path: "/category/interracial/", name: "Interracial" },
-  "gaycock4u-twink": { path: "/category/twink/", name: "Twink" },
-  "gaycock4u-asianetwork": { path: "/studio/asianetwork/", name: "Asianetwork" },
-  "gaycock4u-bromo": { path: "/studio/bromo/", name: "Bromo" },
-  "gaycock4u-latinonetwork": { path: "/studio/latinonetwork/", name: "Latino Network" },
-  "gaycock4u-lucasentertainment": { path: "/studio/lucasentertainment/", name: "Lucas Entertainment" },
-  "gaycock4u-onlyfans": { path: "/studio/onlyfans/", name: "Onlyfans" },
-  "gaycock4u-rawfuckclub": { path: "/studio/rawfuckclub/", name: "Raw Fuck Club" },
-  "gaycock4u-ragingstallion": { path: "/studio/ragingstallion/", name: "Ragingstallion" },
+  "gaycock4u-latest": { path: "/", name: "GC4U-Latest Updates" },
+  "gaycock4u-amateur": { path: "/category/amateur/", name: "GC4U-Amateur" },
+  "gaycock4u-bareback": { path: "/category/bareback/", name: "GC4U-Bareback" },
+  "gaycock4u-bigcock": { path: "/category/bigcock/", name: "GC4U-Big Cock" },
+  "gaycock4u-group": { path: "/category/group/", name: "GC4U-Group" },
+  "gaycock4u-hardcore": { path: "/category/hardcore/", name: "GC4U-Hardcore" },
+  "gaycock4u-latino": { path: "/category/latino/", name: "GC4U-Latino" },
+  "gaycock4u-interracial": { path: "/category/interracial/", name: "GC4U-Interracial" },
+  "gaycock4u-twink": { path: "/category/twink/", name: "GC4U-Twink" },
+  "gaycock4u-asianetwork": { path: "/studio/asianetwork/", name: "GC4U-Asianetwork" },
+  "gaycock4u-bromo": { path: "/studio/bromo/", name: "GC4U-Bromo" },
+  "gaycock4u-latinonetwork": { path: "/studio/latinonetwork/", name: "GC4U-Latino Network" },
+  "gaycock4u-lucasentertainment": { path: "/studio/lucasentertainment/", name: "GC4U-Lucas Entertainment" },
+  "gaycock4u-onlyfans": { path: "/studio/onlyfans/", name: "GC4U-Onlyfans" },
+  "gaycock4u-rawfuckclub": { path: "/studio/rawfuckclub/", name: "GC4U-Raw Fuck Club" },
+  "gaycock4u-ragingstallion": { path: "/studio/ragingstallion/", name: "GC4U-Ragingstallion" }
 };
 
 export function buildGaycock4uManifest(): StremioManifest {
