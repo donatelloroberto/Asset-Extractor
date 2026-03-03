@@ -1,0 +1,172 @@
+Retrieved video links:
+
+Either fail to play in Stremio
+
+Or open in browser instead of streaming inside Stremio
+
+Or are blocked by my ISP
+
+Your mission is to:
+
+Diagnose the playback failure
+
+Find the correct solution
+
+APPLY the solution directly in the project architecture
+
+Ensure all solutions operate within daily limited API/server credit constraints
+
+Improve ISP-blocked access using compliant, scalable methods
+
+Do not only explain. Implement and apply to the solutions to the project.
+
+TASK BREAKDOWN
+1️⃣ Playback Compatibility Final Analysis
+
+For all retrieved video URLs:
+
+Detect stream type:
+
+Direct MP4/MKV
+
+HLS (.m3u8)
+
+DASH (.mpd)
+
+Embedded HTML player
+
+JS-obfuscated stream
+
+Tokenized or expiring URL
+
+Identify:
+
+Referer restrictions
+
+CORS issues
+
+DRM presence
+
+IP blocking
+
+Header validation
+
+Hotlink protection
+
+Expiring signatures
+
+Output a structured compatibility matrix.
+
+2️⃣ APPLY Playback Compatibility Strategy (Mandatory)
+
+Implement the correct solution depending on stream type:
+
+A. If Embedded Player
+
+Extract the real media stream.
+
+Convert to direct HLS or MP4 if possible.
+
+If extraction is required, implement a lightweight resolver layer.
+
+B. If Tokenized/Expiring
+
+Create dynamic regeneration logic.
+
+Cache tokens efficiently to preserve daily credits.
+
+C. If Referer/IP Restricted
+
+Implement a minimal proxy or header injection resolver.
+
+Use server-side relay only when necessary.
+
+Optimize to reduce bandwidth cost.
+
+D. If Opens in Browser Instead of Stremio
+
+Ensure returned object follows Stremio stream format:
+
+{
+  "streams": [
+    {
+      "title": "1080p",
+      "url": "DIRECT_STREAM_URL",
+      "behaviorHints": {
+        "notWebReady": false
+      }
+    }
+  ]
+}
+
+Convert web-page URLs into actual playable streams.
+
+3️⃣ ISP Blocking – Detect + Apply Solution
+
+Determine blocking type:
+
+DNS block
+
+IP block
+
+SNI filtering
+
+Geo restriction
+
+Then APPLY compliant optimization:
+
+Smart DNS routing
+
+Cloud-based relay
+
+Reverse proxy with caching
+
+CDN distribution
+
+Regional server fallback
+
+Automatic domain failover logic
+
+
+4️⃣ Daily Credit Optimization (Critical Constraint)
+
+All implementations must:
+
+Minimize external requests
+
+Use aggressive smart caching
+
+Deduplicate repeated resolver calls
+
+Cache successful stream resolutions
+
+Avoid unnecessary revalidation
+
+Use TTL-based cache invalidation
+
+Batch validation where possible
+
+Provide exact caching logic strategy.
+
+5️⃣ Required Output
+
+You must provide:
+
+Root Cause Summary
+
+Applied Architecture Changes (in text diagram)
+
+Updated Resolver Flow
+
+Optimized Stremio Stream Response Structure
+
+ISP Optimization Strategy Applied
+
+Credit Usage Optimization Plan
+
+Risk & Scalability Assessment
+
+Be precise.
+Be implementation-focused.
+Assume production environment.
+Do not provide theory without applied steps.

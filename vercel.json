@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/public",
+  "rewrites": [
+    { "source": "/manifest.json", "destination": "/api/index.ts" },
+    { "source": "/(.*)/manifest.json", "destination": "/api/index.ts" },
+    { "source": "/(.*)/catalog/(.*)", "destination": "/api/index.ts" },
+    { "source": "/(.*)/meta/(.*)", "destination": "/api/index.ts" },
+    { "source": "/(.*)/stream/(.*)", "destination": "/api/index.ts" },
+    { "source": "/catalog/(.*)", "destination": "/api/index.ts" },
+    { "source": "/meta/(.*)", "destination": "/api/index.ts" },
+    { "source": "/stream/(.*)", "destination": "/api/index.ts" },
+    { "source": "/proxy/(.*)", "destination": "/api/index.ts" },
+    { "source": "/api/(.*)", "destination": "/api/index.ts" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

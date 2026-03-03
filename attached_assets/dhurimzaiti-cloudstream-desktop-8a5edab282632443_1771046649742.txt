@@ -1,0 +1,1399 @@
+Directory structure:
+└── dhurimzaiti-cloudstream-desktop/
+    ├── README.md
+    ├── eslint.config.js
+    ├── index.html
+    ├── package.json
+    ├── postcss.config.js
+    ├── tailwind.config.js
+    ├── vite.config.js
+    ├── public/
+    │   └── sis2.webp
+    └── src/
+        ├── App.css
+        ├── App.jsx
+        ├── index.css
+        ├── main.jsx
+        ├── components/
+        │   ├── GenreMovieList.jsx
+        │   ├── Header.jsx
+        │   ├── HeaderItem.jsx
+        │   ├── HorizontalMovieCard.jsx
+        │   ├── MovieCard.jsx
+        │   ├── MovieList.jsx
+        │   ├── ProductionHouse.jsx
+        │   └── Slider.jsx
+        ├── Constant/
+        │   └── GenreList.jsx
+        ├── context/
+        │   └── ConfigContext.jsx
+        ├── pages/
+        │   ├── Account.jsx
+        │   ├── Downloads.jsx
+        │   ├── Home.jsx
+        │   ├── Profile.jsx
+        │   ├── Provider.jsx
+        │   ├── Search.jsx
+        │   ├── Settings.jsx
+        │   └── Watchlist.jsx
+        ├── routes/
+        │   └── router.jsx
+        └── services/
+            └── GlobalApi.jsx
+
+================================================
+FILE: README.md
+================================================
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+
+================================================
+FILE: eslint.config.js
+================================================
+import js from '@eslint/js'
+import globals from 'globals'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+
+export default [
+  { ignores: ['dist'] },
+  {
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    settings: { react: { version: '18.3' } },
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      ...react.configs.recommended.rules,
+      ...react.configs['jsx-runtime'].rules,
+      ...reactHooks.configs.recommended.rules,
+      'react/jsx-no-target-blank': 'off',
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
+  },
+]
+
+
+
+================================================
+FILE: index.html
+================================================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./src/assets/images/CloudstreamLogo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloudstream Desktop</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+
+================================================
+FILE: package.json
+================================================
+{
+  "name": "cloudstream-desktop",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^7.1.1",
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "tailwindcss-no-scrollbar": "^1.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.12.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "vite": "^6.0.1"
+  }
+}
+
+
+
+================================================
+FILE: postcss.config.js
+================================================
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+
+
+================================================
+FILE: tailwind.config.js
+================================================
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ]
+}
+
+
+================================================
+FILE: vite.config.js
+================================================
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+
+
+
+================================================
+FILE: public/sis2.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: src/App.css
+================================================
+#root {
+  background-color: #131520;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+
+================================================
+FILE: src/App.jsx
+================================================
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Header from './components/Header';
+import AppRouter from './routes/router';
+import { ConfigProvider } from './context/ConfigContext';
+
+const App = () => {
+  return (
+    <Router>
+      <Header />
+      <ConfigProvider>
+        <AppRouter />
+      </ConfigProvider>
+    </Router>
+  );
+};
+
+export default App;
+
+
+
+================================================
+FILE: src/index.css
+================================================
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+.cloudstream-border-gradient{
+  border-color: linear-gradient(90deg, rgba(93,136,248,1) 0%, rgba(32,73,215,1) 44%, rgba(35,9,220,1) 100%); 
+}
+
+
+================================================
+FILE: src/main.jsx
+================================================
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+
+
+================================================
+FILE: src/components/GenreMovieList.jsx
+================================================
+import React from 'react';
+import GenreList from '../Constant/GenreList';
+import MovieList from './MovieList';
+
+function GenreMovieList() {
+    return (
+        <div>
+            {GenreList.genre.map((item, index) => index <= 8 && (
+                <div key={item.id} className="p-8 px-16">
+                    <h2 className="text-[20px] px-3 text-white font-bold">{item.name}</h2>
+                    <MovieList genreId={item.id} index_={index}/>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default GenreMovieList;
+
+
+
+================================================
+FILE: src/components/Header.jsx
+================================================
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
+import Logo from './../assets/images/CloudstreamLogo.png';
+import {
+  HiHome, HiMagnifyingGlass, HiMiniUserCircle, HiOutlineBars3BottomLeft, HiOutlineArrowDownTray, HiOutlineFolderOpen, HiCog6Tooth
+} from 'react-icons/hi2';
+import HeaderItem from './HeaderItem';
+import { HiDotsVertical } from 'react-icons/hi';
+
+const Header = () => {
+  const [toggle, setToggle] = useState(false);
+
+  const menu = [
+    { name: 'HOME', icon: HiHome, path: '/home' },
+    { name: 'SEARCH', icon: HiMagnifyingGlass, path: '/search' },
+    { name: 'WATCHLIST', icon: HiOutlineFolderOpen, path: '/watchlist' },
+    { name: 'DOWNLOADED', icon: HiOutlineArrowDownTray, path: '/downloads' },
+    { name: 'PROVIDER', icon: HiOutlineBars3BottomLeft, path: '/provider' },
+    { name: 'ACCOUNT', icon: HiMiniUserCircle, path: '/account' },
+    { name: 'SETTINGS', icon: HiCog6Tooth, path: '/settings' },
+  ];
+
+  return (
+    <div className="flex justify-between items-center p-5">
+      <div className="flex-7 flex items-center gap-8">
+        {/* Wrapped logo in a Link to redirect to the homepage */}
+        <Link to="/home">
+          <img src={Logo} className="w-[80px] md:w-[80px] object-cover" alt="Logo" />
+        </Link>
+
+        {/* Navigation for large screens */}
+        <div className="hidden lg:flex gap-8">
+          {menu.map((item, index) => (
+            <Link key={index} to={item.path}>
+              <HeaderItem name={item.name} Icon={item.icon} />
+            </Link>
+          ))}
+        </div>
+
+        {/* Navigation for small screens */}
+        <div className="flex lg:hidden gap-5">
+          {menu.slice(0, 3).map((item, index) => (
+            <Link key={index} to={item.path}>
+              <HeaderItem name={''} Icon={item.icon} />
+            </Link>
+          ))}
+        </div>
+
+        {/* Dropdown menu for small screens */}
+        <div className="flex lg:hidden gap-8" onClick={() => setToggle(!toggle)}>
+          <HeaderItem name={''} Icon={HiDotsVertical} />
+          {toggle && (
+            <div className="absolute mt-12 bg-[#121212] border-[1px] border-gray-600 p-3 px-5 py-4">
+              <div>
+                {menu.slice(3).map((item, index) => (
+                  <Link key={index} to={item.path}>
+                    <HeaderItem name={item.name} Icon={item.icon} />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex-3 flex justify-end">
+        {/* Wrapped profile icon in a Link to redirect to the profile page */}
+        <Link to="/profile">
+          <img
+            src="/cookedCatPFP.jpg"
+            alt="Profile"
+            className="w-[40px] h-[40px] rounded-full cursor-pointer"
+          />
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
+
+
+
+================================================
+FILE: src/components/HeaderItem.jsx
+================================================
+import React from 'react';
+
+const HeaderItem = ({ name, Icon }) => {
+  return (
+    <div className="text-white flex items-center gap-3 text-[15px] font-semibold cursor-pointer hover:text-gray-300 hover:underline underline-offset-8 decoration-4 mb-2">
+      <Icon className="w-6 h-6" />
+      <h2 className="text-sm ">{name}</h2>
+    </div>
+  );
+};
+
+export default HeaderItem;
+
+
+
+================================================
+FILE: src/components/HorizontalMovieCard.jsx
+================================================
+import React from 'react'
+import { useConfig } from '../context/ConfigContext';
+
+
+function HorizontalMovieCard({movie}) {
+    const { IMAGE_BASE_URL } = useConfig();
+  
+  return (
+    <div className="flex flex-col hover:scale-110 transition-all duration-150 ease-in">
+      <img src={IMAGE_BASE_URL+movie.backdrop_path} 
+        className='w-[260px] rounded-lg hover:border-[3px] border-gray-400 cursor-pointer hover:scale-110 transition-all duration-175 ease-in' alt="" />
+      <h2 className='w-[260px] text-white mt-2'>{movie.title}</h2>
+    </div>
+  )
+}
+
+export default HorizontalMovieCard
+
+
+
+================================================
+FILE: src/components/MovieCard.jsx
+================================================
+import React from "react";
+import { useConfig } from "../context/ConfigContext"; // Import useConfig
+
+function MovieCard({ movie }) {
+  // Access IMAGE_BASE_URL from the context
+  const { IMAGE_BASE_URL } = useConfig();
+
+  return (
+    <>
+        <img src={IMAGE_BASE_URL+movie.poster_path} 
+        className='w-[200px] rounded-lg hover:border-[3px] border-gray-400 cursor-pointer hover:scale-110 transition-all duration-175 ease-in' alt="" />
+    </>
+  )
+}
+
+export default MovieCard;
+
+
+
+================================================
+FILE: src/components/MovieList.jsx
+================================================
+import React, { useEffect, useRef, useState } from "react";
+import { useConfig } from "../context/ConfigContext"; // Import useConfig
+import GlobalApi from "../services/GlobalApi";
+import MovieCard from "./MovieCard";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import HorizontalMovieCard from "./HorizontalMovieCard";
+
+function MovieList({ genreId, index_ }) {
+    const { api_key, movieDBUrl } = useConfig(); // Get API config
+    const elementRef = useRef(null);
+    const [movieList, setMovieList] = useState([]); // Initialize as an empty array to avoid undefined
+  
+    useEffect(() => {
+      if (genreId) {
+        getMoviesByGenre();
+      }
+    }, [genreId]); // Fetch movies when the genreId changes
+  
+    const getMoviesByGenre = async () => {
+      const response = await GlobalApi.getMovieByGenreId(movieDBUrl, api_key, genreId);
+      setMovieList(response.data.results); // Update state or fallback to an empty array
+    };
+  
+    const slideRight = () => {
+      elementRef.current.scrollLeft += 500;
+    };
+  
+    const slideLeft = () => {
+      elementRef.current.scrollLeft -= 500;
+    };
+  
+    return (
+      <div className="relative flex items-center">
+        {/* Left Button */}
+        <IoChevronBackOutline
+          onClick={slideLeft}
+          className="text-[50px] text-white p-2 z-10 cursor-pointer hidden md:block absolute left-[-50px] top-1/2 transform -translate-y-1/2"
+        />
+  
+        {/* Movie List Container */}
+        <div
+          ref={elementRef}
+          className="flex overflow-x-auto gap-8 scrollbar-hide pt-5 px-3 pb-5 scroll-smooth whitespace-nowrap"
+        >
+          {movieList.map((item) => (
+            <React.Fragment key={item.id}>
+              {index_ % 3 === 0 ? (
+                // Horizontal movie card for index % 3 === 0
+                <HorizontalMovieCard movie={item} />
+              ) : (
+                // Vertical movie card for other indexes
+                <MovieCard movie={item} />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+  
+        {/* Right Button */}
+        <IoChevronForwardOutline
+          onClick={slideRight}
+          className="text-[50px] text-white p-2 z-10 cursor-pointer hidden md:block absolute right-[-50px] top-1/2 transform -translate-y-1/2"
+        />
+      </div>
+    );
+  }
+  
+  export default MovieList;
+  
+  
+
+
+================================================
+FILE: src/components/ProductionHouse.jsx
+================================================
+import React from 'react'
+// Images
+import DisneyPlus from './../assets/images/DisneyPlus.png';
+import HBOMax from './../assets/images/HBOMax.png';
+import Netflix from './../assets/images/netflix.png';
+import Peacock from './../assets/images/peacock.png';
+import PrimeVideo from './../assets/images/primeVideo.png';
+// Videos
+import DisneyIntro from './../assets/Videos/DisneyIntro.mp4';
+import HBOMAXIntro from './../assets/Videos/HBOMAXIntro.mp4';
+import NetflixIntro from './../assets/Videos/NetflixIntro.mp4';
+import PeacockIntro from './../assets/Videos/PeacockIntro.mp4';
+import PrimeVideoIntro from './../assets/Videos/PrimeVideoIntro.mp4';
+
+function ProductionHouse() {
+    const productionHouseList =[
+        {
+            id: 1,
+            image: DisneyPlus,
+            video: DisneyIntro
+        },
+        {
+            id: 2,
+            image: HBOMax,
+            video: HBOMAXIntro
+        },
+        {
+            id: 3,
+            image: Netflix,
+            video: NetflixIntro
+        },
+        {
+            id: 4,
+            image: Peacock,
+            video: PeacockIntro
+        },
+        {
+            id: 5,
+            image: PrimeVideo,
+            video: PrimeVideoIntro
+        }
+    ]
+
+  return (
+    <div className='flex gap-5 p-2 px-16'>
+
+        {productionHouseList.map((item) => (
+            <div
+                key = {item.id} className='relative'
+                >
+                
+                <div className='border-[2px] border-gray-600 rounded-lg hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer relative shadow-xl shadow-black'>
+                    <video src={item.video} 
+                    autoPlay
+                    muted 
+                    loop 
+                    playsInline
+                    className='absolute top-0 rounded-md z-0 opacity-0 hover:opacity-100'/>
+                    <img 
+                    src={item.image} 
+                    className='w-full z-[1]' />
+                </div>
+            </div>
+        ))}
+
+    </div>
+  )
+}
+
+export default ProductionHouse
+
+
+================================================
+FILE: src/components/Slider.jsx
+================================================
+import React, { useEffect, useRef, useState } from "react";
+import GlobalApi from "../services/GlobalApi"; // Import the API functions
+import { useConfig } from "../context/ConfigContext"; // Import the custom hook for context
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+
+const screenWidth = window.innerWidth;
+
+function Slider() {
+  const { api_key, movieDBUrl, IMAGE_BASE_URL } = useConfig(); // Use the config context
+  const [movieList, setMovieList] = useState([]);
+  const elementRef = useRef();
+
+  useEffect(() => {
+    getTrendingMovies(); // Fetch trending movies on mount
+  }, []);
+
+  const getTrendingMovies = async () => {
+    try {
+      // Pass required parameters to the API function
+      const response = await GlobalApi.getTrendingVideos(movieDBUrl, api_key);
+      setMovieList(response.data.results); // Update state with the results
+    } catch (error) {
+      console.error("Error fetching trending movies:", error);
+    }
+  };
+
+  const scrollRight = () => {
+    elementRef.current.scrollLeft += screenWidth - 110;
+  };
+  const scrollLeft = () => {
+    elementRef.current.scrollLeft -= screenWidth - 110;
+  };
+
+  return (
+    <div className="pb-5 relative">
+      {/* Movie list slider */}
+      <div
+        className="relative flex overflow-x-auto w-full px-16 py-4 scrollbar-hide scroll-smooth"
+        ref={elementRef}
+      >
+        {movieList.map((item) => (
+          <div
+            key={item.id}
+            className="relative min-w-full md:h-[600px] mr-5 rounded-xl overflow-hidden"
+          >
+            {/* Movie Image */}
+            <img
+              src={`${IMAGE_BASE_URL}${item.backdrop_path}`} // Use IMAGE_BASE_URL from context
+              alt={item.title || item.name}
+              className="w-full h-full object-cover hover:border-[4px] hover:rounded-xl border-gray-400 transition-all duration-100 ease-out"
+            />
+
+            {/* Movie Title */}
+            <div className="absolute bottom-0 left-0 w-full text-white p-4">
+              <h2 className="text-lg font-bold">{item.title || item.name}</h2>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Chevron buttons */}
+      <HiChevronLeft
+        className="hidden md:block text-white text-[30px] absolute top-1/2 -translate-y-1/2 left-5 z-10 cursor-pointer"
+        onClick={scrollLeft}
+      />
+      <HiChevronRight
+        className="hidden md:block text-white text-[30px] absolute top-1/2 -translate-y-1/2 right-5 z-10 cursor-pointer"
+        onClick={scrollRight}
+      />
+    </div>
+  );
+}
+
+export default Slider;
+
+
+
+================================================
+FILE: src/Constant/GenreList.jsx
+================================================
+const genre= [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 36,
+      "name": "History"
+    },
+    {
+      "id": 27,
+      "name": "Horror"
+    },
+    {
+      "id": 10402,
+      "name": "Music"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10749,
+      "name": "Romance"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 10770,
+      "name": "TV Movie"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    },
+    {
+      "id": 10752,
+      "name": "War"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+  ]
+
+  export default{
+    genre
+  }
+
+
+================================================
+FILE: src/context/ConfigContext.jsx
+================================================
+import React, { createContext, useContext } from 'react';
+
+export const ConfigContext = createContext();
+
+export const ConfigProvider = ({ children }) => {
+    const apiConfig = {
+        api_key: "b34186573421baaa297b271caf096018", // Your API Key
+        movieDBUrl: "https://api.themoviedb.org/3",
+        IMAGE_BASE_URL: "https://image.tmdb.org/t/p/original",
+    }
+
+    return (
+        <ConfigContext.Provider value={apiConfig}>
+            {children}
+        </ConfigContext.Provider>
+    )
+}
+export const useConfig = () => useContext(ConfigContext);
+
+
+
+
+================================================
+FILE: src/pages/Account.jsx
+================================================
+import React from "react";
+
+function Account() {
+  const profiles = [
+    { name: "Dad", image: ".././public/dad.jpg" },
+    { name: "Mom", image: ".././public/mom.jpg" },
+    { name: "Katie", image: ".././public/sis.jpg" },
+    { name: "John", image: ".././public/bro.jpg" },
+    { name: "James", image: ".././public/bro2.jpg" },
+    { name: "Anna", image: ".././public/sis2.webp" },
+    { name: "Manage Profiles", image: "" },
+  ];
+
+  return (
+    <div className="flex flex-col items-center justify-center min-w-screen mt-6">
+      <h1 className="text-white text-4xl font-bold mb-8">Who's watching?</h1>
+
+      <div className="grid grid-cols-6 gap-6">
+        {profiles.slice(0, 6).map((profile, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center cursor-pointer hover:scale-105 transition-transform"
+          >
+            <img
+              src={profile.image}
+              alt={profile.name}
+              className="w-32 h-32 rounded-md border-2 border-gray-700 hover:border-blue-700 transition-colors object-cover"
+            />
+            <p className="text-white text-lg font-semibold mt-2">{profile.name}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8">
+        <button className="text-lg font-medium text-gray-600 border border-blue-600 px-6 py-3 rounded-md hover:text-white transition-colors">
+          {profiles[6].name}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Account;
+
+
+
+================================================
+FILE: src/pages/Downloads.jsx
+================================================
+import React from "react";
+import { HiOutlineArrowDownTray } from "react-icons/hi2";
+
+function Downloads() {
+  return (
+    <div className="flex justify-center items-center min-w-screen mt-6">
+      {/* Main Box */}
+      <div className="w-full max-w-6xl border-2 border-gray-700 rounded-lg p-8 relative">
+        {/* Title and Add Button */}
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-white">Downloads</h2>
+          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition">
+            Download a Movie
+          </button>
+        </div>
+
+        <hr className="bg-gray-500" />
+
+        {/* Empty State Message */}
+        <div className="flex flex-col items-center justify-center mt-16">
+          <HiOutlineArrowDownTray className="text-6xl text-gray-500 mb-4" />
+          <p className="text-gray-400 text-center">
+            You haven't downloaded any media yet. <br />
+            Click <span className="text-blue-500 font-semibold">Download a Movie</span> to start watching offline.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Downloads;
+
+
+
+================================================
+FILE: src/pages/Home.jsx
+================================================
+import React from 'react'
+import Slider from '../components/Slider'
+import ProductionHouse from '../components/ProductionHouse'
+import GenreMovieList from '../components/GenreMovieList'
+
+function Home() {
+  return (
+    <div>
+        <div> <Slider /> </div>
+        <div> <ProductionHouse /> </div>
+        <div> <GenreMovieList /> </div>
+    </div>
+  )
+}
+
+export default Home
+
+
+================================================
+FILE: src/pages/Profile.jsx
+================================================
+import React from 'react';
+
+function Profile() {
+  return (
+    <div className="flex justify-center items-center min-w-screen mb-3">
+      <div className="w-4/5 border border-gray-600 p-6 rounded-2xl shadow-lg">
+        <h1 className="text-center text-3xl font-bold mb-8">Profile</h1>
+        <div className="grid grid-cols-12 gap-6">
+          {/* General Info Section */}
+          <div className="col-span-6">
+            <h2 className="text-lg font-semibold mb-4">General Info</h2>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-300">Name</label>
+              <input
+                type="text"
+                id="name"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email</label>
+              <input
+                type="email"
+                id="email"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3"
+              />
+            </div>
+              <div className='grid grid-cols-2 justify-x space-x-4'>
+                <button className='mt-4 bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500'>Change Name</button>
+                <button className='mt-4 bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500'>Change Email</button>
+              </div>
+          </div>
+
+          {/* Profile Picture Section */}
+          <div className="col-span-6 flex flex-col items-center">
+            <div className="w-64 h-64 mb-4">
+              <img
+                src="/cookedCatPFP.jpg"
+                alt="Profile"
+                className="w-full h-full rounded-full object-cover shadow-md"
+              />
+            </div>
+            <a href="#">
+              <button
+                type="button"
+                className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Change Profile Picture
+              </button>
+            </a>
+          </div>
+        </div>
+
+        {/* Password Changer Section */}
+        <div className="mt-8">
+          <h3 className="text-lg font-semibold mb-4">Change Password</h3>
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <label htmlFor="current-password" className="block text-sm font-medium text-gray-300">Current Password</label>
+              <input
+                type="password"
+                id="current-password"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3"
+              />
+            </div>
+            <div>
+              <label htmlFor="new-password" className="block text-sm font-medium text-gray-300">New Password</label>
+              <input
+                type="password"
+                id="new-password"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3"
+              />
+            </div>
+            <div>
+              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-300">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm-password"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm  py-2 px-3"
+              />
+            </div>
+            <button
+              type="button"
+              className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              Update Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Profile;
+
+
+
+================================================
+FILE: src/pages/Provider.jsx
+================================================
+import React from "react";
+import { IoWarningOutline } from "react-icons/io5";
+
+function Provider() {
+  return (
+    <div className="flex justify-center items-center min-w-screen mt-6">
+      {/* Main Box */}
+      <div className="w-full max-w-6xl border-2 border-gray-700 rounded-lg p-8 relative">
+        {/* Title and Add Button */}
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-white">Providers</h2>
+          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition">
+            Add a Provider
+          </button>
+        </div>
+
+        <hr className="bg-gray-500"/>
+
+        {/* Empty State Message */}
+        <div className="flex flex-col items-center justify-center mt-16">
+          <IoWarningOutline className="text-6xl text-gray-500 mb-4" />
+          <p className="text-gray-400 text-center">
+            You haven't added any providers yet. <br />
+            Click <span className="text-blue-500 font-semibold">Add a Provider</span> to see media.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Provider;
+
+
+
+================================================
+FILE: src/pages/Search.jsx
+================================================
+import React, { useState } from "react";
+import GlobalApi from "../services/GlobalApi";
+import { useConfig } from "../context/ConfigContext";
+
+function Search() {
+  const { movieDBUrl, api_key } = useConfig();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
+
+  const fetchSearchResults = async (query) => {
+    setIsLoading(true);
+    try {
+      const response = await GlobalApi.searchMulti(movieDBUrl, api_key, query);
+      const filteredResults = response.data.results.filter((item) => item.poster_path);
+      setSearchResults(filteredResults);
+
+      if (filteredResults.length > 0) {
+        const contentId = filteredResults[0].id;
+        const contentType = filteredResults[0].media_type;
+        fetchSimilarContent(contentId, contentType);
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchSimilarContent = async (contentId, contentType) => {
+    setIsLoadingSimilar(true);
+    try {
+      let response;
+      if (contentType === "movie") {
+        response = await GlobalApi.getSimilarMovies(contentId, movieDBUrl, api_key);
+      } else if (contentType === "tv") {
+        response = await GlobalApi.getSimilarTvShows(contentId, movieDBUrl, api_key);
+      }
+
+      const filteredSimilarContent = response.data.results.filter((item) => item.poster_path);
+      setSimilarMovies(filteredSimilarContent);
+    } catch (error) {
+      console.error("Error fetching similar content:", error);
+    } finally {
+      setIsLoadingSimilar(false);
+    }
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const value = event.target.search.value.trim();
+    if (value) {
+      fetchSearchResults(value);
+    }
+  };
+
+  return (
+    <div className="p-4">
+      <form onSubmit={handleSearch}>
+        <div className="flex items-center px-64 gap-4 mb-4">
+          <input
+            type="text"
+            value={searchTerm}
+            name="search"
+            placeholder="Search for movies/tv series..."
+            className="border border-gray-400 rounded-lg p-2 flex-1 bg-[#242424] text-white"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button className="px-3 py-2.5 bg-blue-700 rounded-lg text-lg hover:bg-blue-600" type="submit">
+            Search
+          </button>
+        </div>
+      </form>
+
+      {isLoading && <div className="text-center">Loading search results...</div>}
+      {!isLoading && searchResults.length === 3 && (
+        <div className="text-center text-gray-400">No results found.</div>
+      )}
+
+      {searchResults.length > 4 && (
+        <div className="px-16">
+          <h1 className="text-4xl text-center font-bold my-8">Search Results:</h1>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {searchResults.map((item) => (
+              <div key={item.id} className="text-center">
+                <div className="group relative">
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                    alt={item.title || item.name}
+                    className="w-[200px] rounded-lg group-hover:scale-110 transition-all duration-150 ease-in group-hover:border-gray-600 group-hover:border-4 cursor-pointer"
+                  />
+                  <p className="text-lg text-center w-[200px] font-bold mt-2">
+                    {item.title || item.name}
+                  </p>
+                  <p className="text-sm text-center w-[200px] text-gray-400">
+                    {item.media_type === "movie" ? "Movie" : "TV Series"}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {isLoadingSimilar && <div className="text-center">Loading similar content...</div>}
+      {similarMovies.length > 0 && (
+        <div className="mt-8 px-16">
+          <h1 className="text-4xl text-center font-bold my-8">Similar Content:</h1>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {similarMovies.map((item) => (
+              <div key={item.id} className="text-center">
+                <div className="group relative">
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                    alt={item.title || item.name}
+                    className="w-[200px] rounded-lg group-hover:scale-110 transition-all duration-150 ease-in group-hover:border-gray-600 group-hover:border-4 cursor-pointer"
+                  />
+                  <p className="text-lg font-bold w-[200px] text-center mt-2">
+                    {item.title || item.name}
+                  </p>
+                  <p className="text-sm text-center w-[200px] text-gray-400">
+                    {item.media_type === "movie" ? "Movie" : "TV Series"}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Search;
+
+
+
+================================================
+FILE: src/pages/Settings.jsx
+================================================
+import React from "react";
+import { IoChevronForwardOutline } from "react-icons/io5";
+
+function Settings() {
+  return (
+    <>
+      <ul className="px-16 space-y-3">
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#general">General</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#player">Player</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#providers">Providers</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#layout">Layout</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#updates-backup">Updates and Backup</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#accounts-security">Accounts and Security</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+        <li className="text-lg font-semibold border border-blue-600 rounded-lg py-3 px-5 flex items-center justify-between transition hover:bg-blue-900 hover:border-blue-800">
+          <a href="#extensions">Extensions</a>
+          <IoChevronForwardOutline className="text-xl" />
+        </li>
+      </ul>
+      <div>
+        <p className="text-sm text-center py-5">4.4.0 - January 1, 2025</p>
+      </div>
+    </>
+  );
+}
+
+export default Settings;
+
+
+
+================================================
+FILE: src/pages/Watchlist.jsx
+================================================
+import React from "react";
+import { HiOutlineFolderOpen } from "react-icons/hi2";
+
+
+function WatchList() {
+  return (
+    <div className="flex justify-center items-center min-w-screen mt-6">
+      {/* Main Box */}
+      <div className="w-full max-w-6xl border-2 border-gray-700 rounded-lg p-8 relative">
+        {/* Title and Add Button */}
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-white">Watch List</h2>
+          <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition">
+            Add to Your Watch List
+          </button>
+        </div>
+
+        <hr className="bg-gray-500" />
+
+        {/* Empty State Message */}
+        <div className="flex flex-col items-center justify-center mt-16">
+          <HiOutlineFolderOpen className="text-6xl text-gray-500 mb-4" />
+          <p className="text-gray-400 text-center">
+            You haven't added any movies or TV Shows to your Watch List yet. <br />
+            Click <span className="text-blue-500 font-semibold">Add to Your Watch List</span> to get started.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default WatchList;
+
+
+
+================================================
+FILE: src/routes/router.jsx
+================================================
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+// Import your pages
+import Home from './../pages/Home';
+import Search from './../pages/Search';
+import Watchlist from './../pages/Watchlist';
+import Downloads from './../pages/Downloads';
+import Provider from './../pages/Provider';
+import Account from './../pages/Account';
+import Profile from '../pages/Profile'
+import Settings from './../pages/Settings';
+// Import other pages as needed...
+
+const AppRouter = () => {
+  return (
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/downloads" element={<Downloads />} />
+        <Route path="/provider" element={<Provider />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/profile" element={<Profile />} />
+    </Routes>
+  );
+};
+
+export default AppRouter;
+
+
+
+================================================
+FILE: src/services/GlobalApi.jsx
+================================================
+// globalApi.jsx
+import axios from "axios";
+
+// Get trending content (movies, TV shows, etc.)
+const getTrendingVideos = (movieDBUrl, api_key) =>
+  axios.get(`${movieDBUrl}/trending/all/day?api_key=${api_key}`);
+
+// Get movies by genre
+const getMovieByGenreId = (movieDBUrl, api_key, genreId) => {
+  return axios.get(`${movieDBUrl}/discover/movie?api_key=${api_key}&with_genres=${genreId}`);
+};
+
+// Search for both movies and TV shows (multi-search)
+const searchMulti = (movieDBUrl, api_key, query) =>
+  axios
+    .get(`${movieDBUrl}/search/multi?api_key=${api_key}&query=${query}`)
+    .then((response) => {
+      const filteredResults = response.data.results.filter((item) => item.poster_path);
+      return { ...response, data: { results: filteredResults } };
+    });
+
+
+// Get similar movies
+const getSimilarMovies = (movieId, movieDBUrl, api_key) =>
+  axios.get(`${movieDBUrl}/movie/${movieId}/similar?api_key=${api_key}`);
+
+// Get similar TV shows
+const getSimilarTvShows = (tvId, movieDBUrl, api_key) =>
+  axios.get(`${movieDBUrl}/tv/${tvId}/similar?api_key=${api_key}`);
+
+export default {
+  getTrendingVideos,
+  getMovieByGenreId,
+  searchMulti,
+  getSimilarMovies,
+  getSimilarTvShows,
+};
+
+

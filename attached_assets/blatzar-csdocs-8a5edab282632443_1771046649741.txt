@@ -1,0 +1,3118 @@
+Directory structure:
+└── blatzar-csdocs/
+    ├── index.md
+    ├── recapps.md
+    ├── recsrc.md
+    ├── Repositories.md
+    ├── retype.yml
+    ├── troubleshooting.md
+    ├── devs/
+    │   ├── create-your-own-json-repository.md
+    │   ├── create-your-own-providers.md
+    │   ├── gettingstarted.md
+    │   ├── index.yml
+    │   ├── using-plugin-template.md
+    │   └── scraping/
+    │       ├── devtools_detectors.md
+    │       ├── disguising_your_scraper.md
+    │       ├── finding_video_links.md
+    │       ├── gettingstarted.md
+    │       ├── index.yml
+    │       ├── starting.md
+    │       └── using_apis.md
+    ├── Integrations/
+    │   ├── Animetracking.md
+    │   ├── Aniyomi.md
+    │   ├── ExternalPlayer.md
+    │   ├── index.yml
+    │   ├── NGINX.md
+    │   ├── OpenSubtitles.md
+    │   ├── stemiorelated.md
+    │   └── tarktlist.md
+    ├── More Stuff/
+    │   ├── audioquality.md
+    │   ├── index.yml
+    │   ├── miscellaneous.md
+    │   ├── videoquality.md
+    │   └── vpn.md
+    ├── Other devices/
+    │   ├── index.yml
+    │   ├── Linux.md
+    │   ├── tv.md
+    │   └── Windows.md
+    ├── Settings/
+    │   ├── cloningsite.md
+    │   ├── Downloading.md
+    │   ├── index.yml
+    │   ├── othersettings.md
+    │   ├── SrcPriority.md
+    │   ├── stream.md
+    │   └── Subtitle.md
+    ├── static/
+    │   └── settings.SVG
+    ├── .github/
+    │   └── workflows/
+    │       └── retype_build.yml
+    └── .inject/
+        ├── code.js
+        └── style.css
+
+================================================
+FILE: index.md
+================================================
+---
+label: Cloudstream Setup
+icon: /static/base.png
+---
+# Getting Started
+
+CloudStream is an Android application for streaming and downloading movies, TV series, anime, Asian content and livestreams. The app provides all this content ad-free, without any sign-up or subscription requirements.
+
+![](/static/cover.png)
+___
+## Standard Setup
+
+[!badge variant="light" text="Step 1"] Install the CloudStream base app: [!badge variant="primary" icon="/static/stable.png" text="Stable"](https://github.com/recloudstream/cloudstream/releases/latest) or [!badge variant="danger" icon="/static/pre.png" text="Pre-release"](https://github.com/recloudstream/cloudstream/releases/pre-release).
+
+[!badge variant="light" text="Step 2"] Install the [!badge variant="secondary" icon="repo" text="repositories"](Repositories.md).
+
+[!badge variant="light" text="Step 3"] Go to **[!badge variant="dark" icon="static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="static/gear.png" text="Settings"] → [!badge variant="dark" icon="" text="Extensions"] → [!badge variant="dark" icon="" text="Your installed Repository"]**, and install your desired extensions.
+
+[!badge variant="light" text="Step 4"] Go back to [!badge variant="dark" icon="home" text="Home"] and click the [!badge variant="dark" icon="filter" text="None"] button at the bottom right. Then select the catagory of the extension you have installed and select the extension.
+
+[!embed](https://www.youtube-nocookie.com/embed/B_WmCAUCy2c)
+___
+## Manual Setup
+
+You can install repositories using short codes too.
+
+[!badge variant="light" text="Step 1"] Copy the shortcodes from the [!badge variant="secondary" icon="repo" text="repositories"](Repositories.md)
+
+[!badge variant="light" text="Step 2"] Paste the code in [!badge variant="dark" icon="static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="static/gear.png" text="Settings"] → [!badge variant="dark" icon="" text="Extensions"] → [!badge variant="dark" icon="plus" text="Add Repository"] → [!badge variant="dark" icon="" text="Repository URL"] and click [!badge variant="dark" icon="plus" text="Add Repository"]
+
+[!embed](https://youtu.be/Wpq9MPajOVc)
+
+!!!contrast If you aren't able to add repositories using these methods,
+use a VPN on your device, because your ISP is blocking GitHub raw URLs. You can try [!badge variant="link" text="these VPNs"](/recapps.md/#vpn) for the process.
+!!!
+
+
+
+================================================
+FILE: recapps.md
+================================================
+---
+label: Recommended Apps
+order: 998
+icon: thumbsup
+---
+
+## External Media Player
+
+[!badge variant="secondary" size="2xl" icon="/static/vlc.png" text="**VLC**"](https://play.google.com/store/apps/details?id=org.videolan.vlc&hl=en&gl=US)   [!badge variant="secondary" size="2xl" icon="/static/mpv.png" text="**MPV**"](https://play.google.com/store/apps/details?id=is.xyz.mpv&hl=en&gl=US)
+
+## External Downloader
+
+[!badge variant="secondary" size="2xl" icon="/static/1dm.png" text="**1DM**"](https://play.google.com/store/apps/details?id=idm.internet.download.manager&hl=en&gl=US)  [!badge variant="secondary" size="2xl" icon="/static/fdm.png" text="**FDM**"](https://play.google.com/store/apps/details?id=org.freedownloadmanager.fdm&hl=en&gl=US)    [!badge variant="secondary" size="2xl" icon="/static/navi.png" text="**Navi**"](https://play.google.com/store/apps/details?id=com.tachibana.downloader&hl=en&gl=US)
+
+## TV Web Browser
+[!badge variant="secondary" size="2xl" icon="https://play-lh.googleusercontent.com/662xkJIL0R76OO_cB1KnHhQ3YRjZyNKwrlG6rDgGHgPqLZNOI617W8Gr-TqDTaD69KI" text="**TV Bro**"](https://play.google.com/store/apps/details?id=com.phlox.tvwebbrowser&hl=en&gl=US)
+
+## TV File Manager
+[!badge variant="secondary" size="2xl" icon="https://play-lh.googleusercontent.com/V3lCSVX5S-5QPt3MBF6jJM5xggsEZF5FhES5-5Y47Jr3FpQfG3wDIQs0wVmQUtxatK0" text="**AN Explorer**"](https://play.google.com/store/apps/details?id=dev.dworks.apps.anexplorer)   [!badge variant="secondary" size="2xl" icon="https://play-lh.googleusercontent.com/DhBFSJoink5IMx0GdrmYuF-HzAqfSt_0wTkW0UtnAmp76tAEF98C3K5a-hP_KzgB0xY" text="**FX Explorer**"](https://play.google.com/store/apps/details?id=nextapp.fx&hl=en&gl=US)
+
+## VPN
+
+[!badge variant="secondary" size="2xl" icon="/static/wind.png" text="**Windscribe**"](https://play.google.com/store/apps/details?id=com.windscribe.vpn&hl=en&gl=US)  [!badge variant="secondary" size="2xl" icon="/static/proton.png" text="**Proton**"](https://play.google.com/store/apps/details?id=ch.protonvpn.android&hl=en&gl=US)  [!badge variant="secondary" size="2xl" icon="https://play-lh.googleusercontent.com/Zlfg-_zzeyLqP8krNVJpXF0rm7db_wp6xpomZ_XlgkPk_JirxHnG_x5BKbiZsCzHn9w" text="**RiseupVPN**"](https://play.google.com/store/apps/details?id=se.leap.riseupvpn)  [!badge variant="secondary" size="2xl" icon="/static/warp.png" text="**1.1.1.1**"](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)  [!badge variant="secondary" size="2xl" icon="https://raw.githubusercontent.com/nomoresat/DPITunnel-android/main/assets/logo.webp" text="**DPI Tunnel (Root)**"](https://github.com/nomoresat/DPITunnel-android)
+
+## External Caster
+
+[!badge variant="secondary" size="2xl" icon="/static/wvc.png" text="Web Video Cast"](https://play.google.com/store/apps/details?id=com.instantbits.cast.webvideo&hl=en&gl=US)
+
+## External Subtitles downloader
+
+[!badge variant="secondary" size="2xl" icon="/static/Getsub.png" text="Getsub"](https://play.google.com/store/apps/details?id=ir.getsub)
+
+
+
+================================================
+FILE: recsrc.md
+================================================
+---
+label: Recommended Sources
+icon: star
+order: 999
+---
+
+## English
+
+### Movies & TV Series
+1. Sorastream `Hexated`
+2. Superstream `English`
+3. Sflix bundle `English`
+4. AllMoviesForYou `English`
+
+### Anime
+1. Anichi `Hexated`
+2. 9anime `Avocado`
+3. KronchEN/Kwunchwoll `Avocado`
+4. Aniwatch `English`
+5. Kickassanime `Hexated`
+6. Allanime `English`
+7. Sorastream `Hexated`
+8. Yugenanime `Hexated`
+9. Animension `Storm`
+10. Gogo `English`
+
+### Asian Contents
+1. Sorastream `Hexated`
+2. Kisskh `Hexated` 
+3. Kissasian `Hexated`
+4. Dramacool `Horis`
+5. Sflix bundle `English`
+6. ShowFlix `Indian languages`
+
+### Livestreams
+1. IPTV-org (TV) `Multilingual`
+2. Time4TV (Sports) `Hexated`
+3. TV247 `Hexated`
+4. 123TV `Hexated`
+5. Crichd `Darkdemon`
+
+
+
+================================================
+FILE: Repositories.md
+================================================
+---
+label: Repositories
+icon: repo
+order: 1000
+---
+
+Repositories contain all the website extensions. These repositories are built by the community members. The flag beside the repository indicates the language of the websites that the repository has.
+
+Direct Install | Short Codes { class="compact" }
+:---: | :---:
+[!badge variant="secondary" icon="static/gb.png" text="English"](https://cutt.ly/6wyw1RnS) | `6wyw1RnS`
+[!badge variant="secondary" icon="static/world.png" text="Multilingual"](https://cutt.ly/Bwyw1S3k) | `Bwyw1S3k`
+[!badge variant="secondary" icon="static/jo.png" text="Arabic"](https://cutt.ly/Jwyw1ZiR) | `Jwyw1ZiR`
+[!badge variant="secondary" icon="static/world.png" text="Hexated"](https://cutt.ly/mwyw140i) | `mwyw140i`
+[!badge variant="secondary" icon="static/in.png" text="Likdev"](https://cutt.ly/bwyw0Mcv) | `bwyw0Mcv`
+[!badge variant="secondary" icon="static/es.png" text="Storm"](https://cutt.ly/Swyw03Nc) | `Swyw03Nc`
+[!badge variant="secondary" icon="static/cr.png" text="Crunchyroll"](https://cutt.ly/wwyw2e4x) | `wwyw2e4x`
+[!badge variant="secondary" icon="static/fr.png" text="French"](https://cutt.ly/jwyw2fJc) | `jwyw2fJc`
+[!badge variant="secondary" icon="static/cn.png" text="Horis"](https://cutt.ly/Owyw2lbO) | `Owyw2lbO`
+[!badge variant="secondary" icon="static/18p.png" text="NSFW"](https://cutt.ly/Nwyw2nbE) | `Nwyw2nbE`
+[!badge variant="secondary" icon="static/ua.png" text="CakesTwix"](https://cutt.ly/gwyw2YuE) | `gwyw2YuE`
+[!badge variant="secondary" icon="static/fr.png" text="FStream"](https://cutt.ly/fstream) | `fstream`
+[!badge variant="secondary" icon="static/world.png" text="Avocado"](https://cutt.ly/aguaco) | `aguaco`
+
+!!!info
+if you don't understand the name of a repository, the repository was named after the developer of that repository.
+!!!!
+
+
+
+================================================
+FILE: retype.yml
+================================================
+input: 
+output: build
+url: https://docs.cloudstream.cf/
+branding:
+  logo: static/inas.png
+  logoDark: /static/base.png
+  title: CS3Docs
+  label: 
+
+meta:
+  title: " - Cloudstream 3 Documentation"
+
+edit:
+  repo: "https://github.com/recloudstream/csdocs/edit/"
+  branch: master
+
+links:
+  - text: Github
+    link: https://github.com/recloudstream/cloudstream/
+    icon: /static/github.png
+
+  - text: Gitdab
+    link: https://gitdab.com/recloudstream
+    icon: /static/gitdab.png
+
+  - text: Discord
+    link: https://discord.com/invite/5Hus6fM
+    icon: /static/discord.png
+    target: blank
+
+  - text: Matrix
+    link: https://matrix.to/#/#lagrapps:matrix.org
+    icon: /static/matrix.png
+    target: blank
+
+footer:
+  links:
+    - text: Website by Duckling
+      link: https://github.com/anotherduckling
+  copyright: ""
+
+
+
+================================================
+FILE: troubleshooting.md
+================================================
+---
+label: Troubleshooting
+order: 700
+icon: tools
+---
+
+## Basic
+
+==- Repositories/Extensions are not loading.
+If the repositories are not loading in [the official site](https://recloudstream.github.io/public-gateway-checker/) or in the [!badge variant="dark" text="Extensions"] section, repeat the process using VPN connection.
+===
+
+==- `XYZ` extension is not loading.
+1. Open the site in  the browser. If the site is not loading in browser also, use VPN or try [!badge variant="dark" text="site cloning"](/Settings/cloningsite.md).
+2. If the site is working in browser, post a report in the `reports` channel.
+===
+
+==- Backup error
+Change/reselect the download location.
+[!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark" icon="download" text="download path"] and then select a custom location.
+===
+
+==- Restore backup error
+Rename the extension of the file from `json to txt`. Now try again to read the backup file.
+===
+
+==- Error: Out of memory
+Change the video cache on disk. [!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark" text="player"] > [!badge variant="dark" icon="server" text="video cache on disk"] and set a **lower amount of cache**.
+===
+
+==- Safe mode on
+Clear the app cache and restart the app. You can also set a lower amount cache to avoid this issue.
+!!!contrast This is a general troubleshooting. May not fix the issue. Then post it in the reports channel.
+!!!
+===
+
+## Subtitles
+==- Broken Subtitles
+[!badge variant="dark" text="Video player"] → [!badge variant="dark" text="sources"] → [!badge variant="dark" text="subtitles"] and click the [!badge variant="dark" text="Auto"] at the top. Now change the encode of the subtitle language.
+
+![](https://media.discordapp.net/attachments/1015131233824538624/1072223726130692216/VIu1MFB.png)
+
+![](https://media.discordapp.net/attachments/1015131233824538624/1072224426084532225/iKMhqlW.png)
+===
+
+==- Subtitles casting issue
+If subtitle isn't casting on the tv with the native casting system., try casting using [this app](https://play.google.com/store/apps/details?id=com.instantbits.cast.webvideo).
+
+[!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" text="Episode page"] → **Press and hold the epsiode** → [!badge variant="dark" text="play with Web Video Cast"] → **choose the link and then cast.** *The subtitle selection maybe not as good as cs3.*
+===
+
+## Sorastream
+
+==- The episode loading is taking too long.
+As it scrapes a lot of sites, it takes time to load all of them. Skip loading after 3-5 seconds.
+===
+
+==- Some sources are not loading.
+1. Sora has some geo restricted sources. Use a VPN to access those sources.
+2. Or, exo player can't handle the video. Use external player like VLC.
+===
+
+
+==- Some titles are showing "No links found".
+Sora uses TMDb for catalogue, not the sources. So, it may show titles that no site has.
+===
+
+==- Some videos are not playing video/audio.
+EXO player can't handle the video. Use external player like VLC.
+===
+
+==- Video Download error.
+Try 1DM to download from Sorastream
+===
+
+## WSA
+
+==- Install.ps1 is not recognized/missing
+
+![](https://media.discordapp.net/attachments/1044322950725259274/1068243571544690719/9Qf3veK.png)
+
+ If the popup windows disappear without asking administrative permission and Windows Subsystem For Android™ is not installed successfully, you should manually run Install.ps1 as administrator:
+      
+1. Press Win+x and select Windows™ Terminal (Admin)
+      
+2. Input the command below and press enter, replacing {X:\path\to\your\extracted\folder} including the {} with the path of the extracted folder
+    ```Powershell
+        cd "{X:\path\to\your\extracted\folder}"
+     ```  
+        
+3. Input the command below and press enter   
+    ```Powershell
+        PowerShell.exe -ExecutionPolicy Bypass -File .\Install.ps1
+    ```
+        
+4. The script will run and Windows Subsystem For Android™ will be installed
+===
+
+==- Virtualization Error
+
+![](https://user-images.githubusercontent.com/68629435/213985345-a6fc6e97-63f3-4741-8965-8d62a0d6b824.png)
+
+1. Remove WSA
+
+2. Go to "Turn Windows features on and off" and disable Hyper-V, Virtual Machine Platform, Windows Hypervisor Platform, and Windows Subsystem for Linux, then restart.
+
+3. Reenable these features and restart a second time.
+
+4. Make sure Core Isolation is turned off.
+
+5.  In registry editor (regedit), go to `\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FsDepends`
+
+    Change the value of “Start” from `3` to `0`
+
+!!!
+You can change it back to 3, if it makes no difference
+!!!
+
+6. Then in CMD (Run as Adminstrator), paste:
+```cmd
+bcdedit /set hypervisorlaunchtype auto
+```
+7. Reinstall WSA by running `Run.bat`
+===
+
+
+
+
+================================================
+FILE: devs/create-your-own-json-repository.md
+================================================
+---
+label: Creating your own JSON repository
+order: 997
+icon: /static/json.png
+---
+
+# Creating your own JSON repository
+
+Cloudstream uses JSON files to fetch and parse lists of repositories. You can create one following this template:
+```json
+{
+  "name": "<repository name>",
+  "description": "<repository description>",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "<direct link to plugins.json>"
+  ]
+}
+```
+
+- `name`: self explanatory, will be visible in the app
+- `description`: self explanatory, will be visible in the app
+- `manifestVersion`: currently unused, may be used in the future for backwards compatibility
+- `pluginLists`: List of urls, which contain plugins. All of them will be fetched.
+    - If you followed "[Using plugin template](using-plugin-template)" tutorial, the appropriate `plugins.json` file should be in the builds branch of your new repository.
+    - If not, you can still generate one by running `gradlew makePluginsJson`
+
+
+================================================
+FILE: devs/create-your-own-providers.md
+================================================
+---
+label: Creating your own providers
+order: 998
+icon: repo
+---
+
+# Creating your own Providers
+
+Providers in CloudStream consists primarily of 4 different parts:
+
+- [Searching](https://recloudstream.github.io/dokka/-cloudstream/com.lagradost.cloudstream3/-main-a-p-i/index.html#498495168%2FFunctions%2F101969414)
+- [Loading the home page](https://recloudstream.github.io/dokka/-cloudstream/com.lagradost.cloudstream3/-main-a-p-i/index.html#1356482668%2FFunctions%2F101969414)
+- [Loading the show page](https://recloudstream.github.io/dokka/-cloudstream/com.lagradost.cloudstream3/-main-a-p-i/index.html#1671784382%2FFunctions%2F101969414)
+- [Loading the video links](https://recloudstream.github.io/dokka/-cloudstream/com.lagradost.cloudstream3/-main-a-p-i/index.html#-930139416%2FFunctions%2F101969414)
+
+When making a provider it is important that you are confident you can scrape the video links first!
+Video links are often the most protected part of the website and if you cannot scrape them then the provider is useless.
+
+## 0. Scraping
+
+If you are unfamiliar with the concept of scraping, you should probably start by reading [this guide](scraping/gettingstarted/) which should hopefuly familiarize you with this technique.
+
+Looking at how some extensions work alongside reading this will likely help a lot. See what common patterns you can spot in multiple extensions. 
+
+## 1. Searching
+
+This one is probably the easiest, based on a query you should return a list of [SearchResponse](https://recloudstream.github.io/dokka/app/com.lagradost.cloudstream3/-search-response/index.html)
+
+Scraping the search results is essentially just finding the search item elements on the site (red box) and looking in them to find name, url and poster url and put the data in a SearchResponse.
+
+![image](https://user-images.githubusercontent.com/46196380/184509999-0a50d13d-bc89-4f61-9f6e-f36648de0510.png)
+
+The code for the search then ideally looks something like
+
+```kotlin
+// (code for Eja.tv)
+
+override suspend fun search(query: String): List<SearchResponse> {
+    return app.post(
+        mainUrl, data = mapOf("search" to query) // Fetch the search data
+    ).document // Convert the response to a searchable document  
+        .select("div.card-body") // Only select the search items using a CSS selector
+        .mapNotNull { // Convert all html elements to SearchResponses and filter out the null search results
+            it.toSearchResponse()
+        }
+}
+
+// Converts a html element to a useable search response
+// Basically just look in the element for sub-elements with the data you want
+private fun Element.toSearchResponse(): LiveSearchResponse? {
+    // If no link element then it's no a valid search response
+    val link = this.select("div.alternative a").last() ?: return null
+    // fixUrl is a built in function to convert urls like /watch?v=..... to https://www.youtube.com/watch?v=.....
+    val href = fixUrl(link.attr("href"))
+    val img = this.selectFirst("div.thumb img")
+    // Optional parameter, scraping languages are not required but might be nice on some sites
+    val lang = this.selectFirst(".card-title > a")?.attr("href")?.removePrefix("?country=")
+        ?.replace("int", "eu") //international -> European Union 🇪🇺
+        
+    // There are many types of searchresponses but mostly you will be using AnimeSearchResponse, MovieSearchResponse
+    // and TvSeriesSearchResponse, all with different parameters (like episode count)
+    return LiveSearchResponse(
+        // Kinda hack way to get the title
+        img?.attr("alt")?.replaceFirst("Watch ", "") ?: return null,
+        href,
+        this@EjaTv.name,
+        TvType.Live,
+        fixUrl(img.attr("src")),
+        lang = lang
+    )
+}
+```
+
+In this code snippet I have separated the Element to SearchResult conversion to a separate function because that function can often be used when scraping the home page later. No need to parse the same type of element twice.
+
+## 2. Loading the home page
+
+Getting the homepage is essentially the same as getting search results but with a twist: you define the queries in a variable like this:
+
+```kotlin
+
+override val mainPage = mainPageOf(
+        Pair("1", "Recent Release - Sub"),
+        Pair("2", "Recent Release - Dub"),
+        Pair("3", "Recent Release - Chinese"),
+    )
+```
+
+This dictates what the getMainPage function will be receiving as function arguments.
+Basically when the recent dubbed shows should be loaded the getMainPage gets called with a page number and the request you defined above.
+
+```kotlin
+
+override suspend fun getMainPage(
+        page: Int,
+        request : MainPageRequest
+    ): HomePageResponse {
+
+    // page: An integer > 0, starts on 1 and counts up, Depends on how much the user has scrolled.
+    // request.data == "2"
+    // request.name == "Recent Release - Dub"
+
+```
+
+With these variables you should fetch the appropriate list of Search Response like this:
+
+```kotlin
+
+// Gogoanime
+override suspend fun getMainPage(
+        page: Int,
+        request : MainPageRequest
+    ): HomePageResponse {
+        // Use the data you defined earlier in the pair to send the request you want.
+        val params = mapOf("page" to page.toString(), "type" to request.data)
+        val html = app.get(
+            "https://ajax.gogo-load.com/ajax/page-recent-release.html",
+            headers = headers,
+            params = params
+        )
+        val isSub = listOf(1, 3).contains(request.data.toInt())
+
+        // In this case a regex is used to get all the correct variables
+        // But if you defined the Element.toSearchResponse() earlier you can often times use it on the homepage
+        val home = parseRegex.findAll(html.text).map {
+            val (link, epNum, title, poster) = it.destructured
+            newAnimeSearchResponse(title, link) {
+                this.posterUrl = poster
+                addDubStatus(!isSub, epNum.toIntOrNull())
+            }
+        }.toList()
+
+        // Return a list of search responses mapped to the request name defined earlier.
+        return newHomePageResponse(request.name, home)
+    }
+```
+
+This might seem needlessly convoluted, but this system is to allow "infinite" loading, e.g loading the next page of search
+responses when the user has scrolled to the end.
+
+TLDR: Exactly like searching but you defined your own queries.
+
+
+## 3. Loading the show page
+
+The show page is a bit more complex than search results, but it uses the same logic used to get search results: using CSS selectors and regex to parse html into a kotlin object. With the amount of info being parsed this function can get quite big, but the fundamentals are still pretty simple.
+The only difficultuy is getting the episodes, they are not always not part of the html. Check if any extra requests are sent in your browser when visiting the episodes page.
+
+**NOTE**: Episodes in CloudStream are not paginated, meaning that if you have a show with 21 seasons, all on different website pages you will need to parse them all. 
+
+A function can look something like this:
+
+
+```kotlin
+    // The url argument is the same as what you put in the Search Response from search() and getMainPage() 
+    override suspend fun load(url: String): LoadResponse {
+        val document = app.get(url).document
+
+        // A lot of metadata is nessecary for a pretty page
+        // Usually this is simply doing a lot of selects
+        val details = document.select("div.detail_page-watch")
+        val img = details.select("img.film-poster-img")
+        val posterUrl = img.attr("src")
+        // It's safe to throw errors here, they will be shown to the user and can help debugging. 
+        val title = img.attr("title") ?: throw ErrorLoadingException("No Title")
+
+        var duration = document.selectFirst(".fs-item > .duration")?.text()?.trim()
+        var year: Int? = null
+        var tags: List<String>? = null
+        var cast: List<String>? = null
+        val youtubeTrailer = document.selectFirst("iframe#iframe-trailer")?.attr("data-src")
+        
+        // The rating system goes is in the range 0 - 10 000
+        // which allows the greatest flexibility app wise, but you will often need to
+        // multiply your values
+        val rating = document.selectFirst(".fs-item > .imdb")?.text()?.trim()
+            ?.removePrefix("IMDB:")?.toRatingInt()
+
+        // Sometimes is is not quite possible to selct specific information
+        // as it is presented as text with to specific selectors to differentiate it.
+        // In this case you can iterate over the rows til you find what you want.
+        // It is a bit dirty but it works.
+        document.select("div.elements > .row > div > .row-line").forEach { element ->
+            val type = element?.select(".type")?.text() ?: return@forEach
+            when {
+                type.contains("Released") -> {
+                    year = Regex("\\d+").find(
+                        element.ownText() ?: return@forEach
+                        // Remember to always use OrNull functions
+                        // otherwise stuff will throw exceptions on unexpected values.
+                        // We would not want a page to fail because the rating was incorrectly formatted
+                    )?.groupValues?.firstOrNull()?.toIntOrNull()
+                }
+                type.contains("Genre") -> {
+                    tags = element.select("a").mapNotNull { it.text() }
+                }
+                type.contains("Cast") -> {
+                    cast = element.select("a").mapNotNull { it.text() }
+                }
+                type.contains("Duration") -> {
+                    duration = duration ?: element.ownText().trim()
+                }
+            }
+        }
+        val plot = details.select("div.description").text().replace("Overview:", "").trim()
+
+        // This is required to know which sort of LoadResponse to return.
+        // If the page is a movie it needs different metadata and will be displayed differently
+        val isMovie = url.contains("/movie/")
+
+        // This is just for fetching the episodes later
+        // https://sflix.to/movie/free-never-say-never-again-hd-18317 -> 18317
+        val idRegex = Regex(""".*-(\d+)""")
+        val dataId = details.attr("data-id")
+        val id = if (dataId.isNullOrEmpty())
+            idRegex.find(url)?.groupValues?.get(1)
+                ?: throw ErrorLoadingException("Unable to get id from '$url'")
+        else dataId
+
+        val recommendations =
+            document.select("div.film_list-wrap > div.flw-item").mapNotNull { element ->
+                val titleHeader =
+                    element.select("div.film-detail > .film-name > a") ?: return@mapNotNull null
+                val recUrl = fixUrlNull(titleHeader.attr("href")) ?: return@mapNotNull null
+                val recTitle = titleHeader.text() ?: return@mapNotNull null
+                val poster = element.select("div.film-poster > img").attr("data-src")
+                MovieSearchResponse(
+                    recTitle,
+                    recUrl,
+                    this.name,
+                    if (recUrl.contains("/movie/")) TvType.Movie else TvType.TvSeries,
+                    poster,
+                    year = null
+                )
+            }
+
+        if (isMovie) {
+            // Movies
+            val episodesUrl = "$mainUrl/ajax/movie/episodes/$id"
+            // Episodes are often retrieved using a separate request.
+            // This is usually the most tricky part, but not that hard.
+            // The episodes are seldom protected by any encryption or similar.
+            val episodes = app.get(episodesUrl).text
+
+            // Supported streams, they're identical
+            val sourceIds = Jsoup.parse(episodes).select("a").mapNotNull { element ->
+                var sourceId = element.attr("data-id")
+                if (sourceId.isNullOrEmpty())
+                    sourceId = element.attr("data-linkid")
+
+                if (element.select("span").text().trim().isValidServer()) {
+                    if (sourceId.isNullOrEmpty()) {
+                        fixUrlNull(element.attr("href"))
+                    } else {
+                        "$url.$sourceId".replace("/movie/", "/watch-movie/")
+                    }
+                } else {
+                    null
+                }
+            }
+
+            val comingSoon = sourceIds.isEmpty()
+
+            return newMovieLoadResponse(title, url, TvType.Movie, sourceIds) {
+                this.year = year
+                this.posterUrl = posterUrl
+                this.plot = plot
+                addDuration(duration)
+                addActors(cast)
+                this.tags = tags
+                this.recommendations = recommendations
+                this.comingSoon = comingSoon
+                addTrailer(youtubeTrailer)
+                this.rating = rating
+            }
+        } else {
+            val seasonsDocument = app.get("$mainUrl/ajax/v2/tv/seasons/$id").document
+            val episodes = arrayListOf<Episode>()
+            var seasonItems = seasonsDocument.select("div.dropdown-menu.dropdown-menu-model > a")
+            if (seasonItems.isNullOrEmpty())
+                seasonItems = seasonsDocument.select("div.dropdown-menu > a.dropdown-item")
+            seasonItems.apmapIndexed { season, element ->
+                val seasonId = element.attr("data-id")
+                if (seasonId.isNullOrBlank()) return@apmapIndexed
+
+                var episode = 0
+                val seasonEpisodes = app.get("$mainUrl/ajax/v2/season/episodes/$seasonId").document
+                var seasonEpisodesItems =
+                    seasonEpisodes.select("div.flw-item.film_single-item.episode-item.eps-item")
+                if (seasonEpisodesItems.isNullOrEmpty()) {
+                    seasonEpisodesItems =
+                        seasonEpisodes.select("ul > li > a")
+                }
+
+                seasonEpisodesItems.forEach {
+                    val episodeImg = it?.select("img")
+                    val episodeTitle = episodeImg?.attr("title") ?: it.ownText()
+                    val episodePosterUrl = episodeImg?.attr("src")
+                    val episodeData = it.attr("data-id") ?: return@forEach
+
+                    episode++
+
+                    val episodeNum =
+                        (it.select("div.episode-number").text()
+                            ?: episodeTitle).let { str ->
+                            Regex("""\d+""").find(str)?.groupValues?.firstOrNull()
+                                ?.toIntOrNull()
+                        } ?: episode
+
+                    // Episodes themselves can contain quite a bit of metadata, but only data to load links is required.
+                    episodes.add(
+                        newEpisode(Pair(url, episodeData)) {
+                            this.posterUrl = fixUrlNull(episodePosterUrl)
+                            this.name = episodeTitle?.removePrefix("Episode $episodeNum: ")
+                            this.season = season + 1
+                            this.episode = episodeNum
+                        }
+                    )
+                }
+            }
+```
+
+## 4. Loading links
+
+This is usually the hardest part when it comes to scraping video sites, because it costs a lot to host videos.
+As bandwidth is expensive video hosts need to recuperate their expenses using ads, but when scraping we bypass all ads.
+This means that video hosts have a big monetary incentive to make it as hard as possible to get the video links.
+
+This means that you cannot write just one piece of skeleton code to scrape all video hosts, they are all unique. 
+You will need to customized scrapers for each video host. There are some common obfuscation techniques you should know about and how to detect them.
+
+### Obfuscation techniques to know about:
+
+**Base64**:
+This is one of the most common obfuscation techniques, and you need to be able to spot it inside documents. It is used to hide important text in plain view.
+It looks something like this: `VGhpcyBpcyBiYXNlNjQgZW5jb2RlIHRleHQuIA==`
+A dead giveaway that it is base64 or something similar is that the string ends with `==`, something to watch out for, but not required. If you see any suspicious string using A-z in both uppercase and lowercase combined with some numbers then immediately check if it is base64.
+
+**AES encryption:**
+This is the more annoying variant of Base64 for our purposes, but less common. Some responses may be encrypted using AES and it is not too hard to spot.
+Usually encrypted content is encoded in Base64 (which decodes to garbage), which makes it easier to spot. Usually sites are not too covert in the use of AES, and you should be alerted if any site contains references to `enc`, `iv` or `CryptoJS`. The name of the game here is to find the decryption key, which is easiest done with a debugger. If you can find where the decryption takes place in the code, usually with some library like `CryptoJS` then you can place a breakpoint there to find the key.
+
+
+More to come later!
+
+
+
+
+
+# TODO: REST
+
+
+
+================================================
+FILE: devs/gettingstarted.md
+================================================
+---
+label: Getting started
+icon: milestone
+order: 1000
+---
+
+# For extension developers
+
+This section will outline how to start developing your own extensions for Cloudstream.
+
+[!badge variant="light" text="Step 1"] [Using plugin template](/devs/using-plugin-template.md)
+
+[!badge variant="light" text="Step 2"] [Creating your own providers](/devs/create-your-own-providers.md)
+
+[!badge variant="light" text="Step 3"] [Creating your own JSON repository](/devs/create-your-own-json-repository.md)
+
+[!badge variant="light" text="Step 4"] [Scraping tutorial](/devs/scraping/gettingstarted.md)
+
+
+================================================
+FILE: devs/index.yml
+================================================
+icon: code
+label: For extension developers
+expanded: false
+
+
+
+================================================
+FILE: devs/using-plugin-template.md
+================================================
+---
+label: Using plugin template
+icon: repo-template
+order: 999
+---
+
+# Using the template
+The easiest way to start developing is to use our [plugin-template](https://gitdab.com/recloudstream/plugin-template) as it sets up the build environment automatically.
+
+To get started:
+
+1) <a href="https://gitdab.com/recloudstream/plugin-template" target="_blank">Copy the plugin template page URL</a>
+
+2) Import into GitHub using the <a href="https://github.com/new/import" target="_blank">"Import a Repository"</a> Feature
+
+3) Check if GitHub actions are enabled, by going to: `Settings > Actions > General > Allow all actions and reusable workflows`
+
+4) You can now create your own plugins and after you push new code, they should automatically be built
+
+
+
+
+================================================
+FILE: devs/scraping/devtools_detectors.md
+================================================
+---
+label: Devtools detector
+order: 997
+icon: /static/tool.png
+---
+
+**TL;DR**: You are going to get fucked by sites detecting your devtools, the easiest bypass for this is using [a web sniffer extension](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
+
+Many sites use some sort of debugger detection to prevent you from looking at the important requests made by the browser.
+
+You can test the devtools detector [here](https://blog.aepkill.com/demos/devtools-detector/)
+Code for the detector found [here](https://github.com/AEPKILL/devtools-detector)
+
+# How are they detecting the tools?
+
+One or more of the following methods are used to prevent devtools in the majority of cases (if not all):
+
+**1.**
+Calling `debugger` in an endless loop.
+This is very easy to bypass. You can either right click the offending line (in chrome) and disable all debugger calls from that line or you can disable the whole debugger.
+
+**2.**
+Attaching a custom `.toString()` function to an expression and printing it with `console.log()`.
+When devtools are open (even while not in console) all `console.log()` calls will be resloved and the custom `.toString()` function will be called. Functions can also be triggered by how dates, regex and functions are formatted in the console.
+
+This lets the site know the millisecond you bring up devtools. Doing `const console = null` and other js hacks have not worked for me (the console function gets cached by the detector). 
+
+If you can find the offending js responsible for the detection you can bypass it by redifining the function in violentmonkey, but I recommend against it since it's often hidden and obfuscated. The best way to bypass this issue is to re-compile firefox or chrome with a switch to disable the console.
+
+**3.**
+Running a `while (true) {}` loop when the debugger object is present? Looks something like this in the wild:
+```js
+function _0x39426c(e) {
+    function t(e) {
+        if ("string" == typeof e)
+            return function(e) {}
+            .constructor("while (true) {}").apply("counter");
+        1 !== ("" + e / e).length || e % 20 == 0 ? function() {
+            return !0;
+        }
+        .constructor("debugger").call("action") : function() {
+            return !1;
+        }
+        .constructor("debugger").apply("stateObject"),
+        t(++e);
+    }
+    try {
+        if (e)
+            return t;
+        t(0);
+    } catch (e) {}
+}
+setInterval(function() {
+    _0x39426c();
+}, 4e3);
+```
+This function can be tracked down to this [script](https://github.com/javascript-obfuscator/javascript-obfuscator/blob/6de7c41c3f10f10c618da7cd96596e5c9362a25f/src/custom-code-helpers/debug-protection/templates/debug-protection-function/DebuggerTemplate.ts)
+
+I do not actually know how this works, but the loop seems gets triggered in the presence of a debugger. Either way this instantly freezes the webpage in firefox and makes it very unresponsive in chrome and does not rely on `console.log()`. You could bypass this by doing `const _0x39426c = null` in violentmonkey, but this bypass is not doable with heavily obfuscated js.
+
+# How to bypass the detection?
+
+If you just want to see the network log that is possible with extensions, see [Web Sniffer](https://chrome.google.com/webstore/detail/web-sniffer/ndfgffclcpdbgghfgkmooklaendohaef?hl=en)
+
+I tracked down the functions making devtools detection possible in the firefox source code and compiled a version which is undetectable by any of these tools.
+
+- [Linux build](https://mega.nz/file/YSAESJzb#x036cCtphjj9kB-kP_EXReTTkF7L7xN8nKw6sQN7gig)
+- [Windows build](https://mega.nz/file/ZWAURAyA#qCrJ1BBxTLONHSTdE_boXMhvId-r0rk_kuPJWrPDiwg)
+- [Mac build](https://mega.nz/file/Df5CRJQS#azO61dpP0_xgR8k-MmHaU_ufBvbl8_DlYky46SNSI0s)
+
+- about:config `devtools.console.bypass` disables the console which invalidates **method 2**. 
+- about:config `devtools.debugger.bypass` completely disables the debugger, useful to bypass **method 3**. 
+
+If you want to compile firefox yourself with these bypasses you can, using the line changes below in the described files.
+
+**BUILD: 101.0a1 (2022-04-19)**
+`./devtools/server/actors/thread.js`
+At line 390
+```js
+  attach(options) {
+    let devtoolsBypass = Services.prefs.getBoolPref("devtools.debugger.bypass", true);
+    if (devtoolsBypass)
+        return;
+```
+
+`./devtools/server/actors/webconsole/listeners/console-api.js`
+At line 92
+```js
+observe(message, topic) {
+let devtoolsBypass = Services.prefs.getBoolPref("devtools.console.bypass", true);
+if (!this.handler || devtoolsBypass) {
+  return;
+}
+```
+`./browser/app/profile/firefox.js`
+At line 23
+
+```js
+// Bypasses
+pref("devtools.console.bypass", true);
+pref("devtools.debugger.bypass", true);
+```
+
+
+================================================
+FILE: devs/scraping/disguising_your_scraper.md
+================================================
+---
+label: Disguishing your scrapers
+order: 996
+icon: /static/incognito.png
+---
+
+# Disguishing your scrapers
+
+<p align="center">
+If you're writing a <b>Selenium</b> scraper, be aware that your skill level doesn't match the minimum requirements for this page.
+</p>
+
+## Why is scraping not appreciated?
+
+- It obliterates ads and hence, blocks the site revenue.
+- It is more than usually used to spam the content serving networks, hence, affecting the server performance.
+- It is more than usually also used to steal content off of a site and serve in other.
+- Competent scrapers usually look for exploits on site. Among these, the open source scrapers may leak site exploits to a wider audience.
+
+## Why do you need to disguise your scraper?
+
+Like the above points suggest, scraping is a good act. There are mechanisms to actively kill scrapers and only allow the humans in. You will need to make your scraper's identity as narrow as possible to a browser's identity.
+
+Some sites check the client using headers and on-site javascript challenges. This will result in invalid responses along the status code of 400-499. 
+
+*Keep in mind that there are sites that produce responses without giving out the appropriate status codes.*
+
+## Custom Headers
+
+Here are some headers you need to check for:
+
+| Header | What's the purpose of this? | What should I change this to? |
+| --- | --- | --- |
+| `User-Agent` | Specifies your client's name along with the versions. | Probably the user-agent used by your browser. |
+| `Referer` | Specifies which site referred the current site. | The url from which **you** obtained the scraping url. |
+| `X-Requested-With` | Specifies what caused the request to that site. This is prominent in site's AJAX / API. | Usually: `XMLHttpRequest`, it may vary based on the site's JS |
+| `Cookie` | Cookie required to access the site. | Whatever the cookie was when you accessed the site in your normal browser. |
+| `Authorization` | Authorization tokens / credentials required for site access. | Correct authorization tokens or credentials for site access. |
+
+Usage of correct headers will give you site content access given you can access it through your web browser.
+
+**Keep in mind that this is only the fraction of what the possible headers can be.**
+
+## Appropriate Libraries
+
+In Python, `requests` and `httpx` have differences.
+
+```py
+>>> import requests, httpx
+>>> requests.get("http://www.crunchyroll.com/", headers={"User-Agent": "justfoolingaround/1", "Referer": "https://example.com/"})
+<Response [403]>
+>>> httpx.get("http://www.crunchyroll.com/", headers={"User-Agent": "justfoolingaround/1", "Referer": "https://example.com/"})
+<Response [200 OK]>
+```
+
+As we can see, the former response is a 403. This is a forbidden response and generally specifies that the content is not present. The latter however is a 200, OK response. In this response, content is available.
+
+This is the result of varying internal mechanisms. 
+
+The only cons to `httpx` in this case might be the fact that it has fully encoded headers, whilst `requests` does not. This means header keys consisting of non-ASCII characters may not be able to bypass some sites.
+
+## Response handling algorithms
+
+A session class is an object available in many libraries. This thing is like a house for your outgoing requests and incoming responses. A well written library has a session class that even accounts for appropriate cookie handling. Meaning, if you ever send a request to a site you need not need to worry about the cookie of that site for the next site you visit.
+
+No matter how cool session classes may be, at the end of the day, they are mere objects. That means, you, as a user can easily change what is within it. (This may require a high understanding of the library and the language.)
+
+This is done through inheritance. You inherit a session class and modify whats within.
+
+For example:
+
+```py
+class QuiteANoise(httpx.Client):
+
+    def request(self, *args, **kwargs):
+        print("Ooh, I got a request with arguments: {!r}, and keyword arguments: {!r}.".format(args, kwargs))
+        response = super().request(*args, **kwargs)
+        print("That request has a {!r}!".format(response))
+        return response
+```
+
+In the above inherited session, what we do is *quite noisy*. We announced a request that is about to be sent and a response that was just recieved.
+
+`super`, in Python, allows you to get the class that the current class inherits.
+
+Do not forget to return your `response`, else your program will be dumbfounded since nothing ever gets out of your request!
+
+So, we're going to abuse this fancy technique to effectively bypass some hinderances.
+
+Namely `hCaptcha`, `reCaptcha` and `Cloudflare`.
+
+```py
+"""
+This code is completely hypothetical, you probably 
+do not have a hCaptcha, reCaptcha and a Cloudflare
+bypass. 
+
+This code is a mere reference and may not suffice
+your need.
+"""
+from . import hcaptcha
+from . import grecaptcha
+
+import httpx
+
+class YourScraperSession(httpx.Client):
+
+    def request(self, *args, **kwargs):
+        
+        response = super().request(*args, **kwargs)
+
+        if response.status_code >= 400:
+
+            if hcaptcha.has_cloudflare(response):
+                cloudflare_cookie = hcaptcha.cloudflare_clearance_jar(self, response, *args, **kwargs)
+                self.cookies.update(cloudflare_cookie)
+                return self.request(self, *args, **kwargs)
+
+            # Further methods to bypass something else.
+            return self.request(self, *args, **kwargs) # psssssst. RECURSIVE HELL, `return response` is safer
+
+
+        hcaptcha_sk, type_of = hcaptcha.deduce_sitekey(self, response)
+        
+        if hcaptcha_sk:
+            if type_of == 'hsw':
+                token = hcaptcha.get_hsw_token(self, response, hcaptcha_sk)
+            else:
+                token = hcaptcha.get_hsl_token(self, response, hcaptcha_sk)
+            
+            setattr(response, 'hcaptcha_token', token)
+
+        recaptcha_sk, type_of = grecaptcha.sitekey_on_site(self, response)
+
+        if recaptcha_sk:
+            if isinstance(type_of, int):
+                token = grecaptcha.recaptcha_solve(self, response, recaptcha_sk, v=type_of)
+            else:
+                token = type_of
+
+            setattr(response, 'grecaptcha_token', token)
+            
+        return response
+```
+
+So, let's see what happens here.
+
+Firstly, we check whether the response has a error or not. This is done by checking if the response's status code is **greater than or equal to** 400.
+
+After this, we check if the site has Cloudflare, if the site has Cloudflare, we let the hypothetical function do its magic and give us the bypass cookies. Then after, we update our session class' cookie. Cookie vary across sites but in this case, our hypothetical function will take the session and make it so that the cookie only applies to that site url within and with the correct headers.
+
+After a magical cloudflare bypass (people wish they have this, you will too, probably.), we call the overridden function `.request` again to ensure the response following this will be bypassed to. This is recursion. 
+
+If anything else is required, you should add your own code to execute bypasses so that your responses will be crisp and never error-filled.
+
+Else, we just return the fresh `.request`.
+
+Keep in mind that if you cannot bypass the 400~ error, your responses might end up in a permanent recursive hell, at least in the code above.
+
+To not make your responses never return, you might want to return the non-bypassed response.
+
+The next part mainly focuses on CAPTCHA bypasses and what we do is quite simple. A completed CAPTCHA *usually* returns a token. 
+
+Returning this token with the response is not a good idea as the entire return type will change. We use a sneaky little function here. Namely `setattr`. What this does is, it sets an attribute of an object.
+
+The algorithm in easier terms is:
+
+Task: Bypass a donkey check with your human.
+
+- Yell "hee~haw". (Prove that you're a donkey, this is how the hypothetical functions work.)
+- Be handed the ribbon. (In our case, this is the token.)
+
+Now the problem is, the ribbon is not a human but still needs to come back. How does a normal human do this? Wear the ribbon.
+
+Wearing the ribbon is `setattr`. We can wear the ribbon everywhere. Leg, foot, butt.. you name it. No matter where you put it, you get the ribbon, so just be a bit reasonable with it. Like a decent developer and a decent human, wear the ribbon on the left side of your chest. In the code above, this reasonable place is `<captcha_name>_token`.
+
+Let's get out of this donkey business.
+
+After this reasonable token placement, we get the response back.
+
+This token can now, always be accessed in reasonable places, reasonably.
+
+
+```py
+client = YourScraperSession()
+
+bypassed_response = client.get("https://kwik.cx/f/2oHQioeCvHtx")
+print(bypassed_response.hcaptcha_token)
+```
+
+Keep in mind that if there is no ribbon/token, there is no way of reasonably accessing it.
+
+In any case, this is how you, as a decent developer, handle the response properly.
+
+
+================================================
+FILE: devs/scraping/finding_video_links.md
+================================================
+---
+label: Finding video links
+order: 995
+icon: codescan
+---
+
+# Finding video links
+
+Now you know the basics, enough to scrape most stuff from most sites, but not streaming sites.
+Because of the high costs of video hosting the video providers really don't want anyone scraping the video and bypassing the ads.
+This is why they often obfuscate, encrypt and hide their links which makes scraping really hard.
+Some sites even put V3 Google Captcha on their links to prevent scraping while the majority IP/time/referer lock the video links to prevent sharing.
+You will almost never find a plain `<video>` element with a mp4 link.
+
+**This is why you should always scrape the video first when trying to scrape a video hosting site. Sometimes getting the video link can be too hard.**
+
+I will therefore explain how to do more advanced scraping, how to get these video links.
+
+What you want to do is:
+
+1. Find the iFrame/Video host.*
+2. Open the iFrame in a separate tab to ease clutter.*
+3. Find the video link.
+4. Work backwards from the video link to find the source.
+
+* *Step 1 and 2 is not applicable to all sites.* 
+
+Let's explain further:
+**Step 1**: Most sites use an iFrame system to show their videos. This is essentially loading a separate page within the page. 
+This is most evident in [Gogoanime](https://gogoanime.gg/yakusoku-no-neverland-episode-1), link gets updated often, google the name and find their page if link isn't found.
+The easiest way of spotting these iframes is looking at the network tab trying to find requests not from the original site. I recommend using the HTML filter.
+
+![finding](https://user-images.githubusercontent.com/46196380/149821806-7426ca0f-133f-4722-8e7f-ebae26ea2ef1.png)
+  
+Once you have found the iFrame, in this case a fembed-hd link open it in another tab and work from there. (**Step 2**)
+If you only have the iFrame it is much easier to find the necessary stuff to generate the link since a lot of useless stuff from the original site is filtered out.
+
+**Step 3**: Find the video link. This is often quite easy, either filter all media requests or simply look for a request ending in .m3u8 or .mp4
+What this allows you to do is limit exclude many requests (only look at the requests before the video link) and start looking for the link origin (**Step 4**).
+
+![video_link](https://user-images.githubusercontent.com/46196380/149821919-f65e2f72-b413-4151-a4a3-db7012e2ed18.png)
+  
+I usually search for stuff in the video link and see if any text/headers from the preceding requests contain it. 
+In this case fvs.io redirected to the mp4 link, now do the same steps for the fvs.io link to follow the request backwards to the origin. Like images are showing.
+
+  
+![fvs](https://user-images.githubusercontent.com/46196380/149821967-00c01103-5b4a-48dd-be18-e1fdfb967e4c.png)
+  
+  
+  
+![fvs_redirector](https://user-images.githubusercontent.com/46196380/149821984-0720addd-40a7-4a9e-a429-fec45ec28901.png)
+  
+  
+  
+![complete](https://user-images.githubusercontent.com/46196380/149821989-49b2ba8c-36b1-49a7-a41b-3c69df278a9f.png)
+
+  
+  
+**NOTE: Some sites use encrypted JS to generate the video links. You need to use the browser debugger to step by step find how the links are generated in that case**
+
+## **What to do when the site uses a captcha?**
+
+You pretty much only have 3 options when that happens:
+
+1. Try to use a fake / no captcha token. Some sites actually doesn't check that the captcha token is valid.
+2. Use Webview or some kind of browser in the background to load the site in your stead.
+3. Pray it's a captcha without payload, then it's possible to get the captcha key without a browser: [Code example](https://github.com/recloudstream/cloudstream/blob/ccb38542f4b5685e511824a975bf16190011c222/app/src/main/java/com/lagradost/cloudstream3/MainAPI.kt#L132-L181)
+
+
+================================================
+FILE: devs/scraping/gettingstarted.md
+================================================
+---
+label: Getting Started
+order: 1000
+icon: milestone
+---
+
+# Requests based scraping tutorial
+
+You want to start scraping? Well this guide will teach you, and not some baby selenium scraping. This guide only uses raw requests and has examples in both python and kotlin. Only basic programming knowlege in one of those languages is required to follow along in the guide. 
+
+If you find any aspect of this guide confusing please open an issue about it and I will try to improve things.
+
+If you do not know programming at all then this guide will __not__ help you, learn programming! first Real scraping cannot be done by copy pasting with a vauge understanding.
+
+[!badge variant="light" text="Step 0"] [Starting scraping from zero](starting)
+
+[!badge variant="light" text="Step 1"] [Properly scraping JSON apis often found on sites](using_apis)
+
+[!badge variant="light" text="Step 2"] [Evading developer tools detection when scraping](devtools_detectors)
+
+[!badge variant="light" text="Step 3"] [Why your requests fail and how to fix them](disguising_your_scraper)
+
+[!badge variant="light" text="Step 4"] [Finding links and scraping videos](finding_video_links)
+
+Once you've read and understood the concepts behind scraping take a look at [a provider for CloudStream](https://github.com/recloudstream/cloudstream-extensions/blob/master/VidstreamBundle/src/main/kotlin/com/lagradost/VidEmbedProvider.kt#L4). I added tons of comments to make every aspect of writing CloudStream providers clear. Even if you're not planning on contributing to Cloudstream looking at the code may help
+
+
+================================================
+FILE: devs/scraping/index.yml
+================================================
+icon: /static/scraper.png
+label: Scraping
+expanded: false
+
+
+
+================================================
+FILE: devs/scraping/starting.md
+================================================
+---
+label: Starting
+order: 999
+icon: rocket
+---
+Scraping is just downloading a webpage and getting the wanted information from it. 
+As a start you can scrape the README.md
+
+
+I'll use khttp for the kotlin implementation because of the ease of use, if you want something company-tier I'd recommend OkHttp.
+
+**Update**: I have made an okhttp wrapper **for android apps**, check out [NiceHttp](https://github.com/Blatzar/NiceHttp)
+
+
+# **1. Scraping the Readme** 
+
+**Python**
+```python
+import requests
+url = "https://recloudstream.github.io/devs/scraping/"
+response = requests.get(url)
+print(response.text)  # Prints the readme
+```
+
+**Kotlin**
+
+In build.gradle:
+```gradle
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	// Other dependencies above
+	compile group: 'khttp', name: 'khttp', version: '1.0.0'
+}
+```
+In main.kt
+```kotlin
+fun main() {
+    val url = "https://recloudstream.github.io/devs/scraping/"
+    val response = khttp.get(url)
+    println(response.text)
+}
+```
+
+
+# **2. Getting the github project description** 
+Scraping is all about getting what you want in a good format you can use to automate stuff.
+
+Start by opening up the developer tools, using
+
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> 
+
+or 
+
+<kbd>f12</kbd> 
+
+or 
+
+Right click and press *Inspect*
+
+In here you can look at all the network requests the browser is making and much more, but the important part currently is the HTML displayed. You need to find the HTML responsible for showing the project description, but how? 
+
+Either click the small mouse in the top left of the developer tools or press 
+
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> 
+
+This makes your mouse highlight any element you hover over. Press the description to highlight up the element responsible for showing it.
+
+Your HTML will now be focused on something like:
+
+
+```html
+<p class="f4 mt-3">
+      Work in progress tutorial for scraping streaming sites
+</p>
+```
+
+Now there's multiple ways to get the text, but the 2 methods I always use is Regex and CSS selectors. Regex is basically a ctrl+f on steroids, you can search for anything. CSS selectors is a way to parse the HTML like a browser and select an element in it.
+
+## CSS Selectors
+
+The element is a paragraph tag, eg `<p>`, which can be found using the CSS selector: "p".
+
+classes helps to narrow down the CSS selector search, in this case: `class="f4 mt-3"`
+
+This can be represented with 
+```css
+p.f4.mt-3
+```
+a dot for every class [full list of CSS selectors found here](https://www.w3schools.com/cssref/css_selectors.asp)
+
+You can test if this CSS selector works by opening the console tab and typing:
+
+```js
+document.querySelectorAll("p.f4.mt-3");
+```
+
+This prints:
+```java
+NodeList [p.f4.mt-3]
+```
+
+### **NOTE**: You may not get the same results when scraping from command line, classes and elements are sometimes created by javascript on the site.
+
+
+**Python**
+
+```python
+import requests
+from bs4 import BeautifulSoup  # Full documentation at https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+url = "https://github.com/Blatzar/scraping-tutorial"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'lxml')
+element = soup.select("p.f4.mt-3")  # Using the CSS selector
+print(element[0].text.strip())  # Selects the first element, gets the text and strips it (removes starting and ending spaces)
+```
+
+**Kotlin**
+
+In build.gradle:
+```gradle
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	// Other dependencies above
+	implementation "org.jsoup:jsoup:1.11.3"
+	compile group: 'khttp', name: 'khttp', version: '1.0.0'
+}
+```
+In main.kt
+```kotlin
+fun main() {
+    val url = "https://github.com/Blatzar/scraping-tutorial"
+    val response = khttp.get(url)
+    val soup = Jsoup.parse(response.text)
+    val element = soup.select("p.f4.mt-3") // Using the CSS selector
+    println(element.text().trim()) // Gets the text and strips it (removes starting and ending spaces)
+}
+```
+
+
+## **Regex:**
+
+When working with Regex I highly recommend using (regex101.com)[https://regex101.com/] (using the python flavor)
+
+Press <kbd>Ctrl</kbd> + <kbd>U</kbd> 
+
+to get the whole site document as text and copy everything
+
+Paste it in the test string in regex101 and try to write an expression to only capture the text you want.
+
+In this case the elements is 
+
+```html
+<p class="f4 mt-3">
+      Work in progress tutorial for scraping streaming sites
+    </p>
+```
+
+Maybe we can search for `<p class="f4 mt-3">` (backslashes for ")
+
+```regex
+<p class=\"f4 mt-3\">
+```
+
+Gives a match, so lets expand the match to all characters between the two brackets ( p>....</ )
+Some important tokens for that would be:
+
+- `.*?` to indicate everything except a newline any number of times, but take as little as possible
+- `\s*` to indicate whitespaces except a newline any number of times
+- `(*expression inside*)` to indicate groups
+
+Which gives:
+
+```regex
+<p class=\"f4 mt-3\">\s*(.*)?\s*<
+```
+
+**Explained**: 
+
+Any text exactly matching `<p class="f4 mt-3">`
+then any number of whitespaces
+then any number of any characters (which will be stored in group 1)
+then any number of whitespaces
+then the text `<`
+
+
+In code:
+
+**Python**
+
+```python
+import requests
+import re  # regex
+
+url = "https://github.com/Blatzar/scraping-tutorial"
+response = requests.get(url)
+description_regex = r"<p class=\"f4 mt-3\">\s*(.*)?\s*<"  # r"" stands for raw, which makes blackslashes work better, used for regexes
+description = re.search(description_regex, response.text).groups()[0]
+print(description)
+```
+
+**Kotlin**
+In main.kt
+```kotlin
+fun main() {
+    val url = "https://github.com/Blatzar/scraping-tutorial"
+    val response = khttp.get(url)
+    val descriptionRegex = Regex("""<p class="f4 mt-3">\s*(.*)?\s*<""")
+    val description = descriptionRegex.find(response.text)?.groups?.get(1)?.value
+    println(description)
+}
+```
+
+
+================================================
+FILE: devs/scraping/using_apis.md
+================================================
+---
+label: Using APIs
+order: 998
+icon: /static/api.png
+---
+
+### About
+Whilst scraping a site is always a nice option, using it's API is way better. <br/>
+And sometimes its the only way `(eg: the site uses its API to load the content, so scraping doesn't work)`.
+
+Anyways, this guide won't teach the same concepts over and over again, <br/>
+so if you can't even make requests to an API then this will not tell you how to do that.
+
+Refer to [starting](starting) on how to make http/https requests.
+And yes, this guide expects you to have basic knowledge on both Python and Kotlin.
+
+### Using an API (and parsing json)
+So, the API I will use is the [SWAPI](https://swapi.dev/). <br/>
+
+To parse that json data in python you would do:
+```python
+import requests
+
+url = "https://swapi.dev/api/planets/1/"
+json = requests.get(url).json()
+
+""" What the variable json looks like
+{
+	"name": "Tatooine",
+	"rotation_period": "23",
+	"orbital_period": "304",
+	"diameter": "10465",
+	"climate": "arid",
+	"gravity": "1 standard",
+	"terrain": "desert",
+	"surface_water": "1",
+	"population": "200000",
+	"residents": [
+		"https://swapi.dev/api/people/1/"
+	],
+	"films": [
+		"https://swapi.dev/api/films/1/"
+	],
+	"created": "2014-12-09T13:50:49.641000Z",
+	"edited": "2014-12-20T20:58:18.411000Z",
+	"url": "https://swapi.dev/api/planets/1/"
+}
+"""
+```
+Now, that is way too simple in python, sadly I am here to get your hopes down, and say that its not as simple in kotlin. <br/>
+
+First of all, we are going to use a library named Jackson by FasterXML. <br/>
+In build.gradle:
+```gradle
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	...
+	...
+	implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.3"
+	compile group: 'khttp', name: 'khttp', version: '1.0.0'
+}
+```
+After we have installed the dependencies needed, we have to define a schema for the json. <br/>
+Essentially, we are going to write the structure of the json in order for jackson to parse our json. <br/>
+This is an advantage for us, since it also means that we get the nice IDE autocomplete/suggestions and typehints! <br/><br/>
+
+Getting the json data:
+```kotlin
+val jsonString = khttp.get("https://swapi.dev/api/planets/1/").text
+```
+
+First step is to build a mapper that reads the json string, in order to do that we need to import some things first.
+
+```kotlin
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+```
+
+After that we initialize the mapper:
+
+```kotlin
+val mapper: JsonMapper = JsonMapper.builder().addModule(KotlinModule())
+    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).build()
+```
+
+The next step is to...write down the structure of our json!
+This is the boring part for some, but it can be automated by using websites like [json2kt](https://www.json2kt.com/) or [quicktype](https://app.quicktype.io/) to generate the entire code for you.
+<br/><br/>
+
+First step to declaring the structure for a json is to import the JsonProperty annotation.
+```kotlin
+import com.fasterxml.jackson.annotation.JsonProperty
+```
+Second step is to write down a data class that represents said json.
+```kotlin
+// example json = {"cat": "meow", "dog": ["w", "o", "o", "f"]}
+
+data class Example (
+    @JsonProperty("cat") val cat: String,
+    @JsonProperty("dog") val dog: List<String>
+)
+```
+This is as simple as it gets. <br/> <br/>
+
+Enough of the examples, this is the representation of `https://swapi.dev/api/planets/1/` in kotlin:
+```kotlin
+data class Planet (
+    @JsonProperty("name") val name: String,
+    @JsonProperty("rotation_period") val rotationPeriod: String,
+    @JsonProperty("orbital_period") val orbitalPeriod: String,
+    @JsonProperty("diameter") val diameter: String,
+    @JsonProperty("climate") val climate: String,
+    @JsonProperty("gravity") val gravity: String,
+    @JsonProperty("terrain") val terrain: String,
+    @JsonProperty("surface_water") val surfaceWater: String,
+    @JsonProperty("population") val population: String,
+    @JsonProperty("residents") val residents: List<String>,
+    @JsonProperty("films") val films: List<String>,
+    @JsonProperty("created") val created: String,
+    @JsonProperty("edited") val edited: String,
+    @JsonProperty("url") val url: String
+)
+```
+**For json that don't necessarily contain a key, or its type can be either the expected type or null, you need to write that type as nullable in the representation of that json.** <br/>
+Example of the above situation:
+```json
+[
+   {
+      "cat":"meow"
+   },
+   {
+      "dog":"woof",
+      "cat":"meow"
+   },
+   {
+      "fish":"meow",
+      "cat":"f"
+   }
+]
+```
+It's representation would be:
+```kotlin
+data class Example (
+    @JsonProperty("cat") val cat: String,
+    @JsonProperty("dog") val dog: String?,
+    @JsonProperty("fish") val fish: String?
+)
+```
+As you can see, `dog` and `fish` are nullable because they are properties that are missing in an item. <br/>
+Whilst `cat` is not nullable because it is available in all of the items. <br/>
+Basic nullable detection is implemented in [json2kt](https://www.json2kt.com/) so its recommended to use that. <br/>
+But it is very likely that it might fail to detect some nullable types, so it's up to us to validate the generated code.
+
+Second step to parsing json is...to just call our `mapper` instance.
+```kotlin
+val json = mapper.readValue<Planet>(jsonString)
+```
+And voila! <br/>
+We have successfully parsed our json within kotlin. <br/>
+One thing to note is that you don't need to add all of the json key/value pairs to the structure, you can just have what you need.
+
+### Note
+Even though we set `DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES` as `false` it will still error on missing properties. <br/>
+If a json may or may not include some info, make those properties as nullable in the structure you build.
+
+
+
+================================================
+FILE: Integrations/Animetracking.md
+================================================
+---
+label: Anime tracking
+order: 998
+icon: sync
+---
+
+# Anime tracking FAQ
+
+!!! warning **Read this before starting the process**
+Anime tracking process works with **only anime extensions**. So, it'll not work with extensions like superstream, sflix, loklok etc. Some anime extensions might also not work with the tracking process as the sources don't contain all the required metadata.
+!!!
+
+___
+## Login Process
+
+[!badge variant="light" text="Step 1"] [!badge variant="dark" icon="gear" text="Settings"] → [!badge variant="dark" icon="" text="Accounts"] → **Choose AL or MAL**. For this guide we are choosing AL.
+
+[!badge variant="light" text="Step 2"] The app will forward to the default browser to login. Now **Login and authorize** the app. The site will return you the cloudstream app.
+
+!!! info
+If the log in process is successful, you will see a pop text and there will be your profile picture at the top right section of the home and the settings page.
+!!!
+
+[!embed](https://www.youtube-nocookie.com/embed/iEPK08b9OGE)
+___
+## Tracking
+
+- When you go to the eps page of an anime, you will see the tracker icon (Logo of AL or MAL) at the top right corner. Click on that and you will see the tracking menu.
+![image](https://cdn.discordapp.com/attachments/1021835706680745994/1029982148838563840/unknown.png)
+
+- The tracker will **automatically** track your anime after finishing the eps. Or you can **manually** input the number of eps you have watched.
+![](https://cdn.discordapp.com/attachments/1021835706680745994/1029982662699536384/unknown.png)
+![](https://cdn.discordapp.com/attachments/1021835706680745994/1029982861371113512/unknown.png)
+
+- Also, the **status** of the anime and the **rating** can be set from the tracking menu
+
+
+================================================
+FILE: Integrations/Aniyomi.md
+================================================
+---
+label: Aniyomi
+order: 994
+icon: /static/aniyomi.png
+---
+
+### Use your Aniyomi Extensions in CloudStream!
+Not guaranteed to work perfectly. Please make an issue if any functional extension does not work with this system.
+
+Add this repository using this shortcode: [anicompat](https://raw.githubusercontent.com/CranberrySoup/AniyomiCompatExtension/master/repo.json)
+
+~~Click~~ Pet the gorilla to install it on your phone:
+
+[![gorilla](https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f98d.png)](cloudstreamrepo://raw.githubusercontent.com/CranberrySoup/AniyomiCompatExtension/master/repo.json)
+
+### Installation
+
+Install the extension in CloudStream. The extension should then download the internal compat APK automatically. Once the installation is complete your Aniyomi extensions should appear in CloudStream.
+
+Installing this plugin does __not__ automatically download all Aniyomi extensions, you still need to get those from Aniyomi.
+
+### Aniyomi extension list
+
+You can find the list of all Aniyomi extensions [here](https://aniyomi.org/extensions/).
+
+---
+
+### Troubleshooting
+
+**No Aniyomi extensions appear**
+
+1. Go to plugin settings _(Settings -> Extensions -> Aniyomi Compat -> Click the extension settings button next to the trashcan)_
+2. Check that the compat apk is installed correctly by checking what it says under the **Currently Using:** tab. It should show some long path to an APK file. If it says none click **Force download APK**.
+3. If step 2 does not work, grab the APK and install it yourself [here](https://github.com/CranberrySoup/AniyomiCompat/raw/builds/app-debug.apk)
+4. Make sure that you actually have Aniyomi Extensions installed. It should show something other than 0 after **Number of extensions**
+
+**Aniyomi extensions do not work**
+
+1. Make sure the extension is functioning in Aniyomi.
+2. Try downloading the compat APK instead of using it internally. Download [here](https://github.com/CranberrySoup/AniyomiCompat/raw/builds/app-debug.apk) or click Install APK externally in plugin settings.
+3. Restart CloudStream
+4. Make an issue here if it still does not work
+
+
+
+================================================
+FILE: Integrations/ExternalPlayer.md
+================================================
+---
+label: External Player
+order: 999
+icon: play
+---
+
+# External player
+
+## Opening a video in an external player
+
+[!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" text="Episode page"] → **Press and hold the epsiode** → [!badge variant="dark" text="play in ABC player"]
+
+!!!info
+If the player is not in the pop up list, Click [!badge variant="dark" text="play in browser"]. It should prompt all the available options including your desired player. You can also copy the video link and stream it in the [!badge variant="dark" text="Network stream"] or the [!badge variant="dark" text="Stream"] option in your player. 
+!!!
+
+## Making Ext Player default
+[!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark" text="Player"] → [!badge variant="dark" icon="play" text="Preferred video player"] → [!badge variant="dark" text="Choose Your Video player"]
+
+[!embed](https://www.youtube-nocookie.com/embed/cXj9CAEf-Ys)
+
+
+
+
+================================================
+FILE: Integrations/index.yml
+================================================
+order: 970
+icon: plus-circle
+
+
+
+================================================
+FILE: Integrations/NGINX.md
+================================================
+---
+label: NGINX
+order: 997
+icon: /static/nginx.png
+---
+
+# NGINX Setup
+
+### What is Nginx?
+
+It's a free and open source software, it's really powerful but here we will only use it to display files on a simple web interface.
+The files we are using will be media such as movies or animes, that you need to download yourself (here we will use torrents)
+
+I will also refer to nginx as `HTTP access` in this tutorial because it allows the user to access his file using http.
+
+**You must have a server (like a raspberry pi, a NAS or a seedbox) and a media collection to use this feature !**
+
+___
+### Why did I create that?
+
+I used to be a user of [jellyfin](https://jellyfin.org/) because I didn't want to pay for a subscription and I didn't want to use proprietary software just to display files like plex.
+It wasn't working really well and I sometimes wasn't able to play Movies and it semmed to use a lot of ressources
+The solution? Scrape the media files and their metadata using Cloudstream-3
+
+The advantages of this provier over jellyfin are that it's lightweight and integrated with cloudstream
+
+___
+**To setup nginx you must have a media server:**
+- A 'managed' seedbox: is a service that you can rent and will take care of finding, downloading torrents and seeding them for you, check out mine [here](https://www.sarlays.com/my-media-server/), easiest method (that I use)
+- You can also self host the media server, I cover the install of nginx [here](https://www.sarlays.com/unlisted/self-host-nginx) (harder)
+
+Here I'll cover the install on a managed seedbox using ultra.cc
+
+![](https://media.discordapp.net/attachments/1015131233824538624/1063102592508506133/image.png)
+
+___
+### What are trackers?
+
+They are basically websites where you create an account and they "list" content hosted by other users registered on the website (they don't host the content themself).
+Sonarr and radarr will then ask prowlarr to search for something specific like a movie or an anime inside this list built by the tracker
+
+Once the movie is found, the torrent file is sent to transmission.
+Transmission is basically a torrent downloader, it will download the files given by radarr and sonarr
+
+___
+### Installation with ultraseedbox
+
+Ultraseedbox (now called ultra.cc) is a service that allows you to download torrents with really fast download speed and then seed those torrent (which means sharing it with other users how want to download them 24/7) but it cost some money, you can check them out [here](https://ultra.cc/) (I am not affiliated with them in any way, but their support and service is really great for me).
+
+You can use any similar seedbox service that offers http access through nginx.
+
+For my setup you have to install:
+
+**required (for metadata):**
+- Sonarr (for tv shows)
+- Radarr (for movies)
+- Nginx - http access (already installed by default on ultra.cc)
+
+___
+### Setting up radarr / sonarr
+You must use a metadata downloader (that downloads `.nfo` files), I'll use radarr and sonarr since it's the easiest for me (it might be possible to download metadata using something else but I didn't try)
+
+To install radarr and sonarr go into your control pannel, under installers search for sonarr and radarr
+
+You now have to enable the download of metadata
+
+To do so for Radarr go inside radarr to:
+
+`settings > metadata`
+
+you have to enable Kodi (XMBC) / Emby metadata
+
+I use the following settings in radarr
+
+![image](https://user-images.githubusercontent.com/18114966/187868344-b20c29ff-efdd-4f24-a655-a019eab06f2b.png)
+
+you must untick "use Movie.nfo" as shown in the screenshot
+
+For Sonarr go to:
+
+`settings > metadata`
+
+And enable those settings
+
+![image](https://user-images.githubusercontent.com/18114966/187868381-0c766ce5-0ab9-4d07-b555-44764665d2f6.png)
+
+If the metadata is not present, the movie / tv show will not be displayed by cloudstream
+
+Now we are ready, if you want to add folders to the http access you can follow the documentation coming from [ultra.cc](https://docs.usbx.me/books/http-access/page/downloading-files-from-your-ultracc-slot-using-http-access)
+
+___
+### In cloudstream
+Go into the settings of Cloudstream-3 and click the Nginx server url button
+
+Here you need to type the exact url of the http nginx server where you access your files, for exemple https://myusername.myles.usbx.me/
+
+The http access requires authentification, you have to go under Nginx Credentials and type your username and password.
+
+Those credentials are written in the control pannel of ultra.cc under:
+
+`Access details > HTTP proxy access`
+
+As written in the description, you have to supply those credentials using a very specific format,
+let's say your username is `mycoolusername` and your password is `password1234` (Please use a password manager lol), then you have to type in the input: `mycoolusername:password1234`
+
+![image](https://user-images.githubusercontent.com/18114966/187868588-98bfd993-1eee-4274-97b6-88934b877342.png)
+
+
+You now have to restart the app to apply the changes.
+
+Nginx will now show up in the sources list on the home page
+
+It might say that no url is supplied when starting the application, you can just hit the retry button and it should work fine
+
+That's it, you added nginx to Cloudstream
+
+
+================================================
+FILE: Integrations/OpenSubtitles.md
+================================================
+---
+label: Opensubtitles
+order: 1000
+icon: /static/osub.png
+---
+
+# Open Subtitles FAQ
+
+## Creating an account
+**Go [here](https://www.opensubtitles.com/en) and create an account.**
+![image](https://user-images.githubusercontent.com/57977673/194716796-c5556b8b-a0b7-4580-9054-f36d1304e545.png)
+
+___
+## Adding Open Subtitles account in Cloudstream
+
+[!badge variant="dark" icon="gear" text="Settings"] → [!badge variant="dark" text="Account"] → [!badge variant="dark" icon="/static/osub.png" text="OpenSubtitles"] → **Login with username and password**
+
+![image](https://user-images.githubusercontent.com/57977673/194716884-04860e09-7910-4216-bf26-52fbca4e0a86.png)
+
+___
+## How to use Open subtitles
+[!badge variant="dark" text="Video player"] → [!badge variant="dark" text="sources"] → [!badge variant="dark" text="subtitles"] → [!badge variant="dark" text="Load from internet"] **and then search and apply**
+
+![image](https://user-images.githubusercontent.com/57977673/194716636-f16fe137-c2e6-4529-bfd8-b86214ab8843.png)
+![image](https://cdn.discordapp.com/attachments/1008654622740729897/1029316063659315210/unknown.png)
+
+___
+## How to add my own subtitles
+!!! info
+The contents of www.opensubtitles.com are simply copied from the main www.opensubtitles.org website. During their beta phase, uploads are not yet possible on their new platform (of course - it will be possible soon). Subtitles uploaded to the original www.opensubtitles.org website will be copied to www.opensubtitles.com after a brief delay (1-2 hours).
+!!!
+
+**Go [here](https://www.opensubtitles.org/en/upload) and upload the subtitles with required details.**
+![image](https://cdn.discordapp.com/attachments/1008654622740729897/1029323888238264370/unknown.png)
+
+
+================================================
+FILE: Integrations/stemiorelated.md
+================================================
+---
+label: Stremio
+order: 996
+icon: /static/stremio.png
+---
+
+# Stremio addon
+
+!!! warning **Read this before installing**
+The Stremio extension is still experimental. Don't expect a stremio like experience. You can add sources in cs3 using this method, but it'll be only for catalogue. So, when you will try to play the eps, it will show **No link found**. **You can't stream torrent files using this.**
+!!!
+
+## Installing Stremio
+
+[!badge variant="light" text="Step 1"] Navigate to the [repo page](https://www.cloudstream.cf/repos) and install the [English repo](cloudstreamrepo://raw.githubusercontent.com/recloudstream/cloudstream-extensions/builds/repo.json)
+
+[!badge variant="light" text="Step 2"] Open **Cloudstream**, go to [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark" text="Extensions"] → [!badge variant="dark" text="English Repository"] → **slide across to** [!badge variant="dark" text="Others"] and **Install the Stremio plugin**
+
+___
+## Getting Stremio addon
+
+[!badge variant="light" text="Step 3"] Go back into your web browser and navigate to [Stremio addon list](https://stremio-addons.netlify.app/).
+
+[!badge variant="light" text="Step 4"] Find a stremio addon of your choice, click **copy link**.  **Remove the `manifest.json` from the end of the url and copy**
+
+___
+## Adding the addon
+
+[!badge variant="light" text="Step 5"] Go back into Cloudstream, go to [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark" text="General"] → [!badge variant="dark" icon="plus" text="Clone site"] → [!badge variant="dark" text="Stremio example"]
+
+[!badge variant="light" text="Step 6"] For the cloning process
+
+1. In `MyCoolSite` type a name for your stremio addon,
+2. In `example.com` type the url you previously copied from step 4 and paste it **
+3. In `Language code` type "en".
+
+[!badge variant="light" text="Step 7"] Click Apply and restart Cloudstream.
+
+[!badge variant="light" text="Step 8"] Once Cloudstream has restarted, click **None** (The button to change provider), click **Other** at the bottom, and your addon should appear.
+
+[!embed](https://www.youtube-nocookie.com/embed/iHZENk0MKXs)
+
+
+
+================================================
+FILE: Integrations/tarktlist.md
+================================================
+---
+label: Trakt
+order: 995
+icon: /static/trakt.png
+---
+
+# Using Trakt list as Catalogue
+
+!!! warning **Read this before installing**
+The Stremio extension is still experimental. Don't expect a stremio like experience. Most of the public stremio sources are torrent based but cloudstream doesn't support torrent stream. So, none of the popular sources will work here. The below trakt example is link only and it will not play any video. Also, this trakt doesn't sync anything.
+!!!
+
+[!badge variant="light" text="Step 1"] Install the stremio extension from english repo.
+
+[!badge variant="light" text="Step 2"] Go to [this site](https://2ecbbd610840-trakt.baby-beamup.club/configure)
+
+[!badge variant="light" text="Step 3"] Add the lists you want to see in the home section.
+
+[!badge variant="light" text="Step 4"] Click install
+
+[!badge variant="light" text="Step 5"] Copy the link address of the install button that appears again
+
+[!badge variant="light" text="Step 6"] Clone the stremio addon with the link you just pasted
+
+[!badge variant="light" text="Step 7"] At the start of the link, replace `stremio://` with `https://` and remove `manifest.json` from the end of the link
+
+[!embed](https://www.youtube-nocookie.com/embed/DLCSVxSBfxA)
+
+
+================================================
+FILE: More Stuff/audioquality.md
+================================================
+---
+label: Audio Quality Tags
+order: 499
+icon: unmute
+---
+## AAC 2.0
+AAC 2.0, or Advanced Audio Coding 2.0, is a type of audio codec that is designed to compress audio files with minimal loss of quality. It is commonly used for streaming and online music services, and it is supported by most media players and devices.
+
+## AC3
+AC3, or Dolby Digital, is an audio codec that is commonly used for DVD and Blu-ray movies. It uses a technique called perceptual coding to compress audio files, and it can provide surround sound with up to 5.1 channels.
+
+## DD Audio Format
+DD 5.1 and DD 7.1 are audio formats that refer to the number of channels in the audio.
+
+### DD 5.1
+DD 5.1 stands for Dolby Digital 5.1, which is a surround sound format that uses six channels: five full bandwidth channels (left, center, right, left surround, and right surround) and one low-frequency effects channel (the ".1" in 5.1).
+
+### DD 7.1
+DD 7.1, also known as Dolby Digital Plus 7.1, is an advanced version of DD 5.1, which includes an additional two channels for a total of eight channels (left, center, right, left surround, right surround, left surround back and right surround back, and a low-frequency effects channel). It is commonly used in home theater systems and other high-fidelity audio systems.
+
+## DDP Audio Format
+DDP 2.0, DDP 5.1, and DDP 7.1 are all variations of the DTS audio codec. They are used in the context of digital audio releases, such as in the case of music albums.
+
+### DDP 2.0
+DDP 2.0, or DTS Digital Surround 2.0, provides 2 channels of audio, which is the same as a stereo audio track.
+
+### DDP 5.1
+DDP 5.1, or DTS Digital Surround 5.1, provides 5.1 channels of surround sound, which includes a left channel, a right channel, a center channel, and two surround channels. This allows for a more immersive and realistic surround sound experience, with sounds coming from more directions and with more separation.
+
+### DDP 7.1
+DDP 7.1, or DTS Digital Surround 7.1, provides 7.1 channels of surround sound, which includes a left channel, a right channel, a center channel, two surround channels, two rear surround channels, and a low-frequency effects (LFE) channel. This allows for an even more immersive and realistic surround sound experience, with sounds coming from even more directions and with even more separation.
+
+## DTS Audio Format
+DTS, or Digital Theater Systems, is a surround sound format that uses a technique called subband coding to compress audio files. It was developed by Digital Theater Systems, Inc. (DTS) and it's used in a variety of applications such as movies, television shows, video games, and music. DTS uses a lossy compression algorithm, which means that some of the original audio data is lost during compression, but it can still provide a high-quality audio experience. DTS supports up to 7.1 channels of surround sound and it's widely supported by most home theater systems, A/V receivers, and media players.
+
+DTS audio codecs are also used in other audio formats such as DTS-HD Master Audio, DTS-X and DDP 5.1.
+
+### DTS-HDMA
+DTS-HD Master Audio is a lossless surround sound format that provides high-quality audio with up to 7.1 channels of surround sound. It's an extension of the standard DTS format and it's designed for high-definition video content.
+
+### DTS:X
+DTS:X is an object-based surround sound format that was developed by DTS. It also supports up to 128 audio tracks and up to 64 speakers, including overhead speakers. It can also be delivered in various channel.
+
+## Dolby TrueHD
+TrueHD is a lossless multi-channel audio codec developed by Dolby Laboratories. It is an advanced version of the popular Dolby Digital (AC3) codec, and it is designed to provide high-quality, lossless audio that is virtually identical to the original studio master recording.
+
+TrueHD audio is typically found on Blu-ray Discs and streaming services, and it is capable of delivering up to 8 channels of surround sound at a sample rate of up to 192 kHz and 24-bit resolution. This means it can deliver high-quality audio with a wide frequency range and dynamic range, and it can accurately reproduce subtle details and nuances in the audio.
+
+TrueHD is considered as a high-quality audio codec and it is an alternative to DTS-HD Master Audio codec which is also used in Blu-ray Discs and streaming services.
+
+Keep in mind that TrueHD audio requires a compatible player and audio system to decode and play the audio. Some devices and systems may not support TrueHD, so it is important to check the specifications of your equipment before purchasing a movie or TV show with TrueHD audio.
+
+!!!light Summary
+Dolby TrueHD is a lossless multi-channel audio codec that provides high-quality, lossless audio that is virtually identical to the original studio master recording. It is commonly found on Blu-ray Discs and streaming services as an alternative to DTS-HD Master Audio codec. In order to fully experience the Dolby TrueHD audio quality, a compatible player and audio system is required to decode and play the audio.
+!!!
+
+
+
+================================================
+FILE: More Stuff/index.yml
+================================================
+label: More Stuff
+order: 680
+icon: /static/folder.png
+
+
+
+================================================
+FILE: More Stuff/miscellaneous.md
+================================================
+---
+label: Miscellaneous
+order: 90
+icon: kebab-horizontal
+---
+## Terms
+
+**Repository**: Contains all the extensions/sites.
+
+**Extension/Source/Site**: Contains all the videos/servers of a site.
+
+**Server**: Hosts the videos.
+
+
+## Installing Sorastream
+
+[!embed](https://www.youtube-nocookie.com/embed/yDuXGAnFQuI)
+
+!!!For Sorastream related FAQ, click [!badge variant="secondary" text="here"](/troubleshooting.md/#sorastream)
+!!!
+
+
+
+================================================
+FILE: More Stuff/videoquality.md
+================================================
+---
+label: Video Quality Tags
+order: 500
+icon: video
+---
+
+## x264 vs x265
+x264 and x265 are both video codecs that are used for compressing video files. They are both open-source and are widely supported by various media players and devices.
+
+x264 is a codec that uses the H.264 standard for compression. H.264 is a widely adopted video compression standard that provides good video quality at relatively low bitrates. It is commonly used for encoding video files for a variety of purposes, including streaming, broadcasting, and storage.
+
+x265, on the other hand, is a codec that uses the H.265 (HEVC) standard for compression. H.265 is a more advanced standard than H.264 and it allows for better compression, meaning that video files can be smaller while still maintaining the same level of quality. It also supports higher resolutions like 4K and 8K. However, some devices may not be able to play H.265 encoded videos.
+
+!!!light Summary
+x264 is a codec that uses H.264 standard and x265 uses H.265 standard for compression. x265 will provide better compression and higher resolution support but it requires more computational power. x264 is more widely supported and can be played on more devices, but the video quality may not be as good for the same bitrate.
+!!!
+
+## WEB-DL vs WEB-Rip
+WEB-DL stands for "Web-Download." It is a term used to describe a type of video file that has been downloaded from the internet, as opposed to being bought on a physical medium like a DVD or Blu-ray. WEB-DL files are typically high-quality versions of movies or TV shows that have been downloaded from streaming services or torrent websites. These files are usually in the format of .mkv or .mp4 and have been compressed using a codec such as x264 or x265. The quality of WEB-DL files can be higher than that of standard definition (SD) or even high definition (HD) files, as they are usually sourced from the original high-definition master.
+
+WEBRip is a type of video file that is typically sourced from a streaming service, such as Netflix or Amazon Prime, and then recorded and re-encoded by an individual. Because the video is recorded and re-encoded, the quality may vary and it may not be as high as the original source.
+
+!!!light Summary
+WEBRip is a type of video file that is typically sourced from a streaming service and then recorded and re-encoded by an individual, whereas WEB-DL is a term used to describe a type of video file that has been downloaded directly from the internet and the quality is typically higher than WEBRip.
+!!!
+
+## REMUX vs DVD-Rip
+A remux is a type of video file that is a remastered version of the original source. It takes the video and audio streams from the original source and puts them into a new container format, such as MKV or MP4, without changing the compression or encoding of the streams. This means that the quality of the video and audio is exactly the same as the original source. The main advantage of a remux is that it allows for better compatibility with different media players and devices, as well as smaller file sizes.
+
+A DVDrip, on the other hand, is a type of video file that is typically created by ripping the video and audio streams from a DVD. The compression and encoding of the streams may be changed during the ripping process, which can result in a loss of quality. DVDrip files are usually in the format of AVI or MP4 and have a lower resolution than the original DVD.
+
+!!!light Summary
+A remux is a type of video file that is a remastered version of the original source and it keeps the same quality and just change the container format, whereas a DVDrip is a type of video file that is typically created by ripping the video and audio streams from a DVD, which may result in a loss of quality.
+!!!
+
+## Blu-ray
+Blu-ray video quality is a high-definition video standard that offers a higher resolution and better picture quality than standard definition (SD) or even high-definition (HD) video. Blu-ray video typically has a resolution of 1920x1080 pixels (1080p) and it can also support 4K resolution (3840x2160 pixels) and 8K resolution (7680x4320 pixels).
+
+The picture quality of Blu-ray video is typically much sharper and more detailed than that of SD or HD video. It has a wider range of colors, brightness, and contrast, which allows for more lifelike and vibrant images. It also supports lossless surround sound audio codecs such as DTS-HD Master Audio, Dolby TrueHD, and more.
+
+Blu-ray video also supports a variety of advanced features such as interactive menus, subtitles, and multiple audio tracks. Additionally, Blu-ray players usually have built-in hardware decoders for advanced video codecs such as H.264, VC-1 and MPEG-4, which allows for smoother playback of video content.
+
+!!!light Summary
+Blu-ray video quality is a high-definition video standard that offers a higher resolution and better picture quality than standard definition (SD) or even high-definition (HD) video, it also supports lossless surround sound audio codecs and advanced features such as interactive menus, subtitles, and multiple audio tracks.
+!!!
+
+## DS4K
+DS4K stands for "Downscaled 4K." It is a video resolution where a 4K (Ultra High Definition) video is downscaled to a lower resolution, such as 1080p (Full HD) for streaming or distribution purposes. OTT providers often compress their 4K contents poorly to manage their server traffic. That's why encoders downscale the 4K version with good bitrate, sharpness, details, etc. The quality of a DS4K video depends on the encoder.
+
+## SDR vs HDR vs HDR10 vs HDR10+
+
+### SDR
+SDR (Standard Dynamic Range) is the standard for displaying images on most traditional displays, such as TVs and computer monitors. SDR images have a limited range of brightness and color, and typically look less vibrant and realistic compared to HDR (High Dynamic Range) images.
+
+### HDR
+HDR (High Dynamic Range) is a newer technology that enhances the brightness, contrast, and color range of images, resulting in more vivid and realistic images. HDR images have a wider range of brightness and color than SDR images, and they can display brighter whites and darker blacks.
+
+HDR10 and HDR10+ are both HDR video formats, but they have some differences.
+
+### HDR10
+HDR10 is an open, industry-standard HDR format that is supported by most HDR-enabled TVs and devices. It uses static metadata to define the maximum and minimum brightness levels of an image, and this metadata is embedded in the video.
+
+### HDR10+
+HDR10+ is a newer HDR format that is developed by Samsung and it uses dynamic metadata, which can adjust the brightness and color levels on a scene-by-scene or even frame-by-frame basis. This allows for more accurate and consistent HDR images, and it can provide a more immersive viewing experience. However, it is not as widely supported as HDR10 and it's only supported by some Samsung and Panasonic TVs and devices.
+
+!!!light Summary
+SDR is the standard for displaying images on most traditional displays, HDR enhances the brightness, contrast, and color range of images, HDR10 is an open, industry-standard HDR format and HDR10+ is a newer HDR format developed by Samsung that uses dynamic metadata for more accurate and consistent HDR images.
+!!!
+
+## Dolby Vision
+Dolby Vision is a high-dynamic-range (HDR) video format developed by Dolby Laboratories. It is designed to provide a more immersive viewing experience by expanding the range of colors and brightness levels that can be displayed on screen.
+
+Dolby Vision uses a combination of hardware and software to process video content, allowing it to display a wider range of colors and brightness levels than standard dynamic range (SDR) video. It also uses a technique called "dynamic metadata" which allows the color and brightness to be adjusted on a scene-by-scene or even frame-by-frame basis, rather than a static adjustment for the entire movie or TV show.
+
+Dolby Vision is compatible with a wide range of devices, including televisions, streaming devices, and Ultra HD Blu-ray players, and it is supported by many streaming services and content providers.
+
+Keep in mind that to fully experience Dolby Vision, both the content and the playback device must be Dolby Vision compatible. Some devices only support Dolby Vision on streaming and not on physical media.
+
+!!!light Summary
+Dolby Vision is an HDR video format that enhances the range of colors and brightness levels on screen. It uses advanced processing techniques to improve the viewing experience and is compatible with a wide range of devices and supported by many streaming services. To fully experience Dolby Vision, both the content and the playback device must be Dolby Vision compatible.
+!!!
+
+
+
+================================================
+FILE: More Stuff/vpn.md
+================================================
+---
+label: VPN
+order: 1000
+icon: lock
+---
+## VPN Types
+
+### Premium
+This is the one of the safest options. Like mullvad, surfshark, nord etc. Before purchasing the subscription, please see if the owner of the vpn provider is trustable. For example read [!badge variant="dark" text="this article"](https://www.vpnmentor.com/blog/companies-secretly-own-dozens-vpns/).
+
+### Freemium
+These providers give a free tier w/ data cap and very few servers. Like proton`(No data cap)`, windscribe`(10GB/month)`, hide.me`(10GB/month)` etc. But the free servers often have very high ping, low bandwidth and no streaming geo restriction remover.
+
+!!!dark
+Windscribe has more free servers than Proton vpn. As a result, you will get less traffic and ping. 
+!!!
+
+### Cloudflare WARP
+
+1.1.1.1 is a decent alternative. No data cap. Decent speed. But the problem is you can't choose which server you want use. It'll auto select the server based on your location. You can generate premium account for free which will give you additional benefits.
+!!! 1.1.1.1 vs WARP vs WARP+
+- 1.1.1.1 provides encrypted DNS.
+- WARP provides encrypted DNS, and an encrypted tunnel for all network traffic between your device and the [Cloudflare servers](https://www.cloudflare.com/network/) **nearest to you**.
+- WARP+ provides encrypted DNS, and an encrypted tunnel for all network traffic between your device and the Cloudflare servers closest to the website you're accessing. The encrypted traffic is sent through Cloudflare's global private network in a route optimized by Cloudflare's [Argo Smart Routing technology](https://www.cloudflare.com/products/argo-smart-routing/).
+
+	by **u/quinncom**
+!!!
+
+!!!secondary You can also read Cloudflare's [!badge variant="dark" text="official documentation about warp modes"](https://developers.cloudflare.com/warp-client/warp-modes/)
+!!!
+
+!!!Success Generate free WARP+ data
+1. Download [!badge variant="secondary" icon="/static/warp.png" text="1.1.1.1"](https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone)
+2. Go to [!badge variant="dark" text="1.1.1.1"] → [!badge variant="dark" text="Settings"] → [!badge variant="dark" text="Advanced"] → [!badge variant="dark" text="Diagnostics"]  and copy the [!badge variant="dark" text="ID"]
+3. 
+	1. [!badge variant="dark" text="Run"] [!badge variant="secondary" text="Replit"](https://replit.com/@aliilapro/warp) and paste your [!badge variant="dark" text="ID"] there.
+	2. Or, Go to [!badge variant="secondary" text="Google collab"](https://colab.research.google.com/github/TheCaduceus/WARP-UNLIMITED-ADVANCED/blob/main/ipynb/Colab.ipynb), paste your [!badge variant="dark" text="ID"] there and run the program.
+
+The program will now generate 1GB free WARP+ referral reward after every 20 seconds. You have to wait a bit to see the referral reward in the app.
+!!!
+
+### Self Hosted
+
+A self-hosted VPN is a VPN service that is set up and managed by the user, rather than by a third-party VPN provider. This means that the user is responsible for setting up and maintaining the VPN server, as well as for securing the VPN connection.
+
+There are several advantages to using a self-hosted VPN. One is that the user has full control over the VPN server and can configure it to meet their specific needs. Another advantage is that the user can be sure that their internet traffic is not being logged or monitored by a third-party VPN provider.
+
+To set up a self-hosted VPN, the user will need to have a server (physical or virtual) that is connected to the internet and that is configured to run VPN software. There are several different VPN software packages that can be used, such as OpenVPN, WireGuard, and StrongSwan. These software packages can be installed on the server and configured to create a VPN connection.
+
+!!!light Summary
+A self-hosted VPN is a VPN service that is set up and managed by the user. It offers the user full control over the VPN server, but also requires a certain level of knowledge and maintenance. It is important to weigh the benefits and drawbacks before deciding to go for a self-hosted VPN.
+!!!
+
+!!!info [Sample Tutorial](https://www.youtube.com/watch?v=E-CLtExRzX8)
+!!!
+
+!!!danger Avoid these vpn options
+1. No mod vpn. If you can mod your vpn, then it's not a good vpn.
+2. No ad supported vpn. To provide ad they need data which defeats the main purpose.
+3. One time purchase/ full free. Their business model is always questionable
+!!!
+___
+
+## HTTPS vs DoH vs VPN
+
+**HTTPS (Hypertext Transfer Protocol Secure)** is a protocol for secure communication over the internet. It encrypts the communication between a website and a user's browser to protect against eavesdropping and tampering.
+
+**DoH (DNS over HTTPS)** is a protocol for securely resolving DNS (Domain Name System) queries over HTTPS. It encrypts DNS queries to prevent eavesdropping and tampering, and helps to prevent censorship and other forms of tampering with DNS resolution.
+
+**VPN (Virtual Private Network)** is a technology that creates a secure, encrypted tunnel between a device and a VPN server. This allows users to access the internet as if they were connected to a private network, and can be used to protect against eavesdropping, tampering, and censorship.
+
+!!!light Summary
+HTTPS protects the communication between the browser and the website, DOH protects the communication between the client and the DNS server and VPN protect the communication between the device and the internet. They are different protocols with different goals but all of them aims to increase security and privacy.
+!!!
+
+___
+
+## Does VPN speed up your connection?
+
+Using a VPN can sometimes impact your internet connection speed, as your internet traffic has to be routed through an encrypted tunnel to a VPN server before it reaches the internet. This extra step can add some latency to your connection, which can result in slower download and upload speeds.
+
+However, in some cases, a VPN can actually improve your video streaming speed. This is because some ISPs (Internet Service Providers) use traffic shaping techniques to limit the bandwidth of certain types of internet traffic, such as video streaming. By using a VPN, you can bypass these limitations and access the internet as if you were connected to a different network.
+
+Additionally, some VPNs offer servers specifically optimized for streaming, allowing you to connect to a server that is closest to the streaming service’s servers, reducing the distance and latency your data has to travel, which can result in faster streaming speeds.
+
+!!!info
+It is important to note that the effect of VPN on video streaming speed can be highly dependent on several factors such as the VPN provider, the server location, your internet connection speed, and the distance between your device and the VPN server.
+!!!
+
+!!!light Summary
+Using a VPN can potentially increase your video streaming speed but it also can decrease it depending on the factors mentioned before. It is recommended to test the VPN connection with and without a VPN to measure the difference in streaming speed.
+!!!
+
+___
+
+## VPN and security
+
+When you use a VPN, your internet traffic is routed through an encrypted tunnel to a VPN server before it reaches the internet. This makes it difficult for your ISP (Internet Service Provider) to see which websites you are visiting.
+
+However, it is important to note that while a VPN can make it difficult for your ISP to see which websites you are visiting, it is not impossible. Some VPNs may not provide perfect forward secrecy, which means that if an attacker intercepts your internet traffic, they may be able to decrypt it and see which websites you are visiting. Additionally, some VPNs may keep logs of your internet activity, which could be accessed by your ISP or other third parties.
+
+So, to ensure that your ISP cannot see which websites you are visiting, it is important to use a reputable VPN service that has a good track record of protecting user privacy and not keeping logs. Additionally, using a VPN with perfect forward secrecy and a high level of encryption is a good choice. Or, you can use Self hosted vpn.
+
+!!!light Summary
+Using a VPN can make it more difficult for your ISP to see which websites you are visiting, but it is not a guarantee that they won't be able to see it. It is important to use a reputable VPN service that has a good track record of protecting user privacy.
+!!!
+
+
+
+================================================
+FILE: Other devices/index.yml
+================================================
+order: 990
+expanded: true
+icon: device-desktop
+
+
+
+================================================
+FILE: Other devices/Linux.md
+================================================
+---
+label: Linux
+order: 998
+icon: /static/linux.svg
+---
+
+# Emulation on Linux
+
+## Waydroid
+
+!!!success GPU Requirements
+
+Waydroid currently works best with **Intel GPUs**. They should work out of the box.
+
+AMD GPUs appear to have mixed results (in particular, the _RX 6800_ does not work); if Waydroid does _not_ work you might also want to try the NVIDIA instructions below.
+
+NVIDIA GPUs do _not_ work currently, but there are 2 workarounds:
+
+-   Switch to integrated graphic card if possible;
+-   Use software rendering:
+    -   Make sure that you have already run `waydroid init` (see [#Installation](https://wiki.archlinux.org/title/Waydroid#Installation) section)
+    -   Edit `/var/lib/waydroid/waydroid_base.prop` and set:
+        
+        ```
+        ro.hardware.gralloc=default
+        ro.hardware.egl=swiftshader
+        ```
+        
+    -   [Restart](https://wiki.archlinux.org/title/Restart "Restart") the `waydroid-container.service`.
+!!!
+___
+## Fedora 36
+___
+
+!!!danger
+Kernels 5.18.18 to 5.19.5 are broken.
+!!!
+
+[!badge variant="light" text="Step 1"] Add the Copr repository
+
+```sh
+sudo dnf copr enable aleasto/waydroid
+```
+
+[!badge variant="light" text="Step 2"] Install waydroid
+
+```sh
+sudo dnf install waydroid
+```
+
+When launching waydroid from the application menu you'll be asked to initialize waydroid with some android images. Use the following links:
+
+System OTA: `https://ota.waydro.id/system`
+
+Vendor OTA: `https://ota.waydro.id/vendor`
+
+!!!warning
+This will download non-free components (ffmpeg, possibly others).
+!!!
+
+___
+## Ubuntu 22.04
+___
+
+[!badge variant="light" text="Step 1"] Install Pre-requisites
+
+```sh
+sudo apt install curl ca-certificates -y
+```
+
+[!badge variant="light" text="Step 2"] The Repo
+
+Add the repo to your sources.list (for droidian & ubports, this step can be skipped)
+Replace DISTRO="jammy" with your current target. Options: focal, jammy, ubuntu-devel, bookworm, bullseye, sid
+
+```sh
+export DISTRO="jammy"
+```
+
+```sh
+sudo curl --proto '=https' --tlsv1.2 -Sf https://repo.waydro.id/waydroid.gpg --output /usr/share/keyrings/waydroid.gpg && \
+echo "deb [signed-by=/usr/share/keyrings/waydroid.gpg] https://repo.waydro.id/ $DISTRO main" > ~/waydroid.list && \
+sudo mv ~/waydroid.list /etc/apt/sources.list.d/waydroid.list && \
+sudo apt update
+```
+
+[!badge variant="light" text="Step 3"] Install Waydroid
+
+```sh
+sudo apt install waydroid -y
+```
+
+Then start Waydroid from the applications menu.
+
+___
+## Install and Run Android Applications
+___
+
+Waydroid is able to perform a few various operations found by using the waydroid app -h command:
+
+```
+usage: waydroid app [-h] {install,remove,launch,list} ...
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+subaction:
+  {install,remove,launch,list}
+    install             push a single package to the container and install it
+    remove              remove single app package from the container
+    launch              start single application
+    list                list installed applications
+```
+
+To launch an app ising CLI, you would want to use the waydroid app launch <appname> command:
+
+```sh
+waydroid app launch xyz.apk
+```
+
+You can also install Android applications from the command line.
+
+```sh
+waydroid app install xyz.apk
+```
+
+The apk files you will sometimes find on the internet tend to only have arm support, and will therefore not work on x86_64.
+
+You may want to install [F-Droid](https://f-droid.org/) to get applications graphically. Note that the Google Play Store will not work as is, because it relies on the proprietary Google Play Services, which are not installed.
+
+___
+## Waydroid Prop Options
+___
+Waydroid uses various properties in order to tell the underlying Android system how to behave in a few places. To do this, we use the `waydroid prop` command. To unset a prop, `waydroid prop set <property> ""`
+
+### Properties
+
+- waydroid prop set persist.waydroid.multi_windows true/false (bool) Enables/Disables persistent freeform window mode
+- waydroid prop set persist.waydroid.invert_colors true/false (bool) Swaps the color space from RGBA to BGRA (only works with our patched mutter so far)
+- waydroid prop set persist.waydroid.height_padding 0-9999 (int) Adjust Height padding (30 will allow you to use navbar on mobile)
+- waydroid prop set persist.waydroid.width_padding 0-9999 (int) Adjust width padding
+- waydroid prop set waydroid.display_width 0-9999 (int) (auto-generated) Auto generated size of Waydroid screen
+- waydroid prop set persist.waydroid.width 0-9999 (int) Used for user to override desired resolution
+- waydroid prop set persist.waydroid.suspend true/false (bool) Keep Waydroid awake and do not let container sleep
+
+___
+## Setting up a shared folder
+___
+
+Setting up a shared folders to copy files from `source` to `target`.   
+
+!!!dark
+`Source` files will be accessible from `Target` but not Editable.
+!!!
+
+```sh
+sudo mount --bind <source> <target>
+```
+
+!!!dark
+We will setup the `host` folder to copy files from the host, and the `droid` folder to copy files from waydroid.
+!!! 
+
+Example:
+
+- Copy files from Linux to Waydroid: 
+    - on Waydroid Create a `/Waydroid/host` folder
+    - on Host Create a `~/Waydroid/host` folder
+```sh
+mkdir ~/Waydroid/host
+```
+    - Bind Linux folder to the Android one
+```sh
+sudo mount --bind ~/Waydroid/host ~/.local/share/waydroid/data/media/0/Waydroid/host
+```
+
+- Copy files from Waydroid to Linux : 
+    - on Waydroid Create a `/Waydroid/droid` folder
+    - on Host Create a `~/Waydroid/droid` folder
+```sh
+mkdir ~/Waydroid/droid
+```
+    - Bind Linux folder to the Android one
+```sh
+sudo mount --bind ~/.local/share/waydroid/data/media/0/Waydroid/droid ~/Waydroid/droid
+```
+
+___
+## Clipboard
+___
+
+!!!dark
+Replace `dnf` with the appropriate command for your distro.
+!!!
+
+[!badge variant="light" text="Step 1"] Install pip
+
+```sh
+sudo dnf install pip
+```
+
+[!badge variant="light" text="Step 2"] install wl-clipboard
+
+```sh
+sudo dnf install wl-clipboard
+```
+
+[!badge variant="light" text="Step 3"] install pyclip
+
+```sh
+pip install --upgrade pip pyclip
+```
+
+[!badge variant="light" text="Step 4"] add `$HOME/.local/bin/` to your $PATH
+
+add
+
+```
+export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+```
+
+to the appropriate file `.zshenv` or `.bashrc` or `.profile`
+
+[!badge variant="light" text="Step 5"] reboot the system
+
+
+
+
+================================================
+FILE: Other devices/tv.md
+================================================
+---
+label: Android TV
+order: 1000
+icon: /static/tv.svg
+---
+
+# Installation on TV
+
+## Installing CS3
+
+!!!light
+You can follow the [!badge variant="secondary" text="Standard Setup Process"](/index.md/#standard-setup) here too. But if your TV browser isn't working, follow these methods to install cloudstream.
+!!!
+
+==- Method 1: Using URL Shortener code
+
+!!!warning Before starting the process
+
+[!badge variant="light" text="Step 1"] Make sure that you have **installed the downloader.**
+
+- for [**Android tv**](https://play.google.com/store/apps/details?id=com.esaba.downloader&hl=en_GB&gl=US)
+
+- for [**Fire tv**](https://www.amazon.com/AFTVnews-com-Downloader/dp/B01N0BP507) 
+
+[!badge variant="light" text="Step 2"] Have **enabled unknown sources** in developer options.
+!!!
+
+
+!!!info Please read these docs if you're unsure
+- [**Android TV**](https://www.youtube.com/watch?v=W7NmOnhVd18)
+
+- [**Fire TV**](https://troypoint.com/how-to-jailbreak-a-firestick/)
+!!!
+
+
+### The process
+[!badge variant="light" text="Step 1"] Open **Downloader** on your device
+
+[!badge variant="light" text="Step 2"] In the search box, type `532423`, and wait 5 seconds.
+
+[!badge variant="light" text="Step 3"] Once the timer is up, click **install** on the popup
+
+[!badge variant="light" text="Step 4"] Click **install once again** to install Cloudstream
+
+[!badge variant="light" text="Step 5"] Click Launch
+
+[!embed](https://www.youtube-nocookie.com/embed/BY22OtJYI0c)
+===
+
+==- Method 2: Using file sharing app
+
+!!!warning Before starting the process
+[!badge variant="light" text="Step 1"] Download [Send Files to Tv](https://play.google.com/store/apps/details?id=com.yablio.sendfilestotv) on **both tv and mobile device.**
+
+[!badge variant="light" text="Step 2"] Download cs3 [!badge variant="primary" icon="/static/stable.png" text="Stable"](https://github.com/recloudstream/cloudstream/releases/latest) or [!badge variant="danger" icon="/static/pre.png" text="Pre-release"](https://github.com/recloudstream/cloudstream/releases/pre-release) in mobile
+
+[!badge variant="light" text="Step 3"] Connect both devices to same Wi-Fi
+!!!
+
+[!embed](https://youtu.be/lYQ9aBZnWZw)
+===
+___
+## Installing repositories
+
+Follow [!badge variant="secondary" text="this guide"](/index.md/#manual-setup), If the tv browser isn't working.
+
+
+
+================================================
+FILE: Other devices/Windows.md
+================================================
+---
+label: Windows
+order: 999
+icon: /static/win11.png
+---
+
+# WSA Installation Guide
+
+==- MagiskonWSA (Windows 10 & 11)
+
+!!!info This WSA build includes
+- Rooted Android 13
+- Google Play Services and Magisk
+- No Amazon App store
+!!!
+
+## Requirements
+___
+|     [!badge variant="primary" size="l" icon="/static/win11.svg" text="Windows 11"]    |    [!badge variant="primary" size="l" icon="/static/win10.svg" text="Windows 10"]  { class="compact" }     |
+|:-------------------------:|:-----------------------:|
+| **RAM**: 6 GB (minimum) and 16 GB (recommended).| **RAM**: 6 GB (minimum) and 16 GB (recommended).|
+| **Build**: 22000.526 or higher.| **Build**: 22H2 10.0.19045.2311 or higher.|
+| **Partition**: NTFS <br /> Windows Subsystem For Android™ can only be installed on a NTFS partition, not on an exFAT partition | **Partition**: NTFS <br /> Windows Subsystem For Android™ can only be installed on a NTFS partition, not on an exFAT partition|
+| The Computer must support virtualization and be enabled in BIOS/UEFI and Optional Features. [**Guide for this process.**](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1)| The Computer must support virtualization and be enabled in BIOS/UEFI and Optional Features. [**Guide for this process.**](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-11-pcs-c5578302-6e43-4b4b-a449-8ced115f58e1)|
+
+!!!warning GPU compatibility
+Any compatible Intel, AMD or Nvidia GPU. GPU Performance may vary depending on its compatibility with Windows Subsystem For Android™. Nvidia GPUs are known to cause problems. If Windows Subsystem For Android™ does not start or there are graphical glitches when an Nvidia GPU is used, [follow this guide](https://github.com/MustardChef/WSABuilds/blob/master/Guides/ChangingGPU.md) to switch to another iGPU/dGPU/eGPU  that you may have or Microsoft Basic Renderer.
+!!!
+___
+## Installation
+
+!!!warning If you have the official WSA installed, you must [completely uninstall](#uninstallation) it to use MagiskOnWSA.
+!!!
+
+[!badge variant="light" text="Step 1"] **Download the WSA** zip file from [!badge variant="secondary" text="here"](https://github.com/MustardChef/WSABuilds#downloads)
+
+!!!danger Do not download "Source code".
+!!!
+
+[!badge variant="light" text="Step 2"] **Extract** the zip file
+
+[!badge variant="light" text="Step 3"] Open the WSA folder and **run** the `Run.bat`
+
+!!!dark
+If you previously have a MagiskOnWSA installation, it will automatically uninstall the previous one while preserving all user data and install the new one, so don't worry about your data.
+!!!
+
+
+[!badge variant="light" text="Step 4"] Once the installation process completes, WSA will launch.
+
+!!!dark
+If this is a first-time install, a window asking for consent to diagnostic information will be shown. Sometimes two identical windows may appear, click OK in both windows).
+!!!
+
+!!!light The installation Process is DONE!
+Now close Windows powershell by putting any key there.
+!!!
+
+!!!contrast Troubleshooting
+If you face any issue installing WSA, join the [**Support Server**](https://discord.com/invite/2thee7zzHZ). The common fixes are listed [!badge text="here"](/troubleshooting.md/#wsa). You can follow these too.
+!!!
+
+___
+## Sideloading
+
+[!badge variant="light" text="Step 1"] Download and install [**WSA Pacman**](https://github.com/alesimula/wsa_pacman/releases) or [**WSA Sideloader**](https://github.com/infinitepower18/WSA-Sideloader).
+
+[!badge variant="light" text="Step 2"] Go to [!badge variant="dark" text="Windows Subsystem for Android"] → [!badge variant="dark" text="Developer"] and turn on **Developer mode**.
+
+!!!danger You have to give pacman or other sideloaders the adb permission.
+![](https://media.discordapp.net/attachments/1015131233824538624/1062611905249820733/allow.png)
+!!!
+
+!!!info If the "Install" button is greyed out while installing apk
+**Open** WSA pacman and **turn on** wsa from there.
+![](https://media.discordapp.net/attachments/1015131233824538624/1062610433506287708/WSA-pacman_x7UaiviLSW.png)
+!!!
+
+___
+## Update
+
+1. [Download the latest build](https://github.com/MustardChef/WSABuilds#downloads) (that you want to update to)
+2. Make sure Windows Subsystem For Android is not running (Click on "Turn off" in the WSA Settings and wait for the spinning loader to disappear)
+2. Using 7-Zip, WinRAR or any other tool of choice, open the .zip file 
+3. Within the .zip archive open the subfolder (Example: WSA_2xxx.xxxxx.xx.x_xx_Release-Nightly-with-magisk-xxxxxxx-MindTheGapps-xx.x-RemovedAmazon)
+4. Select all the files that are within this subfolder and extract them to the current folder where the file for Windows Subsystem For Android are (the folder you extracted, and installed WSA from)
+5. When prompted to replace folders, select "Do this for all current items" and click on "Yes" 
+6. When prompted to replace files, click on "Replace the files in the destination"
+7. Run  the ``Run.bat`` file
+8. Launch Windows Subsystem For Android Settings app and go to the ``About`` tab using the sidebar
+9. Check if the WSA version matches the latest version/ the version number that you want to update to
+
+___
+## Backup & Restore
+
+### Backup
+If you want to preserve your data, make a backup of the file `%LOCALAPPDATA%\Packages\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\LocalCache\userdata.vhdx`.
+
+### Restore
+Paste the VHDX file back to the folder `%LOCALAPPDATA%\Packages\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\LocalCache` .
+
+___
+## Uninstallation
+
+1. Make sure that Windows Subsystem For Android™ is not running
+2. Search for ``Windows Subsystem For Android™ Settings`` using the built-in Windows Search, or through Add and Remove Programs and press uninstall
+3. Delete the WSA folder that extracted you extracted and Run.bat was run from to install WSA (MagiskOnWSA folder)
+4. Go to ``%LOCALAPPDATA%/Packages/`` and delete the folder named ``MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe``
+  - If you get an error that states that the file(s) could not be deleted, make sure that WSA is turned off
+
+===
+
+==- WSA (Windows 11 only)
+
+!!!info This WSA build includes
+- Non-rooted Android 13 (You can't access Android folder)
+- No Google Play Services and Magisk
+- Amazon Appstore
+!!!
+___
+## Installation
+
+Download and Install Windows Subsystem for Android from the [**Store**](https://apps.microsoft.com/store/detail/windows-subsystem-for-android%E2%84%A2-with-amazon-appstore/9P3395VX91NR?hl=en-us&gl=us).
+
+!!!light Changing region
+If your region doesn't have WSA in the microsoft store, you can change the region to get it.
+1. Select [!badge variant="dark" text="Start"] → [!badge variant="dark" text="Settings"] → [!badge variant="dark" text="Time & Language"] → [!badge variant="dark" text="Language & Region"].
+2. Under [!badge variant="dark" text="Country or region"], select your new region. (Recommendation: US)
+3. You can switch back to your original region at any time.
+!!!
+
+___
+## Sideloading
+
+[!badge variant="light" text="Step 1"] Download and install [**WSA Pacman**](https://github.com/alesimula/wsa_pacman/releases) or [**WSA Sideloader**](https://github.com/infinitepower18/WSA-Sideloader).
+
+[!badge variant="light" text="Step 2"] Go to [!badge variant="dark" text="Windows Subsystem for Android"] → [!badge variant="dark" text="Developer"] and turn on **Developer mode**.
+
+!!!danger You have to give pacman or other sideloaders the adb permission.
+![](https://media.discordapp.net/attachments/1015131233824538624/1062611905249820733/allow.png)
+!!!
+
+!!!info If the "Install" button is greyed out while installing apk
+**Open** WSA pacman and **turn on** wsa from there.
+![](https://media.discordapp.net/attachments/1015131233824538624/1062610433506287708/WSA-pacman_x7UaiviLSW.png)
+!!!
+
+[!embed](https://www.youtube-nocookie.com/embed/m4JA-4tWM_o)
+
+!!!dark More stuff
+If you want more installation method, read [this article](https://www.androidpolice.com/set-up-wsa-windows-11-android-apps/).
+!!!
+
+===
+
+
+
+================================================
+FILE: Settings/cloningsite.md
+================================================
+---
+label: Site Cloning
+order: 990
+icon: plus
+---
+
+# Site Cloning
+
+If the site in the app is blocked for your region, you can make a clone of that site using a site of **same structure** which is working for you. You can't clone a site of different structure.
+
+## Process
+
+[!badge variant="light" text="Step 1"] A name (completely arbitrary, this is what will be displayed in the app)
+
+[!badge variant="light" text="Step 2"] The clone site URL with `https://` at the front
+
+[!badge variant="light" text="Step 3"] A two letter [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (this will dictate how the site is displayed and sorted within the app, just enter en if you are unsure)
+
+
+[!embed](https://www.youtube-nocookie.com/embed/4tR58jyG9uQ)
+
+
+
+================================================
+FILE: Settings/Downloading.md
+================================================
+---
+label: Downloading
+order: 1000
+icon: download
+---
+
+# Downloading From Cloudstream
+
+==- Change the download location
+
+[!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark"  text="General"] → [!badge variant="dark" icon="download" text="download path"] and then select a custom location.
+
+===
+==- Change video quality or source
+
+[!embed](https://www.youtube-nocookie.com/embed/vMpZEnAZhcY)
+
+===
+==- External Downloading
+
+You can download from any source without any issue using 1DM. Max the Number of connections to get the best download speed.
+
+[!embed](https://www.youtube-nocookie.com/embed/eGbHbzyIsio)
+===
+
+
+
+================================================
+FILE: Settings/index.yml
+================================================
+order: 980
+icon: gear
+
+
+================================================
+FILE: Settings/othersettings.md
+================================================
+---
+label: Other Settings
+order: 800
+icon: kebab-horizontal
+---
+
+## Sub/Dub Filter for Anime
+
+[!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark"  text="Providers"] → [!badge variant="dark"  text="Display Dubbed/Subbed Anime"] and apply your wanted filter.
+
+## NSFW
+
+[!embed](https://www.youtube-nocookie.com/embed/5wT6gGezQxI)
+
+
+
+================================================
+FILE: Settings/SrcPriority.md
+================================================
+---
+label: Source Priority
+order: 1100
+icon: sliders
+---
+
+# Source priority
+
+Now you can customize the order of all video sources, but it is a bit complex.
+Each quality and source now has a priority. 
+This means that you can for example make your favorite quality or any videos from your favorite source always appear first.
+
+If the sum of the two priorities is 10 or above the video player will instantly skip loading. For example:
+- Video source A: **4**
+- Video source B: **1**
+
+- 720p: **6**
+- 1080p: **3**
+
+And all sources will be ordered like:
+
+1. Video source A 720p (Priority **10**, instantly skips loading)
+2. Videos source A 1080p (Priority **9**)
+3. Videos source B 720p (Priority **7**)
+4. Videos source B 1080p (Priority **4**)
+
+Your settings can be saved to different profiles to make it easy to sort differently depending on your network connection.
+In addition one profile can be set to default for WiFi and one profile for Mobile data, making it easier to load only the videos your network can
+
+![button placement](https://github.com/recloudstream/csdocs/assets/18114966/f4d2d8ab-6937-4e06-a777-80fa1c4d492c)
+
+![explanation](https://github.com/recloudstream/csdocs/assets/18114966/a36338ae-2d58-4ee5-8264-74269a3b01e7)
+
+
+
+================================================
+FILE: Settings/stream.md
+================================================
+---
+label: Network Stream
+order: 800
+icon: link
+---
+
+
+!!!Success Use cases
+- Stream from the sources that doesn't support stream/ not in CS3
+- Stream from Index Sites
+- Stream Youtube videos
+- Stream m3u streams (example: IPTVs)
+!!!
+
+!!!warning Before starting the process
+This will not work with some storage system like google drive, mega etc. So, keep this in mind. Also if your device don't have the drivers, it may show black screen. You can try [!badge variant="Secondary" text="External Media Player"](/recapps.md/#external-media-player) too.
+!!!
+
+!!!info The basic process here
+1. Copy the download link
+2. Paste it in [!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="download" text="Downloads"] → [!badge variant="dark" text="Stream"] and press [!badge variant="dark" text="Play"]
+!!!
+
+___
+## Index Sites
+For this example, we will use [!badge variant="dark" text="The Bay Index"](https://opengatewayindex.pages.dev/).
+
+==- Step 1
+Search your content and click on the file you want to watch.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066030480614502480/PbVEAP4.png)
+===
+
+==- Step 2
+Now copy the download link.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066031721201553590/kRPuLi9.png)
+===
+
+==- Step 3
+Paste it in [!badge variant="dark" icon="/static/base.png" text="Cloudstream"] → [!badge variant="dark" icon="download" text="Downloads"] → [!badge variant="dark" text="Stream"] and press [!badge variant="dark" text="Play"] .After loading a bit, it'll start the streaming.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066031491005567006/m4v3Xhw.png)
+![](https://cdn.discordapp.com/attachments/1047169440246136832/1066028940864520212/xPcRTEO.png)
+
+===
+
+___
+## Sites with direct DL
+!!!info There are sites that hosts really good multi quality videos with very good compression. We are using [!badge variant="dark" text="UHDmovies"](https://uhdmovies.org.in/)
+!!!
+
+==- Step 1
+Open the title you want to stream and scroll down to get the link. Click on the quality that you want to stream.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066038014662410290/R5ZxEf6.png)
+===
+
+==- Step 2
+Go through the ads to unlock the link.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066039032368345168/aMrR88n.png)
+===
+
+==- Step 3
+Copy the download link from the downloading section.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066039552277479555/EQgEtYO.png)
+===
+
+==- Step 4
+Now paste it in cloudstream and stream.
+![](https://media.discordapp.net/attachments/1015131233824538624/1066039233267114015/HUNl9um.png)
+![](https://media.discordapp.net/attachments/870761489101901954/1066041356943900693/Screenshot_20230120_180738_CloudStream_Beta.jpg)
+===
+
+___
+
+## How to bypass GDToT
+
+Use this [!badge variant="primary" icon="paper-airplane" text="Telegram Bot"](https://telegram.me/olam_gdtot_bypassbot) to get direct link from GDToT. Use `/start` to start the telegram bot. Then put `/bypass <GDToT URL>`. The bot will post the direct DL link.
+![](https://media.discordapp.net/attachments/1044322950725259274/1066047589180526602/w6V9M4T.png)
+
+
+================================================
+FILE: Settings/Subtitle.md
+================================================
+---
+label: Subtitles
+order: 1000
+icon: /static/sub.png
+---
+
+# FAQ on Subtitles
+
+==- Subtitle appearance settings
+
+[!badge variant="dark" icon="/static/gear.png" text="Settings"] → [!badge variant="dark" text="Player"] → [!badge variant="dark" icon="/static/sub.png" text="Subtitles"]
+
+![image](https://user-images.githubusercontent.com/57977673/194716099-e7932efe-0c60-4837-be1d-70fe3d514d98.png)
+===
+
+==- Subtitle sync
+
+[!badge variant="dark" text="Video player"] → [!badge variant="dark" icon="/static/sub.png" text="Sync Subtitles"] → [!badge variant="dark" text="Put your positive or negative delay"]
+
+![image](https://user-images.githubusercontent.com/57977673/194716414-7b24555c-172b-439c-a9d5-e45ea0c71ee0.png)
+
+===
+==- Select subtitle source
+
+[!badge variant="dark" text="Video player"] → [!badge variant="dark" text="sources"] → [!badge variant="dark" text="subtitles"] → subtitles can come from three sources: 
+
+1. load from provider — listed automatically when available
+2. load from file — you manually add a subtitle file that's on your device to play with the video
+3. load from Internet — using [OpenSubtitles](https://www.opensubtitles.com/) (login required), [Addic7ed](https://www.addic7ed.com/) and [Index subtitles](https://subscene.cyou/) (not stable).
+
+![image](https://user-images.githubusercontent.com/57977673/194716636-f16fe137-c2e6-4529-bfd8-b86214ab8843.png)
+
+===
+==- How to use OpenSubtitles
+
+[!badge variant="dark" icon="gear" text="Settings"] → [!badge variant="dark" text="Account"] → [!badge variant="dark" icon="/static/osub.png" text="OpenSubtitles"] → **Login with your username and password**
+
+![image](https://user-images.githubusercontent.com/57977673/194716884-04860e09-7910-4216-bf26-52fbca4e0a86.png)
+
+!!! note OpenSubtitles FAQ
+For more information, you can [read our OpenSubtitles FAQ](/Integrations/OpenSubtitles.md)
+!!!
+
+===
+==- How do I disable subtitles permanently
+
+[!badge variant="dark" icon="gear" text="Settings"] → [!badge variant="dark" text="Player"] → [!badge variant="dark" icon="/static/sub.png" text="Subtitles"] → [!badge variant="dark" text="Auto-Select Language"] → [!badge variant="dark" text="None"]
+
+[!embed](https://www.youtube-nocookie.com/embed/8QLJb_u9_cc)
+===
+
+
+
+================================================
+FILE: static/settings.SVG
+================================================
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="48dp" height="48dp" viewportWidth="48" viewportHeight="48" tint="?attr/white" xmlns:android="http://schemas.android.com/apk/res/android">
+	<path fill="@color/white" d="M27.6,44.8H20.4Q19.7,44.8 19.175,44.4Q18.65,44 18.6,43.3L17.8,38.3Q17,38 16.025,37.475Q15.05,36.95 14.35,36.35L9.75,38.45Q9.15,38.8 8.45,38.55Q7.75,38.3 7.4,37.65L3.8,31.15Q3.4,30.55 3.6,29.9Q3.8,29.25 4.35,28.85L8.5,25.75Q8.45,25.4 8.425,24.85Q8.4,24.3 8.4,23.9Q8.4,23.55 8.425,23.025Q8.45,22.5 8.5,22.1L4.35,19.1Q3.75,18.7 3.6,18.025Q3.45,17.35 3.8,16.75L7.4,10.3Q7.8,9.7 8.45,9.45Q9.1,9.2 9.75,9.5L14.25,11.6Q14.95,11.05 15.95,10.475Q16.95,9.9 17.8,9.6L18.6,4.65Q18.65,3.95 19.175,3.55Q19.7,3.15 20.4,3.15H27.6Q28.3,3.15 28.825,3.55Q29.35,3.95 29.45,4.65L30.2,9.6Q31.05,9.9 32.075,10.475Q33.1,11.05 33.75,11.6L38.25,9.5Q38.85,9.2 39.55,9.45Q40.25,9.7 40.6,10.3L44.2,16.7Q44.55,17.3 44.4,18Q44.25,18.7 43.7,19.1L39.45,22.05Q39.5,22.5 39.55,23.05Q39.6,23.6 39.6,24Q39.6,24.4 39.55,24.925Q39.5,25.45 39.5,25.85L43.65,28.85Q44.2,29.25 44.375,29.925Q44.55,30.6 44.2,31.2L40.6,37.7Q40.2,38.35 39.525,38.575Q38.85,38.8 38.25,38.45L33.65,36.35Q32.95,36.9 32,37.475Q31.05,38.05 30.25,38.3L29.45,43.3Q29.35,44 28.825,44.4Q28.3,44.8 27.6,44.8ZM23.95,31.15Q26.95,31.15 29.05,29.05Q31.15,26.95 31.15,23.95Q31.15,20.95 29.05,18.85Q26.95,16.75 23.95,16.75Q20.95,16.75 18.85,18.85Q16.75,20.95 16.75,23.95Q16.75,26.95 18.85,29.05Q20.95,31.15 23.95,31.15ZM23.9,27.5Q22.45,27.5 21.425,26.45Q20.4,25.4 20.4,23.95Q20.4,22.45 21.425,21.425Q22.45,20.4 23.95,20.4Q25.4,20.4 26.45,21.45Q27.5,22.5 27.5,23.95Q27.5,25.45 26.45,26.475Q25.4,27.5 23.9,27.5ZM24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95Q24,23.95 24,23.95ZM21.8,41.15H26.2L26.9,35.5Q28.6,35.1 30.1,34.25Q31.6,33.4 32.85,32.15L38.1,34.45L40.1,30.85L35.45,27.4Q35.65,26.55 35.8,25.7Q35.95,24.85 35.95,23.95Q35.95,23.05 35.825,22.225Q35.7,21.4 35.5,20.5L40.1,17.1L38.15,13.5L32.85,15.75Q31.7,14.45 30.2,13.525Q28.7,12.6 26.9,12.35L26.25,6.8H21.75L21.1,12.35Q19.3,12.75 17.775,13.625Q16.25,14.5 15.1,15.75L9.9,13.5L7.85,17.1L12.5,20.55Q12.3,21.45 12.175,22.275Q12.05,23.1 12.05,23.9Q12.05,24.75 12.175,25.6Q12.3,26.45 12.5,27.4L7.85,30.85L9.9,34.45L15.15,32.15Q16.45,33.45 17.95,34.3Q19.45,35.15 21.1,35.55Z"/>
+</svg>
+
+
+
+================================================
+FILE: .github/workflows/retype_build.yml
+================================================
+name: Publish Retype powered website to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: [master]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: retypeapp/action-build@latest
+        id: retypebuild
+
+      - name: Inject custom css and js
+        run: |
+          cat .inject/style.css >> ${{ steps.retypebuild.outputs.retype-output-path }}/resources/css/retype.css
+          cat .inject/code.js >> ${{ steps.retypebuild.outputs.retype-output-path }}/resources/js/retype.js
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1.0.8
+        with:
+          path: ${{ steps.retypebuild.outputs.retype-output-path }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+
+
+================================================
+FILE: .inject/code.js
+================================================
+[Empty file]
+
+
+================================================
+FILE: .inject/style.css
+================================================
+nav li img, .simplebar-content li img {
+    filter: invert(1);
+}
+
+.dark nav li img, .dark .simplebar-content li img {
+    filter: none;
+}
+
+

@@ -1,0 +1,2494 @@
+___________________________________________
+Homepage HTML Code
+___________________________________________
+
+<html lang="en-US" class=""><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://gaystream.pw/xmlrpc.php">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#15202b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<meta name="msapplication-TileColor" content="#15202b">
+<meta name="theme-color" content="#15202b">
+<title>Gaystream - Free HD Gay Porn Videos from The Best Gay Porn Studios</title>
+<meta name="description" content=" Gaystream is a gay tube updated daily with thousands of free premium gay porn videos streaming in high quality ">
+<meta name="twitter:card" value="summary">
+<meta name="twitter:url" value="https://gaystream.pw">
+<meta name="twitter:title" value="Gaystream">
+<meta name="twitter:description" value="Free HD Gay Porn Videos from The Best Gay Porn Studios">
+<meta name="twitter:image" value="https://gaystream.pw/wp-content/themes/gaystream2/img/card.jpg; ?&gt;">
+<meta name="twitter:site" value="@gaystream">
+<meta name="twitter:creator" value="@gaystream">
+<meta name="robots" content="max-image-preview:large">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Gaystream » Feed" href="https://gaystream.pw/feed">
+<link rel="alternate" type="application/rss+xml" title="Gaystream » Comments Feed" href="https://gaystream.pw/comments/feed">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://gaystream.pw/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgaystream.pw%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://gaystream.pw/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgaystream.pw%2F&amp;format=xml">
+<style id="wp-img-auto-sizes-contain-inline-css" type="text/css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css" type="text/css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id="global-styles-inline-css" type="text/css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='html-forms-css' href='https://gaystream.pw/wp-content/plugins/xx-html-forms/assets/css/forms.css?ver=1.3.29' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style.css-css' href='https://gaystream.pw/wp-content/themes/gaystream2/style.css?ver=6.9.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='normalize.css-css' href='https://gaystream.pw/wp-content/themes/gaystream2/css/normalize.css?ver=6.9.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='gaycons-css' href='https://gaystream.pw/wp-content/themes/gaystream2/fonts/gaycons/gaycons.css?ver=6.9.1' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//gaystream.pw/wp-content/cache/wpfc-minified/8j6xp8ib/e0ag2.css" media="all">
+<link rel="stylesheet" id="google-fonts-css" href="https://fonts.googleapis.com/css2?family=Inter%3Awght%40400%3B500%3B700&amp;display=swap&amp;ver=6.9.1" type="text/css" media="all">
+<!-- <link rel='stylesheet' id='easy-notification-bar-css' href='https://gaystream.pw/wp-content/plugins/easy-notification-bar/assets/css/front.css?ver=1.6.1' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//gaystream.pw/wp-content/cache/wpfc-minified/2nzu5z4j/e0ag2.css" media="all">
+<style id="easy-notification-bar-inline-css" type="text/css">
+.easy-notification-bar-is-disabled .easy-notification-bar{display:none!important;}.easy-notification-bar{font-size:14px;--enb-padding-x:25px;}.easy-notification-bar-button :is(a,a:hover,a:visited,a:focus) {font-weight:700;border-radius:var(--wpex-rounded-md, 0.375em);}
+/*# sourceURL=easy-notification-bar-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='disabled-source-and-content-protection-css-css' href='https://gaystream.pw/wp-content/plugins/disabled-source-disabled-right-click-and-content-protection/includes/assets/css/style.css?ver=1.0.0' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//gaystream.pw/wp-content/cache/wpfc-minified/18vznia/e0ag2.css" media="all">
+<script src="//gaystream.pw/wp-content/cache/wpfc-minified/lxuiah10/e0ag2.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="https://gaystream.pw/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script> -->
+<!-- <script type="text/javascript" src="https://gaystream.pw/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script> -->
+<!-- <script type="text/javascript" src="https://gaystream.pw/wp-content/themes/gaystream2/js/readmore-fn.js?ver=6.9.1" id="readmore-fn-js"></script> -->
+
+<link rel="https://api.w.org/" href="https://gaystream.pw/wp-json/"><link rel="alternate" title="JSON" type="application/json" href="https://gaystream.pw/wp-json/wp/v2/pages/17760"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://gaystream.pw/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.9.1">
+<link rel="canonical" href="https://gaystream.pw/">
+<link rel="shortlink" href="https://gaystream.pw/">
+<style>
+.notifyjs-bootstrap-base {
+background-color: #F2DEDE !important;
+border-color: #F2DEDE!important;
+color: #B94A48!important;
+}
+</style><link rel="icon" href="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png" sizes="32x32">
+<link rel="icon" href="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png">
+<meta name="msapplication-TileImage" content="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png">
+<script async="" type="text/javascript" src="//gaystreampw.disqus.com/count.js"></script><meta content="no-referrer" name="referrer" id="IOarzRhPlPnoref"></head>
+<body class="home wp-singular page-template page-template-templates page-template-template-home page-template-templatestemplate-home-php page page-id-17760 wp-theme-gaystream2"><script type="application/javascript" async="" src="//a.pemsrv.com/popunder1000.js" id="popmagicldr" data-exo-idzone="5033750" data-exo-frequency_period="5" data-exo-frequency_count="3" data-exo-trigger_method="2" data-exo-trigger_class="menu-item,onclick,page-numbers,entry-tag,entry-category,video-download,search-submit,player,jwplayer,jw-video,frame-container,iframe" data-exo-popup_force="true" data-exo-popup_fallback="false" data-exo-chrome_enabled="true" data-exo-new_tab="true" data-exo-cat="" data-exo-tags="" data-exo-el="" data-exo-sub="" data-exo-sub2="" data-exo-sub3="" data-exo-only_inline="false" data-exo-trigger_delay="0" data-exo-capping_enabled="true" data-exo-tcf_enabled="true" data-exo-cookieconsent="true" data-exo-should_fire="function(){return!0}" data-exo-on_redirect="null"></script><script type="application/javascript" async="" src="//a.pemsrv.com/popunder1000.js" id="popmagicldr" data-exo-idzone="5724156" data-exo-frequency_period="5" data-exo-frequency_count="3" data-exo-trigger_method="5" data-exo-trigger_class="dot-irecommendthis, report-content, video-comment" data-exo-popup_force="false" data-exo-popup_fallback="true" data-exo-chrome_enabled="true" data-exo-new_tab="true" data-exo-cat="" data-exo-tags="" data-exo-el="" data-exo-sub="" data-exo-sub2="" data-exo-sub3="" data-exo-only_inline="false" data-exo-trigger_delay="0" data-exo-capping_enabled="true" data-exo-tcf_enabled="true" data-exo-cookieconsent="true" data-exo-should_fire="function(){return!0}" data-exo-on_redirect="null"></script>
+
+<div id="page" class="site">
+<header id="masthead" class="site-header" role="banner">
+<div class="wrapper flex center">
+<div class="site-logo">
+<div class="site-title">
+<a href="https://gaystream.pw" title="Gaystream" rel="home">
+<img data-ignore="" src="https://gaystream.pw/wp-content/themes/gaystream2/img/logo.png" alt="Site Logo" title="Gaystream Homepage" width="153px" height="31px" class="logo-img">
+</a>
+</div>
+</div><!--/logo -->
+<nav class="top-navigation main-navigation responsive clearfix">
+<div class="header-icons"><ul>
+<li>
+<a href="/?orderby=likes" aria-label="Popular videos"><i class="icon-heart"></i><span>Popular</span></a>
+</li>
+<li>
+<a href="/?orderby=views" aria-label="Trending videos"><i class="icon-eye"></i><span>Trending</span></a>
+</li>
+<li>
+<a href="/?orderby=latest" aria-label="Updated videos"><i class="icon-bell"></i><span>Latest</span></a>
+</li>
+<li>
+<a href="/channels" aria-label="Channels"><i class="icon-camera-solid"></i><span>Channels</span></a>
+</li>
+<li>
+<a href="/categories" aria-label="Categories"><i class="icon-folder-solid "></i><span>Categories</span></a>
+</li>    
+<li>
+<a href="/performers" aria-label="Performers"><i class="icon-star-solid"></i><span>Performers</span></a>
+</li>        
+</ul></div> 
+</nav>	
+<div class="header-search">
+<form role="search" method="get" class="search-form" action="https://gaystream.pw/">
+<label>
+<span class="screen-reader-text">Search for:label</span>
+<input type="search" class="search-field shadow" placeholder="Search video, scene or performer..." value="" name="s" title="Type here and hit enter">
+</label>
+<button type="submit" aria-label="search" name="search" class="search-submit">
+<i class="icon-search" aria-hidden="true"></i>
+<span class="screen-reader-text">Searchsubmit button</span>
+</button>
+</form>			<div class="mobile-menu-wrap"> 
+<button onclick="showmobileMenu()" class="mobile-menu-btn shadow"><i class="icon-menu" aria-hidden="true"></i></button>
+<div id="mobile-menu" class="mobile-menu" style="display:none">
+<div class="menu-header-icons-menu-container"><ul id="menu-header-icons-menu" class="menu"><li id="menu-item-61170" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61170"><a href="https://gaystream.pw/?orderby=likes">Popular</a></li>
+<li id="menu-item-61171" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61171"><a href="https://gaystream.pw/?orderby=views">Trending</a></li>
+<li id="menu-item-10715" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10715"><a href="https://gaystream.pw/?orderby=latest">Latest</a></li>
+<li id="menu-item-21868" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21868"><a href="https://gaystream.pw/channels">Channels</a></li>
+<li id="menu-item-10716" class="category-icon menu-item menu-item-type-post_type menu-item-object-page menu-item-10716"><a href="https://gaystream.pw/categories">Categories</a></li>
+<li id="menu-item-12475" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12475"><a href="https://gaystream.pw/performers">Performers</a></li>
+</ul></div>  
+</div> 
+</div>
+<script>
+function showmobileMenu() {
+var x = document.getElementById("mobile-menu");
+if (x.style.display === "none") {
+x.style.display = "block";
+} else {
+x.style.display = "none";
+}
+}
+</script> 
+</div>
+</div><!--/container -->
+</header><!-- /topheader -->
+<main id="container" class="clearfix"><!-- start the page containter -->
+<div class="a-box mobile" style="float:none;margin: 1em 0"><!-- TStars Master Spot Mobile Header #4959431--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="7579c0e9c52546f8984ffcd0192d6b3e" data-ts-template-id="12" async="" defer=""></script></div> 
+<section id="popular" class="alt-bg line-btm tabdesk clearfix">	  
+<div class="wrapper">
+<header class="page-header clearfix flex">
+<h2 class="page-title">Popular <span>Videos</span></h2>
+<span class="more-link"> 
+<a href="https://gaystream.pw?orderby=likes" title="More Popular Videos">More Videos</a>
+</span>    
+</header>
+<div class="flex grid">			
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65230/kemars-private-birthday-celebration" title="Kemar’s Private Birthday Celebration" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+3 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/gcD55Ryx/bch202hh.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Kemar’s Private Birthday Celebration" alt="Kemar’s Private Birthday Celebration">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+27 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Kemar’s Private Birthday Celebration</h3>
+<div class="item-meta">
+<span class="item-channel">
+BeefCakeHunter  
+</span>				    
+<span class="item-views">
+8.1K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+26					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    			    
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65228/peralta-luiz-gg-emergency-prazer-hospitalar" title="Peralta &amp; Luiz GG – Emergency: Prazer Hospitalar" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+3 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/xTSkpQ4H/mol192a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Peralta &amp; Luiz GG – Emergency: Prazer Hospitalar" alt="Peralta &amp; Luiz GG – Emergency: Prazer Hospitalar">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+21 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Peralta &amp; Luiz GG – Emergency: Prazer Hospitalar</h3>
+<div class="item-meta">
+<span class="item-channel">
+MeninosOnline  
+</span>				    
+<span class="item-views">
+3.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+15					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    			    
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65264/antonio-andressa-felipe-marino-raw-manly-hunger" title="Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/5NPcRGdn/id202a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger" alt="Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+32 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger</h3>
+<div class="item-meta">
+<span class="item-channel">
+IrmaosDotados  
+</span>				    
+<span class="item-views">
+3.7K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+15					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    			    
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65226/erick-dsampa-rafael-silva-i-have-always-depended-on-the-cum-from-strangers" title="Erick D’Sampa &amp; Rafael Silva – I Have Always Depended on the Cum From Strangers" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+3 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/xT8sgqsd/ll192.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Erick D’Sampa &amp; Rafael Silva – I Have Always Depended on the Cum From Strangers" alt="Erick D’Sampa &amp; Rafael Silva – I Have Always Depended on the Cum From Strangers">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+25 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Erick D’Sampa &amp; Rafael Silva – I Have Always Depended on the Cum From Strangers</h3>
+<div class="item-meta">
+<span class="item-channel">
+LatinLeche  
+</span>				    
+<span class="item-views">
+2.1K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+14					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    	    </div>	
+</div>
+</section>	                <section id="latest" class="clearfix">
+<div class="wrapper">
+<header class="page-header clearfix flex">
+<h1 class="page-title">Latest <span>Videos</span> on Gaystream</h1>
+<div class="sort-menu-wrap"> 
+<div class="sort-menu-content">
+<button onclick="showSortMenu()" class="sort-menu-btn shadow" aria-label="sortby"><span>Sort by</span> <i class="icon-sort" aria-hidden="true"></i></button>
+<!-- <span class="sort-label">Sort Videos <i class="icon-down" aria-hidden="true"></i></span> -->
+<div class="sort-menu" id="sort-menu" style="display:none">
+<ul>
+<li><a href="?orderby=latest" title="Latest Videos"><i class="icon-bell" aria-hidden="true"></i> Newest</a></li>
+<li><a href="?orderby=views" title="Most Viewed Videos"><i class="icon-eye" aria-hidden="true"></i> Most Viewed</a>
+</li><li><a href="?orderby=likes" title="Most Liked Videos"><i class="icon-heart" aria-hidden="true"></i> Most Liked</a></li>
+<li><a href="?orderby=duration" title="Longest Videos"><i class="icon-clock" aria-hidden="true"></i> Longest</a></li>    	
+<li><a href="?orderby=updated" title="Updated Videos"><i class="icon-refresh" aria-hidden="true"></i> Updated</a></li>     
+</ul>
+</div>
+</div>
+</div>
+<script>
+function showSortMenu() {
+var x = document.getElementById("sort-menu");
+if (x.style.display === "none") {
+x.style.display = "block";
+} else {
+x.style.display = "none";
+}
+}
+</script>
+<script>
+jQuery(document).ready(function() {
+jQuery("ul [href]").each(function() {
+if (this.href == window.location.href) {
+jQuery(this).addClass("active");
+}
+});
+});
+</script>
+</header>
+<div class="grid flex">
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/43310/czech-hunter-696" title="Czech Hunter 696" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+3 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/gc4WZvFh/ch222aa.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Czech Hunter 696" alt="Czech Hunter 696">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+29 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Czech Hunter 696</h3>
+<div class="item-meta">
+<span class="item-channel">
+Bigstr  
+</span>				    
+<span class="item-views">
+5.1K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+15					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65312/sean-xavier-zander-woodz" title="Sean Xavier &amp; Zander Woodz" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/qMMTNccT/hf222.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Sean Xavier &amp; Zander Woodz" alt="Sean Xavier &amp; Zander Woodz">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+23 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Sean Xavier &amp; Zander Woodz</h3>
+<div class="item-meta">
+<span class="item-channel">
+HungFuckers  
+</span>				    
+<span class="item-views">
+426					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+1					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65306/kenneth-fujikawa-johnny-ford-he-wanted-anal-with-his-girl-but-johnny-got-there-first" title="Kenneth Fujikawa &amp; Johnny Ford – He Wanted Anal With His Girl, But Johnny Got There First" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+11 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/DzSw4mm0/yp22a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Kenneth Fujikawa &amp; Johnny Ford – He Wanted Anal With His Girl, But Johnny Got There First" alt="Kenneth Fujikawa &amp; Johnny Ford – He Wanted Anal With His Girl, But Johnny Got There First">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+25 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Kenneth Fujikawa &amp; Johnny Ford – He Wanted Anal With His Girl, But Johnny Got There First</h3>
+<div class="item-meta">
+<span class="item-channel">
+YoungPerps  
+</span>				    
+<span class="item-views">
+814					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+2					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65292/dakota-lovell-and-joel-someone-face-down-ass-up-tips-to-get-laid-in-college" title="Dakota Lovell and Joel Someone – Face Down, Ass Up: Tips to Get Laid in College" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+11 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/s2MgG11X/fdk222a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Dakota Lovell and Joel Someone – Face Down, Ass Up: Tips to Get Laid in College" alt="Dakota Lovell and Joel Someone – Face Down, Ass Up: Tips to Get Laid in College">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+26 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Dakota Lovell and Joel Someone – Face Down, Ass Up: Tips to Get Laid in College</h3>
+<div class="item-meta">
+<span class="item-channel">
+FamilyDick  
+</span>				    
+<span class="item-views">
+605					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+3					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    			    <div class="a-loop">
+<div class="a-box mobile" style="float:none"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div> 
+</div>	   
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65304/philips-first-time-with-travis-remastered" title="Philip’s First Time with Travis (Remastered)" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+11 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/sgDxwcDF/cf222.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Philip’s First Time with Travis (Remastered)" alt="Philip’s First Time with Travis (Remastered)">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+40 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Philip’s First Time with Travis (Remastered)</h3>
+<div class="item-meta">
+<span class="item-channel">
+CorbinFisher  
+</span>				    
+<span class="item-views">
+450					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+1					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65302/burly-bruce-garcia-bangs-tight-big-dick-bottom-marc-gregor-hard-in-hot-ass" title="Burly Bruce Garcia Bangs Tight Big Dick Bottom Marc Gregor Hard In Hot Ass" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+11 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/W4d1qttD/bsb222.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Burly Bruce Garcia Bangs Tight Big Dick Bottom Marc Gregor Hard In Hot Ass" alt="Burly Bruce Garcia Bangs Tight Big Dick Bottom Marc Gregor Hard In Hot Ass">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+18 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Burly Bruce Garcia Bangs Tight Big Dick Bottom Marc Gregor Hard In Hot Ass</h3>
+<div class="item-meta">
+<span class="item-channel">
+BrokeStraightBoys  
+</span>				    
+<span class="item-views">
+533					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+2					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65300/rittenhouse-takes-two-rounds-and-delivered-his-loads-in-and-out-of-my-ass" title="Rittenhouse takes two rounds and delivered his loads in and out of my ass!" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+11 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/pdmL5yyh/mc222.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Rittenhouse takes two rounds and delivered his loads in and out of my ass!" alt="Rittenhouse takes two rounds and delivered his loads in and out of my ass!">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+20 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Rittenhouse takes two rounds and delivered his loads in and out of my ass!</h3>
+<div class="item-meta">
+<span class="item-channel">
+MilitaryClassified  
+</span>				    
+<span class="item-views">
+753					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+1					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65262/jakey-o-seb-leblan-his-hands-are-tied-his-hole-is-open" title="Jakey O &amp; Seb Leblan – His Hands Are Tied, His Hole Is Open" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+11 hours ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/LXd2qTrw/mbs222rt.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Jakey O &amp; Seb Leblan – His Hands Are Tied, His Hole Is Open" alt="Jakey O &amp; Seb Leblan – His Hands Are Tied, His Hole Is Open">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+32 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Jakey O &amp; Seb Leblan – His Hands Are Tied, His Hole Is Open</h3>
+<div class="item-meta">
+<span class="item-channel">
+MissionaryBoys  
+</span>				    
+<span class="item-views">
+465					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+1					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="a-loop">
+<div class="a-box mobile" style="float:none"><!-- JuicyAds v3.0 -->
+<ins id="1030804" data-width="300" data-height="112"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1030804});</script>
+<!--JuicyAds END--></div> 
+</div>	   
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65282/jayden-marcos-ricky-lee-fraternity-fantasies-head-in-the-class" title="Jayden Marcos &amp; Ricky Lee – Fraternity Fantasies: Head In The Class" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 day ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/0yFD74R4/ndo212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Jayden Marcos &amp; Ricky Lee – Fraternity Fantasies: Head In The Class" alt="Jayden Marcos &amp; Ricky Lee – Fraternity Fantasies: Head In The Class">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+41 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Jayden Marcos &amp; Ricky Lee – Fraternity Fantasies: Head In The Class</h3>
+<div class="item-meta">
+<span class="item-channel">
+NextDoorStudios  
+</span>				    
+<span class="item-views">
+1.7K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+4					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65290/young-gay-latin-twink-brian" title="Young Gay Latin Twink Brian" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 day ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/Kzws3fct/lb212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Young Gay Latin Twink Brian" alt="Young Gay Latin Twink Brian">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+13 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Young Gay Latin Twink Brian</h3>
+<div class="item-meta">
+<span class="item-channel">
+LatinBoyz  
+</span>				    
+<span class="item-views">
+525					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+2					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/37175/dirty-scout-298" title="Dirty Scout 298" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+4 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/Wpx7Gtmp/ds212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Dirty Scout 298" alt="Dirty Scout 298">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+38 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Dirty Scout 298</h3>
+<div class="item-meta">
+<span class="item-channel">
+Bigstr  
+</span>				    
+<span class="item-views">
+14K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+43					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65286/hunter-woohan-radek-pozer-full-contact" title="Hunter Woohan &amp;  Radek Pozer – Full Contact" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 day ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/yN3WB65C/wh212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Hunter Woohan &amp;  Radek Pozer – Full Contact" alt="Hunter Woohan &amp;  Radek Pozer – Full Contact">
+</span>
+<div class="badge">   
+<span class="item-quality">4K</span>			    
+<span class="item-duration">
+18 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Hunter Woohan &amp;  Radek Pozer – Full Contact</h3>
+<div class="item-meta">
+<span class="item-channel">
+WilliamHiggins  
+</span>				    
+<span class="item-views">
+506					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+2					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="a-loop">
+<div class="a-box mobile" style="float:none"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div> 
+</div>	   
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65294/countdown-huesitos" title="Countdown &amp; Huesitos" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 day ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/VkhdR2rP/blm212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Countdown &amp; Huesitos" alt="Countdown &amp; Huesitos">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+20 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Countdown &amp; Huesitos</h3>
+<div class="item-meta">
+<span class="item-channel">
+BiLatinMen  
+</span>				    
+<span class="item-views">
+1.3K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+5					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65296/colton-fox-cumdump-1" title="Colton Fox Cumdump #1" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 day ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/sfYLFhRt/cds212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Colton Fox Cumdump #1" alt="Colton Fox Cumdump #1">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+32 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Colton Fox Cumdump #1</h3>
+<div class="item-meta">
+<span class="item-channel">
+CumDumpSluts  
+</span>				    
+<span class="item-views">
+928					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+4					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65222/arno-antino-jack-desfeux-back-to-before" title="Arno Antino &amp; Jack DesFeux – Back To Before" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 day ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/htYfrNzq/ns212a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Arno Antino &amp; Jack DesFeux – Back To Before" alt="Arno Antino &amp; Jack DesFeux – Back To Before">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+32 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Arno Antino &amp; Jack DesFeux – Back To Before</h3>
+<div class="item-meta">
+<span class="item-channel">
+NakedSword  
+</span>				    
+<span class="item-views">
+1.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+5					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65264/antonio-andressa-felipe-marino-raw-manly-hunger" title="Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/5NPcRGdn/id202a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger" alt="Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+32 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Antonio Andressa &amp; Felipe Marino – Raw Manly Hunger</h3>
+<div class="item-meta">
+<span class="item-channel">
+IrmaosDotados  
+</span>				    
+<span class="item-views">
+3.7K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+15					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="a-loop">
+<div class="a-box mobile" style="float:none"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div> 
+</div>	   
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65246/bruce-jones-matty-west-uncle-incel" title="Bruce Jones &amp; Matty West – Uncle Incel" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/FzXtfC8p/df202.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Bruce Jones &amp; Matty West – Uncle Incel" alt="Bruce Jones &amp; Matty West – Uncle Incel">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+36 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Bruce Jones &amp; Matty West – Uncle Incel</h3>
+<div class="item-meta">
+<span class="item-channel">
+DisruptiveFilms  
+</span>				    
+<span class="item-views">
+2.9K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+5					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65279/kieran-joey-dane" title="Kieran &amp; Joey Dane" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/qBhWsrGg/sc202b.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Kieran &amp; Joey Dane" alt="Kieran &amp; Joey Dane">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+23 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Kieran &amp; Joey Dane</h3>
+<div class="item-meta">
+<span class="item-channel">
+SeanCody  
+</span>				    
+<span class="item-views">
+1.3K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+2					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65276/drake-von-titus-low-oomfie-fucked-my-stepbro" title="Drake Von &amp; Titus Low – Oomfie Fucked My Stepbro" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/503LV4KD/men202.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Drake Von &amp; Titus Low – Oomfie Fucked My Stepbro" alt="Drake Von &amp; Titus Low – Oomfie Fucked My Stepbro">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+29 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Drake Von &amp; Titus Low – Oomfie Fucked My Stepbro</h3>
+<div class="item-meta">
+<span class="item-channel">
+Men  
+</span>				    
+<span class="item-views">
+3.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+9					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65259/alex-marte-allen-king-cruising-at-club-x-5" title="Alex Marte &amp; Allen King – Cruising at Club-X 5" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/HW67sQfv/map202a.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Alex Marte &amp; Allen King – Cruising at Club-X 5" alt="Alex Marte &amp; Allen King – Cruising at Club-X 5">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+27 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Alex Marte &amp; Allen King – Cruising at Club-X 5</h3>
+<div class="item-meta">
+<span class="item-channel">
+MenAtPlay  
+</span>				    
+<span class="item-views">
+1.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+2					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65256/jj-knight-grant-ducati-head-to-head" title="JJ Knight &amp; Grant Ducati – Head To Head" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/ncd8P5b1/fs202b.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="JJ Knight &amp; Grant Ducati – Head To Head" alt="JJ Knight &amp; Grant Ducati – Head To Head">
+</span>
+<div class="badge">   
+<span class="item-quality">4K</span>			    
+<span class="item-duration">
+22 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">JJ Knight &amp; Grant Ducati – Head To Head</h3>
+<div class="item-meta">
+<span class="item-channel">
+FalconStudios  
+</span>				    
+<span class="item-views">
+1.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+4					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/11305/ring-bearer-dakota-payne-harlen-quindel" title="Ring Bearer – Dakota Payne &amp; Harlen Quindel" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/90LXmY0v/btc1112x.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Ring Bearer – Dakota Payne &amp; Harlen Quindel" alt="Ring Bearer – Dakota Payne &amp; Harlen Quindel">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+16 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Ring Bearer – Dakota Payne &amp; Harlen Quindel</h3>
+<div class="item-meta">
+<span class="item-channel">
+BrotherCrush  
+</span>				    
+<span class="item-views">
+10K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+8					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/10795/the-grooms-little-brother-dakota-payne-harlen-quindel" title="The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/VvKsfWv2/btc0002.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel" alt="The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+20 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel</h3>
+<div class="item-meta">
+<span class="item-channel">
+BrotherCrush  
+</span>				    
+<span class="item-views">
+9.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+16					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    		
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65254/tonys-big-workout-with-barron-jesse" title="Tony’s Big Workout with Barron &amp; Jesse" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/yYfqb54h/cf202b.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Tony’s Big Workout with Barron &amp; Jesse" alt="Tony’s Big Workout with Barron &amp; Jesse">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+40 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Tony’s Big Workout with Barron &amp; Jesse</h3>
+<div class="item-meta">
+<span class="item-channel">
+CorbinFisher  
+</span>				    
+<span class="item-views">
+2K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+5					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    		</div>
+<div class="a-tablet">
+<div class="a-box tablet" style="float:none"><!-- JuicyAds v3.0 -->
+<ins id="1105512" data-width="728" data-height="90"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1105512});</script>
+<!--JuicyAds END--></div> 
+</div>	   
+<nav class="navigation pagination" aria-label="Posts pagination">
+<h2 class="screen-reader-text">Posts pagination</h2>
+<div class="nav-links"><span aria-current="page" class="page-numbers current">1</span>
+<a class="page-numbers" href="https://gaystream.pw/page/2">2</a>
+<a class="page-numbers" href="https://gaystream.pw/page/3">3</a>
+<span class="page-numbers dots">…</span>
+<a class="page-numbers" href="https://gaystream.pw/page/1121">1,121</a>
+<a class="next page-numbers" href="https://gaystream.pw/page/2"><span class="screen-reader-text">Next Posts</span>»</a></div>
+</nav>			         
+<div class="a-box desktop" style="float:none;"><p style="margin:10px 0"><!-- TStars Master Spot Desktop Wide Banner	Footer Small #4959417-->
+<script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="17934f3f474548eaa351bba92e66d4da" data-ts-template-id="5" async="" defer=""></script></p></div> 
+</div>
+</section>				
+<section id="updated" class="line-top responsive clearfix">	 
+<div class="wrapper">
+<header class="page-header clearfix flex">
+<h2 class="page-title">Updated <span>Videos</span></h2>
+<span class="more-link"> 
+<a href="/?orderby=updated" title="More Updated Videos">More Videos</a>
+</span>
+</header>
+<div class="flex grid break">			
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/43310/czech-hunter-696" title="Czech Hunter 696" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+3 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/gc4WZvFh/ch222aa.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Czech Hunter 696" alt="Czech Hunter 696">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+29 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Czech Hunter 696</h3>
+<div class="item-meta">
+<span class="item-channel">
+Bigstr  
+</span>				    
+<span class="item-views">
+5.1K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+15					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/37175/dirty-scout-298" title="Dirty Scout 298" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+4 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/Wpx7Gtmp/ds212.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Dirty Scout 298" alt="Dirty Scout 298">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+38 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Dirty Scout 298</h3>
+<div class="item-meta">
+<span class="item-channel">
+Bigstr  
+</span>				    
+<span class="item-views">
+14K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+43					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/11305/ring-bearer-dakota-payne-harlen-quindel" title="Ring Bearer – Dakota Payne &amp; Harlen Quindel" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/90LXmY0v/btc1112x.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Ring Bearer – Dakota Payne &amp; Harlen Quindel" alt="Ring Bearer – Dakota Payne &amp; Harlen Quindel">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+16 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Ring Bearer – Dakota Payne &amp; Harlen Quindel</h3>
+<div class="item-meta">
+<span class="item-channel">
+BrotherCrush  
+</span>				    
+<span class="item-views">
+10K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+8					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    			    
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/10795/the-grooms-little-brother-dakota-payne-harlen-quindel" title="The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+<span class="upd"><i class="icon-refresh" title="Updated"></i></span>			    			    </span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/VvKsfWv2/btc0002.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel" alt="The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+20 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">The Groom’s Little Brother – Dakota Payne &amp; Harlen Quindel</h3>
+<div class="item-meta">
+<span class="item-channel">
+BrotherCrush  
+</span>				    
+<span class="item-views">
+9.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+16					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->			    	    </div>	
+</div>
+</section>	
+</main>
+</div><!-- #page-->
+<section id="sponsored" class="clearfix alt-bg line-top">
+<div class="wrapper">
+<header class="page-header"><h2 class="page-title">Sponsored</h2></header>
+<div class="sponsored"> 
+<div class="a-box mobile"><!-- JuicyAds v3.0 -->
+<ins id="1030804" data-width="300" data-height="112"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1030804});</script>
+<!--JuicyAds END--></div>
+<div class="a-box mobile"></div> 
+<div class="a-box mobile"><!-- TStars Master Spot Mobile Header #4959431--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="7579c0e9c52546f8984ffcd0192d6b3e" data-ts-template-id="12" async="" defer=""></script></div>   
+<div class="a-box desktop"><!-- JuicyAds v3.0 -->
+<ins id="1055380" data-width="300" data-height="262"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1055380});</script>
+<!--JuicyAds END--></div>         
+<div class="a-box desktop"><!-- TStars #4959425 Master Spot Desktop Banner--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="6dbf4d3ffd6a46e18354dfe222c8e405" data-ts-template-id="10" async="" defer=""></script></div>
+<div class="a-box desktop"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div>  
+</div>
+</div>
+</section>	
+<footer class="site-footer clearfix">
+<div class="site-info wrapper clearfix">
+<p>This site does not store any files on its server. All contents are provided by non-affiliated third parties. In case of conflict get in touch with the original file owners or host sites.
+<span class="footer-links">
+Partners: <a href="https://mygaysites.com/" title="Best Gay Porn Sites">Best Gay Porn Sites</a> | <a href="https://bestgaysites.com/" title="Top Gay Porn Sites">Top Gay Porn Sites</a> | <a href="https://4gay.fans/" title="Free Sex Tapes of Your Favorite Online Performers!">Free Pornstars Sex Tapes</a>  | Site: <a href="https://twitter.com/gaystream" title="Twitter/X">Contact</a> | <a href="https://t.me/gaystreampw" title="Telegram">Telegram</a> | <a href="/terms-and-conditions" title="Terms and Conditions">Terms and Conditions</a> | <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a> | <a href="/2257usc" title="2257">2257</a> | <a href="/dmca" title="DMCA Notice">DMCA</a> 
+</span>
+</p>
+</div><!-- .site-info -->
+<script type="text/javascript">// Cache Key: ppch-h6IzF4iRLEdZV-QX82hhpzmvxX--243185-501268
+var p$00a = 'p$00a' + (new Date().getTime()) + 'zz'; window[p$00a] = {a:'abcdefghijklmnopqrstuvwxyz0123456789n16h09v8oqafxgsmbzetl5pj3wdyk2ric47u', b:'{"AZIb":"kr2y7i", "BVIb":"idykc7", "CXrr1":"lm", "DLtag":"k", "Emjk5":"k", "XCge1s":"m.glbp0.6sx" , "Zt1":"msm6ne8.g0t", "ZZ1":"m.88xsm.6fslh" }', c:'{"Abkr221":"e6zomt", "Bo9ssm":"//6hg.glbp0.6sx/nmm.qe"}', d:'{"Ag4":"1sh3", "Bx1":"nmm0ghC8ofh", "Cky":"ez6", "Dmg":"6z0nt0Ef0x0gt"}'};
+var _0x5d4b=['235913QVfbwv','slice','length','162209QBmAmV','14238hyOOTq','323207DTbifh','split','1DqiKtq','135866HTbavB','indexOf','call','27654SKXHbY','parse','undefined','32Ijckmz','keys','map','ceil','115980hcFVDy','values','join'];var _0x208c=function(_0x31a8d7,_0x5f36b3){_0x31a8d7=_0x31a8d7-0x167;var _0x5d4be1=_0x5d4b[_0x31a8d7];return _0x5d4be1;};(function(_0x276f94,_0x57c4ff){var _0x50057c=_0x208c;while(!![]){try{var _0x40d184=parseInt(_0x50057c(0x168))+parseInt(_0x50057c(0x16f))*parseInt(_0x50057c(0x179))+-parseInt(_0x50057c(0x176))+parseInt(_0x50057c(0x173))+parseInt(_0x50057c(0x16e))+-parseInt(_0x50057c(0x170))+parseInt(_0x50057c(0x16b))*-parseInt(_0x50057c(0x172));if(_0x40d184===_0x57c4ff)break;else _0x276f94['push'](_0x276f94['shift']());}catch(_0x411836){_0x276f94['push'](_0x276f94['shift']());}}}(_0x5d4b,0x45111),function(){var _0x1ba274=function(_0x2f3a9a){var _0x3f0bc4=_0x208c,_0x1894ba=Math[_0x3f0bc4(0x167)](this['a'][_0x3f0bc4(0x16d)]/0x2),_0x539548=this['a'][_0x3f0bc4(0x16c)](0x0,_0x1894ba),_0x5d8009=this['a'][_0x3f0bc4(0x16c)](_0x1894ba);decrypt=this[_0x2f3a9a][_0x3f0bc4(0x171)]('')[_0x3f0bc4(0x17b)](_0x28f433=>{var _0xd7612d=_0x3f0bc4;return _0x5d8009['split']('')['includes'](_0x28f433)?_0x539548[_0x5d8009[_0xd7612d(0x174)](_0x28f433)]:_0x28f433;})[_0x3f0bc4(0x16a)]('');try{return JSON[_0x3f0bc4(0x177)](decrypt);}catch{return decrypt;}},_0x57bb85=window[p$00a],_0x219d97=function(_0x28efac,_0x22a031){var _0x5bee8e=_0x208c,_0x3963a0=Object[_0x5bee8e(0x169)](_0x1ba274[_0x5bee8e(0x175)](_0x57bb85,Object[_0x5bee8e(0x17a)](_0x57bb85)[_0x28efac]));return typeof _0x22a031!=_0x5bee8e(0x178)?_0x3963a0[_0x22a031]:_0x3963a0;};window[p$00a]['x']=function(){return _0x219d97(0x1);};var _0xf1db57=document[_0x219d97(0x3,0x3)](_0x219d97(0x2,0x0));_0xf1db57[_0x219d97(0x3,0x2)]=_0x219d97(0x2,0x1),document[_0x219d97(0x3,0x0)][_0x219d97(0x3,0x1)](_0xf1db57),p$00a=undefined;}());
+</script>
+<script type="application/javascript">
+(function() {
+function randStr(e,t){for(var n="",r=t||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",o=0;o<e;o++)n+=r.charAt(Math.floor(Math.random()*r.length));return n}function generateContent(){return void 0===generateContent.val&&(generateContent.val="document.dispatchEvent("+randStr(4*Math.random()+3)+");"),generateContent.val}try{Object.defineProperty(document.currentScript,"innerHTML",{get:generateContent}),Object.defineProperty(document.currentScript,"textContent",{get:generateContent})}catch(e){};
+//version 7.0.0 Mobile Popunder
+var adConfig = {
+"ads_host": "a.pemsrv.com",
+"syndication_host": "s.pemsrv.com",
+"idzone": 5724156,
+"popup_fallback": true,
+"popup_force": false,
+"chrome_enabled": true,
+"new_tab": true,
+"frequency_period": 5,
+"frequency_count": 3,
+"trigger_method": 5,
+"trigger_class": "dot-irecommendthis, report-content, video-comment",
+"trigger_delay": 0,
+"capping_enabled": true,
+"tcf_enabled": true,
+"only_inline": false
+};
+window.document.querySelectorAll||(document.querySelectorAll=document.body.querySelectorAll=Object.querySelectorAll=function(e,o,t,i,n){var r=document,a=r.createStyleSheet();for(n=r.all,o=[],t=(e=e.replace(/\[for\b/gi,"[htmlFor").split(",")).length;t--;){for(a.addRule(e[t],"k:v"),i=n.length;i--;)n[i].currentStyle.k&&o.push(n[i]);a.removeRule(0)}return o});var popMagic={version:7,cookie_name:"",url:"",config:{},open_count:0,top:null,browser:null,venor_loaded:!1,venor:!1,tcfData:null,configTpl:{ads_host:"",syndication_host:"",idzone:"",frequency_period:720,frequency_count:1,trigger_method:1,trigger_class:"",popup_force:!1,popup_fallback:!1,chrome_enabled:!0,new_tab:!1,cat:"",tags:"",el:"",sub:"",sub2:"",sub3:"",only_inline:!1,trigger_delay:0,capping_enabled:!0,tcf_enabled:!1,cookieconsent:!0,should_fire:function(){return!0},on_redirect:null},init:function(e){if(void 0!==e.idzone&&e.idzone){void 0===e.customTargeting&&(e.customTargeting=[]),window.customTargeting=e.customTargeting||null;var o=Object.keys(e.customTargeting).filter(function(e){return e.search("ex_")>=0});for(var t in o.length&&o.forEach(function(e){return this.configTpl[e]=null}.bind(this)),this.configTpl)Object.prototype.hasOwnProperty.call(this.configTpl,t)&&(void 0!==e[t]?this.config[t]=e[t]:this.config[t]=this.configTpl[t]);if(void 0!==this.config.idzone&&""!==this.config.idzone){!0!==this.config.only_inline&&this.loadHosted();var i=this;this.checkTCFConsent(function(){"complete"===document.readyState?i.preparePopWait():i.addEventToElement(window,"load",i.preparePop)})}}},getCountFromCookie:function(){if(!this.config.cookieconsent)return 0;var e=popMagic.getCookie(popMagic.cookie_name),o=void 0===e?0:parseInt(e);return isNaN(o)&&(o=0),o},getLastOpenedTimeFromCookie:function(){var e=popMagic.getCookie(popMagic.cookie_name),o=null;if(void 0!==e){var t=e.split(";")[1];o=t>0?parseInt(t):0}return isNaN(o)&&(o=null),o},shouldShow:function(e){if(e=e||!1,!popMagic.config.capping_enabled){var o=!0,t=popMagic.config.should_fire;try{e||"function"!=typeof t||(o=Boolean(t()))}catch(e){console.error("Error executing should fire callback function:",e)}return o&&0===popMagic.open_count}if(popMagic.open_count>=popMagic.config.frequency_count)return!1;var i=popMagic.getCountFromCookie(),n=popMagic.getLastOpenedTimeFromCookie(),r=Math.floor(Date.now()/1e3),a=n+popMagic.config.trigger_delay;return!(n&&a>r)&&(popMagic.open_count=i,!(i>=popMagic.config.frequency_count))},venorShouldShow:function(){return popMagic.venor_loaded&&"0"===popMagic.venor},setAsOpened:function(e){var o=e?e.target||e.srcElement:null,t={id:"",tagName:"",classes:"",text:"",href:"",elm:""};void 0!==o&&null!=o&&(t={id:void 0!==o.id&&null!=o.id?o.id:"",tagName:void 0!==o.tagName&&null!=o.tagName?o.tagName:"",classes:void 0!==o.classList&&null!=o.classList?o.classList:"",text:void 0!==o.outerText&&null!=o.outerText?o.outerText:"",href:void 0!==o.href&&null!=o.href?o.href:"",elm:o});var i=new CustomEvent("creativeDisplayed-"+popMagic.config.idzone,{detail:t});if(document.dispatchEvent(i),popMagic.config.capping_enabled){var n=1;n=0!==popMagic.open_count?popMagic.open_count+1:popMagic.getCountFromCookie()+1;var r=Math.floor(Date.now()/1e3);popMagic.config.cookieconsent&&popMagic.setCookie(popMagic.cookie_name,n+";"+r,popMagic.config.frequency_period)}else++popMagic.open_count},loadHosted:function(){var e=document.createElement("script");for(var o in e.type="application/javascript",e.async=!0,e.src="//"+this.config.ads_host+"/popunder1000.js",e.id="popmagicldr",this.config)Object.prototype.hasOwnProperty.call(this.config,o)&&"ads_host"!==o&&"syndication_host"!==o&&e.setAttribute("data-exo-"+o,this.config[o]);var t=document.getElementsByTagName("body").item(0);t.firstChild?t.insertBefore(e,t.firstChild):t.appendChild(e)},preparePopWait:function(){setTimeout(popMagic.preparePop,400)},preparePop:function(){if("object"!=typeof exoJsPop101||!Object.prototype.hasOwnProperty.call(exoJsPop101,"add")){if(popMagic.top=self,popMagic.top!==self)try{top.document.location.toString()&&(popMagic.top=top)}catch(e){}if(popMagic.cookie_name="zone-cap-"+popMagic.config.idzone,popMagic.config.capping_enabled||(document.cookie=popMagic.cookie_name+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/"),popMagic.shouldShow(!0)){var e=new XMLHttpRequest;e.onreadystatechange=function(){e.readyState==XMLHttpRequest.DONE&&(popMagic.venor_loaded=!0,200==e.status?popMagic.venor=e.responseText:popMagic.venor="0")};var o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol;e.open("GET",o+"//"+popMagic.config.syndication_host+"/venor.php",!0);try{e.send()}catch(e){popMagic.venor_loaded=!0}}if(popMagic.buildUrl(),popMagic.browser=popMagic.browserDetector.getBrowserInfo(),popMagic.config.chrome_enabled||!popMagic.browser.isChrome){var t=popMagic.getPopMethod(popMagic.browser);popMagic.addEvent("click",t)}}},getPopMethod:function(e){return popMagic.config.popup_force||popMagic.config.popup_fallback&&e.isChrome&&e.version>=68&&!e.isMobile?popMagic.methods.popup:e.isMobile?popMagic.methods.default:e.isChrome?popMagic.methods.chromeTab:popMagic.methods.default},checkTCFConsent:function(e){if(this.config.tcf_enabled&&"function"==typeof window.__tcfapi){var o=this;window.__tcfapi("addEventListener",2,function(t,i){i&&(o.tcfData=t,"tcloaded"!==t.eventStatus&&"useractioncomplete"!==t.eventStatus||(window.__tcfapi("removeEventListener",2,function(){},t.listenerId),e()))})}else e()},buildUrl:function(){var e,o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol,t=top===self?document.URL:document.referrer,i={type:"inline",name:"popMagic",ver:this.version},n="";customTargeting&&Object.keys(customTargeting).length&&("object"==typeof customTargeting?Object.keys(customTargeting):customTargeting).forEach(function(o){"object"==typeof customTargeting?e=customTargeting[o]:Array.isArray(customTargeting)&&(e=scriptEl.getAttribute(o));var t=o.replace("data-exo-","");n+="&"+t+"="+e});var r=this.tcfData&&this.tcfData.gdprApplies&&!0===this.tcfData.gdprApplies?1:0;this.url=o+"//"+this.config.syndication_host+"/v1/link.php?cat="+this.config.cat+"&idzone="+this.config.idzone+"&type=8&p="+encodeURIComponent(t)+"&sub="+this.config.sub+(""!==this.config.sub2?"&sub2="+this.config.sub2:"")+(""!==this.config.sub3?"&sub3="+this.config.sub3:"")+"&block=1&el="+this.config.el+"&tags="+this.config.tags+"&scr_info="+function(e){var o=e.type+"|"+e.name+"|"+e.ver;return encodeURIComponent(btoa(o))}(i)+n+"&gdpr="+r+"&cb="+Math.floor(1e9*Math.random()),this.tcfData&&this.tcfData.tcString?this.url+="&gdpr_consent="+encodeURIComponent(this.tcfData.tcString):this.url+="&cookieconsent="+this.config.cookieconsent},addEventToElement:function(e,o,t){e.addEventListener?e.addEventListener(o,t,!1):e.attachEvent?(e["e"+o+t]=t,e[o+t]=function(){e["e"+o+t](window.event)},e.attachEvent("on"+o,e[o+t])):e["on"+o]=e["e"+o+t]},getTriggerClasses:function(){var e,o=[];-1===popMagic.config.trigger_class.indexOf(",")?e=popMagic.config.trigger_class.split(" "):e=popMagic.config.trigger_class.replace(/\s/g,"").split(",");for(var t=0;t<e.length;t++)""!==e[t]&&o.push("."+e[t]);return o},addEvent:function(e,o){var t;if("3"!=popMagic.config.trigger_method)if("2"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("4"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("5"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)popMagic.addEventToElement(document,e,o);else{var i="a"+popMagic.getTriggerClasses().map(function(e){return":not("+e+")"}).join("");t=document.querySelectorAll(i);for(var n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else{var r=popMagic.getTriggerClasses();popMagic.addEventToElement(document,e,function(e){r.some(function(o){return null!==e.target.closest(o)})||o.call(e.target,e)})}else{var a=popMagic.getTriggerClasses();for(t=document.querySelectorAll(a.join(", ")),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else for(t=document.querySelectorAll("a"),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)},setCookie:function(e,o,t){if(!this.config.cookieconsent)return!1;t=parseInt(t,10);var i=new Date;i.setMinutes(i.getMinutes()+parseInt(t));var n=encodeURIComponent(o)+"; expires="+i.toUTCString()+"; path=/";document.cookie=e+"="+n},getCookie:function(e){if(!this.config.cookieconsent)return!1;var o,t,i,n=document.cookie.split(";");for(o=0;o<n.length;o++)if(t=n[o].substr(0,n[o].indexOf("=")),i=n[o].substr(n[o].indexOf("=")+1),(t=t.replace(/^\s+|\s+$/g,""))===e)return decodeURIComponent(i)},randStr:function(e,o){for(var t="",i=o||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",n=0;n<e;n++)t+=i.charAt(Math.floor(Math.random()*i.length));return t},isValidUserEvent:function(e){return!(!("isTrusted"in e)||!e.isTrusted||"ie"===popMagic.browser.name||"safari"===popMagic.browser.name)||0!=e.screenX&&0!=e.screenY},isValidHref:function(e){if(void 0===e||""==e)return!1;return!/\s?javascript\s?:/i.test(e)},findLinkToOpen:function(e){var o=e,t=!1;try{for(var i=0;i<20&&!o.getAttribute("href")&&o!==document&&"html"!==o.nodeName.toLowerCase();)o=o.parentNode,i++;var n=o.getAttribute("target");n&&-1!==n.indexOf("_blank")||(t=o.getAttribute("href"))}catch(e){}return popMagic.isValidHref(t)||(t=!1),t||window.location.href},getPuId:function(){return"ok_"+Math.floor(89999999*Math.random()+1e7)},executeOnRedirect:function(){try{popMagic.config.capping_enabled||"function"!=typeof popMagic.config.on_redirect||popMagic.config.on_redirect()}catch(e){console.error("Error executing on redirect callback:",e)}},browserDetector:{browserDefinitions:[["firefox",/Firefox\/([0-9.]+)(?:\s|$)/],["opera",/Opera\/([0-9.]+)(?:\s|$)/],["opera",/OPR\/([0-9.]+)(:?\s|$)$/],["edge",/Edg(?:e|)\/([0-9._]+)/],["ie",/Trident\/7\.0.*rv:([0-9.]+)\).*Gecko$/],["ie",/MSIE\s([0-9.]+);.*Trident\/[4-7].0/],["ie",/MSIE\s(7\.0)/],["safari",/Version\/([0-9._]+).*Safari/],["chrome",/(?!Chrom.*Edg(?:e|))Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["chrome",/(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["bb10",/BB10;\sTouch.*Version\/([0-9.]+)/],["android",/Android\s([0-9.]+)/],["ios",/Version\/([0-9._]+).*Mobile.*Safari.*/],["yandexbrowser",/YaBrowser\/([0-9._]+)/],["crios",/CriOS\/([0-9.]+)(:?\s|$)/]],isChromeOrChromium:function(){var e=window.navigator,o=(e.userAgent||"").toLowerCase(),t=e.vendor||"";if(-1!==o.indexOf("crios"))return!0;if(e.userAgentData&&Array.isArray(e.userAgentData.brands)&&e.userAgentData.brands.length>0){var i=e.userAgentData.brands,n=i.some(function(e){return"Google Chrome"===e.brand}),r=i.some(function(e){return"Chromium"===e.brand})&&2===i.length;return n||r}var a=!!window.chrome,c=-1!==o.indexOf("edg"),p=!!window.opr||-1!==o.indexOf("opr"),s=!(!e.brave||!e.brave.isBrave),g=-1!==o.indexOf("vivaldi"),l=-1!==o.indexOf("yabrowser"),d=-1!==o.indexOf("samsungbrowser"),u=-1!==o.indexOf("ucbrowser");return a&&"Google Inc."===t&&!c&&!p&&!s&&!g&&!l&&!d&&!u},getBrowserInfo:function(){var e=window.navigator.userAgent,o={name:"other",version:"1.0",versionNumber:1,isChrome:this.isChromeOrChromium(),isMobile:!!e.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WebOS|Windows Phone/i)};for(var t in this.browserDefinitions){var i=this.browserDefinitions[t];if(i[1].test(e)){var n=i[1].exec(e),r=n&&n[1].split(/[._]/).slice(0,3),a=Array.prototype.slice.call(r,1).join("")||"0";r&&r.length<3&&Array.prototype.push.apply(r,1===r.length?[0,0]:[0]),o.name=i[0],o.version=r.join("."),o.versionNumber=parseFloat(r[0]+"."+a);break}}return o}},methods:{default:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o=e.target||e.srcElement,t=popMagic.findLinkToOpen(o);return window.open(t,"_blank"),popMagic.setAsOpened(e),popMagic.executeOnRedirect(),popMagic.top.document.location=popMagic.url,void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation()),!0},chromeTab:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;if(void 0===e.preventDefault)return!0;e.preventDefault(),e.stopPropagation();var o=top.window.document.createElement("a"),t=e.target||e.srcElement;o.href=popMagic.findLinkToOpen(t),document.getElementsByTagName("body")[0].appendChild(o);var i=new MouseEvent("click",{bubbles:!0,cancelable:!0,view:window,screenX:0,screenY:0,clientX:0,clientY:0,ctrlKey:!0,altKey:!1,shiftKey:!1,metaKey:!0,button:0});i.preventDefault=void 0,o.dispatchEvent(i),o.parentNode.removeChild(o),popMagic.executeOnRedirect(),window.open(popMagic.url,"_self"),popMagic.setAsOpened(e)},popup:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o="";if(popMagic.config.popup_fallback&&!popMagic.config.popup_force){var t=Math.max(Math.round(.8*window.innerHeight),300);o="menubar=1,resizable=1,width="+Math.max(Math.round(.7*window.innerWidth),300)+",height="+t+",top="+(window.screenY+100)+",left="+(window.screenX+100)}var i=document.location.href,n=window.open(i,popMagic.getPuId(),o);popMagic.setAsOpened(e),setTimeout(function(){n.location.href=popMagic.url,popMagic.executeOnRedirect()},200),void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation())}}};    popMagic.init(adConfig);
+})();
+</script>
+<!-- JuicyAds v3.2P Start -->
+<script type="text/javascript">
+var juicy_tags = ['a', 'img'];
+</script>
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=348403u2q234u4q2r2b443c474&amp;u=https%3A%2F%2F4gay.fans%2F"></script>
+<!-- JuicyAds v3.2P End -->
+<script type="application/javascript">
+(function() {
+function randStr(e,t){for(var n="",r=t||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",o=0;o<e;o++)n+=r.charAt(Math.floor(Math.random()*r.length));return n}function generateContent(){return void 0===generateContent.val&&(generateContent.val="document.dispatchEvent("+randStr(4*Math.random()+3)+");"),generateContent.val}try{Object.defineProperty(document.currentScript,"innerHTML",{get:generateContent}),Object.defineProperty(document.currentScript,"textContent",{get:generateContent})}catch(e){};
+//version 7.0.0 Desktop Popunder
+var adConfig = {
+"ads_host": "a.pemsrv.com",
+"syndication_host": "s.pemsrv.com",
+"idzone": 5033750,
+"popup_fallback": false,
+"popup_force": true,
+"chrome_enabled": true,
+"new_tab": true,
+"frequency_period": 5,
+"frequency_count": 3,
+"trigger_method": 2,
+"trigger_class": "menu-item,onclick,page-numbers,entry-tag,entry-category,video-download,search-submit,player,jwplayer,jw-video,frame-container,iframe",
+"trigger_delay": 0,
+"capping_enabled": true,
+"tcf_enabled": true,
+"only_inline": false
+};
+window.document.querySelectorAll||(document.querySelectorAll=document.body.querySelectorAll=Object.querySelectorAll=function(e,o,t,i,n){var r=document,a=r.createStyleSheet();for(n=r.all,o=[],t=(e=e.replace(/\[for\b/gi,"[htmlFor").split(",")).length;t--;){for(a.addRule(e[t],"k:v"),i=n.length;i--;)n[i].currentStyle.k&&o.push(n[i]);a.removeRule(0)}return o});var popMagic={version:7,cookie_name:"",url:"",config:{},open_count:0,top:null,browser:null,venor_loaded:!1,venor:!1,tcfData:null,configTpl:{ads_host:"",syndication_host:"",idzone:"",frequency_period:720,frequency_count:1,trigger_method:1,trigger_class:"",popup_force:!1,popup_fallback:!1,chrome_enabled:!0,new_tab:!1,cat:"",tags:"",el:"",sub:"",sub2:"",sub3:"",only_inline:!1,trigger_delay:0,capping_enabled:!0,tcf_enabled:!1,cookieconsent:!0,should_fire:function(){return!0},on_redirect:null},init:function(e){if(void 0!==e.idzone&&e.idzone){void 0===e.customTargeting&&(e.customTargeting=[]),window.customTargeting=e.customTargeting||null;var o=Object.keys(e.customTargeting).filter(function(e){return e.search("ex_")>=0});for(var t in o.length&&o.forEach(function(e){return this.configTpl[e]=null}.bind(this)),this.configTpl)Object.prototype.hasOwnProperty.call(this.configTpl,t)&&(void 0!==e[t]?this.config[t]=e[t]:this.config[t]=this.configTpl[t]);if(void 0!==this.config.idzone&&""!==this.config.idzone){!0!==this.config.only_inline&&this.loadHosted();var i=this;this.checkTCFConsent(function(){"complete"===document.readyState?i.preparePopWait():i.addEventToElement(window,"load",i.preparePop)})}}},getCountFromCookie:function(){if(!this.config.cookieconsent)return 0;var e=popMagic.getCookie(popMagic.cookie_name),o=void 0===e?0:parseInt(e);return isNaN(o)&&(o=0),o},getLastOpenedTimeFromCookie:function(){var e=popMagic.getCookie(popMagic.cookie_name),o=null;if(void 0!==e){var t=e.split(";")[1];o=t>0?parseInt(t):0}return isNaN(o)&&(o=null),o},shouldShow:function(e){if(e=e||!1,!popMagic.config.capping_enabled){var o=!0,t=popMagic.config.should_fire;try{e||"function"!=typeof t||(o=Boolean(t()))}catch(e){console.error("Error executing should fire callback function:",e)}return o&&0===popMagic.open_count}if(popMagic.open_count>=popMagic.config.frequency_count)return!1;var i=popMagic.getCountFromCookie(),n=popMagic.getLastOpenedTimeFromCookie(),r=Math.floor(Date.now()/1e3),a=n+popMagic.config.trigger_delay;return!(n&&a>r)&&(popMagic.open_count=i,!(i>=popMagic.config.frequency_count))},venorShouldShow:function(){return popMagic.venor_loaded&&"0"===popMagic.venor},setAsOpened:function(e){var o=e?e.target||e.srcElement:null,t={id:"",tagName:"",classes:"",text:"",href:"",elm:""};void 0!==o&&null!=o&&(t={id:void 0!==o.id&&null!=o.id?o.id:"",tagName:void 0!==o.tagName&&null!=o.tagName?o.tagName:"",classes:void 0!==o.classList&&null!=o.classList?o.classList:"",text:void 0!==o.outerText&&null!=o.outerText?o.outerText:"",href:void 0!==o.href&&null!=o.href?o.href:"",elm:o});var i=new CustomEvent("creativeDisplayed-"+popMagic.config.idzone,{detail:t});if(document.dispatchEvent(i),popMagic.config.capping_enabled){var n=1;n=0!==popMagic.open_count?popMagic.open_count+1:popMagic.getCountFromCookie()+1;var r=Math.floor(Date.now()/1e3);popMagic.config.cookieconsent&&popMagic.setCookie(popMagic.cookie_name,n+";"+r,popMagic.config.frequency_period)}else++popMagic.open_count},loadHosted:function(){var e=document.createElement("script");for(var o in e.type="application/javascript",e.async=!0,e.src="//"+this.config.ads_host+"/popunder1000.js",e.id="popmagicldr",this.config)Object.prototype.hasOwnProperty.call(this.config,o)&&"ads_host"!==o&&"syndication_host"!==o&&e.setAttribute("data-exo-"+o,this.config[o]);var t=document.getElementsByTagName("body").item(0);t.firstChild?t.insertBefore(e,t.firstChild):t.appendChild(e)},preparePopWait:function(){setTimeout(popMagic.preparePop,400)},preparePop:function(){if("object"!=typeof exoJsPop101||!Object.prototype.hasOwnProperty.call(exoJsPop101,"add")){if(popMagic.top=self,popMagic.top!==self)try{top.document.location.toString()&&(popMagic.top=top)}catch(e){}if(popMagic.cookie_name="zone-cap-"+popMagic.config.idzone,popMagic.config.capping_enabled||(document.cookie=popMagic.cookie_name+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/"),popMagic.shouldShow(!0)){var e=new XMLHttpRequest;e.onreadystatechange=function(){e.readyState==XMLHttpRequest.DONE&&(popMagic.venor_loaded=!0,200==e.status?popMagic.venor=e.responseText:popMagic.venor="0")};var o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol;e.open("GET",o+"//"+popMagic.config.syndication_host+"/venor.php",!0);try{e.send()}catch(e){popMagic.venor_loaded=!0}}if(popMagic.buildUrl(),popMagic.browser=popMagic.browserDetector.getBrowserInfo(),popMagic.config.chrome_enabled||!popMagic.browser.isChrome){var t=popMagic.getPopMethod(popMagic.browser);popMagic.addEvent("click",t)}}},getPopMethod:function(e){return popMagic.config.popup_force||popMagic.config.popup_fallback&&e.isChrome&&e.version>=68&&!e.isMobile?popMagic.methods.popup:e.isMobile?popMagic.methods.default:e.isChrome?popMagic.methods.chromeTab:popMagic.methods.default},checkTCFConsent:function(e){if(this.config.tcf_enabled&&"function"==typeof window.__tcfapi){var o=this;window.__tcfapi("addEventListener",2,function(t,i){i&&(o.tcfData=t,"tcloaded"!==t.eventStatus&&"useractioncomplete"!==t.eventStatus||(window.__tcfapi("removeEventListener",2,function(){},t.listenerId),e()))})}else e()},buildUrl:function(){var e,o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol,t=top===self?document.URL:document.referrer,i={type:"inline",name:"popMagic",ver:this.version},n="";customTargeting&&Object.keys(customTargeting).length&&("object"==typeof customTargeting?Object.keys(customTargeting):customTargeting).forEach(function(o){"object"==typeof customTargeting?e=customTargeting[o]:Array.isArray(customTargeting)&&(e=scriptEl.getAttribute(o));var t=o.replace("data-exo-","");n+="&"+t+"="+e});var r=this.tcfData&&this.tcfData.gdprApplies&&!0===this.tcfData.gdprApplies?1:0;this.url=o+"//"+this.config.syndication_host+"/v1/link.php?cat="+this.config.cat+"&idzone="+this.config.idzone+"&type=8&p="+encodeURIComponent(t)+"&sub="+this.config.sub+(""!==this.config.sub2?"&sub2="+this.config.sub2:"")+(""!==this.config.sub3?"&sub3="+this.config.sub3:"")+"&block=1&el="+this.config.el+"&tags="+this.config.tags+"&scr_info="+function(e){var o=e.type+"|"+e.name+"|"+e.ver;return encodeURIComponent(btoa(o))}(i)+n+"&gdpr="+r+"&cb="+Math.floor(1e9*Math.random()),this.tcfData&&this.tcfData.tcString?this.url+="&gdpr_consent="+encodeURIComponent(this.tcfData.tcString):this.url+="&cookieconsent="+this.config.cookieconsent},addEventToElement:function(e,o,t){e.addEventListener?e.addEventListener(o,t,!1):e.attachEvent?(e["e"+o+t]=t,e[o+t]=function(){e["e"+o+t](window.event)},e.attachEvent("on"+o,e[o+t])):e["on"+o]=e["e"+o+t]},getTriggerClasses:function(){var e,o=[];-1===popMagic.config.trigger_class.indexOf(",")?e=popMagic.config.trigger_class.split(" "):e=popMagic.config.trigger_class.replace(/\s/g,"").split(",");for(var t=0;t<e.length;t++)""!==e[t]&&o.push("."+e[t]);return o},addEvent:function(e,o){var t;if("3"!=popMagic.config.trigger_method)if("2"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("4"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("5"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)popMagic.addEventToElement(document,e,o);else{var i="a"+popMagic.getTriggerClasses().map(function(e){return":not("+e+")"}).join("");t=document.querySelectorAll(i);for(var n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else{var r=popMagic.getTriggerClasses();popMagic.addEventToElement(document,e,function(e){r.some(function(o){return null!==e.target.closest(o)})||o.call(e.target,e)})}else{var a=popMagic.getTriggerClasses();for(t=document.querySelectorAll(a.join(", ")),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else for(t=document.querySelectorAll("a"),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)},setCookie:function(e,o,t){if(!this.config.cookieconsent)return!1;t=parseInt(t,10);var i=new Date;i.setMinutes(i.getMinutes()+parseInt(t));var n=encodeURIComponent(o)+"; expires="+i.toUTCString()+"; path=/";document.cookie=e+"="+n},getCookie:function(e){if(!this.config.cookieconsent)return!1;var o,t,i,n=document.cookie.split(";");for(o=0;o<n.length;o++)if(t=n[o].substr(0,n[o].indexOf("=")),i=n[o].substr(n[o].indexOf("=")+1),(t=t.replace(/^\s+|\s+$/g,""))===e)return decodeURIComponent(i)},randStr:function(e,o){for(var t="",i=o||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",n=0;n<e;n++)t+=i.charAt(Math.floor(Math.random()*i.length));return t},isValidUserEvent:function(e){return!(!("isTrusted"in e)||!e.isTrusted||"ie"===popMagic.browser.name||"safari"===popMagic.browser.name)||0!=e.screenX&&0!=e.screenY},isValidHref:function(e){if(void 0===e||""==e)return!1;return!/\s?javascript\s?:/i.test(e)},findLinkToOpen:function(e){var o=e,t=!1;try{for(var i=0;i<20&&!o.getAttribute("href")&&o!==document&&"html"!==o.nodeName.toLowerCase();)o=o.parentNode,i++;var n=o.getAttribute("target");n&&-1!==n.indexOf("_blank")||(t=o.getAttribute("href"))}catch(e){}return popMagic.isValidHref(t)||(t=!1),t||window.location.href},getPuId:function(){return"ok_"+Math.floor(89999999*Math.random()+1e7)},executeOnRedirect:function(){try{popMagic.config.capping_enabled||"function"!=typeof popMagic.config.on_redirect||popMagic.config.on_redirect()}catch(e){console.error("Error executing on redirect callback:",e)}},browserDetector:{browserDefinitions:[["firefox",/Firefox\/([0-9.]+)(?:\s|$)/],["opera",/Opera\/([0-9.]+)(?:\s|$)/],["opera",/OPR\/([0-9.]+)(:?\s|$)$/],["edge",/Edg(?:e|)\/([0-9._]+)/],["ie",/Trident\/7\.0.*rv:([0-9.]+)\).*Gecko$/],["ie",/MSIE\s([0-9.]+);.*Trident\/[4-7].0/],["ie",/MSIE\s(7\.0)/],["safari",/Version\/([0-9._]+).*Safari/],["chrome",/(?!Chrom.*Edg(?:e|))Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["chrome",/(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["bb10",/BB10;\sTouch.*Version\/([0-9.]+)/],["android",/Android\s([0-9.]+)/],["ios",/Version\/([0-9._]+).*Mobile.*Safari.*/],["yandexbrowser",/YaBrowser\/([0-9._]+)/],["crios",/CriOS\/([0-9.]+)(:?\s|$)/]],isChromeOrChromium:function(){var e=window.navigator,o=(e.userAgent||"").toLowerCase(),t=e.vendor||"";if(-1!==o.indexOf("crios"))return!0;if(e.userAgentData&&Array.isArray(e.userAgentData.brands)&&e.userAgentData.brands.length>0){var i=e.userAgentData.brands,n=i.some(function(e){return"Google Chrome"===e.brand}),r=i.some(function(e){return"Chromium"===e.brand})&&2===i.length;return n||r}var a=!!window.chrome,c=-1!==o.indexOf("edg"),p=!!window.opr||-1!==o.indexOf("opr"),s=!(!e.brave||!e.brave.isBrave),g=-1!==o.indexOf("vivaldi"),l=-1!==o.indexOf("yabrowser"),d=-1!==o.indexOf("samsungbrowser"),u=-1!==o.indexOf("ucbrowser");return a&&"Google Inc."===t&&!c&&!p&&!s&&!g&&!l&&!d&&!u},getBrowserInfo:function(){var e=window.navigator.userAgent,o={name:"other",version:"1.0",versionNumber:1,isChrome:this.isChromeOrChromium(),isMobile:!!e.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WebOS|Windows Phone/i)};for(var t in this.browserDefinitions){var i=this.browserDefinitions[t];if(i[1].test(e)){var n=i[1].exec(e),r=n&&n[1].split(/[._]/).slice(0,3),a=Array.prototype.slice.call(r,1).join("")||"0";r&&r.length<3&&Array.prototype.push.apply(r,1===r.length?[0,0]:[0]),o.name=i[0],o.version=r.join("."),o.versionNumber=parseFloat(r[0]+"."+a);break}}return o}},methods:{default:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o=e.target||e.srcElement,t=popMagic.findLinkToOpen(o);return window.open(t,"_blank"),popMagic.setAsOpened(e),popMagic.executeOnRedirect(),popMagic.top.document.location=popMagic.url,void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation()),!0},chromeTab:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;if(void 0===e.preventDefault)return!0;e.preventDefault(),e.stopPropagation();var o=top.window.document.createElement("a"),t=e.target||e.srcElement;o.href=popMagic.findLinkToOpen(t),document.getElementsByTagName("body")[0].appendChild(o);var i=new MouseEvent("click",{bubbles:!0,cancelable:!0,view:window,screenX:0,screenY:0,clientX:0,clientY:0,ctrlKey:!0,altKey:!1,shiftKey:!1,metaKey:!0,button:0});i.preventDefault=void 0,o.dispatchEvent(i),o.parentNode.removeChild(o),popMagic.executeOnRedirect(),window.open(popMagic.url,"_self"),popMagic.setAsOpened(e)},popup:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o="";if(popMagic.config.popup_fallback&&!popMagic.config.popup_force){var t=Math.max(Math.round(.8*window.innerHeight),300);o="menubar=1,resizable=1,width="+Math.max(Math.round(.7*window.innerWidth),300)+",height="+t+",top="+(window.screenY+100)+",left="+(window.screenX+100)}var i=document.location.href,n=window.open(i,popMagic.getPuId(),o);popMagic.setAsOpened(e),setTimeout(function(){n.location.href=popMagic.url,popMagic.executeOnRedirect()},200),void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation())}}};    popMagic.init(adConfig);
+})();
+</script>
+<script>
+(function($) {
+$(document).ready(function() {
+if ($(window).width() < 720) {
+$('.tabdesk').remove();
+}
+})
+})(jQuery);
+</script>	
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8YL2KSHKLZ"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8YL2KSHKLZ');
+</script>	
+<script type="text/javascript">
+var disqus_shortname = 'gaystreampw'; // required: replace example with your forum shortname
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<script type="text/javascript" src="//cdn.tsyndicate.com/sdk/v1/p.js" data-ts-spot="efb169317b3544d7b89e0d724148b26e" data-ts-devices="desktop,tablet" data-ts-mode="selective" data-ts-count="3" data-ts-session-duration="300" data-ts-ignore-filter="dot-irecommendthis, report-content, video-comment" async="" defer=""></script>
+<script async="" defer="" type="text/javascript" src="//cdn.tsyndicate.com/sdk/v1/ms.js"></script>
+<script async="" defer="" type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script> 
+<script async="" type="text/javascript" src="https://poweredby.jads.co/js/jads.js"></script>
+<script type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+</footer><script src="//cdn.nuqwe.com/app.js"></script><!-- #colophon .site-footer -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/gaystream2/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" id="dot-irecommendthis-js-extra">
+/* <![CDATA[ */
+var dot_irecommendthis = {"ajaxurl":"https://gaystream.pw/wp-admin/admin-ajax.php"};
+//# sourceURL=dot-irecommendthis-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/i-recommend-this/js/dot_irecommendthis.js?ver=2.6.0" id="dot-irecommendthis-js"></script>
+<script type="text/javascript" id="wp-postviews-cache-js-extra">
+/* <![CDATA[ */
+var viewsCacheL10n = {"admin_ajax_url":"https://gaystream.pw/wp-admin/admin-ajax.php","post_id":"17760"};
+//# sourceURL=wp-postviews-cache-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/wp-postviews/postviews-cache.js?ver=1.68" id="wp-postviews-cache-js"></script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/themes/gaystream2/js/readmore.min.js?ver=1" id="readmore-js"></script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/page-links-to/dist/new-tab.js?ver=3.3.6" id="page-links-to-js"></script>
+<script type="text/javascript" id="easy-notification-bar-js-extra">
+/* <![CDATA[ */
+var easyNotificationBar = {"local_storage_keyname":"easy_notification_bar_is_hidden_1756724342"};
+//# sourceURL=easy-notification-bar-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/easy-notification-bar/assets/js/front.js?ver=1.6.1" id="easy-notification-bar-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" id="disabled-source-and-content-protection-js-js-extra">
+/* <![CDATA[ */
+var jh_disabled_options_data = {"disabled_click":"1","disabled_ct_u":"1","disabled_f12":"1","disabled_ctst_i":"1","disabled_ctst_j":"1","disabled_ctst_c":"1","disabled_ct_s":"1","disabled_dragging_img":"1","disabled_notifi_status":"","disabled_notifi_text":"You cannot copy content of this Page","disabled_notifi_position":"right center","disabled_ct_p":"1"};
+//# sourceURL=disabled-source-and-content-protection-js-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/disabled-source-disabled-right-click-and-content-protection/includes/assets/js/protection.js?ver=1.6.5" id="disabled-source-and-content-protection-js-js"></script>
+
+<div style="width:100%;height:100%;position:fixed;top:0;left:0;z-index:9999999;display:none;"></div></body></html>
+
+
+
+
+___________________________________________
+Video Details and Play HTML Code
+___________________________________________
+
+<html lang="en-US" class=""><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://gaystream.pw/xmlrpc.php">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#15202b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<meta name="msapplication-TileColor" content="#15202b">
+<meta name="theme-color" content="#15202b">
+<title>  Sean Xavier &amp; Zander Woodz - Gaystream </title>
+<meta name="description" content="After a strenuous workout, sitting in a dry sauna, Zander Woodz is sitting in the back corner letting his muscles relax in the heat when a tall muscular stud struts…">
+<meta name="twitter:card" value="summary">
+<meta name="twitter:url" value="https://gaystream.pw/video/65312/sean-xavier-zander-woodz">
+<meta name="twitter:title" value="Stream  Sean Xavier &amp; Zander Woodz on Gaystream ">
+<meta name="twitter:description" value="After a strenuous workout, sitting in a dry sauna, Zander Woodz is sitting in the back corner letting his muscles relax in the heat when a tall muscular stud struts…">
+<meta name="twitter:image" value="https://i.postimg.cc/qMMTNccT/hf222.webp">
+<meta name="twitter:site" value="@gaystream">
+<meta name="twitter:creator" value="@gaystream">
+<meta property="og:title" content="StreamSean Xavier &amp; Zander Woodz on Gaystream ">
+<meta property="og:description" content="After a strenuous workout, sitting in a dry sauna, Zander Woodz is sitting in the back corner letting his muscles relax in the heat when a tall muscular stud struts…">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gaystream.pw/video/65312/sean-xavier-zander-woodz">
+<meta property="og:image" content="https://i.postimg.cc/qMMTNccT/hf222.webp">
+<meta property="og:site_name" content="Gaystream">
+<meta name="robots" content="max-image-preview:large">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="alternate" type="application/rss+xml" title="Gaystream » Feed" href="https://gaystream.pw/feed">
+<link rel="alternate" type="application/rss+xml" title="Gaystream » Comments Feed" href="https://gaystream.pw/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="Gaystream » Sean Xavier &amp; Zander Woodz Comments Feed" href="https://gaystream.pw/video/65312/sean-xavier-zander-woodz/feed">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://gaystream.pw/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgaystream.pw%2Fvideo%2F65312%2Fsean-xavier-zander-woodz">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://gaystream.pw/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgaystream.pw%2Fvideo%2F65312%2Fsean-xavier-zander-woodz&amp;format=xml">
+<style id="wp-img-auto-sizes-contain-inline-css" type="text/css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css" type="text/css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id="global-styles-inline-css" type="text/css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='html-forms-css' href='https://gaystream.pw/wp-content/plugins/xx-html-forms/assets/css/forms.css?ver=1.3.29' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style.css-css' href='https://gaystream.pw/wp-content/themes/gaystream2/style.css?ver=6.9.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='normalize.css-css' href='https://gaystream.pw/wp-content/themes/gaystream2/css/normalize.css?ver=6.9.1' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='gaycons-css' href='https://gaystream.pw/wp-content/themes/gaystream2/fonts/gaycons/gaycons.css?ver=6.9.1' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//gaystream.pw/wp-content/cache/wpfc-minified/8j6xp8ib/e0ag2.css" media="all">
+<link rel="stylesheet" id="google-fonts-css" href="https://fonts.googleapis.com/css2?family=Inter%3Awght%40400%3B500%3B700&amp;display=swap&amp;ver=6.9.1" type="text/css" media="all">
+<!-- <link rel='stylesheet' id='easy-notification-bar-css' href='https://gaystream.pw/wp-content/plugins/easy-notification-bar/assets/css/front.css?ver=1.6.1' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//gaystream.pw/wp-content/cache/wpfc-minified/2nzu5z4j/e0ag2.css" media="all">
+
+<!-- <link rel='stylesheet' id='disabled-source-and-content-protection-css-css' href='https://gaystream.pw/wp-content/plugins/disabled-source-disabled-right-click-and-content-protection/includes/assets/css/style.css?ver=1.0.0' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//gaystream.pw/wp-content/cache/wpfc-minified/18vznia/e0ag2.css" media="all">
+<script src="//gaystream.pw/wp-content/cache/wpfc-minified/lxuiah10/e0ag2.js" type="text/javascript"></script>
+<!-- <script type="text/javascript" src="https://gaystream.pw/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script> -->
+<!-- <script type="text/javascript" src="https://gaystream.pw/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script> -->
+<!-- <script type="text/javascript" src="https://gaystream.pw/wp-content/themes/gaystream2/js/readmore-fn.js?ver=6.9.1" id="readmore-fn-js"></script> -->
+
+<link rel="https://api.w.org/" href="https://gaystream.pw/wp-json/"><link rel="alternate" title="JSON" type="application/json" href="https://gaystream.pw/wp-json/wp/v2/posts/65312"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://gaystream.pw/xmlrpc.php?rsd">
+<meta name="generator" content="WordPress 6.9.1">
+<link rel="canonical" href="https://gaystream.pw/video/65312/sean-xavier-zander-woodz">
+<link rel="shortlink" href="https://gaystream.pw/?p=65312">
+<style>
+.notifyjs-bootstrap-base {
+background-color: #F2DEDE !important;
+border-color: #F2DEDE!important;
+color: #B94A48!important;
+}
+</style><link rel="icon" href="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png" sizes="32x32">
+<link rel="icon" href="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png">
+<meta name="msapplication-TileImage" content="https://gaystream.pw/wp-content/uploads/2020/05/favicon-32x32.png">
+<script async="" type="text/javascript" src="//gaystreampw.disqus.com/count.js"></script><style type="text/css"> undefined + [data-readmore-toggle], undefined[data-readmore]{display: block; width: 100%;}undefined[data-readmore]{transition: height 300ms;overflow: hidden;}</style><meta content="no-referrer" name="referrer" id="IOarzRhPlPnoref"></head>
+<body class="wp-singular post-template-default single single-post postid-65312 single-format-standard wp-theme-gaystream2"><script type="application/javascript" async="" src="//a.pemsrv.com/popunder1000.js" id="popmagicldr" data-exo-idzone="5033750" data-exo-frequency_period="5" data-exo-frequency_count="3" data-exo-trigger_method="2" data-exo-trigger_class="menu-item,onclick,page-numbers,entry-tag,entry-category,video-download,search-submit,player,jwplayer,jw-video,frame-container,iframe" data-exo-popup_force="true" data-exo-popup_fallback="false" data-exo-chrome_enabled="true" data-exo-new_tab="true" data-exo-cat="" data-exo-tags="" data-exo-el="" data-exo-sub="" data-exo-sub2="" data-exo-sub3="" data-exo-only_inline="false" data-exo-trigger_delay="0" data-exo-capping_enabled="true" data-exo-tcf_enabled="true" data-exo-cookieconsent="true" data-exo-should_fire="function(){return!0}" data-exo-on_redirect="null"></script><script type="application/javascript" async="" src="//a.pemsrv.com/popunder1000.js" id="popmagicldr" data-exo-idzone="5724156" data-exo-frequency_period="5" data-exo-frequency_count="3" data-exo-trigger_method="5" data-exo-trigger_class="dot-irecommendthis, report-content, video-comment" data-exo-popup_force="false" data-exo-popup_fallback="true" data-exo-chrome_enabled="true" data-exo-new_tab="true" data-exo-cat="" data-exo-tags="" data-exo-el="" data-exo-sub="" data-exo-sub2="" data-exo-sub3="" data-exo-only_inline="false" data-exo-trigger_delay="0" data-exo-capping_enabled="true" data-exo-tcf_enabled="true" data-exo-cookieconsent="true" data-exo-should_fire="function(){return!0}" data-exo-on_redirect="null"></script>
+
+<div id="page" class="site">
+<header id="masthead" class="site-header" role="banner">
+<div class="wrapper flex center">
+<div class="site-logo">
+<div class="site-title">
+<a href="https://gaystream.pw" title="Gaystream" rel="home">
+<img data-ignore="" src="https://gaystream.pw/wp-content/themes/gaystream2/img/logo.png" alt="Site Logo" title="Gaystream Homepage" width="153px" height="31px" class="logo-img">
+</a>
+</div>
+</div><!--/logo -->
+<nav class="top-navigation main-navigation responsive clearfix">
+<div class="header-icons"><ul>
+<li>
+<a href="/?orderby=likes" aria-label="Popular videos"><i class="icon-heart"></i><span>Popular</span></a>
+</li>
+<li>
+<a href="/?orderby=views" aria-label="Trending videos"><i class="icon-eye"></i><span>Trending</span></a>
+</li>
+<li>
+<a href="/?orderby=latest" aria-label="Updated videos"><i class="icon-bell"></i><span>Latest</span></a>
+</li>
+<li>
+<a href="/channels" aria-label="Channels"><i class="icon-camera-solid"></i><span>Channels</span></a>
+</li>
+<li>
+<a href="/categories" aria-label="Categories"><i class="icon-folder-solid "></i><span>Categories</span></a>
+</li>    
+<li>
+<a href="/performers" aria-label="Performers"><i class="icon-star-solid"></i><span>Performers</span></a>
+</li>        
+</ul></div> 
+</nav>	
+<div class="header-search">
+<form role="search" method="get" class="search-form" action="https://gaystream.pw/">
+<label>
+<span class="screen-reader-text">Search for:label</span>
+<input type="search" class="search-field shadow" placeholder="Search video, scene or performer..." value="" name="s" title="Type here and hit enter">
+</label>
+<button type="submit" aria-label="search" name="search" class="search-submit">
+<i class="icon-search" aria-hidden="true"></i>
+<span class="screen-reader-text">Searchsubmit button</span>
+</button>
+</form>			<div class="mobile-menu-wrap"> 
+<button onclick="showmobileMenu()" class="mobile-menu-btn shadow"><i class="icon-menu" aria-hidden="true"></i></button>
+<div id="mobile-menu" class="mobile-menu" style="display:none">
+<div class="menu-header-icons-menu-container"><ul id="menu-header-icons-menu" class="menu"><li id="menu-item-61170" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61170"><a href="https://gaystream.pw/?orderby=likes">Popular</a></li>
+<li id="menu-item-61171" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61171"><a href="https://gaystream.pw/?orderby=views">Trending</a></li>
+<li id="menu-item-10715" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10715"><a href="https://gaystream.pw/?orderby=latest">Latest</a></li>
+<li id="menu-item-21868" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21868"><a href="https://gaystream.pw/channels">Channels</a></li>
+<li id="menu-item-10716" class="category-icon menu-item menu-item-type-post_type menu-item-object-page menu-item-10716"><a href="https://gaystream.pw/categories">Categories</a></li>
+<li id="menu-item-12475" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12475"><a href="https://gaystream.pw/performers">Performers</a></li>
+</ul></div>  
+</div> 
+</div>
+<script>
+function showmobileMenu() {
+var x = document.getElementById("mobile-menu");
+if (x.style.display === "none") {
+x.style.display = "block";
+} else {
+x.style.display = "none";
+}
+}
+</script> 
+</div>
+</div><!--/container -->
+</header><!-- /topheader -->
+<main id="container" class="clearfix"><!-- start the page containter -->
+<div id="video-page" class="post">
+<section id="media" class="clearfix alt-bg">
+<div class="wrapper">
+<div class="streams">
+<div class="streams-right">
+<div class="a-box desktop" style="float:none"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div>
+<div class="a-box desktop" style="float:none"><!-- JuicyAds v3.0 -->
+<ins id="810743" data-width="300" data-height="250"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':810743});</script>
+<!--JuicyAds END--></div>
+</div>    
+<div class="streams-left">
+<div class="a-box mobile"><!-- TStars Master Spot Mobile Header #4959431--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="7579c0e9c52546f8984ffcd0192d6b3e" data-ts-template-id="12" async="" defer=""></script></div> 
+<div class="streams-wrap">
+<div class="player-controls-right">
+<ul>
+<li><span class="option-label">Like!</span><i class="icon-thumb" aria-hidden="true"></i><a href="#" class="dot-irecommendthis" id="dot-irecommendthis-65312" title="Like"><span class="dot-irecommendthis-count">1</span> <span class="dot-irecommendthis-suffix">Like</span></a></li>
+<li><span class="option-label">Share</span><a class="video-share" href="https://bsky.app/intent/compose&amp;text=https://gaystream.pw/video/65312/sean-xavier-zander-woodz" aria-label="Share" target="_blank"><i class="icon-share" aria-hidden="true"></i></a></li>
+<li><span class="option-label">Comment</span><a class="video-comment" href="https://gaystream.pw/video/65312/sean-xavier-zander-woodz#comments" aria-label="Comment this"><i class="icon-comment" aria-hidden="true"></i></a></li>	
+</ul>
+</div>	  
+<script type="text/javascript">
+function close_overlay(){
+document.getElementById("overlay").style.display="none";
+}
+</script>  
+<div id="overlay" style="background-image: url(&quot;https://i.postimg.cc/qMMTNccT/hf222.webp&quot;); display: none;">
+<div class="blurred"></div>
+<div class="player-bar">
+<i class="icon-info" aria-hidden="true"></i> If you are having issues with video playback try another server, disable Adblock or switch to a different browser also try its private mode.
+</div>             
+<div class="overlay-wrap">
+<div class="overlay-box">
+<div class="a-box mobile" style="float:none;min-width:300px;min-height:100px"><!-- Exoclick -->
+<iframe src="//a.magsrv.com/iframe.php?idzone=3403657&amp;size=300x100" title="exoclick" width="300" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-ioarzrhplp-handled="1"></iframe><div class="IOarzRhPlPOverlay" style="background:#666;opacity:0.0001;position:absolute;cursor:pointer;height:0px;width:0px;left:0px;top:0px;z-index:2"></div></div>
+<div class="a-box desktop" style="float:none;min-width:300px;min-height:250px"><!-- TStars #4959421 Master Spot Desktop Footer--> 
+<script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="ac64636c317b44fda14103dd144e67c0" data-ts-template-id="10" async="" defer=""></script></div> 
+<span class="overlay-close" onclick="close_overlay()">
+<button class="onclick boner" onclick="document.getElementById(&quot;ifr&quot;).src=&quot;https://gaystream.vidplayer.live/#vijpr&quot;;" aria-label="close" name="close">[ x ] Close Ad &amp; Play</button>
+</span>	
+</div>
+</div>
+</div><!-- /overlay -->	
+<div id="maskoverlay" style="display:none">
+<div class="blurred"></div>            
+<div class="overlay-wrap">
+<div class="overlay-box">
+<div class="a-box mobile" style="float:none"><!-- Exoclick -->
+<iframe src="//a.magsrv.com/iframe.php?idzone=3403657&amp;size=300x100" title="exoclick" width="300" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-ioarzrhplp-handled="1"></iframe><div class="IOarzRhPlPOverlay" style="background:#666;opacity:0.0001;position:absolute;cursor:pointer;height:0px;width:0px;left:0px;top:0px;z-index:2"></div></div> 
+<div class="a-box desktop" style="float:none"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div> 
+<span class="overlay-close" onclick="hideIt()">
+<button class="onclick boner" id="onclick" aria-label="close" name="close" onclick="hideIt();">[ x ] Close Ad</button>
+</span>
+</div>
+</div>
+</div><!-- /maskoverlay -->	   
+<div class="stream-content iframe-container">
+<script type="text/javascript">
+function showIt() {
+document.getElementById("maskoverlay").style.display = "block";
+}
+setTimeout(showIt, 300000); // after 5 min
+setTimeout(showIt, 600000); // after 10 min
+setTimeout(showIt, 900000); // after 15 min	
+setTimeout(showIt, 1200000); // after 20 min
+setTimeout(showIt, 1500000); // after 25 min	
+setTimeout(showIt, 1800000); // after 30 min	
+setTimeout(showIt, 2100000); // after 35 min	
+setTimeout(showIt, 2400000); // after 40 min	
+setTimeout(showIt, 2700000); // after 45 min			
+setTimeout(showIt, 3000000); // after 50 min
+setTimeout(showIt, 3300000); // after 55 min	
+setTimeout(showIt, 2500000); // after 60 min			
+function hideIt() {
+document.getElementById("maskoverlay").style.display = "none";
+}
+setTimeout(hideIt, 2500000); // after 6 min.
+</script><!-- /mask -->            
+<iframe name="ifr" id="ifr" class="iframe" title="video" frameborder="0" scrolling="no" loading="lazy" onload="window.scrollTo(0,0)" allowfullscreen="" data-ioarzrhplp-handled="1" src="https://gaystream.vidplayer.live/#vijpr"></iframe><div class="IOarzRhPlPOverlay" style="background:#666;opacity:0.0001;position:absolute;cursor:pointer;height:469px;width:834px;left:0px;top:0px;z-index:2"></div>                                  
+<div id="ifr-error" class="ifr-error"><p><i class="icon-exclamation"></i><br>Sorry, this host is no longer operating. <br>If you want this video to be reuploaded, use the Report function below.</p></div>
+<textarea style="display:none;visibility:hidden" readonly="readonly">&lt;iframe src="https://gaystream.website/e/9rur963j2oos" title="Gaystream.pw" scrolling="no" frameborder="0" width="640" height="360" allowfullscreen&gt;&lt;/iframe&gt;
+</textarea>      
+<textarea style="display:none;visibility:hidden" readonly="readonly">&lt;iframe src="https://gaystream.space/v/4kumaek6weg1" title="Gaystream.pw" scrolling="no" frameborder="0" width="640" height="360" allowfullscreen&gt;&lt;/iframe&gt;
+</textarea>               
+<div class="boxloader">
+<div class="preloader" id="preloader"><div></div><div></div><div></div><div></div>
+</div>
+<span class="reload">Video keep loading? Select a different server or refresh the page</span>    
+</div>
+</div>
+</div>   
+<div class="player-controls clearfix">
+<span class="controls-right">
+<div class="tabs-menu-wrap"> 
+<button onclick="showTabsMenu()" tooltip="Server" title="Server List" class="tabs-menu-btn"><i class="icon-server" aria-hidden="true"></i><span style="margin-left:6px;">Server</span></button>
+<div class="tabs-menu" id="tabs-menu" style="display: block;">
+<div class="stream-tabs">
+<div class="tabs-wrap">
+<button class="tab boner active" onclick="document.getElementById(&quot;ifr&quot;).src=&quot;https://gaystream.vidplayer.live/#vijpr&quot;">Multi HD</button>
+<button class="tab boner" onclick="document.getElementById(&quot;ifr&quot;).src=&quot;https://byseqekaho.com/e/9rur963j2oos&quot;">Filemoon</button>
+<button class="tab boner" onclick="document.getElementById(&quot;ifr&quot;).src=&quot;https://gaystream.space/v/4kumaek6weg1&quot;">Vidhide</button>
+<button class="tab boner" onclick="document.getElementById(&quot;ifr&quot;).src=&quot;https://voe.sx/e/odsmpqk8j5fc&quot;">VOE</button>
+</div>
+</div>
+</div>
+<script>
+function showTabsMenu() {
+var x = document.getElementById("tabs-menu");
+if (x.style.display === "none") {
+x.style.display = "block";
+} else {
+x.style.display = "none";
+}
+}
+</script>
+<script>
+jQuery(document).ready(function() {
+jQuery("ul [href]").each(function() {
+if (this.href == window.location.href) {
+jQuery(this).addClass("active");
+}
+});
+});
+</script>  
+</div>           
+</span>    
+<span class="controls-left">
+<a href="#" class="dot-irecommendthis" id="dot-irecommendthis-65312" title="Like"><span class="dot-irecommendthis-count">1</span> <span class="dot-irecommendthis-suffix">Like</span></a>    <a class="video-comment tooltip" tooltip="Add Comment" href="https://gaystream.pw/video/65312/sean-xavier-zander-woodz#comments" aria-label="Comment this"><i class="icon-comment" aria-hidden="true"></i><span>Comment</span></a>	
+<a class="video-share tooltip" href="https://www.myvidster.com/user/quickadd.php?video_link=https://gaystream.pw/video/65312/sean-xavier-zander-woodz" tooltip="Collect to MyVidster" target="_blank" data-show-count="false" aria-label="Collect to MyVidster"><i class="icon-bookmark" aria-hidden="true"></i><span>Bookmark</span></a>
+<a style="cursor:pointer" onclick="flagThis()" id="modal-btn" class="report-content tooltip video-report" tooltip="Report Issue" title="Report an issue"><i class="icon-megaphone" aria-hidden="true"></i><span>Report</span></a> 
+<a class="video-download tooltip" href="https://rg.to/file/845b68e16bedfc369f59600cff77a1a5" tooltip="Download HD/4K" target="_blank" aria-label="Download video"> <i class="icon-download" aria-hidden="true"></i><span>Download</span></a>    
+</span>    
+<div id="report-modal" class="report-modal">
+<!-- Modal content -->
+<div class="report-modal-content">
+<span class="modal-close">×</span>
+<div class="report-box">
+<h2 class="page-title">Report an Issue</h2>	        
+<!-- HTML Forms v1.3.29 - https://wordpress.org/plugins/html-forms/ --><form method="post" class="hf-form hf-form-48218 " data-id="48218" data-title="Report Content" data-slug="report-content" data-message-success="Report sent! It will be processed asap if it meets the Reports Guidelines." data-message-invalid-email="Sorry, that email address looks invalid." data-message-required-field-missing="Please fill in the required fields." data-message-error="Oops. An error occurred."><input type="hidden" name="_hf_form_id" value="48218"><div style="display: none;"><input type="text" name="_hf_h48218" value=""></div><div class="hf-fields-wrap"><span class="report-info">
+Before adding your report, read our <a titlle="Reporting Guidelines" href="https://gaystream.pw/reporting-guidelines">Reporting Guidelines</a> 
+</span>
+<label>Your email:*</label>
+<input type="email" name="EMAIL" placeholder="Your email" required="">
+<p></p>
+<p>
+<label for="report-content-REASON">Reason:*</label>
+<select name="REASON" required="" id="report-content-REASON">
+<option>There is no working server (2 reports daily allowed!)</option>
+<option>Server(s) is playing the wrong video</option>
+<option>Incorrect/missing info like title, channel, performer etc.</option>
+<option>Other (describe below or leave a comment if you expect a reply)</option>
+</select>
+</p>
+<label for="report-content-DESCRIPTION_OPTIONAL">Description: (optional)</label>
+<textarea name="DESCRIPTION_OPTIONAL" id="report-content-DESCRIPTION_OPTIONAL"></textarea>
+<p>
+<label for="report-content-CONFIRMATION"></label>
+<label><input required="" type="checkbox" name="CONFIRMATION[]" value="I have read the reporting guidelines"> <span>I've read the <a titlle="Reporting Guidelines" href="https://gaystream.pw/reporting-guidelines">Reporting Guidelines</a> </span></label>
+</p>
+<p>
+<input type="submit" value="Send Report">
+</p><noscript>Please enable JavaScript for this form to work.</noscript></div></form><!-- / HTML Forms -->   <!--<p>The reporting feature is overloaded and has been disabled. Please check back later.</p>--->
+</div>
+</div>
+</div>	
+<script>
+// Get the modal
+var modal = document.getElementById("report-modal");
+// Get the button that opens the modal
+var btn = document.getElementById("modal-btn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("modal-close")[0];
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+modal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}
+</script>
+</div>	         <div class="a-entry-bottom">  
+<div class="a-box mobile alt-bg" style="float:none;margin:0;padding: 5px 0;"><!-- Exoclick -->
+<iframe src="//a.magsrv.com/iframe.php?idzone=3403657&amp;size=300x100" title="exoclick" width="300" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-ioarzrhplp-handled="1"></iframe><div class="IOarzRhPlPOverlay" style="background:#666;opacity:0.0001;position:absolute;cursor:pointer;height:0px;width:0px;left:0px;top:0px;z-index:2"></div></div>
+<div class="a-box desktop alt-bg" style="float:none;min-height:90px!important;margin:0;padding: 5px 0;"><!-- JuicyAds v3.0 -->
+<ins id="1105512" data-width="728" data-height="90"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1105512});</script>
+<!--JuicyAds END--></div> 
+</div>          
+<script>
+jQuery('.tab').on('click', function(){
+jQuery('.tab').removeClass('active');
+jQuery(this).addClass('active');
+});
+</script>
+</div><!-- /stream-content .iframe-container -->
+</div><!-- /streams -->        </div>    
+</section><!-- #media -->
+<section id="media-text" class="clearfix line-top">
+<div class="wrapper">
+<div class="entry">	
+<h1 class="entry-title">Sean Xavier &amp; Zander Woodz</h1> 
+<div class="entry-left">
+<header class="entry-header">
+<div class="entry-image">
+<span class="entry-channel">
+<a href="https://gaystream.pw/video/channel/hungfuckers" rel="tag">HungFuckers</a> <img src="https://gaystream.pw/wp-content/themes/gaystream2/img/verified.svg" title="Channel" alt="Channel" style="width:15px;height:15px">
+</span>
+<span class="entry-date">February 22, 2026</span>  				                
+</div>
+<div class="entry-meta">
+<span class="entry-duration">
+<i class="icon-clock" aria-hidden="true"></i>
+23 min													</span>  
+<span class="entry-views"><i class="icon-eye" aria-hidden="true"></i>
+63 views                        </span>
+<span class="entry-likes"><i class="icon-heart" aria-hidden="true"></i>
+1 likes                        </span>		         
+</div><!--/entry-meta -->
+</header>       
+<div class="entry-content">
+<div class="expandit readmore" style="max-height: none;">
+After a strenuous workout, sitting in a dry sauna, Zander Woodz is sitting in the back corner letting his muscles relax in the heat when a tall muscular stud struts in, Sean Xavier took a seat directly in front of him. Zander had one leg hiked up on the bench with his towel slightly open. Both the hot jocks noticed each other, nodded their heads saying nothing. Zander wasn’t thinking about his towel being partly open, exposing his family jewels. But, Sean sure noticed and soon reached over and rubbed Zander’s cock, balls and taint. Zander responded by scooting down a little, becoming putty in Sean’s hands…		    		</div> 
+</div><!--/entry-content -->	
+<footer class="entry-footer">
+<span class="entry-cat">
+<a class="entry-category" href="https://gaystream.pw/video/category/bareback" rel="category tag">Bareback</a> <a class="entry-category" href="https://gaystream.pw/video/category/big-dick" rel="category tag">Big Dick</a> <a class="entry-category" href="https://gaystream.pw/video/category/black" rel="category tag">Black</a> <a class="entry-category" href="https://gaystream.pw/video/category/blowjob" rel="category tag">Blowjob</a> <a class="entry-category" href="https://gaystream.pw/video/category/interracial" rel="category tag">Interracial</a> <a class="entry-category" href="https://gaystream.pw/video/category/muscle" rel="category tag">Muscle</a> <a class="entry-category" href="https://gaystream.pw/video/category/rimjob" rel="category tag">Rimjob</a>				</span>		
+<span class="entry-tags">
+<label>Featuring:</label><a class="entry-tag" href="https://gaystream.pw/performer/sean-xavier" rel="tag">Sean Xavier</a>,<a class="entry-tag" href="https://gaystream.pw/performer/zander-woodz" rel="tag">Zander Woodz</a>  		    	</span> 
+</footer>
+</div><!--/entry -->	
+<div class="a-entry-side">
+<div class="a-box mobile"><!-- JuicyAds v3.0 -->
+<ins id="1030804" data-width="300" data-height="112"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1030804});</script>
+<!--JuicyAds END--></div>
+<div class="a-box desktop"><!-- TStars #4959421 Master Spot Desktop Footer--> 
+<script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="ac64636c317b44fda14103dd144e67c0" data-ts-template-id="10" async="" defer=""></script></div>
+</div>	
+</div>
+</div><!--/wrapper -->
+</section>
+<section id="performer-related" class="clearfix tabdesk line-top">
+<div class="wrapper">
+<header class="page-header">
+<h2 class="page-title">Related <span>Videos</span></h2>
+</header>
+<div class="grid flex">
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65161/stud-loads-vol-8-stallion-assessment" title="Stud Loads Vol. 8 – Stallion Assessment" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/pTCYcL7Q/sl162e.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Stud Loads Vol. 8 – Stallion Assessment" alt="Stud Loads Vol. 8 – Stallion Assessment">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+49 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Stud Loads Vol. 8 – Stallion Assessment</h3>
+<div class="item-meta">
+<span class="item-channel">
+StudLoads  
+</span>				    
+<span class="item-views">
+1.6K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+3					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65163/stud-loads-vol-8-stable-master" title="Stud Loads Vol. 8 – Stable Master" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+6 days ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/RFdQpZ87/sl162ee.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Stud Loads Vol. 8 – Stable Master" alt="Stud Loads Vol. 8 – Stable Master">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+61 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Stud Loads Vol. 8 – Stable Master</h3>
+<div class="item-meta">
+<span class="item-channel">
+StudLoads  
+</span>				    
+<span class="item-views">
+1.3K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+6					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65101/jaxx-cody-cumdump-1" title="Jaxx Cody Cumdump #1" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 week ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/htzR0qFF/cds132c.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Jaxx Cody Cumdump #1" alt="Jaxx Cody Cumdump #1">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+44 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Jaxx Cody Cumdump #1</h3>
+<div class="item-meta">
+<span class="item-channel">
+CumDumpSluts  
+</span>				    
+<span class="item-views">
+2.5K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+8					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65067/stud-loads-vol-7-breeding-wall" title="Stud Loads Vol. 7: Breeding Wall" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 week ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/VknhsQJR/sl122.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Stud Loads Vol. 7: Breeding Wall" alt="Stud Loads Vol. 7: Breeding Wall">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+35 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Stud Loads Vol. 7: Breeding Wall</h3>
+<div class="item-meta">
+<span class="item-channel">
+StudLoads  
+</span>				    
+<span class="item-views">
+2.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+6					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop -->
+</div>           			
+<p class="ad-mobile">
+</p>            
+</div><!-- #content .site-content -->
+</section><!-- #primary .content-area -->	
+<section id="comments" class="clearfix alt-bg line-top">
+<div class="wrapper">
+<h2 class="page-title">Comments</h2><br>
+<div class="a-box mobile"><!-- TStars Master Spot Mobile Header #4959431--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="7579c0e9c52546f8984ffcd0192d6b3e" data-ts-template-id="12" async="" defer=""></script></div> 
+<div id="disqus_thread">
+</div>
+<div class="a-box mobile"><!-- JuicyAds v3.0 -->
+<ins id="1030804" data-width="300" data-height="112"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1030804});</script>
+<!--JuicyAds END--></div> 
+</div>
+</section>
+<section id="channel-related" class="clearfix line-top">
+<div class="wrapper">
+<header class="page-header clearfix flex">
+<h2 class="page-title">Channel <span>Videos</span></h2>
+<span class="more-link"> 
+<a class="onclick" href="https://gaystream.pw/video/channel/hungfuckers" title="More HungFuckers Videos"><span> More Videos </span></a></span> 		    
+</header>
+<div class="grid flex">
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/65090/valentines-orgy-with-adam-snow-canyon-cole-dylan-tides-jordan-starr-smith-sterling-zac-steele" title="Valentine’s Orgy with Adam Snow, Canyon Cole, Dylan Tides, Jordan Starr, Smith Sterling &amp; Zac Steele" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+1 week ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/XYyLFMct/hf132e.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Valentine’s Orgy with Adam Snow, Canyon Cole, Dylan Tides, Jordan Starr, Smith Sterling &amp; Zac Steele" alt="Valentine’s Orgy with Adam Snow, Canyon Cole, Dylan Tides, Jordan Starr, Smith Sterling &amp; Zac Steele">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+20 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Valentine’s Orgy with Adam Snow, Canyon Cole, Dylan Tides, Jordan Starr, Smith Sterling &amp; Zac Steele</h3>
+<div class="item-meta">
+<span class="item-channel">
+HungFuckers  
+</span>				    
+<span class="item-views">
+1.4K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+7					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop --> 
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/51579/ripley-andrew-connor" title="Ripley &amp; Andrew Connor" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/hjRFgQwQ/hf002.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Ripley &amp; Andrew Connor" alt="Ripley &amp; Andrew Connor">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+20 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Ripley &amp; Andrew Connor</h3>
+<div class="item-meta">
+<span class="item-channel">
+HungFuckers  
+</span>				    
+<span class="item-views">
+3.6K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+14					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop --> 
+<div class="grid-wrap clearfix">
+<div class="grid-item clearfix">
+<a class="item-wrap" href="https://gaystream.pw/video/51581/adam-snow-eddie-patricks-hungfucker-orgy" title="Adam Snow &amp; Eddie Patrick’s Hungfucker Orgy" rel="bookmark">
+<div class="item-top">
+<figure>
+<span class="fader">
+<span class="item-date">
+2 years ago				</span> 				    
+</span>				    
+<span class="sticker">   
+</span>
+<span class="item-thumb">
+<img class="item-img" src="https://i.postimg.cc/d12b0tPH/hf001.webp" onerror="this.onerror=null;this.src='https://gaystream.pw/wp-content/themes/gaystream2/img/placeholder.jpg';" title="Adam Snow &amp; Eddie Patrick’s Hungfucker Orgy" alt="Adam Snow &amp; Eddie Patrick’s Hungfucker Orgy">
+</span>
+<div class="badge">   
+
+<span class="item-duration">
+42 min										</span>	 
+</div>				
+</figure>
+</div><!--/item-top -->
+<header class="item-header">
+<h3 class="item-title">Adam Snow &amp; Eddie Patrick’s Hungfucker Orgy</h3>
+<div class="item-meta">
+<span class="item-channel">
+HungFuckers  
+</span>				    
+<span class="item-views">
+5.5K					<i class="icon-eye" aria-hidden="true"></i>
+</span>
+<span class="item-likes">
+10					 <i class="icon-heart" aria-hidden="true"></i>
+</span>	                
+</div><!--/item-meta -->
+</header>
+</a>
+</div>
+</div><!--/loop --> 
+</div>
+</div><!-- #content .site-content -->
+</section><!-- #primary .content-area -->	
+</div>	
+<script type="text/javascript" src="//cdn.tsyndicate.com/sdk/v1/p.js" data-ts-spot="902ddef6fff7424296312dceac0d656d" data-ts-mode="selective" data-ts-devices="mobile,tablet" data-ts-count="3" data-ts-session-duration="300" data-ts-ignore-filter="dot-irecommendthis, report-content, video-comment" async="" defer=""></script>
+<script type="text/javascript" data-ts-spot="bd11ca1d59634e9b9e64bd8d79e52b77" data-ts-mode="selective" data-ts-count="3" data-ts-session-duration="300" data-ts-ignore-filter="dot-irecommendthis, report-content, video-comment" data-ts-first-delay="3" async="" defer=""></script>
+</main>
+</div><!-- #page-->
+<section id="sponsored" class="clearfix alt-bg line-top">
+<div class="wrapper">
+<header class="page-header"><h2 class="page-title">Sponsored</h2></header>
+<div class="sponsored"> 
+<div class="a-box mobile"><!-- JuicyAds v3.0 -->
+<ins id="1030804" data-width="300" data-height="112"></ins>
+<script type="text/javascript" data-cfasync="false" async="">(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1030804});</script>
+<!--JuicyAds END--></div>
+<div class="a-box mobile"></div> 
+<div class="a-box mobile"><!-- TStars Master Spot Mobile Header #4959431--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="7579c0e9c52546f8984ffcd0192d6b3e" data-ts-template-id="12" async="" defer=""></script></div>   
+<div class="a-box desktop"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div>         
+<div class="a-box desktop"><!-- TStars #4959425 Master Spot Desktop Banner--> <script src="//cdn.tsyndicate.com/sdk/v1/ms.js" data-ts-spot="6dbf4d3ffd6a46e18354dfe222c8e405" data-ts-template-id="10" async="" defer=""></script></div>
+<div class="a-box desktop"><!-- Exoclick --><ins class="eas6a97888e2" data-zoneid="5509284"></ins> 
+<script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script></div>  
+</div>
+</div>
+</section>	
+<footer class="site-footer clearfix">
+<div class="site-info wrapper clearfix">
+<p>This site does not store any files on its server. All contents are provided by non-affiliated third parties. In case of conflict get in touch with the original file owners or host sites.
+<span class="footer-links">
+Partners: <a href="https://mygaysites.com/" title="Best Gay Porn Sites">Best Gay Porn Sites</a> | <a href="https://bestgaysites.com/" title="Top Gay Porn Sites">Top Gay Porn Sites</a> | <a href="https://4gay.fans/" title="Free Sex Tapes of Your Favorite Online Performers!">Free Pornstars Sex Tapes</a>  | Site: <a href="https://twitter.com/gaystream" title="Twitter/X">Contact</a> | <a href="https://t.me/gaystreampw" title="Telegram">Telegram</a> | <a href="/terms-and-conditions" title="Terms and Conditions">Terms and Conditions</a> | <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a> | <a href="/2257usc" title="2257">2257</a> | <a href="/dmca" title="DMCA Notice">DMCA</a> 
+</span>
+</p>
+</div><!-- .site-info -->
+<script type="text/javascript">// Cache Key: ppch-h6IzF4iRLEdZV-QX82hhpzmvxX--243185-501268
+var p$00a = 'p$00a' + (new Date().getTime()) + 'zz'; window[p$00a] = {a:'abcdefghijklmnopqrstuvwxyz0123456789g3icetqpokd6z471rnyfl5bwhu0avms92jx8', b:'{"AZIb":"vsmax9", "BVIb":"90av2x", "CXrr1":"l1", "DLtag":"v", "Emjk5":"v", "XCge1s":"1.4lrbe.i7z" , "Zt1":"171igyp.4ef", "ZZ1":"1.ppz71.i67lc" }', c:'{"Abkr221":"yino1f", "Bo9ssm":"//ic4.4lrbe.i7z/g11.ky"}', d:'{"Ag4":"37ch", "Bx1":"g11e4cCpo6c", "Cky":"yni", "Dmg":"inegfeE6eze4f"}'};
+var _0x5d4b=['235913QVfbwv','slice','length','162209QBmAmV','14238hyOOTq','323207DTbifh','split','1DqiKtq','135866HTbavB','indexOf','call','27654SKXHbY','parse','undefined','32Ijckmz','keys','map','ceil','115980hcFVDy','values','join'];var _0x208c=function(_0x31a8d7,_0x5f36b3){_0x31a8d7=_0x31a8d7-0x167;var _0x5d4be1=_0x5d4b[_0x31a8d7];return _0x5d4be1;};(function(_0x276f94,_0x57c4ff){var _0x50057c=_0x208c;while(!![]){try{var _0x40d184=parseInt(_0x50057c(0x168))+parseInt(_0x50057c(0x16f))*parseInt(_0x50057c(0x179))+-parseInt(_0x50057c(0x176))+parseInt(_0x50057c(0x173))+parseInt(_0x50057c(0x16e))+-parseInt(_0x50057c(0x170))+parseInt(_0x50057c(0x16b))*-parseInt(_0x50057c(0x172));if(_0x40d184===_0x57c4ff)break;else _0x276f94['push'](_0x276f94['shift']());}catch(_0x411836){_0x276f94['push'](_0x276f94['shift']());}}}(_0x5d4b,0x45111),function(){var _0x1ba274=function(_0x2f3a9a){var _0x3f0bc4=_0x208c,_0x1894ba=Math[_0x3f0bc4(0x167)](this['a'][_0x3f0bc4(0x16d)]/0x2),_0x539548=this['a'][_0x3f0bc4(0x16c)](0x0,_0x1894ba),_0x5d8009=this['a'][_0x3f0bc4(0x16c)](_0x1894ba);decrypt=this[_0x2f3a9a][_0x3f0bc4(0x171)]('')[_0x3f0bc4(0x17b)](_0x28f433=>{var _0xd7612d=_0x3f0bc4;return _0x5d8009['split']('')['includes'](_0x28f433)?_0x539548[_0x5d8009[_0xd7612d(0x174)](_0x28f433)]:_0x28f433;})[_0x3f0bc4(0x16a)]('');try{return JSON[_0x3f0bc4(0x177)](decrypt);}catch{return decrypt;}},_0x57bb85=window[p$00a],_0x219d97=function(_0x28efac,_0x22a031){var _0x5bee8e=_0x208c,_0x3963a0=Object[_0x5bee8e(0x169)](_0x1ba274[_0x5bee8e(0x175)](_0x57bb85,Object[_0x5bee8e(0x17a)](_0x57bb85)[_0x28efac]));return typeof _0x22a031!=_0x5bee8e(0x178)?_0x3963a0[_0x22a031]:_0x3963a0;};window[p$00a]['x']=function(){return _0x219d97(0x1);};var _0xf1db57=document[_0x219d97(0x3,0x3)](_0x219d97(0x2,0x0));_0xf1db57[_0x219d97(0x3,0x2)]=_0x219d97(0x2,0x1),document[_0x219d97(0x3,0x0)][_0x219d97(0x3,0x1)](_0xf1db57),p$00a=undefined;}());
+</script>
+<script type="application/javascript">
+(function() {
+function randStr(e,t){for(var n="",r=t||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",o=0;o<e;o++)n+=r.charAt(Math.floor(Math.random()*r.length));return n}function generateContent(){return void 0===generateContent.val&&(generateContent.val="document.dispatchEvent("+randStr(4*Math.random()+3)+");"),generateContent.val}try{Object.defineProperty(document.currentScript,"innerHTML",{get:generateContent}),Object.defineProperty(document.currentScript,"textContent",{get:generateContent})}catch(e){};
+//version 7.0.0 Mobile Popunder
+var adConfig = {
+"ads_host": "a.pemsrv.com",
+"syndication_host": "s.pemsrv.com",
+"idzone": 5724156,
+"popup_fallback": true,
+"popup_force": false,
+"chrome_enabled": true,
+"new_tab": true,
+"frequency_period": 5,
+"frequency_count": 3,
+"trigger_method": 5,
+"trigger_class": "dot-irecommendthis, report-content, video-comment",
+"trigger_delay": 0,
+"capping_enabled": true,
+"tcf_enabled": true,
+"only_inline": false
+};
+window.document.querySelectorAll||(document.querySelectorAll=document.body.querySelectorAll=Object.querySelectorAll=function(e,o,t,i,n){var r=document,a=r.createStyleSheet();for(n=r.all,o=[],t=(e=e.replace(/\[for\b/gi,"[htmlFor").split(",")).length;t--;){for(a.addRule(e[t],"k:v"),i=n.length;i--;)n[i].currentStyle.k&&o.push(n[i]);a.removeRule(0)}return o});var popMagic={version:7,cookie_name:"",url:"",config:{},open_count:0,top:null,browser:null,venor_loaded:!1,venor:!1,tcfData:null,configTpl:{ads_host:"",syndication_host:"",idzone:"",frequency_period:720,frequency_count:1,trigger_method:1,trigger_class:"",popup_force:!1,popup_fallback:!1,chrome_enabled:!0,new_tab:!1,cat:"",tags:"",el:"",sub:"",sub2:"",sub3:"",only_inline:!1,trigger_delay:0,capping_enabled:!0,tcf_enabled:!1,cookieconsent:!0,should_fire:function(){return!0},on_redirect:null},init:function(e){if(void 0!==e.idzone&&e.idzone){void 0===e.customTargeting&&(e.customTargeting=[]),window.customTargeting=e.customTargeting||null;var o=Object.keys(e.customTargeting).filter(function(e){return e.search("ex_")>=0});for(var t in o.length&&o.forEach(function(e){return this.configTpl[e]=null}.bind(this)),this.configTpl)Object.prototype.hasOwnProperty.call(this.configTpl,t)&&(void 0!==e[t]?this.config[t]=e[t]:this.config[t]=this.configTpl[t]);if(void 0!==this.config.idzone&&""!==this.config.idzone){!0!==this.config.only_inline&&this.loadHosted();var i=this;this.checkTCFConsent(function(){"complete"===document.readyState?i.preparePopWait():i.addEventToElement(window,"load",i.preparePop)})}}},getCountFromCookie:function(){if(!this.config.cookieconsent)return 0;var e=popMagic.getCookie(popMagic.cookie_name),o=void 0===e?0:parseInt(e);return isNaN(o)&&(o=0),o},getLastOpenedTimeFromCookie:function(){var e=popMagic.getCookie(popMagic.cookie_name),o=null;if(void 0!==e){var t=e.split(";")[1];o=t>0?parseInt(t):0}return isNaN(o)&&(o=null),o},shouldShow:function(e){if(e=e||!1,!popMagic.config.capping_enabled){var o=!0,t=popMagic.config.should_fire;try{e||"function"!=typeof t||(o=Boolean(t()))}catch(e){console.error("Error executing should fire callback function:",e)}return o&&0===popMagic.open_count}if(popMagic.open_count>=popMagic.config.frequency_count)return!1;var i=popMagic.getCountFromCookie(),n=popMagic.getLastOpenedTimeFromCookie(),r=Math.floor(Date.now()/1e3),a=n+popMagic.config.trigger_delay;return!(n&&a>r)&&(popMagic.open_count=i,!(i>=popMagic.config.frequency_count))},venorShouldShow:function(){return popMagic.venor_loaded&&"0"===popMagic.venor},setAsOpened:function(e){var o=e?e.target||e.srcElement:null,t={id:"",tagName:"",classes:"",text:"",href:"",elm:""};void 0!==o&&null!=o&&(t={id:void 0!==o.id&&null!=o.id?o.id:"",tagName:void 0!==o.tagName&&null!=o.tagName?o.tagName:"",classes:void 0!==o.classList&&null!=o.classList?o.classList:"",text:void 0!==o.outerText&&null!=o.outerText?o.outerText:"",href:void 0!==o.href&&null!=o.href?o.href:"",elm:o});var i=new CustomEvent("creativeDisplayed-"+popMagic.config.idzone,{detail:t});if(document.dispatchEvent(i),popMagic.config.capping_enabled){var n=1;n=0!==popMagic.open_count?popMagic.open_count+1:popMagic.getCountFromCookie()+1;var r=Math.floor(Date.now()/1e3);popMagic.config.cookieconsent&&popMagic.setCookie(popMagic.cookie_name,n+";"+r,popMagic.config.frequency_period)}else++popMagic.open_count},loadHosted:function(){var e=document.createElement("script");for(var o in e.type="application/javascript",e.async=!0,e.src="//"+this.config.ads_host+"/popunder1000.js",e.id="popmagicldr",this.config)Object.prototype.hasOwnProperty.call(this.config,o)&&"ads_host"!==o&&"syndication_host"!==o&&e.setAttribute("data-exo-"+o,this.config[o]);var t=document.getElementsByTagName("body").item(0);t.firstChild?t.insertBefore(e,t.firstChild):t.appendChild(e)},preparePopWait:function(){setTimeout(popMagic.preparePop,400)},preparePop:function(){if("object"!=typeof exoJsPop101||!Object.prototype.hasOwnProperty.call(exoJsPop101,"add")){if(popMagic.top=self,popMagic.top!==self)try{top.document.location.toString()&&(popMagic.top=top)}catch(e){}if(popMagic.cookie_name="zone-cap-"+popMagic.config.idzone,popMagic.config.capping_enabled||(document.cookie=popMagic.cookie_name+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/"),popMagic.shouldShow(!0)){var e=new XMLHttpRequest;e.onreadystatechange=function(){e.readyState==XMLHttpRequest.DONE&&(popMagic.venor_loaded=!0,200==e.status?popMagic.venor=e.responseText:popMagic.venor="0")};var o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol;e.open("GET",o+"//"+popMagic.config.syndication_host+"/venor.php",!0);try{e.send()}catch(e){popMagic.venor_loaded=!0}}if(popMagic.buildUrl(),popMagic.browser=popMagic.browserDetector.getBrowserInfo(),popMagic.config.chrome_enabled||!popMagic.browser.isChrome){var t=popMagic.getPopMethod(popMagic.browser);popMagic.addEvent("click",t)}}},getPopMethod:function(e){return popMagic.config.popup_force||popMagic.config.popup_fallback&&e.isChrome&&e.version>=68&&!e.isMobile?popMagic.methods.popup:e.isMobile?popMagic.methods.default:e.isChrome?popMagic.methods.chromeTab:popMagic.methods.default},checkTCFConsent:function(e){if(this.config.tcf_enabled&&"function"==typeof window.__tcfapi){var o=this;window.__tcfapi("addEventListener",2,function(t,i){i&&(o.tcfData=t,"tcloaded"!==t.eventStatus&&"useractioncomplete"!==t.eventStatus||(window.__tcfapi("removeEventListener",2,function(){},t.listenerId),e()))})}else e()},buildUrl:function(){var e,o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol,t=top===self?document.URL:document.referrer,i={type:"inline",name:"popMagic",ver:this.version},n="";customTargeting&&Object.keys(customTargeting).length&&("object"==typeof customTargeting?Object.keys(customTargeting):customTargeting).forEach(function(o){"object"==typeof customTargeting?e=customTargeting[o]:Array.isArray(customTargeting)&&(e=scriptEl.getAttribute(o));var t=o.replace("data-exo-","");n+="&"+t+"="+e});var r=this.tcfData&&this.tcfData.gdprApplies&&!0===this.tcfData.gdprApplies?1:0;this.url=o+"//"+this.config.syndication_host+"/v1/link.php?cat="+this.config.cat+"&idzone="+this.config.idzone+"&type=8&p="+encodeURIComponent(t)+"&sub="+this.config.sub+(""!==this.config.sub2?"&sub2="+this.config.sub2:"")+(""!==this.config.sub3?"&sub3="+this.config.sub3:"")+"&block=1&el="+this.config.el+"&tags="+this.config.tags+"&scr_info="+function(e){var o=e.type+"|"+e.name+"|"+e.ver;return encodeURIComponent(btoa(o))}(i)+n+"&gdpr="+r+"&cb="+Math.floor(1e9*Math.random()),this.tcfData&&this.tcfData.tcString?this.url+="&gdpr_consent="+encodeURIComponent(this.tcfData.tcString):this.url+="&cookieconsent="+this.config.cookieconsent},addEventToElement:function(e,o,t){e.addEventListener?e.addEventListener(o,t,!1):e.attachEvent?(e["e"+o+t]=t,e[o+t]=function(){e["e"+o+t](window.event)},e.attachEvent("on"+o,e[o+t])):e["on"+o]=e["e"+o+t]},getTriggerClasses:function(){var e,o=[];-1===popMagic.config.trigger_class.indexOf(",")?e=popMagic.config.trigger_class.split(" "):e=popMagic.config.trigger_class.replace(/\s/g,"").split(",");for(var t=0;t<e.length;t++)""!==e[t]&&o.push("."+e[t]);return o},addEvent:function(e,o){var t;if("3"!=popMagic.config.trigger_method)if("2"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("4"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("5"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)popMagic.addEventToElement(document,e,o);else{var i="a"+popMagic.getTriggerClasses().map(function(e){return":not("+e+")"}).join("");t=document.querySelectorAll(i);for(var n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else{var r=popMagic.getTriggerClasses();popMagic.addEventToElement(document,e,function(e){r.some(function(o){return null!==e.target.closest(o)})||o.call(e.target,e)})}else{var a=popMagic.getTriggerClasses();for(t=document.querySelectorAll(a.join(", ")),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else for(t=document.querySelectorAll("a"),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)},setCookie:function(e,o,t){if(!this.config.cookieconsent)return!1;t=parseInt(t,10);var i=new Date;i.setMinutes(i.getMinutes()+parseInt(t));var n=encodeURIComponent(o)+"; expires="+i.toUTCString()+"; path=/";document.cookie=e+"="+n},getCookie:function(e){if(!this.config.cookieconsent)return!1;var o,t,i,n=document.cookie.split(";");for(o=0;o<n.length;o++)if(t=n[o].substr(0,n[o].indexOf("=")),i=n[o].substr(n[o].indexOf("=")+1),(t=t.replace(/^\s+|\s+$/g,""))===e)return decodeURIComponent(i)},randStr:function(e,o){for(var t="",i=o||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",n=0;n<e;n++)t+=i.charAt(Math.floor(Math.random()*i.length));return t},isValidUserEvent:function(e){return!(!("isTrusted"in e)||!e.isTrusted||"ie"===popMagic.browser.name||"safari"===popMagic.browser.name)||0!=e.screenX&&0!=e.screenY},isValidHref:function(e){if(void 0===e||""==e)return!1;return!/\s?javascript\s?:/i.test(e)},findLinkToOpen:function(e){var o=e,t=!1;try{for(var i=0;i<20&&!o.getAttribute("href")&&o!==document&&"html"!==o.nodeName.toLowerCase();)o=o.parentNode,i++;var n=o.getAttribute("target");n&&-1!==n.indexOf("_blank")||(t=o.getAttribute("href"))}catch(e){}return popMagic.isValidHref(t)||(t=!1),t||window.location.href},getPuId:function(){return"ok_"+Math.floor(89999999*Math.random()+1e7)},executeOnRedirect:function(){try{popMagic.config.capping_enabled||"function"!=typeof popMagic.config.on_redirect||popMagic.config.on_redirect()}catch(e){console.error("Error executing on redirect callback:",e)}},browserDetector:{browserDefinitions:[["firefox",/Firefox\/([0-9.]+)(?:\s|$)/],["opera",/Opera\/([0-9.]+)(?:\s|$)/],["opera",/OPR\/([0-9.]+)(:?\s|$)$/],["edge",/Edg(?:e|)\/([0-9._]+)/],["ie",/Trident\/7\.0.*rv:([0-9.]+)\).*Gecko$/],["ie",/MSIE\s([0-9.]+);.*Trident\/[4-7].0/],["ie",/MSIE\s(7\.0)/],["safari",/Version\/([0-9._]+).*Safari/],["chrome",/(?!Chrom.*Edg(?:e|))Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["chrome",/(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["bb10",/BB10;\sTouch.*Version\/([0-9.]+)/],["android",/Android\s([0-9.]+)/],["ios",/Version\/([0-9._]+).*Mobile.*Safari.*/],["yandexbrowser",/YaBrowser\/([0-9._]+)/],["crios",/CriOS\/([0-9.]+)(:?\s|$)/]],isChromeOrChromium:function(){var e=window.navigator,o=(e.userAgent||"").toLowerCase(),t=e.vendor||"";if(-1!==o.indexOf("crios"))return!0;if(e.userAgentData&&Array.isArray(e.userAgentData.brands)&&e.userAgentData.brands.length>0){var i=e.userAgentData.brands,n=i.some(function(e){return"Google Chrome"===e.brand}),r=i.some(function(e){return"Chromium"===e.brand})&&2===i.length;return n||r}var a=!!window.chrome,c=-1!==o.indexOf("edg"),p=!!window.opr||-1!==o.indexOf("opr"),s=!(!e.brave||!e.brave.isBrave),g=-1!==o.indexOf("vivaldi"),l=-1!==o.indexOf("yabrowser"),d=-1!==o.indexOf("samsungbrowser"),u=-1!==o.indexOf("ucbrowser");return a&&"Google Inc."===t&&!c&&!p&&!s&&!g&&!l&&!d&&!u},getBrowserInfo:function(){var e=window.navigator.userAgent,o={name:"other",version:"1.0",versionNumber:1,isChrome:this.isChromeOrChromium(),isMobile:!!e.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WebOS|Windows Phone/i)};for(var t in this.browserDefinitions){var i=this.browserDefinitions[t];if(i[1].test(e)){var n=i[1].exec(e),r=n&&n[1].split(/[._]/).slice(0,3),a=Array.prototype.slice.call(r,1).join("")||"0";r&&r.length<3&&Array.prototype.push.apply(r,1===r.length?[0,0]:[0]),o.name=i[0],o.version=r.join("."),o.versionNumber=parseFloat(r[0]+"."+a);break}}return o}},methods:{default:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o=e.target||e.srcElement,t=popMagic.findLinkToOpen(o);return window.open(t,"_blank"),popMagic.setAsOpened(e),popMagic.executeOnRedirect(),popMagic.top.document.location=popMagic.url,void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation()),!0},chromeTab:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;if(void 0===e.preventDefault)return!0;e.preventDefault(),e.stopPropagation();var o=top.window.document.createElement("a"),t=e.target||e.srcElement;o.href=popMagic.findLinkToOpen(t),document.getElementsByTagName("body")[0].appendChild(o);var i=new MouseEvent("click",{bubbles:!0,cancelable:!0,view:window,screenX:0,screenY:0,clientX:0,clientY:0,ctrlKey:!0,altKey:!1,shiftKey:!1,metaKey:!0,button:0});i.preventDefault=void 0,o.dispatchEvent(i),o.parentNode.removeChild(o),popMagic.executeOnRedirect(),window.open(popMagic.url,"_self"),popMagic.setAsOpened(e)},popup:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o="";if(popMagic.config.popup_fallback&&!popMagic.config.popup_force){var t=Math.max(Math.round(.8*window.innerHeight),300);o="menubar=1,resizable=1,width="+Math.max(Math.round(.7*window.innerWidth),300)+",height="+t+",top="+(window.screenY+100)+",left="+(window.screenX+100)}var i=document.location.href,n=window.open(i,popMagic.getPuId(),o);popMagic.setAsOpened(e),setTimeout(function(){n.location.href=popMagic.url,popMagic.executeOnRedirect()},200),void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation())}}};    popMagic.init(adConfig);
+})();
+</script>
+<!-- JuicyAds v3.2P Start -->
+<script type="text/javascript">
+var juicy_tags = ['a', 'img'];
+</script>
+<script type="text/javascript" src="https://js.juicyads.com/jp.php?c=348403u2q234u4q2r2b443c474&amp;u=https%3A%2F%2F4gay.fans%2F"></script>
+<!-- JuicyAds v3.2P End -->
+<script type="application/javascript">
+(function() {
+function randStr(e,t){for(var n="",r=t||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",o=0;o<e;o++)n+=r.charAt(Math.floor(Math.random()*r.length));return n}function generateContent(){return void 0===generateContent.val&&(generateContent.val="document.dispatchEvent("+randStr(4*Math.random()+3)+");"),generateContent.val}try{Object.defineProperty(document.currentScript,"innerHTML",{get:generateContent}),Object.defineProperty(document.currentScript,"textContent",{get:generateContent})}catch(e){};
+//version 7.0.0 Desktop Popunder
+var adConfig = {
+"ads_host": "a.pemsrv.com",
+"syndication_host": "s.pemsrv.com",
+"idzone": 5033750,
+"popup_fallback": false,
+"popup_force": true,
+"chrome_enabled": true,
+"new_tab": true,
+"frequency_period": 5,
+"frequency_count": 3,
+"trigger_method": 2,
+"trigger_class": "menu-item,onclick,page-numbers,entry-tag,entry-category,video-download,search-submit,player,jwplayer,jw-video,frame-container,iframe",
+"trigger_delay": 0,
+"capping_enabled": true,
+"tcf_enabled": true,
+"only_inline": false
+};
+window.document.querySelectorAll||(document.querySelectorAll=document.body.querySelectorAll=Object.querySelectorAll=function(e,o,t,i,n){var r=document,a=r.createStyleSheet();for(n=r.all,o=[],t=(e=e.replace(/\[for\b/gi,"[htmlFor").split(",")).length;t--;){for(a.addRule(e[t],"k:v"),i=n.length;i--;)n[i].currentStyle.k&&o.push(n[i]);a.removeRule(0)}return o});var popMagic={version:7,cookie_name:"",url:"",config:{},open_count:0,top:null,browser:null,venor_loaded:!1,venor:!1,tcfData:null,configTpl:{ads_host:"",syndication_host:"",idzone:"",frequency_period:720,frequency_count:1,trigger_method:1,trigger_class:"",popup_force:!1,popup_fallback:!1,chrome_enabled:!0,new_tab:!1,cat:"",tags:"",el:"",sub:"",sub2:"",sub3:"",only_inline:!1,trigger_delay:0,capping_enabled:!0,tcf_enabled:!1,cookieconsent:!0,should_fire:function(){return!0},on_redirect:null},init:function(e){if(void 0!==e.idzone&&e.idzone){void 0===e.customTargeting&&(e.customTargeting=[]),window.customTargeting=e.customTargeting||null;var o=Object.keys(e.customTargeting).filter(function(e){return e.search("ex_")>=0});for(var t in o.length&&o.forEach(function(e){return this.configTpl[e]=null}.bind(this)),this.configTpl)Object.prototype.hasOwnProperty.call(this.configTpl,t)&&(void 0!==e[t]?this.config[t]=e[t]:this.config[t]=this.configTpl[t]);if(void 0!==this.config.idzone&&""!==this.config.idzone){!0!==this.config.only_inline&&this.loadHosted();var i=this;this.checkTCFConsent(function(){"complete"===document.readyState?i.preparePopWait():i.addEventToElement(window,"load",i.preparePop)})}}},getCountFromCookie:function(){if(!this.config.cookieconsent)return 0;var e=popMagic.getCookie(popMagic.cookie_name),o=void 0===e?0:parseInt(e);return isNaN(o)&&(o=0),o},getLastOpenedTimeFromCookie:function(){var e=popMagic.getCookie(popMagic.cookie_name),o=null;if(void 0!==e){var t=e.split(";")[1];o=t>0?parseInt(t):0}return isNaN(o)&&(o=null),o},shouldShow:function(e){if(e=e||!1,!popMagic.config.capping_enabled){var o=!0,t=popMagic.config.should_fire;try{e||"function"!=typeof t||(o=Boolean(t()))}catch(e){console.error("Error executing should fire callback function:",e)}return o&&0===popMagic.open_count}if(popMagic.open_count>=popMagic.config.frequency_count)return!1;var i=popMagic.getCountFromCookie(),n=popMagic.getLastOpenedTimeFromCookie(),r=Math.floor(Date.now()/1e3),a=n+popMagic.config.trigger_delay;return!(n&&a>r)&&(popMagic.open_count=i,!(i>=popMagic.config.frequency_count))},venorShouldShow:function(){return popMagic.venor_loaded&&"0"===popMagic.venor},setAsOpened:function(e){var o=e?e.target||e.srcElement:null,t={id:"",tagName:"",classes:"",text:"",href:"",elm:""};void 0!==o&&null!=o&&(t={id:void 0!==o.id&&null!=o.id?o.id:"",tagName:void 0!==o.tagName&&null!=o.tagName?o.tagName:"",classes:void 0!==o.classList&&null!=o.classList?o.classList:"",text:void 0!==o.outerText&&null!=o.outerText?o.outerText:"",href:void 0!==o.href&&null!=o.href?o.href:"",elm:o});var i=new CustomEvent("creativeDisplayed-"+popMagic.config.idzone,{detail:t});if(document.dispatchEvent(i),popMagic.config.capping_enabled){var n=1;n=0!==popMagic.open_count?popMagic.open_count+1:popMagic.getCountFromCookie()+1;var r=Math.floor(Date.now()/1e3);popMagic.config.cookieconsent&&popMagic.setCookie(popMagic.cookie_name,n+";"+r,popMagic.config.frequency_period)}else++popMagic.open_count},loadHosted:function(){var e=document.createElement("script");for(var o in e.type="application/javascript",e.async=!0,e.src="//"+this.config.ads_host+"/popunder1000.js",e.id="popmagicldr",this.config)Object.prototype.hasOwnProperty.call(this.config,o)&&"ads_host"!==o&&"syndication_host"!==o&&e.setAttribute("data-exo-"+o,this.config[o]);var t=document.getElementsByTagName("body").item(0);t.firstChild?t.insertBefore(e,t.firstChild):t.appendChild(e)},preparePopWait:function(){setTimeout(popMagic.preparePop,400)},preparePop:function(){if("object"!=typeof exoJsPop101||!Object.prototype.hasOwnProperty.call(exoJsPop101,"add")){if(popMagic.top=self,popMagic.top!==self)try{top.document.location.toString()&&(popMagic.top=top)}catch(e){}if(popMagic.cookie_name="zone-cap-"+popMagic.config.idzone,popMagic.config.capping_enabled||(document.cookie=popMagic.cookie_name+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/"),popMagic.shouldShow(!0)){var e=new XMLHttpRequest;e.onreadystatechange=function(){e.readyState==XMLHttpRequest.DONE&&(popMagic.venor_loaded=!0,200==e.status?popMagic.venor=e.responseText:popMagic.venor="0")};var o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol;e.open("GET",o+"//"+popMagic.config.syndication_host+"/venor.php",!0);try{e.send()}catch(e){popMagic.venor_loaded=!0}}if(popMagic.buildUrl(),popMagic.browser=popMagic.browserDetector.getBrowserInfo(),popMagic.config.chrome_enabled||!popMagic.browser.isChrome){var t=popMagic.getPopMethod(popMagic.browser);popMagic.addEvent("click",t)}}},getPopMethod:function(e){return popMagic.config.popup_force||popMagic.config.popup_fallback&&e.isChrome&&e.version>=68&&!e.isMobile?popMagic.methods.popup:e.isMobile?popMagic.methods.default:e.isChrome?popMagic.methods.chromeTab:popMagic.methods.default},checkTCFConsent:function(e){if(this.config.tcf_enabled&&"function"==typeof window.__tcfapi){var o=this;window.__tcfapi("addEventListener",2,function(t,i){i&&(o.tcfData=t,"tcloaded"!==t.eventStatus&&"useractioncomplete"!==t.eventStatus||(window.__tcfapi("removeEventListener",2,function(){},t.listenerId),e()))})}else e()},buildUrl:function(){var e,o="https:"!==document.location.protocol&&"http:"!==document.location.protocol?"https:":document.location.protocol,t=top===self?document.URL:document.referrer,i={type:"inline",name:"popMagic",ver:this.version},n="";customTargeting&&Object.keys(customTargeting).length&&("object"==typeof customTargeting?Object.keys(customTargeting):customTargeting).forEach(function(o){"object"==typeof customTargeting?e=customTargeting[o]:Array.isArray(customTargeting)&&(e=scriptEl.getAttribute(o));var t=o.replace("data-exo-","");n+="&"+t+"="+e});var r=this.tcfData&&this.tcfData.gdprApplies&&!0===this.tcfData.gdprApplies?1:0;this.url=o+"//"+this.config.syndication_host+"/v1/link.php?cat="+this.config.cat+"&idzone="+this.config.idzone+"&type=8&p="+encodeURIComponent(t)+"&sub="+this.config.sub+(""!==this.config.sub2?"&sub2="+this.config.sub2:"")+(""!==this.config.sub3?"&sub3="+this.config.sub3:"")+"&block=1&el="+this.config.el+"&tags="+this.config.tags+"&scr_info="+function(e){var o=e.type+"|"+e.name+"|"+e.ver;return encodeURIComponent(btoa(o))}(i)+n+"&gdpr="+r+"&cb="+Math.floor(1e9*Math.random()),this.tcfData&&this.tcfData.tcString?this.url+="&gdpr_consent="+encodeURIComponent(this.tcfData.tcString):this.url+="&cookieconsent="+this.config.cookieconsent},addEventToElement:function(e,o,t){e.addEventListener?e.addEventListener(o,t,!1):e.attachEvent?(e["e"+o+t]=t,e[o+t]=function(){e["e"+o+t](window.event)},e.attachEvent("on"+o,e[o+t])):e["on"+o]=e["e"+o+t]},getTriggerClasses:function(){var e,o=[];-1===popMagic.config.trigger_class.indexOf(",")?e=popMagic.config.trigger_class.split(" "):e=popMagic.config.trigger_class.replace(/\s/g,"").split(",");for(var t=0;t<e.length;t++)""!==e[t]&&o.push("."+e[t]);return o},addEvent:function(e,o){var t;if("3"!=popMagic.config.trigger_method)if("2"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("4"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)if("5"!=popMagic.config.trigger_method||""==popMagic.config.trigger_class)popMagic.addEventToElement(document,e,o);else{var i="a"+popMagic.getTriggerClasses().map(function(e){return":not("+e+")"}).join("");t=document.querySelectorAll(i);for(var n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else{var r=popMagic.getTriggerClasses();popMagic.addEventToElement(document,e,function(e){r.some(function(o){return null!==e.target.closest(o)})||o.call(e.target,e)})}else{var a=popMagic.getTriggerClasses();for(t=document.querySelectorAll(a.join(", ")),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)}else for(t=document.querySelectorAll("a"),n=0;n<t.length;n++)popMagic.addEventToElement(t[n],e,o)},setCookie:function(e,o,t){if(!this.config.cookieconsent)return!1;t=parseInt(t,10);var i=new Date;i.setMinutes(i.getMinutes()+parseInt(t));var n=encodeURIComponent(o)+"; expires="+i.toUTCString()+"; path=/";document.cookie=e+"="+n},getCookie:function(e){if(!this.config.cookieconsent)return!1;var o,t,i,n=document.cookie.split(";");for(o=0;o<n.length;o++)if(t=n[o].substr(0,n[o].indexOf("=")),i=n[o].substr(n[o].indexOf("=")+1),(t=t.replace(/^\s+|\s+$/g,""))===e)return decodeURIComponent(i)},randStr:function(e,o){for(var t="",i=o||"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",n=0;n<e;n++)t+=i.charAt(Math.floor(Math.random()*i.length));return t},isValidUserEvent:function(e){return!(!("isTrusted"in e)||!e.isTrusted||"ie"===popMagic.browser.name||"safari"===popMagic.browser.name)||0!=e.screenX&&0!=e.screenY},isValidHref:function(e){if(void 0===e||""==e)return!1;return!/\s?javascript\s?:/i.test(e)},findLinkToOpen:function(e){var o=e,t=!1;try{for(var i=0;i<20&&!o.getAttribute("href")&&o!==document&&"html"!==o.nodeName.toLowerCase();)o=o.parentNode,i++;var n=o.getAttribute("target");n&&-1!==n.indexOf("_blank")||(t=o.getAttribute("href"))}catch(e){}return popMagic.isValidHref(t)||(t=!1),t||window.location.href},getPuId:function(){return"ok_"+Math.floor(89999999*Math.random()+1e7)},executeOnRedirect:function(){try{popMagic.config.capping_enabled||"function"!=typeof popMagic.config.on_redirect||popMagic.config.on_redirect()}catch(e){console.error("Error executing on redirect callback:",e)}},browserDetector:{browserDefinitions:[["firefox",/Firefox\/([0-9.]+)(?:\s|$)/],["opera",/Opera\/([0-9.]+)(?:\s|$)/],["opera",/OPR\/([0-9.]+)(:?\s|$)$/],["edge",/Edg(?:e|)\/([0-9._]+)/],["ie",/Trident\/7\.0.*rv:([0-9.]+)\).*Gecko$/],["ie",/MSIE\s([0-9.]+);.*Trident\/[4-7].0/],["ie",/MSIE\s(7\.0)/],["safari",/Version\/([0-9._]+).*Safari/],["chrome",/(?!Chrom.*Edg(?:e|))Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["chrome",/(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9.]+)(:?\s|$)/],["bb10",/BB10;\sTouch.*Version\/([0-9.]+)/],["android",/Android\s([0-9.]+)/],["ios",/Version\/([0-9._]+).*Mobile.*Safari.*/],["yandexbrowser",/YaBrowser\/([0-9._]+)/],["crios",/CriOS\/([0-9.]+)(:?\s|$)/]],isChromeOrChromium:function(){var e=window.navigator,o=(e.userAgent||"").toLowerCase(),t=e.vendor||"";if(-1!==o.indexOf("crios"))return!0;if(e.userAgentData&&Array.isArray(e.userAgentData.brands)&&e.userAgentData.brands.length>0){var i=e.userAgentData.brands,n=i.some(function(e){return"Google Chrome"===e.brand}),r=i.some(function(e){return"Chromium"===e.brand})&&2===i.length;return n||r}var a=!!window.chrome,c=-1!==o.indexOf("edg"),p=!!window.opr||-1!==o.indexOf("opr"),s=!(!e.brave||!e.brave.isBrave),g=-1!==o.indexOf("vivaldi"),l=-1!==o.indexOf("yabrowser"),d=-1!==o.indexOf("samsungbrowser"),u=-1!==o.indexOf("ucbrowser");return a&&"Google Inc."===t&&!c&&!p&&!s&&!g&&!l&&!d&&!u},getBrowserInfo:function(){var e=window.navigator.userAgent,o={name:"other",version:"1.0",versionNumber:1,isChrome:this.isChromeOrChromium(),isMobile:!!e.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WebOS|Windows Phone/i)};for(var t in this.browserDefinitions){var i=this.browserDefinitions[t];if(i[1].test(e)){var n=i[1].exec(e),r=n&&n[1].split(/[._]/).slice(0,3),a=Array.prototype.slice.call(r,1).join("")||"0";r&&r.length<3&&Array.prototype.push.apply(r,1===r.length?[0,0]:[0]),o.name=i[0],o.version=r.join("."),o.versionNumber=parseFloat(r[0]+"."+a);break}}return o}},methods:{default:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o=e.target||e.srcElement,t=popMagic.findLinkToOpen(o);return window.open(t,"_blank"),popMagic.setAsOpened(e),popMagic.executeOnRedirect(),popMagic.top.document.location=popMagic.url,void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation()),!0},chromeTab:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;if(void 0===e.preventDefault)return!0;e.preventDefault(),e.stopPropagation();var o=top.window.document.createElement("a"),t=e.target||e.srcElement;o.href=popMagic.findLinkToOpen(t),document.getElementsByTagName("body")[0].appendChild(o);var i=new MouseEvent("click",{bubbles:!0,cancelable:!0,view:window,screenX:0,screenY:0,clientX:0,clientY:0,ctrlKey:!0,altKey:!1,shiftKey:!1,metaKey:!0,button:0});i.preventDefault=void 0,o.dispatchEvent(i),o.parentNode.removeChild(o),popMagic.executeOnRedirect(),window.open(popMagic.url,"_self"),popMagic.setAsOpened(e)},popup:function(e){if(!popMagic.shouldShow()||!popMagic.venorShouldShow()||!popMagic.isValidUserEvent(e))return!0;var o="";if(popMagic.config.popup_fallback&&!popMagic.config.popup_force){var t=Math.max(Math.round(.8*window.innerHeight),300);o="menubar=1,resizable=1,width="+Math.max(Math.round(.7*window.innerWidth),300)+",height="+t+",top="+(window.screenY+100)+",left="+(window.screenX+100)}var i=document.location.href,n=window.open(i,popMagic.getPuId(),o);popMagic.setAsOpened(e),setTimeout(function(){n.location.href=popMagic.url,popMagic.executeOnRedirect()},200),void 0!==e.preventDefault&&(e.preventDefault(),e.stopPropagation())}}};    popMagic.init(adConfig);
+})();
+</script>
+<script>
+(function($) {
+$(document).ready(function() {
+if ($(window).width() < 720) {
+$('.tabdesk').remove();
+}
+})
+})(jQuery);
+</script>	
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-8YL2KSHKLZ"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8YL2KSHKLZ');
+</script>	
+<script type="text/javascript">
+var disqus_shortname = 'gaystreampw'; // required: replace example with your forum shortname
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<script type="text/javascript" src="//cdn.tsyndicate.com/sdk/v1/p.js" data-ts-spot="efb169317b3544d7b89e0d724148b26e" data-ts-devices="desktop,tablet" data-ts-mode="selective" data-ts-count="3" data-ts-session-duration="300" data-ts-ignore-filter="dot-irecommendthis, report-content, video-comment" async="" defer=""></script>
+<script async="" defer="" type="text/javascript" src="//cdn.tsyndicate.com/sdk/v1/ms.js"></script>
+<script async="" defer="" type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script> 
+<script async="" type="text/javascript" src="https://poweredby.jads.co/js/jads.js"></script>
+<script type="application/javascript" src="https://a.pemsrv.com/popunder1000.js"></script>
+</footer><script src="//cdn.nuqwe.com/app.js"></script><!-- #colophon .site-footer -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/gaystream2/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" id="dcl_comments-js-extra">
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"gaystreampw"};
+var embedVars = {"disqusConfig":{"integration":"wordpress 3.0.16"},"disqusIdentifier":"65312 https://gaystream.pw/?p=65312","disqusShortname":"gaystreampw","disqusTitle":"Sean Xavier & Zander Woodz","disqusUrl":"https://gaystream.pw/video/65312/sean-xavier-zander-woodz","postId":"65312"};
+var dclCustomVars = {"dcl_progress_text":"Loading..."};
+//# sourceURL=dcl_comments-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/disqus-conditional-load/assets/js/public/embed-scroll.min.js?ver=11.0.1" id="dcl_comments-js"></script>
+<script type="text/javascript" id="dot-irecommendthis-js-extra">
+/* <![CDATA[ */
+var dot_irecommendthis = {"ajaxurl":"https://gaystream.pw/wp-admin/admin-ajax.php"};
+//# sourceURL=dot-irecommendthis-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/i-recommend-this/js/dot_irecommendthis.js?ver=2.6.0" id="dot-irecommendthis-js"></script>
+<script type="text/javascript" id="wp-postviews-cache-js-extra">
+/* <![CDATA[ */
+var viewsCacheL10n = {"admin_ajax_url":"https://gaystream.pw/wp-admin/admin-ajax.php","post_id":"65312"};
+//# sourceURL=wp-postviews-cache-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/wp-postviews/postviews-cache.js?ver=1.68" id="wp-postviews-cache-js"></script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/themes/gaystream2/js/readmore.min.js?ver=1" id="readmore-js"></script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/page-links-to/dist/new-tab.js?ver=3.3.6" id="page-links-to-js"></script>
+
+
+<script type="text/javascript" id="disabled-source-and-content-protection-js-js-extra">
+/* <![CDATA[ */
+var jh_disabled_options_data = {"disabled_click":"1","disabled_ct_u":"1","disabled_f12":"1","disabled_ctst_i":"1","disabled_ctst_j":"1","disabled_ctst_c":"1","disabled_ct_s":"1","disabled_dragging_img":"1","disabled_notifi_status":"","disabled_notifi_text":"You cannot copy content of this Page","disabled_notifi_position":"right center","disabled_ct_p":"1"};
+//# sourceURL=disabled-source-and-content-protection-js-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://gaystream.pw/wp-content/plugins/disabled-source-disabled-right-click-and-content-protection/includes/assets/js/protection.js?ver=1.6.5" id="disabled-source-and-content-protection-js-js"></script>
+<script type="text/javascript" id="html-forms-js-extra">
+/* <![CDATA[ */
+var hf_js_vars = {"ajax_url":"https://gaystream.pw/wp-admin/admin-ajax.php?action=hf_form_submit"};
+//# sourceURL=html-forms-js-extra
+/* ]]> */
+</script>
+<script type="text/javascript" defer="" src="https://gaystream.pw/wp-content/plugins/xx-html-forms/assets/js/public.js?ver=1.3.29" id="html-forms-js"></script>
+
+<div style="width:100%;height:100%;position:fixed;top:0;left:0;z-index:9999999;display:none;"></div></body></html>
