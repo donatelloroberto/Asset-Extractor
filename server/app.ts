@@ -1,4 +1,5 @@
 import express, { type Request, Response, NextFunction } from "express";
+import { createServer } from "http";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { log } from "./logger";
@@ -62,7 +63,8 @@ export async function buildApp() {
     res.status(200).json({ ok: true });
   });
 
-  await registerRoutes(app);
+  const httpServer = createServer(app);
+  await registerRoutes(httpServer, app);
 
   // Error handler
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
