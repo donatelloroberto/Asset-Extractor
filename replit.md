@@ -127,8 +127,16 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - **Bigwarp** (GayStream only): file/src property extraction
 
 ### Stream Proxy
-- `/proxy/stream?url=...&referer=...` - Proxies video streams with proper headers (Referer, User-Agent). Supports range requests for seeking. Used for hosts like Vidoza where direct URLs need specific headers.
+- `/proxy/stream?url=...&referer=...` - Proxies video streams (MP4) with proper headers (Referer, User-Agent). Supports range requests for seeking. All MP4 streams are routed through this proxy when baseUrl is available, ensuring compatibility with Stremio Web player (which cannot use proxyHeaders).
+- `/api/proxy/m3u8?url=...&ref=...` - Proxies HLS manifests, rewriting nested m3u8 URLs to remain within the proxy chain. Base64url-encoded parameters.
 - Streams are NOT cached because URLs expire quickly (session-based tokens)
+
+## Serverless Deployment
+- **Vercel**: `api/index.ts` and `api/[...path].ts` wrap Express via `buildApp()`. Sets `SERVERLESS=1` env var. Config in `vercel.json` with rewrites and CORS headers. Max function duration: 30s (requires Pro plan for >10s).
+- **Netlify**: `netlify/functions/api.ts` wraps Express via `serverless-http` and `buildApp()`. Sets `SERVERLESS=1` env var. Config in `netlify.toml` with redirects and headers.
+- **Render**: Standard Node.js deployment using `npm run build` + `npm start`.
+- **Serverless adaptations**: When `SERVERLESS=1`, HTTP fetcher uses shorter timeouts (8s vs 15s) and fewer retries (1 vs 3). Embed resolution has per-embed timeouts (6s serverless, 12s normal). Stream mapper has 8s resolve timeout. These prevent serverless function timeouts (10s Netlify, 10-30s Vercel).
+- **Stream proxying on serverless**: `/proxy/stream` pipes video data which may exceed serverless timeout limits for long videos. Works for initial playback but may cut off. For reliable streaming, use a persistent server (Render, Replit, VPS).
 
 ## Domains
 - GXtapes: `gay.xtapes.tw` (changed from `gay.xtapes.in`)

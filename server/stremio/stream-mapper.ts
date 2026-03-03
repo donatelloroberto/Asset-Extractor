@@ -21,6 +21,10 @@ function buildM3u8ProxyUrl(baseUrl: string, url: string, referer: string): strin
   return `${baseUrl}/api/proxy/m3u8?url=${toBase64Url(url)}&ref=${toBase64Url(referer)}`;
 }
 
+function buildMp4ProxyUrl(baseUrl: string, url: string, referer: string): string {
+  return `${baseUrl}/proxy/stream?url=${encodeURIComponent(url)}&referer=${encodeURIComponent(referer)}`;
+}
+
 async function resolveWithCache(url: string, referer?: string): Promise<ResolvedStream> {
   const cacheKey = `resolved:${url}`;
   const cached = getCached<ResolvedStream>("stream", cacheKey);
@@ -32,6 +36,8 @@ async function resolveWithCache(url: string, referer?: string): Promise<Resolved
 }
 
 export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl?: string): Promise<StremioStream[]> {
+  const RESOLVE_TIMEOUT = 8000;
+
   const mapped = await Promise.all(extracted.map(async (s): Promise<StremioStream | null> => {
     if (s.externalUrl && !s.url) {
       return {
@@ -43,20 +49,38 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
 
     if (!s.url) return null;
 
-    const resolved = await resolveWithCache(s.url, s.referer);
-    const hints: Record<string, unknown> = { notWebReady: false };
+    let resolved: ResolvedStream;
+    try {
+      resolved = await Promise.race([
+        resolveWithCache(s.url, s.referer),
+        new Promise<ResolvedStream>((_, reject) =>
+          setTimeout(() => reject(new Error("resolve timeout")), RESOLVE_TIMEOUT)
+        ),
+      ]);
+    } catch {
+      resolved = { url: s.url, type: s.url.includes(".m3u8") ? "m3u8" : s.url.includes(".mp4") ? "mp4" : "unknown", referer: s.referer };
+    }
+
+    const refererForProxy = resolved.referer || s.referer || s.url;
     let finalUrl = resolved.url;
+    const hints: Record<string, unknown> = {};
 
     if (resolved.type === "m3u8" && baseUrl) {
-      finalUrl = buildM3u8ProxyUrl(baseUrl, resolved.url, resolved.referer || s.referer || "");
+      finalUrl = buildM3u8ProxyUrl(baseUrl, resolved.url, refererForProxy);
+      hints.notWebReady = true;
+    } else if (resolved.type === "mp4" && baseUrl) {
+      finalUrl = buildMp4ProxyUrl(baseUrl, resolved.url, refererForProxy);
+      hints.notWebReady = false;
     } else if (resolved.type === "mp4") {
       hints.proxyHeaders = {
         request: {
-          Referer: resolved.referer || s.referer || s.url,
+          Referer: refererForProxy,
           "User-Agent": USER_AGENT,
         },
       };
       hints.notWebReady = true;
+    } else {
+      hints.notWebReady = false;
     }
 
     return {

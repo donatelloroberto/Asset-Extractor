@@ -70,19 +70,25 @@ export async function extractGaystreamStreams(pageUrl: string): Promise<Extracte
       });
     }
 
-    for (const embedUrl of embedUrls) {
+    const EMBED_TIMEOUT = process.env.SERVERLESS === "1" ? 6000 : 12000;
+    const embedResults = await Promise.allSettled(embedUrls.map(async (embedUrl) => {
       try {
         if (isDebug()) console.log(`[GayStream] Resolving embed: ${embedUrl}`);
-        const resolved = await resolveEmbed(embedUrl, pageUrl);
-        if (resolved.length > 0) {
-          streams.push(...resolved);
-        } else {
-          streams.push({ name: `${getHostLabel(embedUrl)} (Browser)`, externalUrl: embedUrl });
-        }
+        const resolved = await Promise.race([
+          resolveEmbed(embedUrl, pageUrl),
+          new Promise<ExtractedStream[]>((_, reject) =>
+            setTimeout(() => reject(new Error("embed timeout")), EMBED_TIMEOUT)
+          ),
+        ]);
+        if (resolved.length > 0) return resolved;
+        return [{ name: `${getHostLabel(embedUrl)} (Browser)`, externalUrl: embedUrl } as ExtractedStream];
       } catch (err: any) {
         if (isDebug()) console.error(`[GayStream] Embed ${embedUrl} failed: ${err.message}`);
-        streams.push({ name: `${getHostLabel(embedUrl)} (Browser)`, externalUrl: embedUrl });
+        return [{ name: `${getHostLabel(embedUrl)} (Browser)`, externalUrl: embedUrl } as ExtractedStream];
       }
+    }));
+    for (const result of embedResults) {
+      if (result.status === "fulfilled") streams.push(...result.value);
     }
   } catch (err: any) {
     if (isDebug()) console.error(`[GayStream] Page extraction error: ${err.message}`);

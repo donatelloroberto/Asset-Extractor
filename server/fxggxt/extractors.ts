@@ -64,7 +64,13 @@ export async function extractFxggxtStreams(pageUrl: string): Promise<ExtractedSt
     if (isDebug()) console.log(`[Fxggxt] Found iframe: ${fullSrc}`);
 
     try {
-      const resolved = await resolveEmbed(fullSrc, pageUrl);
+      const EMBED_TIMEOUT = process.env.SERVERLESS === "1" ? 6000 : 12000;
+      const resolved = await Promise.race([
+        resolveEmbed(fullSrc, pageUrl),
+        new Promise<ExtractedStream[]>((_, reject) =>
+          setTimeout(() => reject(new Error("embed timeout")), EMBED_TIMEOUT)
+        ),
+      ]);
       if (resolved.length > 0) {
         streams.push(...resolved);
       } else {

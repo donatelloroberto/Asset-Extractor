@@ -112,9 +112,15 @@ export async function extractNurgayStreams(pageUrl: string): Promise<ExtractedSt
 
     if (isDebug()) console.log(`[Nurgay] Found ${allEmbedUrls.length} embed URLs:`, allEmbedUrls.map(e => `${e.label}: ${e.url}`));
 
+    const EMBED_TIMEOUT = process.env.SERVERLESS === "1" ? 6000 : 12000;
     const embedPromises = allEmbedUrls.map(async (embed) => {
       try {
-        const resolved = await resolveEmbed(embed.url, pageUrl);
+        const resolved = await Promise.race([
+          resolveEmbed(embed.url, pageUrl),
+          new Promise<ExtractedStream[]>((_, reject) =>
+            setTimeout(() => reject(new Error("embed timeout")), EMBED_TIMEOUT)
+          ),
+        ]);
         if (resolved.length > 0) {
           return resolved;
         }

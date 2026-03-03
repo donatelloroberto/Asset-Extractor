@@ -117,6 +117,19 @@ export async function registerRoutes(
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.setHeader("Access-Control-Expose-Headers", "Content-Range, Content-Length, Accept-Ranges");
+    next();
+  });
+
+  app.options("/{*path}", (_req, res) => {
+    res.status(204).end();
+  });
+
+  app.use((req, _res, next) => {
+    const path = req.path;
+    if (path.endsWith(".json") && !path.startsWith("/api/")) {
+      _res.setHeader("Cache-Control", "public, max-age=7200, s-maxage=7200");
+    }
     next();
   });
 
@@ -873,6 +886,10 @@ export async function registerRoutes(
       }
 
       log(`Proxy stream: ${streamUrl}`, "stremio");
+
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Headers", "*");
+      res.setHeader("Access-Control-Expose-Headers", "Content-Range, Content-Length, Accept-Ranges");
 
       const headers: Record<string, string> = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

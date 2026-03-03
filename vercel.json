@@ -2,6 +2,11 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/public",
+  "functions": {
+    "api/**": {
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
     { "source": "/manifest.json", "destination": "/api/index.ts" },
     { "source": "/(.*)/manifest.json", "destination": "/api/index.ts" },
@@ -13,6 +18,17 @@
     { "source": "/stream/(.*)", "destination": "/api/index.ts" },
     { "source": "/proxy/(.*)", "destination": "/api/index.ts" },
     { "source": "/api/(.*)", "destination": "/api/index.ts" },
+    { "source": "/health", "destination": "/api/index.ts" },
     { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "*" }
+      ]
+    }
   ]
 }

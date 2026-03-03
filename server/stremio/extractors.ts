@@ -33,15 +33,23 @@ export async function extractStreams(pageUrl: string): Promise<ExtractedStream[]
 
     if (isDebug()) console.log(`[Extractor] Found ${iframes.length} iframes on ${pageUrl}`);
 
-    for (const src of iframes) {
+    const EMBED_TIMEOUT = process.env.SERVERLESS === "1" ? 6000 : 12000;
+    const embedResults = await Promise.allSettled(iframes.map(async (src) => {
       if (isDebug()) console.log(`[Extractor] Found iframe src: ${src}`);
-
       try {
-        const extracted = await resolveEmbed(src);
-        streams.push(...extracted);
+        return await Promise.race([
+          resolveEmbed(src),
+          new Promise<ExtractedStream[]>((_, reject) =>
+            setTimeout(() => reject(new Error("embed timeout")), EMBED_TIMEOUT)
+          ),
+        ]);
       } catch (err: any) {
         if (isDebug()) console.error(`[Extractor] Failed to resolve ${src}:`, err.message);
+        return [];
       }
+    }));
+    for (const result of embedResults) {
+      if (result.status === "fulfilled") streams.push(...result.value);
     }
   } catch (err: any) {
     if (isDebug()) console.error(`[Extractor] Failed to load page ${pageUrl}:`, err.message);

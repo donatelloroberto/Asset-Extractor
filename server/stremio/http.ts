@@ -54,7 +54,9 @@ export async function fetchPage(url: string, options: {
   maxRetries?: number;
   timeout?: number;
 } = {}): Promise<string> {
-  const { referer, headers = {}, maxRetries = 3, timeout = 15000 } = options;
+  const defaultTimeout = process.env.SERVERLESS === "1" ? 8000 : 15000;
+  const defaultRetries = process.env.SERVERLESS === "1" ? 1 : 3;
+  const { referer, headers = {}, maxRetries = defaultRetries, timeout = defaultTimeout } = options;
 
   const config: AxiosRequestConfig = {
     timeout,

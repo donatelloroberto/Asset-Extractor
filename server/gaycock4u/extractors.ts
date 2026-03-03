@@ -68,19 +68,25 @@ export async function extractGaycock4uStreams(pageUrl: string): Promise<Extracte
       return streams;
     }
 
-    for (const iframeSrc of iframeSrcs) {
+    const EMBED_TIMEOUT = process.env.SERVERLESS === "1" ? 6000 : 12000;
+    const embedResults = await Promise.allSettled(iframeSrcs.map(async (iframeSrc) => {
       if (isDebug()) console.log(`[Gaycock4U] Found iframe: ${iframeSrc}`);
       try {
-        const resolved = await resolveEmbed(iframeSrc, pageUrl);
-        if (resolved.length > 0) {
-          streams.push(...resolved);
-        } else {
-          streams.push({ name: `${getHostLabel(iframeSrc)} (Browser)`, externalUrl: iframeSrc });
-        }
+        const resolved = await Promise.race([
+          resolveEmbed(iframeSrc, pageUrl),
+          new Promise<ExtractedStream[]>((_, reject) =>
+            setTimeout(() => reject(new Error("embed timeout")), EMBED_TIMEOUT)
+          ),
+        ]);
+        if (resolved.length > 0) return resolved;
+        return [{ name: `${getHostLabel(iframeSrc)} (Browser)`, externalUrl: iframeSrc } as ExtractedStream];
       } catch (err: any) {
         if (isDebug()) console.error(`[Gaycock4U] Embed ${iframeSrc} failed: ${err.message}`);
-        streams.push({ name: `${getHostLabel(iframeSrc)} (Browser)`, externalUrl: iframeSrc });
+        return [{ name: `${getHostLabel(iframeSrc)} (Browser)`, externalUrl: iframeSrc } as ExtractedStream];
       }
+    }));
+    for (const result of embedResults) {
+      if (result.status === "fulfilled") streams.push(...result.value);
     }
   } catch (err: any) {
     if (isDebug()) console.error(`[Gaycock4U] Page extraction error: ${err.message}`);
