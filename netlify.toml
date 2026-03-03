@@ -1,0 +1,22 @@
+# This file fixes the 404 error by pointing Netlify to the correct output folder
+# and correctly routing API traffic to the serverless function.
+
+[build]
+  command = "npm run build"
+  publish = "dist/public" # THIS fixes the 404 issue!
+
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+
+# Route API requests to the Netlify Serverless Function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api"
+  status = 200
+
+# Route all frontend pages back to Vite's index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
