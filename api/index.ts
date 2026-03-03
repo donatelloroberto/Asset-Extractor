@@ -1,30 +1,14 @@
-import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "../server/routes.js";
-import { createServer } from "http";
+import { buildApp } from "../server/app.js";
 
-const app = express();
-const httpServer = createServer(app);
+let appPromise: ReturnType<typeof buildApp> | null = null;
 
-app.use(
-  express.json({
-    verify: (req: any, _res, buf) => {
-      req.rawBody = buf;
-    },
-  })
-);
-app.use(express.urlencoded({ extended: false }));
+export default async function handler(req: any, res: any) {
+  if (!appPromise) appPromise = buildApp();
+  const app = await appPromise;
 
-// Register routes synchronously as they are defined without await
-registerRoutes(httpServer, app).catch(err => {
-  console.error("Failed to register routes:", err);
-});
+  if (req.url?.startsWith("/api")) {
+    req.url = req.url.slice(4) || "/";
+  }
 
-app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-  const status = err.status || err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
-  console.error(err);
-  res.status(status).json({ message });
-});
-
-// Vercel handles Express apps directly if exported as default
-export default app;
+  return app(req as any, res as any);
+}

@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import tailwindcss from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 export default defineConfig({
   plugins: [
@@ -27,6 +29,12 @@ export default defineConfig({
     },
   },
   root: path.resolve(import.meta.dirname, "client"),
+  css: {
+    postcss: {
+      from: undefined,
+      plugins: [tailwindcss(), autoprefixer()],
+    },
+  },
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
