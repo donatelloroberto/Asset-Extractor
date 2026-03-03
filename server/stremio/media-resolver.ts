@@ -8,8 +8,22 @@ const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
 
 function detectType(url: string): ResolvedStream["type"] {
   const lower = url.toLowerCase();
-  if (lower.includes(".m3u8")) return "m3u8";
+  if (lower.includes(".m3u8") || lower.includes("/m3u8") || lower.includes("format=m3u8")) return "m3u8";
   if (lower.includes(".mp4") || lower.includes(".mkv")) return "mp4";
+  return "unknown";
+}
+
+function detectTypeFromContentType(contentType: string | null): ResolvedStream["type"] {
+  if (!contentType) return "unknown";
+  const ct = contentType.toLowerCase();
+  if (ct.includes("mpegurl") || ct.includes("m3u8") || ct.includes("x-mpegurl") || ct.includes("vnd.apple.mpegurl")) return "m3u8";
+  if (ct.includes("mp4") || ct.includes("video/mp4") || ct.includes("octet-stream")) return "mp4";
+  return "unknown";
+}
+
+function detectTypeFromContent(text: string): ResolvedStream["type"] {
+  const trimmed = text.trim();
+  if (trimmed.startsWith("#EXTM3U") || trimmed.includes("#EXT-X-")) return "m3u8";
   return "unknown";
 }
 
@@ -28,19 +42,38 @@ export async function resolveMedia(url: string, referer?: string, depth = 0): Pr
   }
 
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+
     const response = await fetch(url, {
       headers: {
         "User-Agent": UA,
         Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         ...(referer ? { Referer: referer } : {}),
       },
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
 
     if (!response.ok) {
       return { url, type: "unknown", referer };
     }
 
+    const contentType = response.headers.get("content-type");
+    const ctType = detectTypeFromContentType(contentType);
+    if (ctType !== "unknown") {
+      if (ctType === "m3u8") {
+        return { url, type: "m3u8", referer: referer || url };
+      }
+      return { url, type: ctType, referer };
+    }
+
     const html = await response.text();
+
+    const contentBasedType = detectTypeFromContent(html);
+    if (contentBasedType === "m3u8") {
+      return { url, type: "m3u8", referer: referer || url };
+    }
 
     const mediaRegexes = [
       /(?:file|src)\s*:\s*["']([^"']+\.(?:m3u8|mp4|mkv)[^"']*)["']/i,

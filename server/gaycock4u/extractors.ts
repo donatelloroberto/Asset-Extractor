@@ -1,4 +1,5 @@
 import { fetchPage } from "../stremio/http.js";
+import { extractVoeUniversal, extractDoodUniversal } from "../stremio/universal-extractor.js";
 import * as cheerio from "cheerio";
 
 const isDebug = () => process.env.DEBUG === "1";
@@ -107,11 +108,11 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   const url = embedUrl.startsWith("//") ? `https:${embedUrl}` : embedUrl;
   const hostname = new URL(url).hostname;
 
-  if (hostname.includes("voe") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) {
-    return extractVoe(url, referer);
+  if (hostname.includes("voe") || hostname.includes("vinovo") || hostname.includes("jilliandescribecompany") || hostname.includes("markstylecompany") || hostname.includes("primaryclassaliede")) {
+    return extractVoeUniversal(url, referer);
   }
   if (hostname.includes("doodstream") || hostname.includes("ds2video") || hostname.includes("d0o0d") || hostname.includes("d-s.io") || hostname.includes("vide0.net") || hostname.includes("dood.") || hostname.includes("myvidplay") || hostname.includes("dsvplay")) {
-    return extractDood(url, referer);
+    return extractDoodUniversal(url, referer);
   }
   if (hostname.includes("streamtape") || hostname.includes("tapepops")) {
     return extractStreamtape(url);
@@ -123,86 +124,6 @@ async function resolveEmbed(embedUrl: string, referer: string): Promise<Extracte
   return extractGeneric(url);
 }
 
-async function extractVoe(url: string, referer?: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
-  try {
-    const html = await fetchPage(url, { referer: referer || url });
-
-    const sourcesMatch = html.match(/const\s+sources\s*=\s*(\{[^}]+\})/);
-    if (sourcesMatch) {
-      const hlsMatch = sourcesMatch[1].match(/"hls"\s*:\s*"([^"]+)"/);
-      if (hlsMatch) {
-        streams.push({
-          name: "VOE",
-          url: hlsMatch[1],
-          referer: url,
-        });
-      }
-    }
-
-    if (streams.length === 0) {
-      const hlsFallback = html.match(/https?:\/\/[^\s"']+\.m3u8[^\s"']*/);
-      if (hlsFallback) {
-        streams.push({ name: "VOE", url: hlsFallback[0], referer: url });
-      }
-    }
-
-    if (streams.length === 0) {
-      const mp4Match = html.match(/https?:\/\/[^\s"']+\.mp4[^\s"']*/);
-      if (mp4Match) {
-        streams.push({ name: "VOE", url: mp4Match[0], referer: url });
-      }
-    }
-  } catch (err: any) {
-    if (isDebug()) console.error(`[Voe] Extraction error: ${err.message}`);
-  }
-  return streams;
-}
-
-async function extractDood(url: string, referer?: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
-  try {
-    const mainUrl = new URL(url).origin;
-    const pathParts = new URL(url).pathname.split("/");
-    const videoId = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
-
-    const embedUrl = url.includes("/e/") ? url : `${mainUrl}/e/${videoId}`;
-
-    const html = await fetchPage(embedUrl, { referer: referer || url });
-
-    const passMd5Match = html.match(/\/pass_md5\/[^'"*/]*/);
-    if (!passMd5Match) {
-      if (isDebug()) console.error("[Dood] pass_md5 pattern not found");
-      return streams;
-    }
-
-    const passMd5Path = passMd5Match[0];
-    const token = passMd5Path.split("/").pop() || "";
-
-    const md5Url = `${mainUrl}${passMd5Path}`;
-    const videoData = await fetchPage(md5Url, { referer: embedUrl });
-
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let randomStr = "";
-    for (let i = 0; i < 10; i++) {
-      randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    const finalUrl = `${videoData}${randomStr}?token=${token}&expiry=${Date.now()}`;
-
-    const qualityMatch = html.match(/<title>.*?(\d{3,4})[pP].*?<\/title>/);
-    const quality = qualityMatch ? `${qualityMatch[1]}p` : undefined;
-
-    streams.push({
-      name: `DoodStream${quality ? ` ${quality}` : ""}`,
-      url: finalUrl,
-      quality,
-      referer: mainUrl,
-    });
-  } catch (err: any) {
-    if (isDebug()) console.error("[Dood] Extraction error:", err.message);
-  }
-  return streams;
-}
 
 async function extractStreamtape(url: string): Promise<ExtractedStream[]> {
   const streams: ExtractedStream[] = [];

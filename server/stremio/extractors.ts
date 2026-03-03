@@ -1,4 +1,5 @@
 import { fetchPage } from "./http.js";
+import { extractDoodUniversal } from "./universal-extractor.js";
 import * as cheerio from "cheerio";
 
 const isDebug = () => process.env.DEBUG === "1";
@@ -74,7 +75,8 @@ async function resolveEmbed(embedUrl: string): Promise<ExtractedStream[]> {
     return extractVID(url);
   }
   if (url.includes("dood") || url.includes("doodstream") || url.includes("d0o0d") || url.includes("ds2play") || url.includes("dsvplay") || url.includes("myvidplay")) {
-    return extractDoodStream(url);
+    const results = await extractDoodUniversal(url);
+    return results.filter((s): s is ExtractedStream => !!s.url) as ExtractedStream[];
   }
 
   return extractGenericIframe(url);
@@ -278,45 +280,6 @@ async function extractVID(url: string): Promise<ExtractedStream[]> {
   return streams;
 }
 
-async function extractDoodStream(url: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
-  try {
-    const mainUrl = new URL(url).origin;
-    const html = await fetchPage(url);
-
-    const passMd5Match = html.match(/\/pass_md5\/[^'"*/]*/);
-    if (!passMd5Match) return streams;
-
-    const passMd5Path = passMd5Match[0];
-    const token = passMd5Path.split("/").pop() || "";
-    const slug = url.split("/").pop() || "";
-
-    const md5Url = `${mainUrl}${passMd5Path}`;
-    const videoData = await fetchPage(md5Url, {
-      referer: `${mainUrl}/${slug}`,
-    });
-
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let randomStr = "";
-    for (let i = 0; i < 10; i++) {
-      randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    const finalUrl = `${videoData}${randomStr}?token=${token}&expiry=${Date.now()}`;
-
-    const qualityMatch = html.match(/<title>.*?(\d{3,4}p).*?<\/title>/);
-    const quality = qualityMatch ? qualityMatch[1] : undefined;
-
-    streams.push({
-      name: `DoodStream${quality ? ` ${quality}` : ""}`,
-      url: finalUrl,
-      quality,
-      referer: mainUrl,
-    });
-  } catch (err: any) {
-    if (isDebug()) console.error("[DoodStream] Extraction error:", err.message);
-  }
-  return streams;
-}
 
 async function extractGenericIframe(url: string): Promise<ExtractedStream[]> {
   const streams: ExtractedStream[] = [];

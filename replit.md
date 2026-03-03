@@ -69,6 +69,9 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 
 ### Shared
 - `server/routes.ts` - Express route registration for all eight add-ons
+- `server/stremio/universal-extractor.ts` - Centralized VOE and DoodStream extractors used by all providers
+- `server/stremio/stream-mapper.ts` - Maps extracted streams to Stremio format (M3U8→proxy, MP4→proxy, embed→player)
+- `server/stremio/media-resolver.ts` - Resolves media URLs: detects type via URL, Content-Type headers, and content sniffing
 - `client/src/pages/dashboard.tsx` - Frontend dashboard showing all eight plugins
 - `shared/schema.ts` - Shared TypeScript types/schemas
 
@@ -111,7 +114,13 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - **FileMoon**: Packed JS unpacker for HLS URLs
 - Site uses single iframe in `div.responsive-player` for video embedding
 
-### BestHDgayporn / Justthegays Extractors
+### Justthegays Extractors
+- **Direct video scanning**: Regex extraction of video URLs (mp4/m3u8) from page HTML with social media URL filtering (Pinterest, Facebook, etc.)
+- **Sucuri CloudProxy**: Site protected by Sucuri WAF; `fetchPage` solves JavaScript challenge cookies automatically
+- **Embed fallback**: When no direct video URL found (JavaScript-rendered player), falls back to embed player (`/api/player`) for in-Stremio playback
+- Videos loaded dynamically via JavaScript; server-side extraction limited
+
+### BestHDgayporn Extractors
 - **Direct video scanning**: Regex extraction of video URLs (mp4/m3u8) from page HTML
 - No iframe resolution needed - videos embedded directly
 

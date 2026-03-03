@@ -939,6 +939,61 @@ export async function registerRoutes(
     }
   });
 
+  app.get("/api/player", (req, res) => {
+    try {
+      const encodedUrl = req.query.url as string;
+      const name = req.query.name as string || "Video Player";
+
+      if (!encodedUrl) {
+        return res.status(400).send("Missing url parameter");
+      }
+
+      const embedUrl = decodeBase64Param(encodedUrl);
+
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${name}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#000;overflow:hidden}
+.player-container{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000}
+iframe{width:100%;height:100%;border:none}
+.loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-family:system-ui,sans-serif;font-size:18px;z-index:10}
+.loading.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="player-container">
+<div class="loading" id="loading">Loading player...</div>
+<iframe id="player"
+  src="${embedUrl}"
+  allow="autoplay;fullscreen;encrypted-media;picture-in-picture"
+  allowfullscreen
+  sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
+  onload="document.getElementById('loading').classList.add('hidden')"
+></iframe>
+</div>
+<script>
+document.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='q'){window.close();}});
+try{if(window.opener||window.parent!==window){}}catch(e){}
+</script>
+</body>
+</html>`;
+
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("X-Frame-Options", "ALLOWALL");
+      return res.status(200).send(html);
+    } catch (err: any) {
+      log(`Player error: ${err.message}`, "stremio");
+      return res.status(500).send("Player error");
+    }
+  });
+
   app.get("/api/status", (_req, res) => {
     const allManifests = [
       { manifest: buildManifest(), path: "/manifest.json" },
