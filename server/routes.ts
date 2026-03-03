@@ -22,6 +22,23 @@ import { log } from "./index";
 
 const startTime = Date.now();
 
+
+function getRequestBaseUrl(req: any): string {
+  const protoHeader = (req.headers["x-forwarded-proto"] as string | undefined)?.split(",")[0]?.trim();
+  const hostHeader = (req.headers["x-forwarded-host"] as string | undefined)?.split(",")[0]?.trim();
+  const protocol = protoHeader || req.protocol || "http";
+  const host = hostHeader || req.get("host");
+  return `${protocol}://${host}`;
+}
+
+function decodeBase64Param(value: string): string {
+  try {
+    return Buffer.from(value, "base64url").toString("utf-8");
+  } catch {
+    return Buffer.from(value, "base64").toString("utf-8");
+  }
+}
+
 function parseStremioExtra(extra: string): Record<string, string> {
   const result: Record<string, string> = {};
   const parts = extra.split("&");
@@ -200,7 +217,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`BestHDgayporn stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getBesthdgaypornStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -266,7 +283,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`BoyfriendTV stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getBoyfriendtvStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -332,7 +349,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Gaycock4U stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getGaycock4uStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -398,7 +415,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`GayStream stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getGaystreamStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -471,7 +488,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Justthegays stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getJustthegaysStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -544,7 +561,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Fxggxt stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getFxggxtStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -617,7 +634,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Nurgay stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getNurgayStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -766,7 +783,7 @@ export async function registerRoutes(
       const { id } = req.params;
       log(`Stream request: ${id}`, "stremio");
 
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       let streams;
       if (isNurgayId(id)) {
         streams = await getNurgayStreams(id, baseUrl);
