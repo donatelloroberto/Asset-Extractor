@@ -5,6 +5,7 @@ import { getCached, setCached } from "../stremio/cache";
 import { extractGaycock4uStreams } from "./extractors";
 import { GAYCOCK4U_CATALOG_MAP } from "./manifest";
 import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
+import { mapStreamsForStremio } from "../stremio/stream-mapper";
 
 const BASE_URL = "https://gaycock4u.com";
 const isDebug = () => process.env.DEBUG === "1";
@@ -147,30 +148,7 @@ export async function getGaycock4uStreams(id: string, baseUrl?: string): Promise
     if (isDebug()) console.log(`[Gaycock4U] Getting streams for: ${url}`);
 
     const extracted = await extractGaycock4uStreams(url);
-    const streams: StremioStream[] = extracted.map(s => {
-      if (s.externalUrl && !s.url) {
-        return {
-          name: s.name,
-          title: `${s.name} - Open in Browser`,
-          externalUrl: s.externalUrl,
-        };
-      }
-
-      let streamUrl = s.url!;
-      if (baseUrl) {
-        const params = new URLSearchParams({ url: streamUrl });
-        if (s.referer) params.set("referer", s.referer);
-        streamUrl = `${baseUrl}/proxy/stream?${params.toString()}`;
-      }
-
-      const hints: any = { notWebReady: false };
-      return {
-        name: s.name,
-        title: s.quality ? `${s.name} - ${s.quality}` : s.name,
-        url: streamUrl,
-        behaviorHints: hints,
-      };
-    });
+    const streams = await mapStreamsForStremio(extracted, baseUrl);
 
     return streams;
   } catch (err: any) {
