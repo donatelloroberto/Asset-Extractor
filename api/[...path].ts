@@ -1,4 +1,4 @@
-import { buildApp } from "../server/app";
+import { buildApp } from "../server/app.js";
 
 let appPromise: ReturnType<typeof buildApp> | null = null;
 

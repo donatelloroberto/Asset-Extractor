@@ -1,7 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { serveStatic } from "./static";
-import { log } from "./logger";
+import { createServer } from "http";
+import { registerRoutes } from "./routes.js";
+import { serveStatic } from "./static.js";
+import { log } from "./logger.js";
 
 declare module "http" {
   interface IncomingMessage {
@@ -62,7 +63,8 @@ export async function buildApp() {
     res.status(200).json({ ok: true });
   });
 
-  await registerRoutes(app);
+  const httpServer = createServer(app);
+  await registerRoutes(httpServer, app);
 
   // Error handler
   app.use((err: any, _req: Request, res: Response, next: NextFunction) => {

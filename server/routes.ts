@@ -1,26 +1,43 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import axios from "axios";
-import { buildManifest } from "./stremio/manifest";
-import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider";
-import { buildNurgayManifest } from "./nurgay/manifest";
-import { getNurgayCatalog, searchNurgayContent, getNurgayMeta, getNurgayStreams } from "./nurgay/provider";
-import { buildFxggxtManifest } from "./fxggxt/manifest";
-import { getFxggxtCatalog, searchFxggxtContent, getFxggxtMeta, getFxggxtStreams } from "./fxggxt/provider";
-import { buildJustthegaysManifest } from "./justthegays/manifest";
-import { getJustthegaysCatalog, searchJustthegaysContent, getJustthegaysMeta, getJustthegaysStreams } from "./justthegays/provider";
-import { buildBesthdgaypornManifest } from "./besthdgayporn/manifest";
-import { getBesthdgaypornCatalog, searchBesthdgaypornContent, getBesthdgaypornMeta, getBesthdgaypornStreams } from "./besthdgayporn/provider";
-import { buildBoyfriendtvManifest } from "./boyfriendtv/manifest";
-import { getBoyfriendtvCatalog, searchBoyfriendtvContent, getBoyfriendtvMeta, getBoyfriendtvStreams } from "./boyfriendtv/provider";
-import { buildGaycock4uManifest } from "./gaycock4u/manifest";
-import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGaycock4uStreams } from "./gaycock4u/provider";
-import { buildGaystreamManifest } from "./gaystream/manifest";
-import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider";
-import { getCacheStats, clearAllCaches } from "./stremio/cache";
-import { log } from "./index";
+import { buildManifest } from "./stremio/manifest.js";
+import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider.js";
+import { buildNurgayManifest } from "./nurgay/manifest.js";
+import { getNurgayCatalog, searchNurgayContent, getNurgayMeta, getNurgayStreams } from "./nurgay/provider.js";
+import { buildFxggxtManifest } from "./fxggxt/manifest.js";
+import { getFxggxtCatalog, searchFxggxtContent, getFxggxtMeta, getFxggxtStreams } from "./fxggxt/provider.js";
+import { buildJustthegaysManifest } from "./justthegays/manifest.js";
+import { getJustthegaysCatalog, searchJustthegaysContent, getJustthegaysMeta, getJustthegaysStreams } from "./justthegays/provider.js";
+import { buildBesthdgaypornManifest } from "./besthdgayporn/manifest.js";
+import { getBesthdgaypornCatalog, searchBesthdgaypornContent, getBesthdgaypornMeta, getBesthdgaypornStreams } from "./besthdgayporn/provider.js";
+import { buildBoyfriendtvManifest } from "./boyfriendtv/manifest.js";
+import { getBoyfriendtvCatalog, searchBoyfriendtvContent, getBoyfriendtvMeta, getBoyfriendtvStreams } from "./boyfriendtv/provider.js";
+import { buildGaycock4uManifest } from "./gaycock4u/manifest.js";
+import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGaycock4uStreams } from "./gaycock4u/provider.js";
+import { buildGaystreamManifest } from "./gaystream/manifest.js";
+import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider.js";
+import { getCacheStats, clearAllCaches } from "./stremio/cache.js";
+import { log } from "./logger.js";
 
 const startTime = Date.now();
+
+
+function getRequestBaseUrl(req: any): string {
+  const protoHeader = (req.headers["x-forwarded-proto"] as string | undefined)?.split(",")[0]?.trim();
+  const hostHeader = (req.headers["x-forwarded-host"] as string | undefined)?.split(",")[0]?.trim();
+  const protocol = protoHeader || req.protocol || "http";
+  const host = hostHeader || req.get("host");
+  return `${protocol}://${host}`;
+}
+
+function decodeBase64Param(value: string): string {
+  try {
+    return Buffer.from(value, "base64url").toString("utf-8");
+  } catch {
+    return Buffer.from(value, "base64").toString("utf-8");
+  }
+}
 
 function parseStremioExtra(extra: string): Record<string, string> {
   const result: Record<string, string> = {};
@@ -200,7 +217,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`BestHDgayporn stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getBesthdgaypornStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -266,7 +283,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`BoyfriendTV stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getBoyfriendtvStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -332,7 +349,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Gaycock4U stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getGaycock4uStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -398,7 +415,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`GayStream stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getGaystreamStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -471,7 +488,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Justthegays stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getJustthegaysStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -544,7 +561,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Fxggxt stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getFxggxtStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -617,7 +634,7 @@ export async function registerRoutes(
     try {
       const { id } = req.params;
       log(`Nurgay stream request: ${id}`, "stremio");
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       const streams = await getNurgayStreams(id, baseUrl);
       res.json({ streams });
     } catch (err: any) {
@@ -766,7 +783,7 @@ export async function registerRoutes(
       const { id } = req.params;
       log(`Stream request: ${id}`, "stremio");
 
-      const baseUrl = `${req.protocol}://${req.get("host")}`;
+      const baseUrl = getRequestBaseUrl(req);
       let streams;
       if (isNurgayId(id)) {
         streams = await getNurgayStreams(id, baseUrl);
@@ -783,7 +800,7 @@ export async function registerRoutes(
       } else if (isGaystreamId(id)) {
         streams = await getGaystreamStreams(id, baseUrl);
       } else {
-        streams = await getStreams(id);
+        streams = await getStreams(id, baseUrl);
       }
 
       res.json({ streams });
@@ -793,6 +810,59 @@ export async function registerRoutes(
     }
   });
 
+
+  app.get("/api/proxy/m3u8", async (req, res) => {
+    try {
+      const encodedUrl = req.query.url as string;
+      const encodedRef = req.query.ref as string | undefined;
+
+      if (!encodedUrl) {
+        return res.status(400).json({ error: "Missing url parameter" });
+      }
+
+      const streamUrl = decodeBase64Param(encodedUrl);
+      const referer = encodedRef
+        ? decodeBase64Param(encodedRef)
+        : new URL(streamUrl).origin;
+
+      const response = await axios.get<string>(streamUrl, {
+        headers: {
+          Referer: referer,
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          Accept: "application/vnd.apple.mpegurl, application/x-mpegURL, text/plain, */*",
+        },
+        responseType: "text",
+        timeout: 15000,
+        maxRedirects: 5,
+      });
+
+      const base = new URL(streamUrl);
+      const rewritten = response.data
+        .split("\n")
+        .map((line) => {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith("#")) return line;
+
+          const absolute = new URL(trimmed, base).toString();
+          if (absolute.toLowerCase().includes(".m3u8")) {
+            const nestedUrl = Buffer.from(absolute).toString("base64url");
+            const nestedRef = Buffer.from(referer).toString("base64url");
+            return `${getRequestBaseUrl(req)}/api/proxy/m3u8?url=${nestedUrl}&ref=${nestedRef}`;
+          }
+
+          return absolute;
+        })
+        .join("\n");
+
+      res.setHeader("Content-Type", "application/vnd.apple.mpegurl");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Cache-Control", "public, max-age=120");
+      return res.status(200).send(rewritten);
+    } catch (err: any) {
+      log(`M3U8 proxy error: ${err.message}`, "stremio");
+      return res.status(502).json({ error: "Failed to proxy m3u8" });
+    }
+  });
   app.get("/proxy/stream", async (req, res) => {
     try {
       const streamUrl = req.query.url as string;
