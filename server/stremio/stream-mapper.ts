@@ -13,12 +13,12 @@ type ExtractedStream = {
   externalUrl?: string;
 };
 
-function toBase64(input: string): string {
-  return Buffer.from(input).toString("base64");
+function toBase64Url(input: string): string {
+  return Buffer.from(input).toString("base64url");
 }
 
 function buildM3u8ProxyUrl(baseUrl: string, url: string, referer: string): string {
-  return `${baseUrl}/api/proxy/m3u8?url=${encodeURIComponent(toBase64(url))}&ref=${encodeURIComponent(toBase64(referer))}`;
+  return `${baseUrl}/api/proxy/m3u8?url=${toBase64Url(url)}&ref=${toBase64Url(referer)}`;
 }
 
 async function resolveWithCache(url: string, referer?: string): Promise<ResolvedStream> {
