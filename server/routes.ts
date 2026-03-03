@@ -820,9 +820,9 @@ export async function registerRoutes(
         return res.status(400).json({ error: "Missing url parameter" });
       }
 
-      const streamUrl = decodeBase64Param(encodedUrl);
+      const streamUrl = Buffer.from(decodeURIComponent(encodedUrl), "base64").toString("utf-8");
       const referer = encodedRef
-        ? decodeBase64Param(encodedRef)
+        ? Buffer.from(decodeURIComponent(encodedRef), "base64").toString("utf-8")
         : new URL(streamUrl).origin;
 
       const response = await axios.get<string>(streamUrl, {
@@ -845,9 +845,9 @@ export async function registerRoutes(
 
           const absolute = new URL(trimmed, base).toString();
           if (absolute.toLowerCase().includes(".m3u8")) {
-            const nestedUrl = Buffer.from(absolute).toString("base64url");
-            const nestedRef = Buffer.from(referer).toString("base64url");
-            return `${getRequestBaseUrl(req)}/api/proxy/m3u8?url=${nestedUrl}&ref=${nestedRef}`;
+            const nestedUrl = encodeURIComponent(Buffer.from(absolute).toString("base64"));
+            const nestedRef = encodeURIComponent(Buffer.from(referer).toString("base64"));
+            return `${req.protocol}://${req.get("host")}/api/proxy/m3u8?url=${nestedUrl}&ref=${nestedRef}`;
           }
 
           return absolute;
