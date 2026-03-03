@@ -5,6 +5,7 @@ import { getCached, setCached } from "../stremio/cache";
 import { extractBesthdgaypornStreams } from "./extractors";
 import { BESTHDGAYPORN_CATALOG_MAP } from "./manifest";
 import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
+import { mapStreamsForStremio } from "../stremio/stream-mapper";
 
 const BASE_URL = "https://besthdgayporn.com";
 const isDebug = () => process.env.DEBUG === "1";
@@ -160,30 +161,7 @@ export async function getBesthdgaypornStreams(id: string, baseUrl?: string): Pro
     if (isDebug()) console.log(`[BestHDgayporn] Getting streams for: ${url}`);
 
     const extracted = await extractBesthdgaypornStreams(url);
-    const streams: StremioStream[] = extracted.map(s => {
-      if (s.externalUrl && !s.url) {
-        return {
-          name: s.name,
-          title: `${s.name} - Open in Browser`,
-          externalUrl: s.externalUrl,
-        };
-      }
-
-      let streamUrl = s.url!;
-      if (baseUrl) {
-        const params = new URLSearchParams({ url: streamUrl });
-        if (s.referer) params.set("referer", s.referer);
-        streamUrl = `${baseUrl}/proxy/stream?${params.toString()}`;
-      }
-
-      const hints: any = { notWebReady: false };
-      return {
-        name: s.name,
-        title: s.quality ? `${s.name} - ${s.quality}` : s.name,
-        url: streamUrl,
-        behaviorHints: hints,
-      };
-    });
+    const streams = await mapStreamsForStremio(extracted, baseUrl);
 
     return streams;
   } catch (err: any) {
