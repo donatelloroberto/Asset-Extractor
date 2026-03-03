@@ -1,6 +1,6 @@
-import type { StremioStream } from "../../shared/schema";
-import { getCached, setCached } from "./cache";
-import { resolveMedia, type ResolvedStream } from "./media-resolver";
+import type { StremioStream } from "../../shared/schema.js";
+import { getCached, setCached } from "./cache.js";
+import { resolveMedia, type ResolvedStream } from "./media-resolver.js";
 
 const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
 

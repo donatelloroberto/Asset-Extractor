@@ -1,11 +1,11 @@
 import * as cheerio from "cheerio";
-import { fetchPage } from "./http";
-import { makeId, extractUrl } from "./ids";
-import { getCached, setCached } from "./cache";
-import { extractStreams } from "./extractors";
-import { CATALOG_MAP } from "./manifest";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
-import { mapStreamsForStremio } from "./stream-mapper";
+import { fetchPage } from "./http.js";
+import { makeId, extractUrl } from "./ids.js";
+import { getCached, setCached } from "./cache.js";
+import { extractStreams } from "./extractors.js";
+import { CATALOG_MAP } from "./manifest.js";
+import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
+import { mapStreamsForStremio } from "./stream-mapper.js";
 
 const BASE_URL = "https://gay.xtapes.tw";
 const isDebug = () => process.env.DEBUG === "1";

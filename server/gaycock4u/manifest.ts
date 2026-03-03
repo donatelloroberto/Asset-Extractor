@@ -1,4 +1,4 @@
-import type { StremioManifest } from "../stremio/manifest";
+import type { StremioManifest } from "../stremio/manifest.js";
 
 export const GAYCOCK4U_CATALOG_MAP: Record<string, { path: string; name: string }> = {
   "gaycock4u-latest": { path: "/", name: "GC4U-Latest Updates" },

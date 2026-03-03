@@ -1,4 +1,4 @@
-import { fetchPage } from "../stremio/http";
+import { fetchPage } from "../stremio/http.js";
 import * as cheerio from "cheerio";
 
 const isDebug = () => process.env.DEBUG === "1";

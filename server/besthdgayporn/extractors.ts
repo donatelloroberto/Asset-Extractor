@@ -1,6 +1,6 @@
-import { fetchPage } from "../stremio/http";
+import { fetchPage } from "../stremio/http.js";
 import * as cheerio from "cheerio";
-import type { ExtractedStream } from "../fxggxt/extractors";
+import type { ExtractedStream } from "../fxggxt/extractors.js";
 
 const isDebug = () => process.env.DEBUG === "1";
 

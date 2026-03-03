@@ -1,11 +1,11 @@
 import * as cheerio from "cheerio";
-import { fetchPage } from "../stremio/http";
-import { makeId, extractUrl } from "./ids";
-import { getCached, setCached } from "../stremio/cache";
-import { extractGaycock4uStreams } from "./extractors";
-import { GAYCOCK4U_CATALOG_MAP } from "./manifest";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
-import { mapStreamsForStremio } from "../stremio/stream-mapper";
+import { fetchPage } from "../stremio/http.js";
+import { makeId, extractUrl } from "./ids.js";
+import { getCached, setCached } from "../stremio/cache.js";
+import { extractGaycock4uStreams } from "./extractors.js";
+import { GAYCOCK4U_CATALOG_MAP } from "./manifest.js";
+import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
+import { mapStreamsForStremio } from "../stremio/stream-mapper.js";
 
 const BASE_URL = "https://gaycock4u.com";
 const isDebug = () => process.env.DEBUG === "1";
