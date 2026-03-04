@@ -9,6 +9,7 @@
   },
   "rewrites": [
     { "source": "/manifest.json", "destination": "/api/index.ts" },
+    { "source": "/stash/configure", "destination": "/api/index.ts" },
     { "source": "/(.*)/manifest.json", "destination": "/api/index.ts" },
     { "source": "/(.*)/catalog/(.*)", "destination": "/api/index.ts" },
     { "source": "/(.*)/meta/(.*)", "destination": "/api/index.ts" },

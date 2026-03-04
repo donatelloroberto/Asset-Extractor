@@ -24,6 +24,11 @@
   status = 200
 
 [[redirects]]
+  from = "/stash/configure"
+  to = "/.netlify/functions/api"
+  status = 200
+
+[[redirects]]
   from = "/*/manifest.json"
   to = "/.netlify/functions/api"
   status = 200

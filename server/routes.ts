@@ -17,6 +17,8 @@ import { buildGaycock4uManifest } from "./gaycock4u/manifest.js";
 import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGaycock4uStreams } from "./gaycock4u/provider.js";
 import { buildGaystreamManifest } from "./gaystream/manifest.js";
 import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider.js";
+import { buildStashManifest, decodeStashConfig, type StashConfig } from "./stash/manifest.js";
+import { getStashCatalog, searchStashContent, getStashMeta, getStashStreams } from "./stash/provider.js";
 import { getCacheStats, clearAllCaches } from "./stremio/cache.js";
 import { log } from "./logger.js";
 
@@ -171,6 +173,158 @@ export async function registerRoutes(
   app.get("/gaystream/manifest.json", (_req, res) => {
     const manifest = buildGaystreamManifest();
     res.json(manifest);
+  });
+
+  app.get("/stash/manifest.json", (_req, res) => {
+    const manifest = buildStashManifest();
+    res.json(manifest);
+  });
+
+  app.get("/stash/configure", (_req, res) => {
+    const html = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stash Stremio Add-on Configuration</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{max-width:480px;width:100%;background:#1a1a1a;border-radius:12px;padding:32px;border:1px solid #333}
+h1{font-size:24px;margin-bottom:8px;color:#fff}
+p{color:#999;font-size:14px;margin-bottom:24px;line-height:1.5}
+label{display:block;font-size:14px;font-weight:500;margin-bottom:6px;color:#ccc}
+input{width:100%;padding:10px 14px;border:1px solid #444;border-radius:8px;background:#0a0a0a;color:#fff;font-size:14px;margin-bottom:16px;outline:none;transition:border-color .2s}
+input:focus{border-color:#7c3aed}
+input::placeholder{color:#666}
+button{width:100%;padding:12px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s}
+button:hover{background:#6d28d9}
+.help{font-size:12px;color:#777;margin-top:12px;line-height:1.5}
+.manifest-result{margin-top:20px;padding:14px;background:#0a0a0a;border:1px solid #333;border-radius:8px;word-break:break-all;display:none}
+.manifest-result code{font-size:12px;color:#a78bfa}
+.manifest-result .actions{margin-top:12px;display:flex;gap:8px}
+.manifest-result button{width:auto;padding:8px 16px;font-size:13px}
+.btn-secondary{background:#333;color:#ccc}
+.btn-secondary:hover{background:#444}
+</style>
+</head><body>
+<div class="container">
+<h1>Stash Add-on</h1>
+<p>Connect your self-hosted Stash instance to Stremio. Enter your Stash server URL and API key below.</p>
+<form id="form">
+<label for="serverUrl">Stash Server URL</label>
+<input type="url" id="serverUrl" placeholder="http://localhost:9999" required>
+<label for="apiKey">API Key (optional if no auth)</label>
+<input type="text" id="apiKey" placeholder="Your Stash API key">
+<button type="submit">Generate Manifest URL</button>
+</form>
+<div class="manifest-result" id="result">
+<label>Your manifest URL:</label>
+<code id="manifestUrl"></code>
+<div class="actions">
+<button onclick="installStremio()" id="installBtn">Install in Stremio</button>
+<button class="btn-secondary" onclick="copyUrl()">Copy URL</button>
+</div>
+</div>
+<p class="help">You can find your API key in Stash Settings &gt; Security &gt; API Key. If your Stash instance has no authentication enabled, leave the API key field empty.</p>
+</div>
+<script>
+let manifestUrl='';
+document.getElementById('form').onsubmit=function(e){
+e.preventDefault();
+const serverUrl=document.getElementById('serverUrl').value.replace(/\\/+$/,'');
+const apiKey=document.getElementById('apiKey').value.trim();
+const config=btoa(JSON.stringify({serverUrl,apiKey})).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'');
+const base=window.location.origin;
+manifestUrl=base+'/stash/'+config+'/manifest.json';
+document.getElementById('manifestUrl').textContent=manifestUrl;
+document.getElementById('result').style.display='block';
+};
+function installStremio(){
+const url=manifestUrl.replace(/^https?:\\/\\//,'');
+window.open('stremio://'+url,'_blank');
+}
+function copyUrl(){navigator.clipboard.writeText(manifestUrl);alert('Copied!');}
+</script>
+</body></html>`;
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.send(html);
+  });
+
+  app.get("/stash/:config/manifest.json", (req, res) => {
+    try {
+      const config = decodeStashConfig(req.params.config);
+      const manifest = buildStashManifest(config);
+      res.json(manifest);
+    } catch (err: any) {
+      log(`Stash manifest error: ${err.message}`, "stash");
+      res.status(400).json({ error: "Invalid Stash configuration. Visit /stash/configure to set up." });
+    }
+  });
+
+  app.get("/stash/:config/catalog/:type/:id.json", async (req, res) => {
+    try {
+      const config = decodeStashConfig(req.params.config);
+      const { id } = req.params;
+      const skip = parseInt((req.query as any).skip || "0", 10);
+      const search = (req.query as any).search as string | undefined;
+      log(`Stash catalog request: ${id}, skip=${skip}, search=${search || "none"}`, "stash");
+      let metas;
+      if (id === "stash-search" && search) {
+        metas = await searchStashContent(config, search, skip);
+      } else {
+        metas = await getStashCatalog(config, id, skip);
+      }
+      res.json({ metas });
+    } catch (err: any) {
+      log(`Stash catalog error: ${err.message}`, "stash");
+      res.json({ metas: [] });
+    }
+  });
+
+  app.get("/stash/:config/catalog/:type/:id/:extra.json", async (req, res) => {
+    try {
+      const config = decodeStashConfig(req.params.config);
+      const { id, extra } = req.params;
+      const extraPairs = parseStremioExtra(extra);
+      const skip = parseInt(extraPairs.skip || "0", 10);
+      const search = extraPairs.search || undefined;
+      log(`Stash catalog request: ${id}, skip=${skip}, search=${search || "none"}`, "stash");
+      let metas;
+      if (id === "stash-search" && search) {
+        metas = await searchStashContent(config, search, skip);
+      } else {
+        metas = await getStashCatalog(config, id, skip);
+      }
+      res.json({ metas });
+    } catch (err: any) {
+      log(`Stash catalog error: ${err.message}`, "stash");
+      res.json({ metas: [] });
+    }
+  });
+
+  app.get("/stash/:config/meta/:type/:id.json", async (req, res) => {
+    try {
+      const config = decodeStashConfig(req.params.config);
+      const { id } = req.params;
+      log(`Stash meta request: ${id}`, "stash");
+      const meta = await getStashMeta(config, id);
+      if (!meta) return res.json({ meta: null });
+      res.json({ meta });
+    } catch (err: any) {
+      log(`Stash meta error: ${err.message}`, "stash");
+      res.json({ meta: null });
+    }
+  });
+
+  app.get("/stash/:config/stream/:type/:id.json", async (req, res) => {
+    try {
+      const config = decodeStashConfig(req.params.config);
+      const { id } = req.params;
+      log(`Stash stream request: ${id}`, "stash");
+      const streams = await getStashStreams(config, id);
+      res.json({ streams });
+    } catch (err: any) {
+      log(`Stash stream error: ${err.message}`, "stash");
+      res.json({ streams: [] });
+    }
   });
 
   // BestHDgayporn dedicated routes
@@ -1004,6 +1158,7 @@ try{if(window.opener||window.parent!==window){}}catch(e){}
       { manifest: buildBoyfriendtvManifest(), path: "/boyfriendtv/manifest.json" },
       { manifest: buildGaycock4uManifest(), path: "/gaycock4u/manifest.json" },
       { manifest: buildGaystreamManifest(), path: "/gaystream/manifest.json" },
+      { manifest: buildStashManifest(), path: "/stash/manifest.json" },
     ];
     const cacheStats = getCacheStats();
     const totalCatalogs = allManifests.reduce((sum, m) => sum + m.manifest.catalogs.length, 0);
@@ -1040,6 +1195,7 @@ try{if(window.opener||window.parent!==window){}}catch(e){}
       boyfriendtv: buildBoyfriendtvManifest().catalogs,
       gaycock4u: buildGaycock4uManifest().catalogs,
       gaystream: buildGaystreamManifest().catalogs,
+      stash: buildStashManifest().catalogs,
     });
   });
 

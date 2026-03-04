@@ -1,7 +1,7 @@
-# Stremio Add-ons (8 Plugins)
+# Stremio Add-ons (9 Plugins)
 
 ## Overview
-Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves Stremio-compatible API endpoints for GXtapes, Nurgay, Fxggxt, Justthegays, BestHDgayporn, BoyfriendTV, Gaycock4U, and GayStream providers, plus a unified web dashboard for monitoring and configuration.
+Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nurgay, Fxggxt, Justthegays, BestHDgayporn, BoyfriendTV, Gaycock4U, GayStream) plus a Stash integration add-on for self-hosted media libraries. The app serves Stremio-compatible API endpoints plus a unified web dashboard for monitoring and configuration.
 
 ## Architecture
 - **Frontend**: React + Vite + TailwindCSS dashboard at `/`
@@ -14,6 +14,7 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - **BoyfriendTV Stremio Endpoints**: `/boyfriendtv/manifest.json`, dedicated + shared routes
 - **Gaycock4U Stremio Endpoints**: `/gaycock4u/manifest.json`, dedicated + shared routes
 - **GayStream Stremio Endpoints**: `/gaystream/manifest.json`, dedicated + shared routes
+- **Stash Stremio Endpoints**: `/stash/manifest.json` (unconfigured), `/stash/:config/manifest.json` (configured), `/stash/configure` (setup page)
 - **Dashboard API**: `/api/status`, `/api/catalogs`, `/api/catalog/:id`, `/api/meta/:id`, `/api/cache/clear`
 
 ## Key Files
@@ -67,12 +68,18 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - `server/gaystream/extractors.ts` - Video host extractors (iframe-based with VOE, DoodStream, StreamTape, FileMoon, Bigwarp)
 - `server/gaystream/ids.ts` - ID encoding/decoding (base64url, prefix: `gaystream:`)
 
+### Stash Plugin (6 catalogs, user-configurable)
+- `server/stash/manifest.ts` - Stash manifest with config encoding/decoding (server URL + API key in base64url path)
+- `server/stash/client.ts` - GraphQL client for Stash API (findScenes, findScene, getSceneStreams, getStats)
+- `server/stash/provider.ts` - Stash provider (catalog, search, meta, streams) using GraphQL
+- `server/stash/ids.ts` - ID encoding/decoding (prefix: `stash:`, uses scene numeric ID)
+
 ### Shared
-- `server/routes.ts` - Express route registration for all eight add-ons
+- `server/routes.ts` - Express route registration for all nine add-ons
 - `server/stremio/universal-extractor.ts` - Centralized VOE and DoodStream extractors used by all providers
 - `server/stremio/stream-mapper.ts` - Maps extracted streams to Stremio format (M3U8→proxy, MP4→proxy, embed→player)
 - `server/stremio/media-resolver.ts` - Resolves media URLs: detects type via URL, Content-Type headers, and content sniffing
-- `client/src/pages/dashboard.tsx` - Frontend dashboard showing all eight plugins
+- `client/src/pages/dashboard.tsx` - Frontend dashboard showing all nine plugins
 - `shared/schema.ts` - Shared TypeScript types/schemas
 
 ## Running
@@ -88,6 +95,7 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - BoyfriendTV: `boyfriendtv:{base64url(sourceUrl)}`
 - Gaycock4U: `gaycock4u:{base64url(sourceUrl)}`
 - GayStream: `gaystream:{base64url(sourceUrl)}`
+- Stash: `stash:{sceneId}` (numeric scene ID from Stash instance)
 
 ## Video Extraction
 
@@ -134,6 +142,13 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - **StreamTape**: Token assembly from innerHTML
 - **FileMoon**: Packed JS unpacker
 - **Bigwarp** (GayStream only): file/src property extraction
+
+### Stash Streams
+- **GraphQL API**: Queries `sceneStreams` for each scene, returning direct video URLs with mime_type and label
+- **Authentication**: API key passed via `ApiKey` header or `apikey` query parameter
+- **Stream types**: Direct file streams (MP4/MKV/etc), HLS transcodes, DASH transcodes — all served directly by the user's Stash instance
+- **No extraction needed**: Stash provides ready-to-play stream URLs, no scraping or host resolution required
+- **Configuration**: User's Stash server URL and API key encoded in base64url as part of the manifest URL path
 
 ### Stream Proxy
 - `/proxy/stream?url=...&referer=...` - Proxies video streams (MP4) with proper headers (Referer, User-Agent). Supports range requests for seeking. All MP4 streams are routed through this proxy when baseUrl is available, ensuring compatibility with Stremio Web player (which cannot use proxyHeaders).

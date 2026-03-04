@@ -78,8 +78,7 @@ export async function buildApp() {
     return res.status(status).json({ message });
   });
 
-  // Static client in production (Vercel serves dist/ separately, but this keeps Node start working)
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production" && !process.env.SERVERLESS) {
     serveStatic(app);
   }
 

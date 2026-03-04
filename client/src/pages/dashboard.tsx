@@ -20,6 +20,7 @@ import {
   CheckCircle2,
   XCircle,
   Trash2,
+  Settings,
 } from "lucide-react";
 
 interface AddonInfo {
@@ -54,6 +55,7 @@ interface CatalogsResponse {
   boyfriendtv: CatalogEntry[];
   gaycock4u: CatalogEntry[];
   gaystream: CatalogEntry[];
+  stash: CatalogEntry[];
 }
 
 function formatUptime(seconds: number): string {
@@ -103,7 +105,7 @@ export default function Dashboard() {
                 Stremio Add-ons Dashboard
               </h1>
               <p className="text-muted-foreground text-sm">
-                8 Cloudstream 3 extensions converted to Stremio add-ons
+                8 Cloudstream 3 extensions + Stash integration as Stremio add-ons
               </p>
             </div>
           </div>
@@ -205,18 +207,30 @@ export default function Dashboard() {
                       </div>
 
                       <div className="flex gap-2 flex-wrap">
-                        <Button
-                          variant="default"
-                          size="sm"
-                          onClick={() => {
-                            const host = window.location.host;
-                            window.open(`stremio://${host}${addon.manifestPath}`, "_blank");
-                          }}
-                          data-testid={`button-install-${addon.name.toLowerCase()}`}
-                        >
-                          <ExternalLink className="w-3 h-3 mr-1" />
-                          Open in Stremio
-                        </Button>
+                        {addon.manifestPath === "/stash/manifest.json" ? (
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={() => window.open(`${baseUrl}/stash/configure`, "_blank")}
+                            data-testid={`button-configure-${addon.name.toLowerCase()}`}
+                          >
+                            <Settings className="w-3 h-3 mr-1" />
+                            Configure
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={() => {
+                              const host = window.location.host;
+                              window.open(`stremio://${host}${addon.manifestPath}`, "_blank");
+                            }}
+                            data-testid={`button-install-${addon.name.toLowerCase()}`}
+                          >
+                            <ExternalLink className="w-3 h-3 mr-1" />
+                            Open in Stremio
+                          </Button>
+                        )}
                         <Button
                           variant="outline"
                           size="sm"
