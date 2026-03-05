@@ -18,52 +18,52 @@ Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nu
 - **Dashboard API**: `/api/status`, `/api/catalogs`, `/api/catalog/:id`, `/api/meta/:id`, `/api/cache/clear`
 
 ## Key Files
-### GXtapes Plugin (101 catalogs)
-- `server/stremio/manifest.ts` - Stremio manifest definition with 90+ catalog mappings (categories + studios)
+### GXtapes Plugin (31 catalogs)
+- `server/stremio/manifest.ts` - Stremio manifest definition with 30 catalog mappings (categories + studios) + search
 - `server/stremio/provider.ts` - Main scraping provider (catalog, search, meta, streams)
 - `server/stremio/extractors.ts` - Video host extractors (74k.io packed JS, 88z.io, 44x.io, VID, DoodStream)
 - `server/stremio/http.ts` - HTTP client with retries and user-agent rotation (shared)
 - `server/stremio/cache.ts` - In-memory caching layer (shared)
 - `server/stremio/ids.ts` - ID encoding/decoding (base64url, prefix: `gxtapes:`)
 
-### Nurgay Plugin (41 catalogs)
-- `server/nurgay/manifest.ts` - Nurgay manifest with 40 category catalogs + search
+### Nurgay Plugin (14 catalogs)
+- `server/nurgay/manifest.ts` - Nurgay manifest with 13 category catalogs + search
 - `server/nurgay/provider.ts` - Nurgay scraping provider (catalog, search, meta, streams)
 - `server/nurgay/extractors.ts` - Video host extractors (Voe, DoodStream, StreamTape, Bigwarp, FileMoon, ListMirror)
 - `server/nurgay/ids.ts` - ID encoding/decoding (base64url, prefix: `nurgay:`)
 
-### Fxggxt Plugin (139 catalogs)
-- `server/fxggxt/manifest.ts` - Fxggxt manifest with 130+ studio/tag catalogs + search
+### Fxggxt Plugin (51 catalogs)
+- `server/fxggxt/manifest.ts` - Fxggxt manifest with 50 studio/tag catalogs + search
 - `server/fxggxt/provider.ts` - Fxggxt scraping provider (catalog, search, meta, streams)
 - `server/fxggxt/extractors.ts` - Video host extractors (VOE, DoodStream, StreamTape, FileMoon)
 - `server/fxggxt/ids.ts` - ID encoding/decoding (base64url, prefix: `fxggxt:`)
 
-### Justthegays Plugin (9 catalogs)
-- `server/justthegays/manifest.ts` - Justthegays manifest with 8 category catalogs + search
+### Justthegays Plugin (7 catalogs)
+- `server/justthegays/manifest.ts` - Justthegays manifest with 6 category catalogs + search (note: site protected by Sucuri CloudProxy, catalog scraping may fail)
 - `server/justthegays/provider.ts` - Scraping provider (catalog, search, meta, streams)
 - `server/justthegays/extractors.ts` - Video host extractors (direct video URL scanning)
 - `server/justthegays/ids.ts` - ID encoding/decoding (base64url, prefix: `justthegays:`)
 
-### BestHDgayporn Plugin (9 catalogs)
-- `server/besthdgayporn/manifest.ts` - BestHDgayporn manifest with 8 category catalogs + search
+### BestHDgayporn Plugin (18 catalogs)
+- `server/besthdgayporn/manifest.ts` - BestHDgayporn manifest with 17 category/tag catalogs + search
 - `server/besthdgayporn/provider.ts` - Scraping provider (catalog, search, meta, streams)
 - `server/besthdgayporn/extractors.ts` - Video host extractors (direct video URL scanning)
 - `server/besthdgayporn/ids.ts` - ID encoding/decoding (base64url, prefix: `besthdgayporn:`)
 
-### BoyfriendTV Plugin (14 catalogs)
-- `server/boyfriendtv/manifest.ts` - BoyfriendTV manifest with 13 category catalogs + search
+### BoyfriendTV Plugin (4 catalogs)
+- `server/boyfriendtv/manifest.ts` - BoyfriendTV manifest with 3 category catalogs + search (tag/search paths blocked with 403)
 - `server/boyfriendtv/provider.ts` - Scraping provider (catalog, search, meta, streams)
 - `server/boyfriendtv/extractors.ts` - Video host extractors (JSON sources parsing)
 - `server/boyfriendtv/ids.ts` - ID encoding/decoding (base64url, prefix: `boyfriendtv:`)
 
-### Gaycock4U Plugin (17 catalogs)
-- `server/gaycock4u/manifest.ts` - Gaycock4U manifest with 16 category catalogs + search
+### Gaycock4U Plugin (2 catalogs)
+- `server/gaycock4u/manifest.ts` - Gaycock4U manifest with 1 catalog (latest) + search (video-tag pages use JS rendering, not scrapable)
 - `server/gaycock4u/provider.ts` - Scraping provider (catalog, search, meta, streams)
 - `server/gaycock4u/extractors.ts` - Video host extractors (iframe-based with VOE, DoodStream, StreamTape, FileMoon)
 - `server/gaycock4u/ids.ts` - ID encoding/decoding (base64url, prefix: `gaycock4u:`)
 
-### GayStream Plugin (18 catalogs)
-- `server/gaystream/manifest.ts` - GayStream manifest with 17 category catalogs + search
+### GayStream Plugin (7 catalogs)
+- `server/gaystream/manifest.ts` - GayStream manifest with 6 category catalogs + search
 - `server/gaystream/provider.ts` - Scraping provider (catalog, search, meta, streams)
 - `server/gaystream/extractors.ts` - Video host extractors (iframe-based with VOE, DoodStream, StreamTape, FileMoon, Bigwarp)
 - `server/gaystream/ids.ts` - ID encoding/decoding (base64url, prefix: `gaystream:`)

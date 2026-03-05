@@ -1,41 +1,84 @@
 import type { StremioManifest } from "../stremio/manifest.js";
 
-export const BESTHDGAYPORN_CATALOG_MAP: Record<string, { path: string; name: string }> = {
+export const BESTHDGAYPORN_CATALOG_MAP: Record<
+  string,
+  { path: string; name: string }
+> = {
   "besthdgayporn-latest": { path: "/", name: "BHD-Latest" },
   "besthdgayporn-men-com": { path: "/video-tag/men-com/", name: "BHD-MEN.com" },
-  "besthdgayporn-bareback": { path: "/video-tag/bareback-gay-porn/", name: "BHD-Bareback" },
-  "besthdgayporn-onlyfans": { path: "/video-tag/onlyfans/", name: "BHD-Onlyfans" },
+  "besthdgayporn-bareback": {
+    path: "/video-tag/bareback-gay-porn/",
+    name: "BHD-Bareback",
+  },
+  "besthdgayporn-onlyfans": {
+    path: "/video-tag/onlyfans/",
+    name: "BHD-Onlyfans",
+  },
   "besthdgayporn-latino": { path: "/video-tag/latino/", name: "BHD-Latino" },
   "besthdgayporn-voyr": { path: "/video-tag/voyr/", name: "BHD-Voyr" },
-  "besthdgayporn-chaos-men": { path: "/video-tag/chaos-men/", name: "BHD-Chaos Men" },
-  "besthdgayporn-nakedsword": { path: "/video-tag/nakedsword/", name: "BHD-Naked Sword" },
+  "besthdgayporn-nakedsword": {
+    path: "/video-tag/nakedsword/",
+    name: "BHD-Naked Sword",
+  },
+  "besthdgayporn-AdultTime": {
+    path: "/video-tag/AdultTime/",
+    name: "BHD-AdultTime",
+  },
+  "besthdgayporn-ASGMAX": { path: "/video-tag/ASGMAX/", name: "BHD-ASGMAX" },
+  "besthdgayporn-AutoTradeRagingStallion": {
+    path: "/video-tag/AutoTradeRagingStallion/",
+    name: "BHD-AutoTradeRagingStallion",
+  },
+  "besthdgayporn-BaitBuddies": {
+    path: "/video-tag/BaitBuddies/",
+    name: "BHD-BaitBuddies",
+  },
+  "besthdgayporn-BaitBus": { path: "/video-tag/BaitBus/", name: "BHD-BaitBus" },
+  "besthdgayporn-BaptistBoys": {
+    path: "/video-tag/BaptistBoys/",
+    name: "BHD-BaptistBoys",
+  },
+  "besthdgayporn-BarebackAuditions11": {
+    path: "/video-tag/BarebackAuditions11/",
+    name: "BHD-BarebackAuditions11",
+  },
+  "besthdgayporn-BarebackThatHole": {
+    path: "/video-tag/BarebackThatHole/",
+    name: "BHD-BarebackThatHole",
+  },
+  "besthdgayporn-BetaBetaPi": {
+    path: "/video-tag/BetaBetaPi/",
+    name: "BHD-BetaBetaPi",
+  },
+  "besthdgayporn-BetweenFriendsSeries": {
+    path: "/video-tag/BetweenFriendsSeries/",
+    name: "BHD-BetweenFriendsSeries",
+  },
 };
 
 export function buildBesthdgaypornManifest(): StremioManifest {
-  const catalogs: StremioManifest["catalogs"] = Object.entries(BESTHDGAYPORN_CATALOG_MAP).map(([id, { name }]) => ({
+  const catalogs: StremioManifest["catalogs"] = Object.entries(
+    BESTHDGAYPORN_CATALOG_MAP,
+  ).map(([id, { name }]) => ({
     type: "movie",
     id,
     name,
-    extra: [
-      { name: "skip" },
-    ],
+    extra: [{ name: "skip" }],
   }));
 
   catalogs.unshift({
     type: "movie",
     id: "besthdgayporn-search",
     name: "BestHDgayporn Search",
-    extra: [
-      { name: "search", isRequired: true },
-      { name: "skip" },
-    ],
+    extra: [{ name: "search", isRequired: true }, { name: "skip" }],
   });
 
   return {
     id: "community.besthdgayporn.stremio",
     version: "1.0.0",
     name: "BestHDgayporn",
-    description: "BestHDgayporn content provider for Stremio - converted from Cloudstream 3 extension",
+    description:
+      "BestHDgayporn content provider for Stremio - converted from Cloudstream 3 extension",
     resources: ["catalog", "meta", "stream"],
     types: ["movie"],
     catalogs,
