@@ -21,6 +21,7 @@ import { buildStashManifest, decodeStashConfig, type StashConfig } from "./stash
 import { getStashCatalog, searchStashContent, getStashMeta, getStashStreams } from "./stash/provider.js";
 import { getCacheStats, clearAllCaches } from "./stremio/cache.js";
 import { log } from "./logger.js";
+import { registerPlexRoutes } from "./plex/routes.js";
 
 const startTime = Date.now();
 
@@ -134,6 +135,8 @@ export async function registerRoutes(
     }
     next();
   });
+
+  registerPlexRoutes(app);
 
   app.get("/manifest.json", (_req, res) => {
     const manifest = buildManifest();
@@ -1181,6 +1184,9 @@ try{if(window.opener||window.parent!==window){}}catch(e){}
         { path: "/catalog/movie/{catalogId}.json", description: "Browse catalogs" },
         { path: "/meta/movie/{id}.json", description: "Content metadata" },
         { path: "/stream/movie/{id}.json", description: "Stream links" },
+        { path: "/plex/configure", description: "Plex Bridge configuration" },
+        { path: "/plex/stream/{addon}/{id}", description: "Plex stream resolver" },
+        { path: "/plex/export", description: "Plex library export (ZIP)" },
       ]),
     });
   });

@@ -17,6 +17,7 @@
     { "source": "/catalog/(.*)", "destination": "/api/index.ts" },
     { "source": "/meta/(.*)", "destination": "/api/index.ts" },
     { "source": "/stream/(.*)", "destination": "/api/index.ts" },
+    { "source": "/plex/(.*)", "destination": "/api/index.ts" },
     { "source": "/proxy/(.*)", "destination": "/api/index.ts" },
     { "source": "/api/(.*)", "destination": "/api/index.ts" },
     { "source": "/health", "destination": "/api/index.ts" },

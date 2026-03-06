@@ -64,6 +64,11 @@
   status = 200
 
 [[redirects]]
+  from = "/plex/*"
+  to = "/.netlify/functions/api"
+  status = 200
+
+[[redirects]]
   from = "/proxy/*"
   to = "/.netlify/functions/api"
   status = 200

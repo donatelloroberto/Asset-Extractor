@@ -155,6 +155,17 @@ Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nu
 - `/api/proxy/m3u8?url=...&ref=...` - Proxies HLS manifests, rewriting nested m3u8 URLs to remain within the proxy chain. Base64url-encoded parameters.
 - Streams are NOT cached because URLs expire quickly (session-based tokens)
 
+### Plex Bridge
+- `server/plex/routes.ts` - Plex Media Server integration: STRM + NFO virtual library approach
+  - `/plex/configure` - HTML configuration page with setup guide and library export
+  - `/plex/stream/:addon/:encodedId` - Stream resolver endpoint (resolves best stream for Plex playback, returns 302 redirect)
+  - `/plex/export?addons=...&server=...` - Downloads ZIP file containing STRM + NFO files for Plex library
+  - `/plex/api/library?addons=...` - JSON API returning all catalog items (for custom sync scripts)
+- STRM files contain stream resolver URLs (no video stored); Plex fetches the URL on play, server resolves stream live
+- Stream selection priority: direct web-ready > proxied > embed (embed player URLs are excluded for Plex)
+- NFO files provide metadata (title, poster) in Kodi-compatible XML format that Plex reads via "Local Media Assets"
+- Dashboard has "Plex Bridge" button in header that opens `/plex/configure`
+
 ## Serverless Deployment
 - **Vercel**: `api/index.ts` and `api/[...path].ts` wrap Express via `buildApp()`. Sets `SERVERLESS=1` env var. Config in `vercel.json` with rewrites and CORS headers. Max function duration: 30s (requires Pro plan for >10s).
 - **Netlify**: `netlify/functions/api.ts` wraps Express via `serverless-http` and `buildApp()`. Sets `SERVERLESS=1` env var. Config in `netlify.toml` with redirects and headers.

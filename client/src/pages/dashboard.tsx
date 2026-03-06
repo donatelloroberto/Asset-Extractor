@@ -21,6 +21,7 @@ import {
   XCircle,
   Trash2,
   Settings,
+  MonitorPlay,
 } from "lucide-react";
 
 interface AddonInfo {
@@ -107,6 +108,17 @@ export default function Dashboard() {
               <p className="text-muted-foreground text-sm">
                 8 Cloudstream 3 extensions + Stash integration as Stremio add-ons
               </p>
+            </div>
+            <div className="ml-auto">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open(`${baseUrl}/plex/configure`, "_blank")}
+                data-testid="button-plex-bridge"
+              >
+                <MonitorPlay className="w-4 h-4 mr-2" />
+                Plex Bridge
+              </Button>
             </div>
           </div>
         </header>
