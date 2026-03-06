@@ -158,6 +158,7 @@ export function registerPlexRoutes(app: Express) {
     const html = `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Plex Bridge - Configuration</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100vh;display:flex;justify-content:center;padding:20px}
@@ -268,7 +269,7 @@ ${addonList}
 <p>1. Re-download the library ZIP from this page<br>
 2. Extract to the same folder (overwrite existing files)<br>
 3. Plex will automatically detect changes on its next scan</p>
-<p style="margin-top:8px;font-size:12px;color:#666">Tip: You can automate this with a cron job calling the <code>/plex/api/library</code> endpoint.</p>
+<p style="margin-top:8px;font-size:12px;color:#666">Tip: The ZIP is built in your browser — no server timeout limits. Each addon is fetched separately so even large catalogs work reliably.</p>
 </div>
 </div>
 
@@ -276,47 +277,113 @@ ${addonList}
 function getSelectedAddons(){
   return Array.from(document.querySelectorAll('input[name="addons"]:checked')).map(el=>el.value);
 }
+function escXml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function sanitize(n){return n.replace(/[<>:"/\\\\|?*\\x00-\\x1f]/g,'').replace(/\\s+/g,' ').trim().substring(0,200)||'Untitled';}
+function makeNfo(title,posterUrl){
+  let n='<?xml version="1.0" encoding="UTF-8"?>\\n<movie>\\n';
+  n+='  <title>'+escXml(title)+'</title>\\n';
+  if(posterUrl)n+='  <thumb aspect="poster">'+escXml(posterUrl)+'</thumb>\\n';
+  n+='</movie>\\n';
+  return n;
+}
+
+async function fetchPosterBlob(url){
+  try{const r=await fetch(url);if(!r.ok)return null;return await r.blob();}catch{return null;}
+}
 
 async function exportLibrary(){
-  const addons = getSelectedAddons();
-  if(addons.length===0){alert('Select at least one add-on');return;}
-  const server = document.getElementById('serverUrl').value.replace(/\\/+$/,'');
+  const addons=getSelectedAddons();
+  if(!addons.length){alert('Select at least one add-on');return;}
+  const server=document.getElementById('serverUrl').value.replace(/\\/+$/,'');
   if(!server){alert('Enter a server URL');return;}
-  const btn = document.getElementById('exportBtn');
-  const prog = document.getElementById('progress');
-  btn.disabled=true;
-  btn.textContent='Generating...';
+  const withPosters=document.getElementById('includePosters').checked;
+  const btn=document.getElementById('exportBtn');
+  const prog=document.getElementById('progress');
+  const pText=document.getElementById('progressText');
+  const pFill=document.getElementById('progressFill');
+  btn.disabled=true;btn.textContent='Generating...';
   prog.style.display='block';
-  const withPosters = document.getElementById('includePosters').checked;
-  document.getElementById('progressText').textContent=withPosters?'Fetching catalogs and downloading posters (this may take a few minutes)...':'Fetching catalogs...';
-  document.getElementById('progressFill').style.width='10%';
+  pFill.style.width='0%';
+
+  if(typeof JSZip==='undefined'){alert('JSZip library failed to load. Check your internet connection and try again.');btn.disabled=false;btn.textContent='Download Library (.zip)';prog.style.display='none';return;}
   try{
-    const url = server+'/plex/export?addons='+addons.join(',')+'&server='+encodeURIComponent(server)+'&posters='+(withPosters?'true':'false');
-    document.getElementById('progressFill').style.width='20%';
-    const resp = await fetch(url);
-    if(!resp.ok){const t=await resp.text().catch(()=>'');throw new Error(t||resp.statusText||'Server error '+resp.status);}
-    document.getElementById('progressText').textContent='Downloading ZIP...';
-    document.getElementById('progressFill').style.width='60%';
-    const blob = await resp.blob();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'plex-stremio-library.zip';
+    const zip=new JSZip();
+    let totalItems=0,totalPosters=0;
+    const skipped=[];
+
+    for(let ai=0;ai<addons.length;ai++){
+      const addonKey=addons[ai];
+      const pct=Math.round((ai/addons.length)*90);
+      pFill.style.width=pct+'%';
+      pText.textContent='Fetching '+addonKey+' ('+(ai+1)+'/'+addons.length+')...';
+
+      let data;
+      try{
+        const r=await fetch(server+'/plex/api/library/'+addonKey);
+        if(!r.ok){skipped.push(addonKey);pText.textContent=addonKey+' failed ('+r.status+'), continuing...';continue;}
+        data=await r.json();
+      }catch(e){skipped.push(addonKey);pText.textContent=addonKey+' failed: '+e.message+', continuing...';continue;}
+
+      const items=data.items||[];
+      pText.textContent='Building '+data.name+': '+items.length+' items'+(withPosters?' + posters':'')+'...';
+
+      for(let i=0;i<items.length;i++){
+        const item=items[i];
+        const idPart=item.id.replace(addonKey+':','');
+        const safe=sanitize(item.name);
+        const folder=data.name+'/'+safe;
+
+        zip.file(folder+'/'+safe+'.strm',server+'/plex/stream/'+addonKey+'/'+idPart);
+        const posterProxy=server+'/plex/poster/'+addonKey+'/'+idPart;
+        zip.file(folder+'/'+safe+'.nfo',makeNfo(item.name,posterProxy));
+        totalItems++;
+      }
+
+      if(withPosters&&items.length>0){
+        pText.textContent='Downloading posters for '+data.name+'...';
+        const PBATCH=15;
+        for(let pi=0;pi<items.length;pi+=PBATCH){
+          const batch=items.slice(pi,pi+PBATCH);
+          const blobs=await Promise.all(batch.map(it=>{
+            if(!it.poster)return Promise.resolve(null);
+            const idPart=it.id.replace(addonKey+':','');
+            return fetchPosterBlob(server+'/plex/poster/'+addonKey+'/'+idPart);
+          }));
+          for(let bi=0;bi<batch.length;bi++){
+            if(blobs[bi]){
+              const safe=sanitize(batch[bi].name);
+              zip.file(data.name+'/'+safe+'/poster.jpg',blobs[bi]);
+              totalPosters++;
+            }
+          }
+          const subPct=Math.round((ai/addons.length)*90+((pi+PBATCH)/items.length)*(90/addons.length));
+          pFill.style.width=Math.min(subPct,95)+'%';
+        }
+      }
+    }
+
+    pText.textContent='Compressing ZIP ('+totalItems+' items, '+totalPosters+' posters)...';
+    pFill.style.width='95%';
+    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:5}});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='plex-stremio-library.zip';
     a.click();
-    document.getElementById('progressFill').style.width='100%';
-    document.getElementById('progressText').textContent='Library downloaded! Extract to your Plex media folder.';
+    pFill.style.width='100%';
+    let msg='Done! '+totalItems+' items, '+totalPosters+' posters. Extract to your Plex media folder.';
+    if(skipped.length)msg+=' (Skipped: '+skipped.join(', ')+')';
+    pText.textContent=msg;
   }catch(e){
     alert('Export failed: '+e.message);
     prog.style.display='none';
   }
-  btn.disabled=false;
-  btn.textContent='Download Library (.zip)';
+  btn.disabled=false;btn.textContent='Download Library (.zip)';
 }
 
 function copyStreamUrl(){
-  const server = document.getElementById('serverUrl').value.replace(/\\/+$/,'');
-  const url = server+'/plex/stream/gxtapes/test';
-  navigator.clipboard.writeText(url);
-  alert('Stream resolver URL copied. Use this pattern in your STRM files.');
+  const server=document.getElementById('serverUrl').value.replace(/\\/+$/,'');
+  navigator.clipboard.writeText(server+'/plex/stream/gxtapes/test');
+  alert('Stream resolver URL pattern copied.');
 }
 </script>
 </body></html>`;
@@ -352,36 +419,45 @@ function copyStreamUrl(){
     }
   });
 
-  app.get("/plex/api/library", async (req: Request, res: Response) => {
-    const addonKeys = (req.query.addons as string || Object.keys(ADDON_REGISTRY).join(","))
-      .split(",")
-      .filter((k) => k in ADDON_REGISTRY);
+  app.get("/plex/api/addons", (_req: Request, res: Response) => {
+    const addons = Object.entries(ADDON_REGISTRY).map(([key, a]) => ({
+      key,
+      name: a.name,
+      catalogs: Object.keys(a.catalogMap).length,
+    }));
+    res.json({ addons });
+  });
 
-    const result: Record<string, { name: string; items: CatalogItem[] }> = {};
+  app.get("/plex/api/library/:addon", async (req: Request, res: Response) => {
+    const addonKey = req.params.addon;
+    const addonDef = ADDON_REGISTRY[addonKey];
+    if (!addonDef) {
+      return res.status(404).json({ error: "Unknown addon" });
+    }
 
-    for (const key of addonKeys) {
-      const addon = ADDON_REGISTRY[key];
-      const allItems: CatalogItem[] = [];
-      const seen = new Set<string>();
+    const catalogIds = Object.keys(addonDef.catalogMap);
+    const PARALLEL = 8;
+    const seen = new Set<string>();
+    const allItems: CatalogItem[] = [];
 
-      for (const catalogId of Object.keys(addon.catalogMap)) {
-        try {
-          const items = await addon.getCatalog(catalogId, 0);
-          for (const item of items) {
+    for (let i = 0; i < catalogIds.length; i += PARALLEL) {
+      const batch = catalogIds.slice(i, i + PARALLEL);
+      const results = await Promise.allSettled(
+        batch.map((cid) => addonDef.getCatalog(cid, 0)),
+      );
+      for (const result of results) {
+        if (result.status === "fulfilled") {
+          for (const item of result.value) {
             if (!seen.has(item.id)) {
               seen.add(item.id);
               allItems.push(item);
             }
           }
-        } catch {
-          continue;
         }
       }
-
-      result[key] = { name: addon.name, items: allItems };
     }
 
-    res.json(result);
+    res.json({ name: addonDef.name, prefix: addonKey, items: allItems });
   });
 
   app.get("/plex/poster/:addon/:encodedId", async (req: Request, res: Response) => {

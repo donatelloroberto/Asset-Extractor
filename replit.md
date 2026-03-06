@@ -157,16 +157,15 @@ Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nu
 
 ### Plex Bridge
 - `server/plex/routes.ts` - Plex Media Server integration: STRM + NFO virtual library approach
-  - `/plex/configure` - HTML configuration page with setup guide and library export
+  - `/plex/configure` - HTML configuration page with setup guide and library export (client-side ZIP generation using JSZip)
   - `/plex/stream/:addon/:encodedId` - Stream resolver endpoint (resolves best stream for Plex playback, returns 302 redirect)
-  - `/plex/export?addons=...&server=...` - Downloads ZIP file containing STRM + NFO files for Plex library
-  - `/plex/api/library?addons=...` - JSON API returning all catalog items (for custom sync scripts)
+  - `/plex/api/addons` - JSON list of available addons with catalog counts
+  - `/plex/api/library/:addon` - JSON API returning catalog items for a single addon (8-way parallel catalog fetching)
   - `/plex/poster/:addon/:encodedId` - Poster image proxy (fetches from source, serves to Plex with caching)
+- **Client-side ZIP generation**: The configure page loads JSZip from CDN and builds the ZIP entirely in the browser. Each addon is fetched separately via `/plex/api/library/:addon`, avoiding serverless timeout limits. Poster images downloaded through the poster proxy endpoint (same-origin, no CORS issues). Progress shown per-addon with skipped addon reporting.
 - STRM files contain stream resolver URLs (no video stored); Plex fetches the URL on play, server resolves stream live
 - Stream selection priority (scored): direct web-ready (4) > direct non-web-ready (3) > proxied web-ready (2) > proxied (1); embed player URLs excluded
 - NFO files provide metadata (title, poster proxy URL) in Kodi-compatible XML format
-- Export includes `poster.jpg` files downloaded from source sites (20 concurrent downloads per batch) for reliable Plex poster display
-- `?posters=false` query param on export endpoint skips poster downloads for faster export
 - Dashboard has "Plex Bridge" button in header that opens `/plex/configure`
 
 ## Serverless Deployment
