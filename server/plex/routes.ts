@@ -292,9 +292,11 @@ async function exportLibrary(){
   document.getElementById('progressFill').style.width='10%';
   try{
     const url = server+'/plex/export?addons='+addons.join(',')+'&server='+encodeURIComponent(server)+'&posters='+(withPosters?'true':'false');
+    document.getElementById('progressFill').style.width='20%';
     const resp = await fetch(url);
-    if(!resp.ok) throw new Error('Export failed: '+resp.statusText);
-    document.getElementById('progressFill').style.width='90%';
+    if(!resp.ok){const t=await resp.text().catch(()=>'');throw new Error(t||resp.statusText||'Server error '+resp.status);}
+    document.getElementById('progressText').textContent='Downloading ZIP...';
+    document.getElementById('progressFill').style.width='60%';
     const blob = await resp.blob();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -420,34 +422,6 @@ function copyStreamUrl(){
 
     log(`Plex export: generating library for ${addonKeys.join(", ")} (posters: ${includePosters})`, "plex");
 
-    interface ExportItem {
-      item: CatalogItem;
-      addonKey: string;
-      addonName: string;
-    }
-    const allItems: ExportItem[] = [];
-
-    for (const addonKey of addonKeys) {
-      const addon = ADDON_REGISTRY[addonKey];
-      const seen = new Set<string>();
-
-      for (const catalogId of Object.keys(addon.catalogMap)) {
-        try {
-          const items = await addon.getCatalog(catalogId, 0);
-          for (const item of items) {
-            if (!seen.has(item.id)) {
-              seen.add(item.id);
-              allItems.push({ item, addonKey, addonName: addon.name });
-            }
-          }
-        } catch (err: any) {
-          log(`Plex export: catalog ${catalogId} failed: ${err.message}`, "plex");
-        }
-      }
-    }
-
-    log(`Plex export: collected ${allItems.length} items, building ZIP...`, "plex");
-
     res.setHeader("Content-Type", "application/zip");
     res.setHeader("Content-Disposition", 'attachment; filename="plex-stremio-library.zip"');
 
@@ -462,9 +436,9 @@ function copyStreamUrl(){
       try {
         const resp = await axios.get(url, {
           responseType: "arraybuffer",
-          timeout: 8000,
+          timeout: 6000,
           headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
-          maxContentLength: 5 * 1024 * 1024,
+          maxContentLength: 2 * 1024 * 1024,
         });
         return Buffer.from(resp.data);
       } catch {
@@ -472,42 +446,70 @@ function copyStreamUrl(){
       }
     }
 
-    const BATCH_SIZE = 20;
+    const globalSeen = new Set<string>();
+    let totalItems = 0;
     let posterCount = 0;
 
-    for (let i = 0; i < allItems.length; i += BATCH_SIZE) {
-      const batch = allItems.slice(i, i + BATCH_SIZE);
+    for (const addonKey of addonKeys) {
+      const addon = ADDON_REGISTRY[addonKey];
+      const catalogIds = Object.keys(addon.catalogMap);
 
-      let posters: (Buffer | null)[] = [];
-      if (includePosters) {
-        posters = await Promise.all(
-          batch.map((entry) =>
-            entry.item.poster ? downloadPoster(entry.item.poster) : Promise.resolve(null),
-          ),
+      const CATALOG_BATCH = 5;
+      for (let ci = 0; ci < catalogIds.length; ci += CATALOG_BATCH) {
+        const catalogBatch = catalogIds.slice(ci, ci + CATALOG_BATCH);
+        const catalogResults = await Promise.allSettled(
+          catalogBatch.map((cid) => addon.getCatalog(cid, 0)),
         );
-      }
 
-      for (let j = 0; j < batch.length; j++) {
-        const { item, addonKey, addonName } = batch[j];
-        const idPart = item.id.replace(`${addonKey}:`, "");
-        const safeName = sanitizeFilename(item.name);
-        const folderPath = `${addonName}/${safeName}`;
+        const batchItems: CatalogItem[] = [];
+        for (const result of catalogResults) {
+          if (result.status === "fulfilled") {
+            for (const item of result.value) {
+              if (!globalSeen.has(item.id)) {
+                globalSeen.add(item.id);
+                batchItems.push(item);
+              }
+            }
+          }
+        }
 
-        const strmUrl = `${serverUrl}/plex/stream/${addonKey}/${idPart}`;
-        archive.append(strmUrl, { name: `${folderPath}/${safeName}.strm` });
+        let posters: (Buffer | null)[] = [];
+        if (includePosters && batchItems.length > 0) {
+          posters = await Promise.all(
+            batchItems.map((item) =>
+              item.poster ? downloadPoster(item.poster) : Promise.resolve(null),
+            ),
+          );
+        }
 
-        const posterProxyUrl = `${serverUrl}/plex/poster/${addonKey}/${idPart}`;
-        const nfo = generateNfo(item.name, posterProxyUrl, undefined);
-        archive.append(nfo, { name: `${folderPath}/${safeName}.nfo` });
+        for (let j = 0; j < batchItems.length; j++) {
+          const item = batchItems[j];
+          const idPart = item.id.replace(`${addonKey}:`, "");
+          const safeName = sanitizeFilename(item.name);
+          const folderPath = `${addon.name}/${safeName}`;
 
-        if (posters[j]) {
-          archive.append(posters[j]!, { name: `${folderPath}/poster.jpg` });
-          posterCount++;
+          archive.append(`${serverUrl}/plex/stream/${addonKey}/${idPart}`, {
+            name: `${folderPath}/${safeName}.strm`,
+          });
+
+          const posterProxyUrl = `${serverUrl}/plex/poster/${addonKey}/${idPart}`;
+          archive.append(generateNfo(item.name, posterProxyUrl, undefined), {
+            name: `${folderPath}/${safeName}.nfo`,
+          });
+
+          if (posters[j]) {
+            archive.append(posters[j]!, { name: `${folderPath}/poster.jpg` });
+            posterCount++;
+          }
+
+          totalItems++;
         }
       }
+
+      log(`Plex export: ${addon.name} done (${totalItems} items so far)`, "plex");
     }
 
     await archive.finalize();
-    log(`Plex export: completed — ${allItems.length} items, ${posterCount} posters`, "plex");
+    log(`Plex export: completed — ${totalItems} items, ${posterCount} posters`, "plex");
   });
 }
