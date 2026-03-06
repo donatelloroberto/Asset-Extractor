@@ -1,5 +1,6 @@
 import type { Express, Request, Response } from "express";
 import archiver from "archiver";
+import axios from "axios";
 import { log } from "../logger.js";
 
 import { CATALOG_MAP } from "../stremio/manifest.js";
@@ -225,6 +226,7 @@ ${addonList}
 </div>
 
 <div class="actions">
+<label class="addon-item" style="margin-bottom:12px"><input type="checkbox" id="includePosters" checked> Include poster images <span class="count">recommended for Plex</span></label>
 <button class="btn-primary" id="exportBtn" onclick="exportLibrary()">Download Library (.zip)</button>
 <button class="btn-secondary" onclick="copyStreamUrl()">Copy Stream Test URL</button>
 </div>
@@ -236,7 +238,7 @@ ${addonList}
 </div>
 
 <h2>Setup Guide</h2>
-<div class="step"><div class="step-num">1</div><div class="step-content"><h3>Download the Library</h3><p>Select your add-ons above and click "Download Library". This generates a ZIP with <code>.strm</code> and <code>.nfo</code> files.</p></div></div>
+<div class="step"><div class="step-num">1</div><div class="step-content"><h3>Download the Library</h3><p>Select your add-ons above and click "Download Library". This generates a ZIP with <code>.strm</code>, <code>.nfo</code>, and <code>poster.jpg</code> files. Poster download may take a few minutes for large libraries.</p></div></div>
 <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Extract to a Folder</h3><p>Extract the ZIP to a folder on the machine running Plex Media Server. Example: <code>/media/stremio-library/</code></p></div></div>
 <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Add Library in Plex</h3><p>Open Plex &rarr; Settings &rarr; Libraries &rarr; Add Library. Choose "Other Videos" or "Movies". Point it to your extracted folder.</p></div></div>
 <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Configure Metadata Agent</h3><p>In the library's Advanced settings, set the scanner to "Plex Video Files Scanner" and agent to "Personal Media". Enable "Local Media Assets" so Plex reads the <code>.nfo</code> files for titles and posters.</p></div></div>
@@ -285,10 +287,11 @@ async function exportLibrary(){
   btn.disabled=true;
   btn.textContent='Generating...';
   prog.style.display='block';
-  document.getElementById('progressText').textContent='Fetching catalogs and generating library...';
-  document.getElementById('progressFill').style.width='30%';
+  const withPosters = document.getElementById('includePosters').checked;
+  document.getElementById('progressText').textContent=withPosters?'Fetching catalogs and downloading posters (this may take a few minutes)...':'Fetching catalogs...';
+  document.getElementById('progressFill').style.width='10%';
   try{
-    const url = server+'/plex/export?addons='+addons.join(',')+'&server='+encodeURIComponent(server);
+    const url = server+'/plex/export?addons='+addons.join(',')+'&server='+encodeURIComponent(server)+'&posters='+(withPosters?'true':'false');
     const resp = await fetch(url);
     if(!resp.ok) throw new Error('Export failed: '+resp.statusText);
     document.getElementById('progressFill').style.width='90%';
@@ -379,17 +382,71 @@ function copyStreamUrl(){
     res.json(result);
   });
 
+  app.get("/plex/poster/:addon/:encodedId", async (req: Request, res: Response) => {
+    const { addon, encodedId } = req.params;
+    const addonDef = ADDON_REGISTRY[addon];
+    if (!addonDef) return res.status(404).send("Unknown addon");
+
+    const fullId = `${addon}:${encodedId}`;
+    try {
+      const meta = await addonDef.getMeta(fullId);
+      const posterUrl = meta?.poster || meta?.background;
+      if (!posterUrl) return res.status(404).send("No poster");
+
+      const imgResp = await axios.get(posterUrl, {
+        responseType: "stream",
+        timeout: 10000,
+        headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
+      });
+      const ct = imgResp.headers["content-type"] || "image/jpeg";
+      res.setHeader("Content-Type", ct);
+      res.setHeader("Cache-Control", "public, max-age=86400");
+      imgResp.data.pipe(res);
+    } catch {
+      res.status(502).send("Poster fetch failed");
+    }
+  });
+
   app.get("/plex/export", async (req: Request, res: Response) => {
     const addonKeys = (req.query.addons as string || Object.keys(ADDON_REGISTRY).join(","))
       .split(",")
       .filter((k) => k in ADDON_REGISTRY);
     const serverUrl = (req.query.server as string || getRequestBaseUrl(req)).replace(/\/+$/, "");
+    const includePosters = req.query.posters !== "false";
 
     if (addonKeys.length === 0) {
       return res.status(400).json({ error: "No valid addons specified" });
     }
 
-    log(`Plex export: generating library for ${addonKeys.join(", ")}`, "plex");
+    log(`Plex export: generating library for ${addonKeys.join(", ")} (posters: ${includePosters})`, "plex");
+
+    interface ExportItem {
+      item: CatalogItem;
+      addonKey: string;
+      addonName: string;
+    }
+    const allItems: ExportItem[] = [];
+
+    for (const addonKey of addonKeys) {
+      const addon = ADDON_REGISTRY[addonKey];
+      const seen = new Set<string>();
+
+      for (const catalogId of Object.keys(addon.catalogMap)) {
+        try {
+          const items = await addon.getCatalog(catalogId, 0);
+          for (const item of items) {
+            if (!seen.has(item.id)) {
+              seen.add(item.id);
+              allItems.push({ item, addonKey, addonName: addon.name });
+            }
+          }
+        } catch (err: any) {
+          log(`Plex export: catalog ${catalogId} failed: ${err.message}`, "plex");
+        }
+      }
+    }
+
+    log(`Plex export: collected ${allItems.length} items, building ZIP...`, "plex");
 
     res.setHeader("Content-Type", "application/zip");
     res.setHeader("Content-Disposition", 'attachment; filename="plex-stremio-library.zip"');
@@ -399,42 +456,58 @@ function copyStreamUrl(){
 
     archive.on("error", (err: Error) => {
       log(`Plex export error: ${err.message}`, "plex");
-      if (!res.headersSent) {
-        res.status(500).json({ error: "Export failed" });
-      }
     });
 
-    for (const addonKey of addonKeys) {
-      const addon = ADDON_REGISTRY[addonKey];
-      const seen = new Set<string>();
-      const catalogIds = Object.keys(addon.catalogMap);
+    async function downloadPoster(url: string): Promise<Buffer | null> {
+      try {
+        const resp = await axios.get(url, {
+          responseType: "arraybuffer",
+          timeout: 8000,
+          headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
+          maxContentLength: 5 * 1024 * 1024,
+        });
+        return Buffer.from(resp.data);
+      } catch {
+        return null;
+      }
+    }
 
-      for (const catalogId of catalogIds) {
-        try {
-          const items = await addon.getCatalog(catalogId, 0);
+    const BATCH_SIZE = 20;
+    let posterCount = 0;
 
-          for (const item of items) {
-            if (seen.has(item.id)) continue;
-            seen.add(item.id);
+    for (let i = 0; i < allItems.length; i += BATCH_SIZE) {
+      const batch = allItems.slice(i, i + BATCH_SIZE);
 
-            const idPart = item.id.replace(`${addonKey}:`, "");
-            const safeName = sanitizeFilename(item.name);
-            const folderPath = `${addon.name}/${safeName}`;
+      let posters: (Buffer | null)[] = [];
+      if (includePosters) {
+        posters = await Promise.all(
+          batch.map((entry) =>
+            entry.item.poster ? downloadPoster(entry.item.poster) : Promise.resolve(null),
+          ),
+        );
+      }
 
-            const strmUrl = `${serverUrl}/plex/stream/${addonKey}/${idPart}`;
-            archive.append(strmUrl, { name: `${folderPath}/${safeName}.strm` });
+      for (let j = 0; j < batch.length; j++) {
+        const { item, addonKey, addonName } = batch[j];
+        const idPart = item.id.replace(`${addonKey}:`, "");
+        const safeName = sanitizeFilename(item.name);
+        const folderPath = `${addonName}/${safeName}`;
 
-            const nfo = generateNfo(item.name, item.poster);
-            archive.append(nfo, { name: `${folderPath}/${safeName}.nfo` });
-          }
-        } catch (err: any) {
-          log(`Plex export: catalog ${catalogId} failed: ${err.message}`, "plex");
-          continue;
+        const strmUrl = `${serverUrl}/plex/stream/${addonKey}/${idPart}`;
+        archive.append(strmUrl, { name: `${folderPath}/${safeName}.strm` });
+
+        const posterProxyUrl = `${serverUrl}/plex/poster/${addonKey}/${idPart}`;
+        const nfo = generateNfo(item.name, posterProxyUrl, undefined);
+        archive.append(nfo, { name: `${folderPath}/${safeName}.nfo` });
+
+        if (posters[j]) {
+          archive.append(posters[j]!, { name: `${folderPath}/poster.jpg` });
+          posterCount++;
         }
       }
     }
 
     await archive.finalize();
-    log(`Plex export: completed`, "plex");
+    log(`Plex export: completed — ${allItems.length} items, ${posterCount} posters`, "plex");
   });
 }

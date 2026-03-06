@@ -161,9 +161,12 @@ Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nu
   - `/plex/stream/:addon/:encodedId` - Stream resolver endpoint (resolves best stream for Plex playback, returns 302 redirect)
   - `/plex/export?addons=...&server=...` - Downloads ZIP file containing STRM + NFO files for Plex library
   - `/plex/api/library?addons=...` - JSON API returning all catalog items (for custom sync scripts)
+  - `/plex/poster/:addon/:encodedId` - Poster image proxy (fetches from source, serves to Plex with caching)
 - STRM files contain stream resolver URLs (no video stored); Plex fetches the URL on play, server resolves stream live
-- Stream selection priority: direct web-ready > proxied > embed (embed player URLs are excluded for Plex)
-- NFO files provide metadata (title, poster) in Kodi-compatible XML format that Plex reads via "Local Media Assets"
+- Stream selection priority (scored): direct web-ready (4) > direct non-web-ready (3) > proxied web-ready (2) > proxied (1); embed player URLs excluded
+- NFO files provide metadata (title, poster proxy URL) in Kodi-compatible XML format
+- Export includes `poster.jpg` files downloaded from source sites (20 concurrent downloads per batch) for reliable Plex poster display
+- `?posters=false` query param on export endpoint skips poster downloads for faster export
 - Dashboard has "Plex Bridge" button in header that opens `/plex/configure`
 
 ## Serverless Deployment
