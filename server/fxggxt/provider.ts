@@ -24,8 +24,10 @@ function parseArticles($: cheerio.CheerioAPI): CatalogItem[] {
     const aTag = $el.find("a").first();
     const href = aTag.attr("href");
     const title = aTag.find("header.entry-header span").text().trim() || "No Title";
-    const poster = $el.find(".post-thumbnail-container img").attr("data-src")
+    const posterRaw = $el.find(".post-thumbnail-container img").attr("data-lazy-src")
+      || $el.find(".post-thumbnail-container img").attr("data-src")
       || $el.find(".post-thumbnail-container img").attr("src");
+    const poster = posterRaw && !posterRaw.startsWith("data:") ? posterRaw : undefined;
 
     if (href && title) {
       const fullUrl = fixUrl(href);
