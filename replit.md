@@ -159,7 +159,7 @@ Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nu
   - Responds to Stremio commands: `load`, `unload`, `destroy`, `setProp`, `observeProp`
   - Reports all video properties: `paused`, `time`, `duration`, `buffering`, `buffered`, `volume`, `muted`, `playbackSpeed`
   - Keyboard shortcuts: Space/K=play/pause, Arrow keys=seek/volume, M=mute, F=fullscreen
-- **Stream mapping strategy**: When `baseUrl` is available, streams that would be `notWebReady` or `externalUrl` are instead mapped to use `playerFrameUrl` pointing to `/stremio-player`. The actual stream URL is passed via `stremioPlayerUrl` property. This makes Stremio use its `IFrameVideo` implementation, which embeds the player frame inside Stremio's native player UI.
+- **Stream mapping strategy**: When `baseUrl` is available, streams that would be `notWebReady` or `externalUrl` are instead mapped to use `playerFrameUrl` pointing to `/stremio-player?v=<base64url-encoded-video-url>`. The video URL is self-contained in the query string (not reliant on Stremio passing custom properties via postMessage, since Stremio Web strips unknown stream properties). This makes Stremio use its `IFrameVideo` implementation, which embeds the player frame inside Stremio's native player UI.
 - **Result**: ALL streams play inside Stremio's player — no external browser window, no "not web ready" errors. M3U8 streams play via HLS.js, MP4 streams play via proxy, embed players render in nested iframe.
 
 ### Stream Proxy

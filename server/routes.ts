@@ -1337,21 +1337,29 @@ video{width:100%;height:100%;background:#000}
     document.body.appendChild(iframe);
   }
 
+  function getUrlFromQueryParams() {
+    var params = new URLSearchParams(window.location.search);
+    var v = params.get('v');
+    if (!v) return null;
+    try { return atob(v.replace(/-/g,'+').replace(/_/g,'/')); } catch(e) { return null; }
+  }
+
   function handleCommand(name, args) {
     switch(name) {
       case 'load':
-        if (args && args.stream) {
-          var url = args.stream.stremioPlayerUrl || args.stream.url;
-          var isEmbed = url && (url.indexOf('/api/player') !== -1);
+        var url = getUrlFromQueryParams();
+        if (!url && args && args.stream) {
+          url = args.stream.stremioPlayerUrl || args.stream.url;
+        }
+        if (url) {
+          var isEmbed = url.indexOf('/api/player') !== -1;
           if (isEmbed) {
             loadEmbed(url);
-          } else if (url) {
-            loadUrl(url, args.autoplay !== false, args.time || 0);
           } else {
-            emit('error', { error: 'STREAM_ERROR', message: 'No valid stream URL provided' });
+            loadUrl(url, (!args || args.autoplay !== false), (args && args.time) || 0);
           }
         } else {
-          emit('error', { error: 'STREAM_ERROR', message: 'No stream data in load command' });
+          emit('error', { error: 'STREAM_ERROR', message: 'No valid stream URL provided' });
         }
         break;
       case 'unload':

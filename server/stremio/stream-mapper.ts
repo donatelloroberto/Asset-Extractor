@@ -29,8 +29,8 @@ function buildEmbedPlayerUrl(baseUrl: string, embedUrl: string, name: string): s
   return `${baseUrl}/api/player?url=${toBase64Url(embedUrl)}&name=${encodeURIComponent(name)}`;
 }
 
-function buildStremioPlayerFrameUrl(baseUrl: string): string {
-  return `${baseUrl}/stremio-player`;
+function buildStremioPlayerFrameUrl(baseUrl: string, videoUrl: string): string {
+  return `${baseUrl}/stremio-player?v=${toBase64Url(videoUrl)}`;
 }
 
 async function resolveWithCache(url: string, referer?: string): Promise<ResolvedStream> {
@@ -53,8 +53,7 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
         return {
           name: s.name.replace(" (Browser)", ""),
           title: s.title || `${s.name.replace(" (Browser)", "")} - Embed Player`,
-          playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl),
-          stremioPlayerUrl: embedPlayerUrl,
+          playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl, embedPlayerUrl),
           behaviorHints: {
             notWebReady: false,
             bingeGroup: "embed-player",
@@ -97,8 +96,7 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
       return {
         name: s.name,
         title: s.title || (s.quality ? `${s.name} - ${s.quality}` : s.name),
-        playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl),
-        stremioPlayerUrl: finalUrl,
+        playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl, finalUrl),
         behaviorHints: hints,
       };
     } else if (resolved.type === "mp4" && baseUrl) {
@@ -123,8 +121,7 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
       return {
         name: s.name,
         title: s.title || (s.quality ? `${s.name} - ${s.quality}` : s.name),
-        playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl),
-        stremioPlayerUrl: finalUrl,
+        playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl, finalUrl),
         behaviorHints: { notWebReady: false },
       };
     }
