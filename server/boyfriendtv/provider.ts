@@ -23,7 +23,8 @@ function parseItems($: cheerio.CheerioAPI): CatalogItem[] {
     const $el = $(el);
     const title = $el.find("p.titlevideospot a").text().trim();
     const href = $el.find("a").first().attr("href");
-    const poster = $el.find("img").attr("src");
+    const posterRaw = $el.find("img").attr("data-lazy-src") || $el.find("img").attr("data-src") || $el.find("img").attr("src");
+    const poster = posterRaw && !posterRaw.startsWith("data:") ? posterRaw : undefined;
 
     if (href && title) {
       const fullUrl = fixUrl(href);

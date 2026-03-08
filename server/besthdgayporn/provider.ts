@@ -26,8 +26,13 @@ function parseItems($: cheerio.CheerioAPI): CatalogItem[] {
     const href = $el.find("a.aiovg-responsive-container").attr("href")
       || $el.find("a.aiovg-link-title").attr("href")
       || $el.find("a").first().attr("href");
-    const poster = $el.find("img.aiovg-responsive-element").attr("src")
+    const posterRaw = $el.find("img.aiovg-responsive-element").attr("data-lazy-src")
+      || $el.find("img.aiovg-responsive-element").attr("data-src")
+      || $el.find("img.aiovg-responsive-element").attr("src")
+      || $el.find("img").attr("data-lazy-src")
+      || $el.find("img").attr("data-src")
       || $el.find("img").attr("src");
+    const poster = posterRaw && !posterRaw.startsWith("data:") ? posterRaw : undefined;
 
     if (href && title) {
       const fullUrl = fixUrl(href);

@@ -52,7 +52,8 @@ export async function getCatalog(catalogId: string, skip: number = 0): Promise<C
       const $el = $(el);
       const title = $el.find("img").attr("title") || $el.find("img").attr("alt") || "";
       const href = $el.find("a").attr("href");
-      const poster = $el.find("img").attr("src");
+      const posterRaw = $el.find("img").attr("data-lazy-src") || $el.find("img").attr("data-src") || $el.find("img").attr("src");
+      const poster = posterRaw && !posterRaw.startsWith("data:") ? posterRaw : undefined;
 
       if (href && title) {
         const fullUrl = fixUrl(href);
@@ -95,7 +96,8 @@ export async function searchContent(query: string, skip: number = 0): Promise<Ca
         const $el = $(el);
         const title = $el.find("img").attr("title") || $el.find("img").attr("alt") || "";
         const href = $el.find("a").attr("href");
-        const poster = $el.find("img").attr("src");
+        const posterRaw = $el.find("img").attr("data-lazy-src") || $el.find("img").attr("data-src") || $el.find("img").attr("src");
+        const poster = posterRaw && !posterRaw.startsWith("data:") ? posterRaw : undefined;
 
         if (href && title) {
           const fullUrl = fixUrl(href);
