@@ -34,6 +34,10 @@ function getRequestBaseUrl(req: any): string {
   return `${protocol}://${host}`;
 }
 
+function toBase64Url(input: string): string {
+  return Buffer.from(input).toString("base64url");
+}
+
 function decodeBase64Param(value: string): string {
   try {
     return Buffer.from(value, "base64url").toString("utf-8");
@@ -1148,6 +1152,329 @@ try{if(window.opener||window.parent!==window){}}catch(e){}
     } catch (err: any) {
       log(`Player error: ${err.message}`, "stremio");
       return res.status(500).send("Player error");
+    }
+  });
+
+  app.get("/stremio-player", (_req, res) => {
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stremio Player</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js"><\/script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#000;overflow:hidden}
+video{width:100%;height:100%;background:#000}
+#status{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-family:system-ui,sans-serif;font-size:16px;text-align:center;z-index:10;pointer-events:none;opacity:0;transition:opacity 0.3s}
+#status.visible{opacity:1}
+</style>
+</head>
+<body>
+<video id="v" playsinline></video>
+<div id="status"></div>
+<script>
+(function(){
+  var video = document.getElementById('v');
+  var statusEl = document.getElementById('status');
+  var hls = null;
+  var observedProps = {};
+  var loaded = false;
+  var statusTimer = null;
+
+  function showStatus(msg) {
+    statusEl.textContent = msg;
+    statusEl.classList.add('visible');
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(function(){ statusEl.classList.remove('visible'); }, 3000);
+  }
+
+  function emit(eventName) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    try {
+      window.parent.postMessage({ event: eventName, args: args }, '*');
+    } catch(e) {}
+  }
+
+  function emitProp(name, value) {
+    if (observedProps[name]) {
+      emit('propChanged', name, value);
+    }
+  }
+
+  function getPropValue(name) {
+    switch(name) {
+      case 'stream': return loaded ? {} : null;
+      case 'loaded': return loaded;
+      case 'paused': return loaded ? video.paused : null;
+      case 'time': return loaded ? Math.round(video.currentTime * 1000) : null;
+      case 'duration': return loaded ? Math.round(video.duration * 1000) : null;
+      case 'buffering': return loaded ? video.readyState < 3 : null;
+      case 'buffered': {
+        if (!loaded || !video.buffered.length) return null;
+        var end = video.buffered.end(video.buffered.length - 1);
+        return Math.round(end * 1000);
+      }
+      case 'volume': return Math.round(video.volume * 100);
+      case 'muted': return video.muted;
+      case 'playbackSpeed': return video.playbackRate;
+      case 'subtitlesTracks': return [];
+      case 'selectedSubtitlesTrackId': return null;
+      case 'audioTracks': return [];
+      case 'selectedAudioTrackId': return null;
+      default: return null;
+    }
+  }
+
+  video.onplay = function(){ emitProp('paused', false); };
+  video.onpause = function(){ emitProp('paused', true); };
+  video.ontimeupdate = function(){
+    emitProp('time', Math.round(video.currentTime * 1000));
+    emitProp('buffered', getPropValue('buffered'));
+  };
+  video.ondurationchange = function(){ emitProp('duration', Math.round(video.duration * 1000)); };
+  video.onwaiting = function(){ emitProp('buffering', true); };
+  video.onplaying = function(){ emitProp('buffering', false); };
+  video.oncanplay = function(){ emitProp('buffering', false); };
+  video.onvolumechange = function(){ emitProp('volume', Math.round(video.volume * 100)); emitProp('muted', video.muted); };
+  video.onratechange = function(){ emitProp('playbackSpeed', video.playbackRate); };
+  video.onended = function(){ emit('ended'); };
+  video.onerror = function(){
+    var msg = 'Playback error';
+    if (video.error) msg += ': ' + (video.error.message || 'code ' + video.error.code);
+    emit('error', { code: 1000, message: msg, critical: true });
+  };
+  video.onloadedmetadata = function(){
+    loaded = true;
+    emitProp('stream', {});
+    emitProp('loaded', true);
+    emitProp('duration', Math.round(video.duration * 1000));
+    emitProp('paused', video.paused);
+    emitProp('volume', Math.round(video.volume * 100));
+    emitProp('muted', video.muted);
+    emitProp('buffering', false);
+    emit('implementationChanged', { name: 'StremioPlayer', props: Object.keys(observedProps) });
+    statusEl.classList.remove('visible');
+  };
+
+  function destroyHls() {
+    if (hls) { try { hls.destroy(); } catch(e){} hls = null; }
+  }
+
+  function loadUrl(url, autoplay, startTime) {
+    destroyHls();
+    loaded = false;
+    showStatus('Loading...');
+
+    var isHls = url.indexOf('.m3u8') !== -1 || url.indexOf('m3u8') !== -1 || url.indexOf('/proxy/m3u8') !== -1;
+
+    if (isHls && typeof Hls !== 'undefined' && Hls.isSupported()) {
+      hls = new Hls({
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+        enableWorker: true,
+        xhrSetup: function(xhr) {
+          xhr.withCredentials = false;
+        }
+      });
+      hls.on(Hls.Events.ERROR, function(_, data) {
+        if (data.fatal) {
+          if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+            showStatus('Network error, retrying...');
+            hls.startLoad();
+          } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+            showStatus('Media error, recovering...');
+            hls.recoverMediaError();
+          } else {
+            emit('error', { code: 1001, message: 'HLS fatal error: ' + data.details, critical: true });
+          }
+        }
+      });
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        if (startTime > 0) video.currentTime = startTime / 1000;
+        if (autoplay) video.play().catch(function(){});
+      });
+    } else if (isHls && video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = url;
+      video.addEventListener('loadedmetadata', function onMeta() {
+        video.removeEventListener('loadedmetadata', onMeta);
+        if (startTime > 0) video.currentTime = startTime / 1000;
+        if (autoplay) video.play().catch(function(){});
+      });
+    } else {
+      video.src = url;
+      video.addEventListener('loadedmetadata', function onMeta() {
+        video.removeEventListener('loadedmetadata', onMeta);
+        if (startTime > 0) video.currentTime = startTime / 1000;
+        if (autoplay) video.play().catch(function(){});
+      });
+    }
+  }
+
+  function loadEmbed(embedUrl) {
+    loaded = false;
+    showStatus('Loading embed player...');
+    video.style.display = 'none';
+    var iframe = document.createElement('iframe');
+    iframe.id = 'embed-frame';
+    iframe.style.cssText = 'width:100%;height:100%;border:none;position:absolute;top:0;left:0;background:#000';
+    iframe.allow = 'autoplay;fullscreen;encrypted-media;picture-in-picture';
+    iframe.sandbox = 'allow-scripts allow-same-origin allow-popups allow-presentation';
+    iframe.allowFullscreen = true;
+    iframe.src = embedUrl;
+    iframe.onload = function() {
+      statusEl.classList.remove('visible');
+      loaded = true;
+      emitProp('stream', {});
+      emitProp('loaded', true);
+      emitProp('paused', false);
+      emitProp('buffering', false);
+      emit('implementationChanged', { name: 'StremioPlayer', props: Object.keys(observedProps) });
+    };
+    document.body.appendChild(iframe);
+  }
+
+  function handleCommand(name, args) {
+    switch(name) {
+      case 'load':
+        if (args && args.stream) {
+          var url = args.stream.stremioPlayerUrl || args.stream.url;
+          var isEmbed = url && (url.indexOf('/api/player') !== -1);
+          if (isEmbed) {
+            loadEmbed(url);
+          } else if (url) {
+            loadUrl(url, args.autoplay !== false, args.time || 0);
+          } else {
+            emit('error', { error: 'STREAM_ERROR', message: 'No valid stream URL provided' });
+          }
+        } else {
+          emit('error', { error: 'STREAM_ERROR', message: 'No stream data in load command' });
+        }
+        break;
+      case 'unload':
+        destroyHls();
+        var existingFrame = document.getElementById('embed-frame');
+        if (existingFrame) existingFrame.remove();
+        video.style.display = '';
+        video.removeAttribute('src');
+        video.load();
+        loaded = false;
+        emitProp('stream', null);
+        emitProp('loaded', null);
+        emitProp('paused', null);
+        emitProp('time', null);
+        emitProp('duration', null);
+        emitProp('buffering', null);
+        emitProp('buffered', null);
+        break;
+      case 'destroy':
+        handleCommand('unload');
+        break;
+    }
+  }
+
+  function handleSetProp(name, value) {
+    switch(name) {
+      case 'paused':
+        if (value) video.pause(); else video.play().catch(function(){});
+        break;
+      case 'time':
+        if (typeof value === 'number') video.currentTime = value / 1000;
+        break;
+      case 'volume':
+        if (typeof value === 'number') video.volume = Math.max(0, Math.min(1, value / 100));
+        break;
+      case 'muted':
+        video.muted = !!value;
+        break;
+      case 'playbackSpeed':
+        if (typeof value === 'number') video.playbackRate = value;
+        break;
+    }
+  }
+
+  window.addEventListener('message', function(event) {
+    if (window.parent && event.source !== window.parent) return;
+    var data = event.data;
+    if (!data || typeof data.type !== 'string') return;
+
+    switch(data.type) {
+      case 'command':
+        handleCommand(data.commandName, data.commandArgs);
+        break;
+      case 'setProp':
+        handleSetProp(data.propName, data.propValue);
+        break;
+      case 'observeProp':
+        if (data.propName) {
+          observedProps[data.propName] = true;
+          var val = getPropValue(data.propName);
+          if (val !== null && val !== undefined) {
+            emit('propValue', data.propName, val);
+          }
+        }
+        break;
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === ' ' || e.key === 'k') {
+      e.preventDefault();
+      if (video.paused) video.play().catch(function(){}); else video.pause();
+    } else if (e.key === 'ArrowLeft') {
+      video.currentTime = Math.max(0, video.currentTime - 10);
+    } else if (e.key === 'ArrowRight') {
+      video.currentTime = Math.min(video.duration || 0, video.currentTime + 10);
+    } else if (e.key === 'ArrowUp') {
+      video.volume = Math.min(1, video.volume + 0.1);
+    } else if (e.key === 'ArrowDown') {
+      video.volume = Math.max(0, video.volume - 0.1);
+    } else if (e.key === 'm') {
+      video.muted = !video.muted;
+    } else if (e.key === 'f') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else video.requestFullscreen().catch(function(){});
+    }
+  });
+})();
+<\/script>
+</body>
+</html>`;
+
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.setHeader("X-Frame-Options", "ALLOWALL");
+    res.setHeader("Content-Security-Policy", "frame-ancestors *");
+    res.send(html);
+  });
+
+  app.get("/stremio-player/resolve", async (req, res) => {
+    const encodedUrl = req.query.url as string;
+    const type = req.query.type as string || "direct";
+    const referer = req.query.referer as string;
+    const baseUrl = getRequestBaseUrl(req);
+
+    if (!encodedUrl) return res.status(400).json({ error: "Missing url" });
+
+    const url = decodeBase64Param(encodedUrl);
+    const decodedReferer = referer ? decodeBase64Param(referer) : undefined;
+
+    try {
+      if (type === "m3u8") {
+        const proxied = `${baseUrl}/api/proxy/m3u8?url=${toBase64Url(url)}&ref=${toBase64Url(decodedReferer || url)}`;
+        return res.json({ url: proxied, type: "m3u8" });
+      } else if (type === "mp4") {
+        const proxied = `${baseUrl}/proxy/stream?url=${encodeURIComponent(url)}&referer=${encodeURIComponent(decodedReferer || url)}`;
+        return res.json({ url: proxied, type: "mp4" });
+      }
+      return res.json({ url, type: "direct" });
+    } catch (err: any) {
+      log(`Stremio player resolve error: ${err.message}`, "stremio");
+      return res.status(500).json({ error: "Resolve failed" });
     }
   });
 

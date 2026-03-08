@@ -150,6 +150,18 @@ Nine Stremio add-ons: eight converted from Cloudstream 3 extensions (GXtapes, Nu
 - **No extraction needed**: Stash provides ready-to-play stream URLs, no scraping or host resolution required
 - **Configuration**: User's Stash server URL and API key encoded in base64url as part of the manifest URL path
 
+### Stremio In-App Player (IFrameVideo Protocol)
+- `/stremio-player` - Custom Stremio-compatible player frame that implements the `IFrameVideo` postMessage protocol
+  - Loads HLS.js for M3U8/HLS stream playback
+  - Handles MP4 direct playback via native `<video>` element
+  - Handles embed player URLs via nested iframe (for sites where only embed playback works)
+  - Communicates with Stremio parent via `postMessage`: `propChanged`, `propValue`, `ended`, `error`, `implementationChanged` events
+  - Responds to Stremio commands: `load`, `unload`, `destroy`, `setProp`, `observeProp`
+  - Reports all video properties: `paused`, `time`, `duration`, `buffering`, `buffered`, `volume`, `muted`, `playbackSpeed`
+  - Keyboard shortcuts: Space/K=play/pause, Arrow keys=seek/volume, M=mute, F=fullscreen
+- **Stream mapping strategy**: When `baseUrl` is available, streams that would be `notWebReady` or `externalUrl` are instead mapped to use `playerFrameUrl` pointing to `/stremio-player`. The actual stream URL is passed via `stremioPlayerUrl` property. This makes Stremio use its `IFrameVideo` implementation, which embeds the player frame inside Stremio's native player UI.
+- **Result**: ALL streams play inside Stremio's player — no external browser window, no "not web ready" errors. M3U8 streams play via HLS.js, MP4 streams play via proxy, embed players render in nested iframe.
+
 ### Stream Proxy
 - `/proxy/stream?url=...&referer=...` - Proxies video streams (MP4) with proper headers (Referer, User-Agent). Supports range requests for seeking. All MP4 streams are routed through this proxy when baseUrl is available, ensuring compatibility with Stremio Web player (which cannot use proxyHeaders).
 - `/api/proxy/m3u8?url=...&ref=...` - Proxies HLS manifests, rewriting nested m3u8 URLs to remain within the proxy chain. Base64url-encoded parameters.

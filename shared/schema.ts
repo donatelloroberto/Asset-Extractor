@@ -23,6 +23,8 @@ export const stremioStreamSchema = z.object({
   title: z.string().optional(),
   url: z.string().optional(),
   externalUrl: z.string().optional(),
+  playerFrameUrl: z.string().optional(),
+  stremioPlayerUrl: z.string().optional(),
   behaviorHints: z.object({
     notWebReady: z.boolean().optional(),
     bingeGroup: z.string().optional(),

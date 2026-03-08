@@ -29,6 +29,10 @@ function buildEmbedPlayerUrl(baseUrl: string, embedUrl: string, name: string): s
   return `${baseUrl}/api/player?url=${toBase64Url(embedUrl)}&name=${encodeURIComponent(name)}`;
 }
 
+function buildStremioPlayerFrameUrl(baseUrl: string): string {
+  return `${baseUrl}/stremio-player`;
+}
+
 async function resolveWithCache(url: string, referer?: string): Promise<ResolvedStream> {
   const cacheKey = `resolved:${url}`;
   const cached = getCached<ResolvedStream>("stream", cacheKey);
@@ -45,10 +49,12 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
   const mapped = await Promise.all(extracted.map(async (s): Promise<StremioStream | null> => {
     if (s.externalUrl && !s.url) {
       if (baseUrl) {
+        const embedPlayerUrl = buildEmbedPlayerUrl(baseUrl, s.externalUrl, s.name.replace(" (Browser)", ""));
         return {
           name: s.name.replace(" (Browser)", ""),
           title: s.title || `${s.name.replace(" (Browser)", "")} - Embed Player`,
-          url: buildEmbedPlayerUrl(baseUrl, s.externalUrl, s.name.replace(" (Browser)", "")),
+          playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl),
+          stremioPlayerUrl: embedPlayerUrl,
           behaviorHints: {
             notWebReady: false,
             bingeGroup: "embed-player",
@@ -86,7 +92,15 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
 
     if (resolved.type === "m3u8" && baseUrl) {
       finalUrl = buildM3u8ProxyUrl(baseUrl, resolved.url, refererForProxy);
-      hints.notWebReady = true;
+      hints.notWebReady = false;
+
+      return {
+        name: s.name,
+        title: s.title || (s.quality ? `${s.name} - ${s.quality}` : s.name),
+        playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl),
+        stremioPlayerUrl: finalUrl,
+        behaviorHints: hints,
+      };
     } else if (resolved.type === "mp4" && baseUrl) {
       finalUrl = buildMp4ProxyUrl(baseUrl, resolved.url, refererForProxy);
       hints.notWebReady = false;
@@ -103,6 +117,16 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
         finalUrl = buildMp4ProxyUrl(baseUrl, resolved.url, refererForProxy);
       }
       hints.notWebReady = false;
+    }
+
+    if (baseUrl && (hints.notWebReady || hints.proxyHeaders)) {
+      return {
+        name: s.name,
+        title: s.title || (s.quality ? `${s.name} - ${s.quality}` : s.name),
+        playerFrameUrl: buildStremioPlayerFrameUrl(baseUrl),
+        stremioPlayerUrl: finalUrl,
+        behaviorHints: { notWebReady: false },
+      };
     }
 
     return {
