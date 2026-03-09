@@ -392,7 +392,8 @@ function copyStreamUrl(){
   });
 
   app.get("/plex/stream/:addon/:encodedId", async (req: Request, res: Response) => {
-    const { addon, encodedId } = req.params;
+    const addon = req.params.addon as string;
+    const encodedId = req.params.encodedId as string;
     const addonDef = ADDON_REGISTRY[addon];
     if (!addonDef) {
       return res.status(404).json({ error: "Unknown addon: " + addon });
@@ -429,7 +430,7 @@ function copyStreamUrl(){
   });
 
   app.get("/plex/api/library/:addon", async (req: Request, res: Response) => {
-    const addonKey = req.params.addon;
+    const addonKey = req.params.addon as string;
     const addonDef = ADDON_REGISTRY[addonKey];
     if (!addonDef) {
       return res.status(404).json({ error: "Unknown addon" });
@@ -461,7 +462,8 @@ function copyStreamUrl(){
   });
 
   app.get("/plex/poster/:addon/:encodedId", async (req: Request, res: Response) => {
-    const { addon, encodedId } = req.params;
+    const addon = req.params.addon as string;
+    const encodedId = req.params.encodedId as string;
     const addonDef = ADDON_REGISTRY[addon];
     if (!addonDef) return res.status(404).send("Unknown addon");
 

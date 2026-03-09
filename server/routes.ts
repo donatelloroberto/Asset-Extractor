@@ -46,6 +46,18 @@ function decodeBase64Param(value: string): string {
   }
 }
 
+function proxyPosterUrl(baseUrl: string, posterUrl: string): string {
+  if (!posterUrl) return posterUrl;
+  return `${baseUrl}/api/poster?url=${toBase64Url(posterUrl)}`;
+}
+
+function rewritePosters<T extends { poster?: string }>(items: T[], baseUrl: string): T[] {
+  return items.map(item => ({
+    ...item,
+    poster: item.poster ? proxyPosterUrl(baseUrl, item.poster) : item.poster,
+  }));
+}
+
 function parseStremioExtra(extra: string): Record<string, string> {
   const result: Record<string, string> = {};
   const parts = extra.split("&");
@@ -136,6 +148,22 @@ export async function registerRoutes(
     const path = req.path;
     if (path.endsWith(".json") && !path.startsWith("/api/")) {
       _res.setHeader("Cache-Control", "public, max-age=7200, s-maxage=7200");
+    }
+    if ((path.includes("/catalog/") || path.includes("/meta/")) && path.endsWith(".json")) {
+      const baseUrl = getRequestBaseUrl(req);
+      const origJson = _res.json.bind(_res);
+      _res.json = function(body: any) {
+        if (body && body.metas && Array.isArray(body.metas)) {
+          body.metas = rewritePosters(body.metas, baseUrl);
+        }
+        if (body && body.meta && body.meta.poster) {
+          body.meta.poster = proxyPosterUrl(baseUrl, body.meta.poster);
+          if (body.meta.background) {
+            body.meta.background = proxyPosterUrl(baseUrl, body.meta.background);
+          }
+        }
+        return origJson(body);
+      };
     }
     next();
   });
@@ -984,6 +1012,32 @@ function copyUrl(){navigator.clipboard.writeText(manifestUrl);alert('Copied!');}
     }
   });
 
+
+  app.get("/api/poster", async (req, res) => {
+    try {
+      const encoded = req.query.url as string;
+      if (!encoded) return res.status(400).send("Missing url");
+      const imageUrl = decodeBase64Param(encoded);
+
+      const response = await axios.get(imageUrl, {
+        responseType: "arraybuffer",
+        timeout: 10000,
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
+        },
+      });
+
+      const ct = response.headers["content-type"] || "image/jpeg";
+      res.setHeader("Content-Type", ct);
+      res.setHeader("Cache-Control", "public, max-age=86400");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.send(Buffer.from(response.data));
+    } catch (err: any) {
+      log(`Poster proxy error: ${err.message}`, "stremio");
+      res.status(502).send("Failed to proxy image");
+    }
+  });
 
   app.get("/api/proxy/m3u8", async (req, res) => {
     try {
