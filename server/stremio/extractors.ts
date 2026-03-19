@@ -1,5 +1,6 @@
 import { fetchPage } from "./http.js";
 import { extractDoodUniversal } from "./universal-extractor.js";
+import { log } from "../logger.js";
 import * as cheerio from "cheerio";
 
 const isDebug = () => process.env.DEBUG === "1";
@@ -32,11 +33,11 @@ export async function extractStreams(pageUrl: string): Promise<ExtractedStream[]
       }
     }
 
-    if (isDebug()) console.log(`[Extractor] Found ${iframes.length} iframes on ${pageUrl}`);
+    if (isDebug()) log(`Found ${iframes.length} iframes on ${pageUrl}`, "stremio-extractor");
 
     const EMBED_TIMEOUT = process.env.SERVERLESS === "1" ? 6000 : 12000;
     const embedResults = await Promise.allSettled(iframes.map(async (src) => {
-      if (isDebug()) console.log(`[Extractor] Found iframe src: ${src}`);
+      if (isDebug()) log(`Found iframe src: ${src}`, "stremio-extractor");
       try {
         return await Promise.race([
           resolveEmbed(src),
@@ -45,7 +46,7 @@ export async function extractStreams(pageUrl: string): Promise<ExtractedStream[]
           ),
         ]);
       } catch (err: any) {
-        if (isDebug()) console.error(`[Extractor] Failed to resolve ${src}:`, err.message);
+        if (isDebug()) log(`Failed to resolve ${src}: ${err.message}`, "stremio-extractor-error");
         return [];
       }
     }));
@@ -53,7 +54,7 @@ export async function extractStreams(pageUrl: string): Promise<ExtractedStream[]
       if (result.status === "fulfilled") streams.push(...result.value);
     }
   } catch (err: any) {
-    if (isDebug()) console.error(`[Extractor] Failed to load page ${pageUrl}:`, err.message);
+    if (isDebug()) log(`Failed to load page ${pageUrl}: ${err.message}`, "stremio-extractor-error");
   }
 
   return streams;
@@ -89,17 +90,17 @@ async function extractGXtapes(url: string): Promise<ExtractedStream[]> {
 
     const evalBlock = findEvalBlock(html);
     if (!evalBlock) {
-      if (isDebug()) console.log("[GXtapes] No packed script found");
+      if (isDebug()) log("No packed script found", "gxtapes-extractor");
       return streams;
     }
 
     const unpacked = unpack(evalBlock);
     if (!unpacked) {
-      if (isDebug()) console.log("[GXtapes] Unpack failed");
+      if (isDebug()) log("Unpack failed", "gxtapes-extractor-error");
       return streams;
     }
 
-    if (isDebug()) console.log("[GXtapes] Unpacked length:", unpacked.length);
+      if (isDebug()) log(`Unpacked length: ${unpacked.length}`, "gxtapes-extractor");
 
     const linksMatch = unpacked.match(/var\s+links\s*=\s*\{([^}]+)\}/);
     if (linksMatch) {
@@ -121,7 +122,7 @@ async function extractGXtapes(url: string): Promise<ExtractedStream[]> {
           });
         }
       } catch (e: any) {
-        if (isDebug()) console.error("[GXtapes] Links parse error:", e.message);
+        if (isDebug()) log(`Links parse error: ${e.message}`, "gxtapes-extractor-error");
       }
     }
 
@@ -171,9 +172,9 @@ async function extractGXtapes(url: string): Promise<ExtractedStream[]> {
       }
     }
 
-    if (isDebug()) console.log(`[GXtapes] Found ${streams.length} streams`);
+    if (isDebug()) log(`Found ${streams.length} streams`, "gxtapes-extractor");
   } catch (err: any) {
-    if (isDebug()) console.error("[GXtapes] Extraction error:", err.message);
+    if (isDebug()) log(`Extraction error: ${err.message}`, "gxtapes-extractor-error");
   }
   return streams;
 }
@@ -219,7 +220,7 @@ async function extract88z(url: string): Promise<ExtractedStream[]> {
       }
     }
   } catch (err: any) {
-    if (isDebug()) console.error("[88z.io] Extraction error:", err.message);
+    if (isDebug()) log(`Extraction error: ${err.message}`, "88z-extractor-error");
   }
   return streams;
 }
@@ -257,7 +258,7 @@ async function extract44x(url: string): Promise<ExtractedStream[]> {
       }
     }
   } catch (err: any) {
-    if (isDebug()) console.error("[44x.io] Extraction error:", err.message);
+    if (isDebug()) log(`Extraction error: ${err.message}`, "44x-extractor-error");
   }
   return streams;
 }
@@ -275,7 +276,7 @@ async function extractVID(url: string): Promise<ExtractedStream[]> {
       });
     }
   } catch (err: any) {
-    if (isDebug()) console.error("[VID] Extraction error:", err.message);
+    if (isDebug()) log(`Extraction error: ${err.message}`, "vid-extractor-error");
   }
   return streams;
 }
@@ -305,7 +306,7 @@ async function extractGenericIframe(url: string): Promise<ExtractedStream[]> {
       });
     }
   } catch (err: any) {
-    if (isDebug()) console.error("[Generic] Extraction error:", err.message);
+    if (isDebug()) log(`Extraction error: ${err.message}`, "generic-iframe-extractor-error");
   }
   return streams;
 }
@@ -338,7 +339,7 @@ function unpack(packed: string): string | null {
   try {
     const bodyEnd = packed.indexOf("return p}(");
     if (bodyEnd === -1) {
-      if (isDebug()) console.log("[Unpack] Could not find function body end");
+      if (isDebug()) log("Could not find function body end", "unpack-error");
       return null;
     }
 
@@ -360,7 +361,7 @@ function unpack(packed: string): string | null {
     }
 
     if (strEnd <= 0) {
-      if (isDebug()) console.log("[Unpack] Could not find encoded string boundaries");
+      if (isDebug()) log("Could not find encoded string boundaries", "unpack-error");
       return null;
     }
 
@@ -369,7 +370,7 @@ function unpack(packed: string): string | null {
 
     const partsMatch = rest.match(/^\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*'([^']*)'\s*\.split\(\s*'([^']*)'\s*\)/);
     if (!partsMatch) {
-      if (isDebug()) console.log("[Unpack] Could not parse base/count/dict");
+      if (isDebug()) log("Could not parse base/count/dict", "unpack-error");
       return null;
     }
 
@@ -386,7 +387,7 @@ function unpack(packed: string): string | null {
     }
     return result;
   } catch (e: any) {
-    if (isDebug()) console.error("[Unpack] Error:", e.message);
+    if (isDebug()) log(`Unpack error: ${e.message}`, "unpack-error");
     return null;
   }
 }
