@@ -139,7 +139,7 @@ export async function getMeta(id: string): Promise<StremioMeta | null> {
     const html = await fetchPage(url);
     const $ = cheerio.load(html);
 
-    const videoEl = $(\'article[itemtype="http://schema.org/VideoObject"]\');
+    const videoEl = $(\'article[itemtype="http://schema.org/VideoObject"]');
 
     const title = videoEl.find(\'meta[itemprop="name"]\').attr("content")?.trim()
       || $(\'meta[property="og:title"]\').attr("content")?.trim()
