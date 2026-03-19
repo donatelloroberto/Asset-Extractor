@@ -1,4 +1,5 @@
 import NodeCache from "node-cache";
+import { log } from "../logger.js";
 
 const catalogCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 const metaCache = new NodeCache({ stdTTL: 600, checkperiod: 120 });
@@ -12,14 +13,17 @@ export function getCached<T>(type: "catalog" | "meta" | "stream", key: string): 
   const val = cache.get<T>(key);
   if (val !== undefined) {
     hits++;
+    if (process.env.DEBUG === "1") log(`Cache HIT [${type}]: ${key}`, "stremio-cache");
     return val;
   }
   misses++;
+  if (process.env.DEBUG === "1") log(`Cache MISS [${type}]: ${key}`, "stremio-cache");
   return undefined;
 }
 
 export function setCached<T>(type: "catalog" | "meta" | "stream", key: string, value: T): void {
   const cache = type === "catalog" ? catalogCache : type === "meta" ? metaCache : streamCache;
+  if (process.env.DEBUG === "1") log(`Cache SET [${type}]: ${key}`, "stremio-cache");
   cache.set(key, value);
 }
 

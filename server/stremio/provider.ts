@@ -6,6 +6,7 @@ import { extractStreams } from "./extractors.js";
 import { CATALOG_MAP } from "./manifest.js";
 import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
 import { mapStreamsForStremio } from "./stream-mapper.js";
+import { log } from "../logger.js";
 
 const BASE_URL = "https://gay.xtapes.tw";
 const isDebug = () => process.env.DEBUG === "1";
@@ -41,7 +42,7 @@ export async function getCatalog(catalogId: string, skip: number = 0): Promise<C
     }
   }
 
-  if (isDebug()) console.log(`[Provider] Fetching catalog: ${url}`);
+  if (isDebug()) log(`Fetching catalog: ${url}`, "stremio-provider");
 
   try {
     const html = await fetchPage(url);
@@ -69,7 +70,7 @@ export async function getCatalog(catalogId: string, skip: number = 0): Promise<C
     setCached("catalog", cacheKey, items);
     return items;
   } catch (err: any) {
-    if (isDebug()) console.error(`[Provider] Catalog error:`, err.message);
+    if (isDebug()) log(`Catalog error: ${err.message}`, "stremio-provider-error");
     return [];
   }
 }
@@ -86,7 +87,7 @@ export async function searchContent(query: string, skip: number = 0): Promise<Ca
   for (let page = startPage; page < startPage + maxPages; page++) {
     try {
       const url = `${BASE_URL}/page/${page}/?s=${encodeURIComponent(query)}`;
-      if (isDebug()) console.log(`[Provider] Search page ${page}: ${url}`);
+      if (isDebug()) log(`Searching content: ${url}`, "stremio-provider");
 
       const html = await fetchPage(url);
       const $ = cheerio.load(html);
@@ -107,6 +108,7 @@ export async function searchContent(query: string, skip: number = 0): Promise<Ca
             poster: poster ? fixUrl(poster) : undefined,
             type: "movie",
           };
+
           if (!allItems.some(i => i.id === item.id)) {
             allItems.push(item);
             foundNew = true;
@@ -116,7 +118,7 @@ export async function searchContent(query: string, skip: number = 0): Promise<Ca
 
       if (!foundNew) break;
     } catch (err: any) {
-      if (isDebug()) console.error(`[Provider] Search error:`, err.message);
+      if (isDebug()) log(`Search error: ${err.message}`, "stremio-provider-error");
       break;
     }
   }
@@ -132,14 +134,20 @@ export async function getMeta(id: string): Promise<StremioMeta | null> {
 
   try {
     const url = extractUrl(id);
-    if (isDebug()) console.log(`[Provider] Getting meta for: ${url}`);
+    if (isDebug()) log(`Getting meta for: ${url}`, "stremio-provider");
 
     const html = await fetchPage(url);
     const $ = cheerio.load(html);
 
-    const title = $('meta[property="og:title"]').attr("content")?.trim() || $("title").text().trim() || "Unknown";
-    const poster = $('meta[property="og:image"]').attr("content")?.trim();
-    const description = $('meta[property="og:description"]').attr("content")?.trim();
+    const videoEl = $(\'article[itemtype="http://schema.org/VideoObject"]\');
+
+    const title = videoEl.find(\'meta[itemprop="name"]\').attr("content")?.trim()
+      || $(\'meta[property="og:title"]\').attr("content")?.trim()
+      || $("title").text().trim() || "Unknown";
+    const poster = videoEl.find(\'meta[itemprop="thumbnailUrl"]\').attr("content")?.trim()
+      || $(\'meta[property="og:image"]\').attr("content")?.trim();
+    const description = videoEl.find(\'meta[itemprop="description"]\').attr("content")?.trim()
+      || $(\'meta[property="og:description"]\').attr("content")?.trim();
 
     const meta: StremioMeta = {
       id,
@@ -151,10 +159,20 @@ export async function getMeta(id: string): Promise<StremioMeta | null> {
       description: description || undefined,
     };
 
-    setCached("meta", cacheKey, meta);
-    return meta;
+    const actors = $(\'#video-actors a\').map((_, el) => $(el).text().trim()).get().filter(Boolean);
+    if (actors.length > 0) {
+      (meta as any).cast = actors;
+    }
+
+    const validatedMeta = stremioMetaSchema.safeParse(meta);
+    if (!validatedMeta.success) {
+      if (isDebug()) log(`Meta validation error: ${validatedMeta.error.message}`, "stremio-provider-error");
+      return null;
+    }
+    setCached("meta", cacheKey, validatedMeta.data);
+    return validatedMeta.data;
   } catch (err: any) {
-    if (isDebug()) console.error(`[Provider] Meta error:`, err.message);
+    if (isDebug()) log(`Meta error: ${err.message}`, "stremio-provider-error");
     return null;
   }
 }
@@ -166,7 +184,7 @@ export async function getStreams(id: string, baseUrl?: string): Promise<StremioS
 
   try {
     const url = extractUrl(id);
-    if (isDebug()) console.log(`[Provider] Getting streams for: ${url}`);
+    if (isDebug()) log(`Getting streams for: ${url}`, "stremio-provider");
 
     const extracted = await extractStreams(url);
     const streams = await mapStreamsForStremio(extracted, baseUrl);
@@ -176,7 +194,7 @@ export async function getStreams(id: string, baseUrl?: string): Promise<StremioS
     }
     return streams;
   } catch (err: any) {
-    if (isDebug()) console.error(`[Provider] Stream error:`, err.message);
+    if (isDebug()) log(`Stream error: ${err.message}`, "stremio-provider-error");
     return [];
   }
 }

@@ -47,7 +47,7 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
   const RESOLVE_TIMEOUT = 8000;
 
   const mapped = await Promise.all(extracted.map(async (s): Promise<StremioStream | null> => {
-    if (s.externalUrl && !s.url) {
+    if (s.externalUrl) {
       if (baseUrl) {
         const embedPlayerUrl = buildEmbedPlayerUrl(baseUrl, s.externalUrl, s.name.replace(" (Browser)", ""));
         return {
@@ -59,12 +59,13 @@ export async function mapStreamsForStremio(extracted: ExtractedStream[], baseUrl
             bingeGroup: "embed-player",
           },
         };
+      } else {
+        return {
+          name: s.name,
+          title: s.title || `${s.name} - Open in Browser`,
+          externalUrl: s.externalUrl,
+        };
       }
-      return {
-        name: s.name,
-        title: s.title || `${s.name} - Open in Browser`,
-        externalUrl: s.externalUrl,
-      };
     }
 
     if (!s.url) return null;
