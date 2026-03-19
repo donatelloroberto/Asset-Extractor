@@ -4,7 +4,7 @@ import { makeId, extractUrl } from "./ids.js";
 import { getCached, setCached } from "../stremio/cache.js";
 import { extractBoyfriendtvStreams } from "./extractors.js";
 import { BOYFRIENDTV_CATALOG_MAP } from "./manifest.js";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
+import { stremioMetaSchema, type StremioMeta, type StremioStream, type CatalogItem } from "../../shared/schema.js";
 import { mapStreamsForStremio } from "../stremio/stream-mapper.js";
 
 const BASE_URL = "https://www.boyfriendtv.com";
@@ -171,8 +171,14 @@ export async function getBoyfriendtvMeta(id: string): Promise<StremioMeta | null
       description: description || undefined,
     };
 
-    setCached("meta", cacheKey, meta);
-    return meta;
+    const validatedMeta = stremioMetaSchema.safeParse(meta);
+    if (!validatedMeta.success) {
+      if (isDebug()) console.error(`[BoyfriendTV] Meta validation error:`, validatedMeta.error.message);
+      return null;
+    }
+
+    setCached("meta", cacheKey, validatedMeta.data);
+    return validatedMeta.data;
   } catch (err: any) {
     if (isDebug()) console.error(`[BoyfriendTV] Meta error:`, err.message);
     return null;

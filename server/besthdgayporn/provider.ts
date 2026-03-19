@@ -4,7 +4,7 @@ import { makeId, extractUrl } from "./ids.js";
 import { getCached, setCached } from "../stremio/cache.js";
 import { extractBesthdgaypornStreams } from "./extractors.js";
 import { BESTHDGAYPORN_CATALOG_MAP } from "./manifest.js";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
+import { stremioMetaSchema, type StremioMeta, type StremioStream, type CatalogItem } from "../../shared/schema.js";
 import { mapStreamsForStremio } from "../stremio/stream-mapper.js";
 
 const BASE_URL = "https://besthdgayporn.com";
@@ -136,11 +136,18 @@ export async function getBesthdgaypornMeta(id: string): Promise<StremioMeta | nu
     const html = await fetchPage(url);
     const $ = cheerio.load(html);
 
-    const title = $('meta[property="og:title"]').attr("content")?.trim()
+    const videoEl = $('article[itemtype="http://schema.org/VideoObject"]');
+
+    const title = videoEl.find('meta[itemprop="name"]').attr("content")?.trim()
+      || $('meta[property="og:title"]').attr("content")?.trim()
       || $("title").text().trim()
       || "Unknown";
-    const poster = $('meta[property="og:image"]').attr("content")?.trim();
-    const description = $('meta[property="og:description"]').attr("content")?.trim();
+    const poster = videoEl.find('meta[itemprop="thumbnailUrl"]').attr("content")?.trim()
+      || $('meta[property="og:image"]').attr("content")?.trim();
+    const description = videoEl.find('meta[itemprop="description"]').attr("content")?.trim()
+      || $('meta[property="og:description"]').attr("content")?.trim();
+
+    const actors = $('#video-actors a').map((_, el) => $(el).text().trim()).get().filter(Boolean);
 
     const meta: StremioMeta = {
       id,
@@ -152,8 +159,18 @@ export async function getBesthdgaypornMeta(id: string): Promise<StremioMeta | nu
       description: description || undefined,
     };
 
-    setCached("meta", cacheKey, meta);
-    return meta;
+    if (actors.length > 0) {
+      (meta as any).cast = actors;
+    }
+
+    const validatedMeta = stremioMetaSchema.safeParse(meta);
+    if (!validatedMeta.success) {
+      if (isDebug()) console.error(`[BestHDgayporn] Meta validation error:`, validatedMeta.error.message);
+      return null;
+    }
+
+    setCached("meta", cacheKey, validatedMeta.data);
+    return validatedMeta.data;
   } catch (err: any) {
     if (isDebug()) console.error(`[BestHDgayporn] Meta error:`, err.message);
     return null;

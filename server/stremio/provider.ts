@@ -4,7 +4,7 @@ import { makeId, extractUrl } from "./ids.js";
 import { getCached, setCached } from "./cache.js";
 import { extractStreams } from "./extractors.js";
 import { CATALOG_MAP } from "./manifest.js";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
+import { stremioMetaSchema, type StremioMeta, type StremioStream, type CatalogItem } from "../../shared/schema.js";
 import { mapStreamsForStremio } from "./stream-mapper.js";
 import { log } from "../logger.js";
 
@@ -139,15 +139,15 @@ export async function getMeta(id: string): Promise<StremioMeta | null> {
     const html = await fetchPage(url);
     const $ = cheerio.load(html);
 
-    const videoEl = $(\'article[itemtype="http://schema.org/VideoObject"]\');
+    const videoEl = $('article[itemtype="http://schema.org/VideoObject"]');
 
-    const title = videoEl.find(\'meta[itemprop="name"]\').attr("content")?.trim()
-      || $(\'meta[property="og:title"]\').attr("content")?.trim()
+    const title = videoEl.find('meta[itemprop="name"]').attr("content")?.trim()
+      || $('meta[property="og:title"]').attr("content")?.trim()
       || $("title").text().trim() || "Unknown";
-    const poster = videoEl.find(\'meta[itemprop="thumbnailUrl"]\').attr("content")?.trim()
-      || $(\'meta[property="og:image"]\').attr("content")?.trim();
-    const description = videoEl.find(\'meta[itemprop="description"]\').attr("content")?.trim()
-      || $(\'meta[property="og:description"]\').attr("content")?.trim();
+    const poster = videoEl.find('meta[itemprop="thumbnailUrl"]').attr("content")?.trim()
+      || $('meta[property="og:image"]').attr("content")?.trim();
+    const description = videoEl.find('meta[itemprop="description"]').attr("content")?.trim()
+      || $('meta[property="og:description"]').attr("content")?.trim();
 
     const meta: StremioMeta = {
       id,
@@ -159,7 +159,7 @@ export async function getMeta(id: string): Promise<StremioMeta | null> {
       description: description || undefined,
     };
 
-    const actors = $(\'#video-actors a\').map((_, el) => $(el).text().trim()).get().filter(Boolean);
+    const actors = $('#video-actors a').map((_, el) => $(el).text().trim()).get().filter(Boolean);
     if (actors.length > 0) {
       (meta as any).cast = actors;
     }
