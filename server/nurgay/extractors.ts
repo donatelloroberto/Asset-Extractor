@@ -1,5 +1,6 @@
 import { fetchPage } from "../stremio/http";
 import * as cheerio from "cheerio";
+import { extractStreamtapeUrl } from "../stremio/streamtape";
 
 const isDebug = () => process.env.DEBUG === "1";
 
@@ -327,40 +328,7 @@ async function extractDood(url: string, referer?: string): Promise<ExtractedStre
 }
 
 async function extractStreamtape(url: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
-  try {
-    const html = await fetchPage(url);
-
-    const tokenMatch = html.match(/document\.getElementById\('(?:robotlink|ideoooolink)'\)\.innerHTML\s*=\s*["'](\/\/[^"']+)["']\s*\+\s*\('([^']+)'\)/);
-    if (tokenMatch) {
-      const baseUrl = `https:${tokenMatch[1]}`;
-      const tokenPart = tokenMatch[2];
-      const tokenEndMatch = html.match(new RegExp(`'${tokenPart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'\\)\\s*\\+\\s*'([^']*)'`));
-      const fullUrl = baseUrl + tokenPart + (tokenEndMatch ? tokenEndMatch[1] : "");
-      streams.push({
-        name: "StreamTape",
-        url: fullUrl,
-        referer: url,
-      });
-    }
-
-    if (streams.length === 0) {
-      const altMatch = html.match(/document\.getElementById\('(?:robotlink|ideoooolink)'\)\.innerHTML\s*=\s*[^+]+\+\s*['"]([^'"]+)['"]/);
-      if (altMatch) {
-        const partialUrl = altMatch[1];
-        if (partialUrl.startsWith("//")) {
-          streams.push({
-            name: "StreamTape",
-            url: `https:${partialUrl}`,
-            referer: url,
-          });
-        }
-      }
-    }
-  } catch (err: any) {
-    if (isDebug()) console.error("[StreamTape] Extraction error:", err.message);
-  }
-  return streams;
+  return extractStreamtapeUrl(url);
 }
 
 async function extractBigwarp(url: string): Promise<ExtractedStream[]> {

@@ -18,7 +18,7 @@ import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGayco
 import { buildGaystreamManifest } from "./gaystream/manifest";
 import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider";
 import { getCacheStats, clearAllCaches } from "./stremio/cache";
-import { log } from "./index";
+import { log } from "./log";
 
 const startTime = Date.now();
 

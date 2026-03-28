@@ -1,5 +1,6 @@
 import { fetchPage } from "../stremio/http";
 import * as cheerio from "cheerio";
+import { extractStreamtapeUrl } from "../stremio/streamtape";
 
 const isDebug = () => process.env.DEBUG === "1";
 
@@ -32,16 +33,29 @@ export async function extractGaycock4uStreams(pageUrl: string): Promise<Extracte
     const html = await fetchPage(pageUrl, { referer: "https://gaycock4u.com/" });
     const $ = cheerio.load(html);
 
+    const AD_DOMAINS = ["juicyads.com", "adserver.", "jads.co", "trafficjunky", "exoclick", "chaseherbalpasty"];
+
     const iframeSrcs: string[] = [];
-    $("iframe[src], iframe[data-src], iframe[data-lazy-src]").each((_, el) => {
+    $(".davideo iframe[src], .davideo iframe[data-src], .davideo iframe[data-lazy-src], .responsive-player iframe[src], .responsive-player iframe[data-src], .responsive-player iframe[data-lazy-src]").each((_, el) => {
       const src = $(el).attr("data-lazy-src") || $(el).attr("data-src") || $(el).attr("src");
       if (src && src !== "about:blank") {
         const normalized = src.startsWith("//") ? `https:${src}` : src;
-        if (normalized.startsWith("http")) {
+        if (normalized.startsWith("http") && !AD_DOMAINS.some(ad => normalized.includes(ad))) {
           iframeSrcs.push(normalized);
         }
       }
     });
+    if (iframeSrcs.length === 0) {
+      $("iframe[src], iframe[data-src], iframe[data-lazy-src]").each((_, el) => {
+        const src = $(el).attr("data-lazy-src") || $(el).attr("data-src") || $(el).attr("src");
+        if (src && src !== "about:blank") {
+          const normalized = src.startsWith("//") ? `https:${src}` : src;
+          if (normalized.startsWith("http") && !AD_DOMAINS.some(ad => normalized.includes(ad))) {
+            iframeSrcs.push(normalized);
+          }
+        }
+      });
+    }
     if (iframeSrcs.length === 0) {
       $("noscript").each((_, el) => {
         const nhtml = $(el).html();
@@ -49,7 +63,7 @@ export async function extractGaycock4uStreams(pageUrl: string): Promise<Extracte
           const n$ = cheerio.load(nhtml);
           n$("iframe[src]").each((_, iel) => {
             const src = n$(iel).attr("src");
-            if (src && src !== "about:blank" && src.startsWith("http")) {
+            if (src && src !== "about:blank" && src.startsWith("http") && !AD_DOMAINS.some(ad => src.toLowerCase().includes(ad))) {
               iframeSrcs.push(src);
             }
           });
@@ -58,7 +72,7 @@ export async function extractGaycock4uStreams(pageUrl: string): Promise<Extracte
     }
     if (iframeSrcs.length === 0) {
       const metaEmbed = $('meta[itemprop="embedURL"]').attr("content");
-      if (metaEmbed) {
+      if (metaEmbed && !AD_DOMAINS.some(ad => metaEmbed.toLowerCase().includes(ad))) {
         iframeSrcs.push(metaEmbed);
       }
     }
@@ -199,32 +213,7 @@ async function extractDood(url: string, referer?: string): Promise<ExtractedStre
 }
 
 async function extractStreamtape(url: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
-  try {
-    const html = await fetchPage(url);
-
-    const tokenMatch = html.match(/document\.getElementById\('(?:robotlink|ideoooolink)'\)\.innerHTML\s*=\s*["'](\/\/[^"']+)["']\s*\+\s*\('([^']+)'\)/);
-    if (tokenMatch) {
-      const baseUrl = `https:${tokenMatch[1]}`;
-      const tokenPart = tokenMatch[2];
-      const tokenEndMatch = html.match(new RegExp(`'${tokenPart.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'\\)\\s*\\+\\s*'([^']*)'`));
-      const fullUrl = baseUrl + tokenPart + (tokenEndMatch ? tokenEndMatch[1] : "");
-      streams.push({ name: "StreamTape", url: fullUrl, referer: url });
-    }
-
-    if (streams.length === 0) {
-      const altMatch = html.match(/document\.getElementById\('(?:robotlink|ideoooolink)'\)\.innerHTML\s*=\s*[^+]+\+\s*['"]([^'"]+)['"]/);
-      if (altMatch) {
-        const partialUrl = altMatch[1];
-        if (partialUrl.startsWith("//")) {
-          streams.push({ name: "StreamTape", url: `https:${partialUrl}`, referer: url });
-        }
-      }
-    }
-  } catch (err: any) {
-    if (isDebug()) console.error("[StreamTape] Extraction error:", err.message);
-  }
-  return streams;
+  return extractStreamtapeUrl(url);
 }
 
 async function extractFilemoon(url: string): Promise<ExtractedStream[]> {

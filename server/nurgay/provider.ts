@@ -22,7 +22,9 @@ function parseArticles($: cheerio.CheerioAPI): CatalogItem[] {
     const $el = $(el);
     const title = $el.find("header.entry-header span").text().trim();
     const href = $el.find("a").first().attr("href");
-    const poster = $el.find("img").attr("data-src") || $el.find("img").attr("src");
+    const imgEl = $el.find("img").first();
+    const rawPoster = imgEl.attr("data-lazy-src") || imgEl.attr("data-src") || imgEl.attr("src") || "";
+    const poster = rawPoster.startsWith("data:") ? undefined : rawPoster || undefined;
 
     if (href && title) {
       const fullUrl = fixUrl(href);
