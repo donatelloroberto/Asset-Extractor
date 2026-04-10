@@ -1,4 +1,4 @@
-import { createApp } from "../server/app.js";
+import { createApp } from "../server/app";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 let appHandler: ((req: any, res: any) => void) | null = null;
