@@ -1,4 +1,4 @@
-import { fetchPage } from "./http";
+import { fetchPage } from "./http.js";
 
 const isDebug = () => process.env.DEBUG === "1";
 

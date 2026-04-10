@@ -1,4 +1,4 @@
-import { fetchPage } from "./http";
+import { fetchPage } from "./http.js";
 import * as cheerio from "cheerio";
 import {
   resolveEmbedUrl,
@@ -6,9 +6,9 @@ import {
   findEvalBlock,
   unpack,
   resolveDood,
-} from "./resolvers";
-import { sortStreamsByQuality } from "./quality";
-import type { ResolvedStream } from "./resolvers";
+} from "./resolvers.js";
+import { sortStreamsByQuality } from "./quality.js";
+import type { ResolvedStream } from "./resolvers.js";
 
 export type { ResolvedStream as ExtractedStream };
 

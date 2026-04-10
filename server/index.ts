@@ -1,5 +1,5 @@
-import { createApp } from "./app";
-import { log } from "./log";
+import { createApp } from "./app.js";
+import { log } from "./log.js";
 
 export { log };
 
@@ -13,10 +13,10 @@ declare module "http" {
   const { app, httpServer } = await createApp();
 
   if (process.env.NODE_ENV === "production") {
-    const { serveStatic } = await import("./static");
+    const { serveStatic } = await import("./static.js");
     serveStatic(app);
   } else {
-    const { setupVite } = await import("./vite");
+    const { setupVite } = await import("./vite.js");
     await setupVite(httpServer, app);
   }
 

@@ -1,4 +1,4 @@
-import type { ResolvedStream } from "./resolvers";
+import type { ResolvedStream } from "./resolvers.js";
 
 const QUALITY_ORDER: Record<string, number> = {
   "2160p": 100,

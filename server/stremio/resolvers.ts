@@ -1,5 +1,5 @@
-import { fetchPage } from "./http";
-import { extractStreamtapeUrl } from "./streamtape";
+import { fetchPage } from "./http.js";
+import { extractStreamtapeUrl } from "./streamtape.js";
 
 const isDebug = () => process.env.DEBUG === "1";
 

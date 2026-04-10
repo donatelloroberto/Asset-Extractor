@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { log } from "./log";
+import { registerRoutes } from "./routes.js";
+import { log } from "./log.js";
 import { createServer } from "http";
 
 export async function createApp() {

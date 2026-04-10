@@ -1,13 +1,13 @@
-import { fetchPage } from "../stremio/http";
+import { fetchPage } from "../stremio/http.js";
 import * as cheerio from "cheerio";
 import {
   resolveEmbedUrl,
   deduplicateStreams,
   getHostLabel,
   resolveListmirror,
-} from "../stremio/resolvers";
-import { sortStreamsByQuality } from "../stremio/quality";
-import type { ResolvedStream } from "../stremio/resolvers";
+} from "../stremio/resolvers.js";
+import { sortStreamsByQuality } from "../stremio/quality.js";
+import type { ResolvedStream } from "../stremio/resolvers.js";
 
 export type { ResolvedStream as ExtractedStream };
 

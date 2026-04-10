@@ -1,10 +1,10 @@
 import * as cheerio from "cheerio";
-import { fetchPage } from "../stremio/http";
-import { makeId, extractUrl } from "./ids";
-import { getCached, setCached } from "../stremio/cache";
-import { extractBesthdgaypornStreams } from "./extractors";
-import { BESTHDGAYPORN_CATALOG_MAP } from "./manifest";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
+import { fetchPage } from "../stremio/http.js";
+import { makeId, extractUrl } from "./ids.js";
+import { getCached, setCached } from "../stremio/cache.js";
+import { extractBesthdgaypornStreams } from "./extractors.js";
+import { BESTHDGAYPORN_CATALOG_MAP } from "./manifest.js";
+import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
 
 const BASE_URL = "https://besthdgayporn.com";
 const isDebug = () => process.env.DEBUG === "1";

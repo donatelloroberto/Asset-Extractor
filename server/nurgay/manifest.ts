@@ -1,4 +1,4 @@
-import type { StremioManifest } from "../stremio/manifest";
+import type { StremioManifest } from "../stremio/manifest.js";
 
 export const NURGAY_CATALOG_MAP: Record<string, { path: string; name: string; isQuery?: boolean }> = {
   "nurgay-latest": { path: "/?filter=latest", name: "NurG-Latest", isQuery: true },

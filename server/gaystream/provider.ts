@@ -1,10 +1,10 @@
 import * as cheerio from "cheerio";
-import { fetchPage } from "../stremio/http";
-import { makeId, extractUrl } from "./ids";
-import { getCached, setCached } from "../stremio/cache";
-import { extractGaystreamStreams } from "./extractors";
-import { GAYSTREAM_CATALOG_MAP } from "./manifest";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
+import { fetchPage } from "../stremio/http.js";
+import { makeId, extractUrl } from "./ids.js";
+import { getCached, setCached } from "../stremio/cache.js";
+import { extractGaystreamStreams } from "./extractors.js";
+import { GAYSTREAM_CATALOG_MAP } from "./manifest.js";
+import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
 
 const BASE_URL = "https://gaystream.pw";
 const isDebug = () => process.env.DEBUG === "1";

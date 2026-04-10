@@ -1,4 +1,4 @@
-import type { StremioManifest } from "../stremio/manifest";
+import type { StremioManifest } from "../stremio/manifest.js";
 
 export const FXGGXT_CATALOG_MAP: Record<string, { path: string; name: string }> = {
   "fxggxt-amateur": { path: "/tag/amateur-gay-porn/", name: "Fxg-Amateur" },
