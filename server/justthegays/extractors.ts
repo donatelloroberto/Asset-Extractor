@@ -1,6 +1,10 @@
 import { fetchPage } from "../stremio/http";
 import * as cheerio from "cheerio";
-import type { ExtractedStream } from "../fxggxt/extractors";
+import { deduplicateStreams, resolveEmbedUrl } from "../stremio/resolvers";
+import { sortStreamsByQuality } from "../stremio/quality";
+import type { ResolvedStream } from "../stremio/resolvers";
+
+export type { ResolvedStream as ExtractedStream };
 
 const isDebug = () => process.env.DEBUG === "1";
 
@@ -19,21 +23,17 @@ function getStreamLabel(url: string): string {
 function extractVideoUrls(text: string): string[] {
   const matches = text.match(VIDEO_URL_REGEX);
   if (!matches) return [];
-  return matches.map(m => m.replace(/['">\s]+$/, ""));
+  return matches.map((m) => m.replace(/['">\s]+$/, ""));
 }
 
-export async function extractJustthegaysStreams(pageUrl: string): Promise<ExtractedStream[]> {
-  const streams: ExtractedStream[] = [];
+export async function extractJustthegaysStreams(pageUrl: string): Promise<ResolvedStream[]> {
+  const streams: ResolvedStream[] = [];
   const seenUrls = new Set<string>();
 
   function addStream(url: string) {
     if (seenUrls.has(url)) return;
     seenUrls.add(url);
-    streams.push({
-      name: getStreamLabel(url),
-      url,
-      referer: pageUrl,
-    });
+    streams.push({ name: getStreamLabel(url), url, referer: pageUrl });
   }
 
   try {
@@ -42,25 +42,18 @@ export async function extractJustthegaysStreams(pageUrl: string): Promise<Extrac
 
     $('script[type="application/ld+json"]').each((_, el) => {
       try {
-        const text = $(el).html() || "";
-        const urls = extractVideoUrls(text);
-        for (const u of urls) addStream(u);
+        for (const u of extractVideoUrls($(el).html() || "")) addStream(u);
       } catch {}
     });
 
-    $("video source, video[src], video[data-src]").each((_, el) => {
-      const $el = $(el);
-      const src = $el.attr("src") || $el.attr("data-src");
+    $("video source, video[src], video[data-src], source[src], source[data-src]").each((_, el) => {
+      const src = $(el).attr("src") || $(el).attr("data-src");
       if (src && /\.(mp4|m3u8|webm)/.test(src)) {
-        const fullUrl = src.startsWith("http") ? src : (src.startsWith("//") ? `https:${src}` : `https://justthegays.com${src}`);
-        addStream(fullUrl);
-      }
-    });
-    $("source[src], source[data-src]").each((_, el) => {
-      const $el = $(el);
-      const src = $el.attr("src") || $el.attr("data-src");
-      if (src && /\.(mp4|m3u8|webm)/.test(src)) {
-        const fullUrl = src.startsWith("http") ? src : (src.startsWith("//") ? `https:${src}` : `https://justthegays.com${src}`);
+        const fullUrl = src.startsWith("http")
+          ? src
+          : src.startsWith("//")
+          ? `https:${src}`
+          : `https://justthegays.com${src}`;
         addStream(fullUrl);
       }
     });
@@ -70,29 +63,40 @@ export async function extractJustthegaysStreams(pageUrl: string): Promise<Extrac
       const src = $(el).attr("src");
       if (src) {
         const fullSrc = src.startsWith("//") ? `https:${src}` : src;
-        if (fullSrc.startsWith("http")) {
-          iframeSrcs.push(fullSrc);
-        }
+        if (fullSrc.startsWith("http")) iframeSrcs.push(fullSrc);
       }
     });
 
-    for (const iframeSrc of iframeSrcs) {
-      try {
+    const iframeResults = await Promise.allSettled(
+      iframeSrcs.map(async (iframeSrc) => {
+        const resolved = await resolveEmbedUrl(iframeSrc, pageUrl);
+        if (resolved.length > 0) return resolved;
         const iframeHtml = await fetchPage(iframeSrc, { referer: pageUrl });
-        const urls = extractVideoUrls(iframeHtml);
-        for (const u of urls) addStream(u);
-      } catch (err: any) {
-        if (isDebug()) console.error(`[Justthegays] iframe fetch error for ${iframeSrc}: ${err.message}`);
+        return extractVideoUrls(iframeHtml).map((url) => ({
+          name: getStreamLabel(url),
+          url,
+          referer: pageUrl,
+        }));
+      })
+    );
+
+    for (const result of iframeResults) {
+      if (result.status === "fulfilled") {
+        for (const s of result.value) {
+          if (s.url && !seenUrls.has(s.url)) {
+            seenUrls.add(s.url);
+            streams.push(s);
+          }
+        }
       }
     }
 
     if (streams.length === 0) {
-      const urls = extractVideoUrls(html);
-      for (const u of urls) addStream(u);
+      for (const u of extractVideoUrls(html)) addStream(u);
     }
   } catch (err: any) {
     if (isDebug()) console.error(`[Justthegays] Page extraction error: ${err.message}`);
   }
 
-  return streams;
+  return sortStreamsByQuality(deduplicateStreams(streams));
 }

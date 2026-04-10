@@ -14,7 +14,7 @@ Eight Stremio add-ons converted from Cloudstream 3 extensions. The app serves St
 - **BoyfriendTV Stremio Endpoints**: `/boyfriendtv/manifest.json`, dedicated + shared routes
 - **Gaycock4U Stremio Endpoints**: `/gaycock4u/manifest.json`, dedicated + shared routes
 - **GayStream Stremio Endpoints**: `/gaystream/manifest.json`, dedicated + shared routes
-- **Dashboard API**: `/api/status`, `/api/catalogs`, `/api/catalog/:id`, `/api/meta/:id`, `/api/cache/clear`
+- **Dashboard API**: `/api/status`, `/api/catalogs`, `/api/catalog/:id`, `/api/meta/:id`, `/api/cache/clear`, `/api/stream-check`
 
 ## Key Files
 ### GXtapes Plugin (101 catalogs)

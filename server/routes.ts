@@ -979,5 +979,36 @@ export async function registerRoutes(
     res.json({ success: true });
   });
 
+  app.get("/api/stream-check", async (req, res) => {
+    const streamUrl = req.query.url as string;
+    if (!streamUrl) {
+      return res.status(400).json({ valid: false, error: "Missing url parameter" });
+    }
+    try {
+      const response = await axios.head(streamUrl, {
+        timeout: 8000,
+        maxRedirects: 5,
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "*/*",
+          ...(req.query.referer ? { Referer: req.query.referer as string } : {}),
+        },
+        validateStatus: () => true,
+      });
+      const contentType = response.headers["content-type"] || "";
+      const status = response.status;
+      const isVideo = contentType.includes("video") || contentType.includes("application/vnd.apple.mpegurl") || contentType.includes("application/x-mpegURL") || streamUrl.includes(".mp4") || streamUrl.includes(".m3u8");
+      res.json({
+        valid: status >= 200 && status < 400,
+        status,
+        contentType,
+        isVideo,
+        url: streamUrl,
+      });
+    } catch (err: any) {
+      res.json({ valid: false, error: err.message, url: streamUrl });
+    }
+  });
+
   return httpServer;
 }

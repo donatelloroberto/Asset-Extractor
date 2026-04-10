@@ -1,0 +1,50 @@
+You are an expert backend engineer specializing in media scraping pipelines and streaming manifest resolution.
+
+Your task is to analyze an existing project: a set of Stremio addons that scrape predefined websites to extract video links from file-hosting sources.
+
+The current system has issues:
+
+Some videos do not return any stream links at all
+Some streams open in the browser instead of playing inside the Stremio player
+Inconsistent extraction quality across different host sites
+Your Objectives
+Full Codebase Analysis
+Map the current scraping flow end-to-end
+Identify where link extraction fails or becomes inconsistent
+Detect patterns in sources that fail vs succeed
+Fix Streaming Extraction Issues
+Improve link detection for file-hosting pages
+Ensure extracted streams are compatible with Stremio player (not browser-only redirects)
+Normalize all outputs into valid stream formats (direct MP4, HLS/m3u8, or resolvable CDN links)
+Detect and resolve redirect chains and intermediate landing pages
+Handle dynamic content loading where necessary
+Improve Stream Compatibility
+Ensure streams are returned in formats Stremio can consume directly
+Filter out non-playable links (ads, HTML pages, JS redirectors)
+Convert indirect links into final resolved media URLs where possible
+Enhance Scraping Robustness
+Add retry + fallback scraping strategies per provider
+Introduce modular scraper structure per domain/provider
+Improve HTTP handling (headers, cookies, user-agent rotation where appropriate)
+Add logging for failed extraction paths with reason classification
+Creative Feature Enhancements
+Add a “stream quality ranking” system (1080p > 720p > CAM, etc.)
+Add duplicate stream deduplication
+Add health-check endpoint for stream validity testing
+Introduce caching layer for resolved links to reduce scraping load
+Add optional metadata enrichment (subtitles availability, audio tracks if detectable)
+Build a “best stream auto-selector” heuristic
+Developer Experience Improvements
+Refactor into clean modules (scrapers / resolvers / validators / utils)
+Add debug mode with verbose extraction logs
+Add unit tests for link validation and parsing logic
+Output Requirements
+Provide a step-by-step diagnosis of the current system issues
+Propose a redesigned scraping + resolving architecture
+Provide concrete code improvements or refactors where applicable
+Suggest new modules/files structure
+Highlight exactly why streams fail and how each fix resolves it
+Prioritize reliability and Stremio compatibility above all else
+Final Goal
+
+Make the addon system reliably return playable streams in Stremio with minimal missing results and eliminate browser-only or non-direct-play links wherever possible.
