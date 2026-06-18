@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import {
   Activity,
@@ -13,13 +14,15 @@ import {
   Copy,
   ExternalLink,
   RefreshCw,
-  Server,
   Clock,
   Layers,
   BarChart3,
   CheckCircle2,
   XCircle,
   Trash2,
+  Globe,
+  Info,
+  MonitorPlay,
 } from "lucide-react";
 
 interface AddonInfo {
@@ -67,12 +70,94 @@ function formatUptime(seconds: number): string {
   return `${secs}s`;
 }
 
+function AddonCard({ addon, baseUrl }: { addon: AddonInfo; baseUrl: string }) {
+  const { toast } = useToast();
+  const manifestUrl = `${baseUrl}${addon.manifestPath}`;
+  const stremioUrl = `stremio://${window.location.host}${addon.manifestPath}`;
+  const webInstallUrl = `https://web.stremio.com/#?addon=${encodeURIComponent(manifestUrl)}`;
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    toast({ title: "Copied!", description: `${label} copied to clipboard.` });
+  };
+
+  return (
+    <Card key={addon.manifestPath} className="flex flex-col">
+      <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
+        <CardTitle className="text-base font-semibold">{addon.name}</CardTitle>
+        <Badge variant="secondary" className="text-xs shrink-0">
+          {addon.catalogs} catalogs
+        </Badge>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3 flex-1">
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+            Manifest URL
+          </label>
+          <div className="flex items-center gap-2">
+            <code
+              className="flex-1 text-xs bg-muted px-3 py-2 rounded-md overflow-x-auto font-mono text-foreground/80"
+              data-testid={`text-manifest-url-${addon.name.toLowerCase()}`}
+            >
+              {manifestUrl}
+            </code>
+            <Button
+              size="icon"
+              variant="outline"
+              className="shrink-0"
+              onClick={() => copyToClipboard(manifestUrl, `${addon.name} Manifest URL`)}
+              data-testid={`button-copy-manifest-${addon.name.toLowerCase()}`}
+              title="Copy manifest URL"
+            >
+              <Copy className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+
+        <div className="flex gap-2 flex-wrap mt-auto">
+          <Button
+            variant="default"
+            size="sm"
+            className="gap-1.5"
+            onClick={() => window.open(stremioUrl, "_blank")}
+            data-testid={`button-install-${addon.name.toLowerCase()}`}
+            title="Open in Stremio desktop app"
+          >
+            <MonitorPlay className="w-3.5 h-3.5" />
+            Install (Desktop)
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5"
+            onClick={() => window.open(webInstallUrl, "_blank")}
+            title="Install via Stremio Web"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            Install (Web)
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-1.5"
+            onClick={() => window.open(manifestUrl, "_blank")}
+            data-testid={`button-view-manifest-${addon.name.toLowerCase()}`}
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            View JSON
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function Dashboard() {
   const { toast } = useToast();
 
   const { data: status, isLoading, refetch } = useQuery<StatusResponse>({
     queryKey: ["/api/status"],
-    refetchInterval: 5000,
+    refetchInterval: 10000,
   });
 
   const clearCacheMutation = useMutation({
@@ -85,15 +170,11 @@ export default function Dashboard() {
 
   const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
 
-  const copyToClipboard = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    toast({ title: "Copied", description: `${label} copied to clipboard.` });
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto p-4 md:p-6 lg:p-8 space-y-6">
-        <header className="space-y-2">
+        {/* Header */}
+        <header className="space-y-3">
           <div className="flex items-center gap-3 flex-wrap">
             <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary/10">
               <Zap className="w-5 h-5 text-primary" />
@@ -107,8 +188,20 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
+
+          <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-lg text-sm text-blue-800 dark:text-blue-200">
+            <Info className="w-4 h-4 mt-0.5 shrink-0" />
+            <div>
+              <span className="font-medium">How to install:</span> Click{" "}
+              <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded">Install (Desktop)</span> to open
+              in Stremio, or{" "}
+              <span className="font-mono bg-blue-100 dark:bg-blue-900/50 px-1 rounded">Install (Web)</span> for the
+              browser version. You can also copy the Manifest URL and paste it into Stremio manually.
+            </div>
+          </div>
         </header>
 
+        {/* Stats */}
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
@@ -122,15 +215,15 @@ export default function Dashboard() {
           </div>
         ) : status ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Activity className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Status</span>
+                    <span className="text-xs text-muted-foreground font-medium">Status</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+                    <span className="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                     <span className="text-lg font-semibold" data-testid="text-status">Online</span>
                   </div>
                 </CardContent>
@@ -140,7 +233,7 @@ export default function Dashboard() {
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Clock className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Uptime</span>
+                    <span className="text-xs text-muted-foreground font-medium">Uptime</span>
                   </div>
                   <span className="text-lg font-semibold" data-testid="text-uptime">
                     {formatUptime(status.uptime)}
@@ -152,7 +245,7 @@ export default function Dashboard() {
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Layers className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Total Catalogs</span>
+                    <span className="text-xs text-muted-foreground font-medium">Total Catalogs</span>
                   </div>
                   <span className="text-lg font-semibold" data-testid="text-catalogs">
                     {status.catalogs}
@@ -164,74 +257,33 @@ export default function Dashboard() {
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Database className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Cache</span>
+                    <span className="text-xs text-muted-foreground font-medium">Cache Keys</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg font-semibold" data-testid="text-cache-keys">
-                      {status.cacheStats.keys} keys
-                    </span>
-                  </div>
+                  <span className="text-lg font-semibold" data-testid="text-cache-keys">
+                    {status.cacheStats.keys}
+                  </span>
                 </CardContent>
               </Card>
             </div>
 
+            {/* Add-on Cards */}
             {status.addons && status.addons.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {status.addons.map((addon) => (
-                  <Card key={addon.manifestPath}>
-                    <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
-                      <CardTitle className="text-base font-semibold">{addon.name}</CardTitle>
-                      <Badge variant="secondary" className="text-xs">{addon.catalogs} catalogs</Badge>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div className="space-y-2">
-                        <label className="text-sm text-muted-foreground">Manifest URL</label>
-                        <div className="flex items-center gap-2">
-                          <code
-                            className="flex-1 text-xs bg-muted px-3 py-2 rounded-md overflow-x-auto font-mono"
-                            data-testid={`text-manifest-url-${addon.name.toLowerCase()}`}
-                          >
-                            {baseUrl}{addon.manifestPath}
-                          </code>
-                          <Button
-                            size="icon"
-                            variant="outline"
-                            onClick={() => copyToClipboard(`${baseUrl}${addon.manifestPath}`, `${addon.name} Manifest URL`)}
-                            data-testid={`button-copy-manifest-${addon.name.toLowerCase()}`}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-2 flex-wrap">
-                        <Button
-                          variant="default"
-                          size="sm"
-                          onClick={() => {
-                            const host = window.location.host;
-                            window.open(`stremio://${host}${addon.manifestPath}`, "_blank");
-                          }}
-                          data-testid={`button-install-${addon.name.toLowerCase()}`}
-                        >
-                          <ExternalLink className="w-3 h-3 mr-1" />
-                          Open in Stremio
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => window.open(`${baseUrl}${addon.manifestPath}`, "_blank")}
-                          data-testid={`button-view-manifest-${addon.name.toLowerCase()}`}
-                        >
-                          View Manifest
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <section className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-semibold">Available Add-ons</h2>
+                  <Badge variant="outline">{status.addons.length} providers</Badge>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {status.addons.map((addon) => (
+                    <AddonCard key={addon.manifestPath} addon={addon} baseUrl={baseUrl} />
+                  ))}
+                </div>
+              </section>
             )}
 
+            <Separator />
+
+            {/* Cache + Endpoints row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
@@ -240,30 +292,30 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-3 gap-4">
-                    <div className="text-center">
+                    <div className="text-center p-3 rounded-lg bg-green-50 dark:bg-green-950/20">
                       <div className="flex items-center justify-center gap-1 mb-1">
-                        <CheckCircle2 className="w-3 h-3 text-green-500" />
+                        <CheckCircle2 className="w-3 h-3 text-green-600" />
                         <span className="text-xs text-muted-foreground">Hits</span>
                       </div>
-                      <span className="text-xl font-bold" data-testid="text-cache-hits">
+                      <span className="text-xl font-bold text-green-700 dark:text-green-400" data-testid="text-cache-hits">
                         {status.cacheStats.hits}
                       </span>
                     </div>
-                    <div className="text-center">
+                    <div className="text-center p-3 rounded-lg bg-orange-50 dark:bg-orange-950/20">
                       <div className="flex items-center justify-center gap-1 mb-1">
-                        <XCircle className="w-3 h-3 text-orange-500" />
+                        <XCircle className="w-3 h-3 text-orange-600" />
                         <span className="text-xs text-muted-foreground">Misses</span>
                       </div>
-                      <span className="text-xl font-bold" data-testid="text-cache-misses">
+                      <span className="text-xl font-bold text-orange-700 dark:text-orange-400" data-testid="text-cache-misses">
                         {status.cacheStats.misses}
                       </span>
                     </div>
-                    <div className="text-center">
+                    <div className="text-center p-3 rounded-lg bg-blue-50 dark:bg-blue-950/20">
                       <div className="flex items-center justify-center gap-1 mb-1">
-                        <Database className="w-3 h-3 text-blue-500" />
+                        <Database className="w-3 h-3 text-blue-600" />
                         <span className="text-xs text-muted-foreground">Keys</span>
                       </div>
-                      <span className="text-xl font-bold">
+                      <span className="text-xl font-bold text-blue-700 dark:text-blue-400">
                         {status.cacheStats.keys}
                       </span>
                     </div>
@@ -280,7 +332,7 @@ export default function Dashboard() {
                       Refresh
                     </Button>
                     <Button
-                      variant="outline"
+                      variant="destructive"
                       size="sm"
                       onClick={() => clearCacheMutation.mutate()}
                       disabled={clearCacheMutation.isPending}
@@ -299,14 +351,14 @@ export default function Dashboard() {
                   <Zap className="w-4 h-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     {status.endpoints.map((ep) => (
                       <div
                         key={ep.path}
-                        className="flex items-center justify-between gap-2 py-2 border-b last:border-b-0"
+                        className="flex items-center justify-between gap-2 py-1.5 border-b last:border-b-0"
                         data-testid={`row-endpoint-${ep.path.replace(/\//g, "-")}`}
                       >
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
                           <Badge variant="secondary" className="text-xs shrink-0">GET</Badge>
                           <code className="text-xs font-mono text-muted-foreground truncate">{ep.path}</code>
                         </div>
@@ -328,7 +380,7 @@ export default function Dashboard() {
               <XCircle className="w-12 h-12 text-destructive mx-auto mb-3" />
               <p className="text-lg font-semibold">Unable to connect</p>
               <p className="text-sm text-muted-foreground mt-1">
-                The add-on server is not responding. Please check the logs.
+                The add-on server is not responding. Please check the server logs.
               </p>
               <Button variant="outline" className="mt-4" onClick={() => refetch()}>
                 <RefreshCw className="w-4 h-4 mr-2" />
@@ -337,6 +389,10 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         )}
+
+        <footer className="text-center text-xs text-muted-foreground pt-2 pb-6">
+          Stremio Add-ons — 8 Cloudstream 3 extensions &bull; All streams are sourced from their respective providers
+        </footer>
       </div>
     </div>
   );
@@ -376,9 +432,7 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
     );
   }
 
-  if (!catalogs) {
-    return null;
-  }
+  if (!catalogs) return null;
 
   const activeCatalogs = catalogs[activeTab] || [];
   const addonKeys = Object.keys(ADDON_LABELS) as AddonKey[];
@@ -386,7 +440,7 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-3">
-        <CardTitle className="text-base font-semibold">Available Catalogs</CardTitle>
+        <CardTitle className="text-base font-semibold">Browse Catalogs</CardTitle>
         <Layers className="w-4 h-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-4">
@@ -399,7 +453,13 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
               onClick={() => setActiveTab(key)}
               data-testid={`button-tab-${key}`}
             >
-              {ADDON_LABELS[key]} ({catalogs[key]?.length || 0})
+              {ADDON_LABELS[key]}
+              <Badge
+                variant={activeTab === key ? "secondary" : "outline"}
+                className="ml-1.5 text-xs px-1.5"
+              >
+                {catalogs[key]?.length || 0}
+              </Badge>
             </Button>
           ))}
         </div>
@@ -409,20 +469,22 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
             {activeCatalogs.map((cat) => (
               <div
                 key={cat.id}
-                className="flex items-center justify-between gap-2 p-3 rounded-md border"
+                className="flex items-center justify-between gap-2 p-3 rounded-md border hover:bg-muted/50 transition-colors"
                 data-testid={`card-catalog-${cat.id}`}
               >
                 <div className="min-w-0 flex-1">
                   <span className="text-sm font-medium truncate block">{cat.name}</span>
-                  <span className="text-xs text-muted-foreground font-mono">{cat.id}</span>
+                  <span className="text-xs text-muted-foreground font-mono truncate block">{cat.id}</span>
                 </div>
                 <Button
                   size="icon"
                   variant="ghost"
-                  onClick={() => {
-                    window.open(`${baseUrl}/catalog/movie/${cat.id}.json`, "_blank");
-                  }}
+                  className="shrink-0"
+                  onClick={() =>
+                    window.open(`${baseUrl}/catalog/movie/${cat.id}.json`, "_blank")
+                  }
                   data-testid={`button-test-catalog-${cat.id}`}
+                  title="Test this catalog"
                 >
                   <ExternalLink className="w-3 h-3" />
                 </Button>
@@ -430,7 +492,7 @@ function CatalogList({ baseUrl }: { baseUrl: string }) {
             ))}
           </div>
         ) : (
-          <p className="text-sm text-muted-foreground">No catalogs available.</p>
+          <p className="text-sm text-muted-foreground text-center py-4">No catalogs available.</p>
         )}
       </CardContent>
     </Card>

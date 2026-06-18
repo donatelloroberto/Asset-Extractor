@@ -1,4 +1,4 @@
-import type { StremioManifest } from "../stremio/manifest.js";
+import type { StremioManifest } from "../stremio/manifest";
 
 export const BOYFRIENDTV_CATALOG_MAP: Record<string, { path: string; name: string; isQuery?: boolean }> = {
   "boyfriendtv-trending": { path: "/", name: "BfTV-Trending" },

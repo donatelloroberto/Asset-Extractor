@@ -133,7 +133,7 @@ function solveSucuriChallenge(html: string): string | null {
     const sandbox = {
       String: String,
       document: {
-        get cookie() { return cookieResult.value; },
+        get cookie() { return ""; },
         set cookie(val: string) {
           cookieResult.name = val.split("=")[0];
           cookieResult.value = val.split(";")[0];

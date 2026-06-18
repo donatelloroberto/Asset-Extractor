@@ -1,10 +1,11 @@
 import * as cheerio from "cheerio";
-import { fetchPage } from "../stremio/http.js";
-import { makeId, extractUrl } from "./ids.js";
-import { getCached, setCached } from "../stremio/cache.js";
-import { extractFxggxtStreams } from "./extractors.js";
-import { FXGGXT_CATALOG_MAP } from "./manifest.js";
-import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema.js";
+import { fetchPage } from "../stremio/http";
+import { makeId, extractUrl } from "./ids";
+import { getCached, setCached } from "../stremio/cache";
+import { extractFxggxtStreams } from "./extractors";
+import { FXGGXT_CATALOG_MAP } from "./manifest";
+import { mapStreamsForStremio } from "../stremio/stream-mapper";
+import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
 
 const BASE_URL = "https://fxggxt.com";
 const isDebug = () => process.env.DEBUG === "1";
@@ -161,31 +162,7 @@ export async function getFxggxtStreams(id: string, baseUrl?: string): Promise<St
     if (isDebug()) console.log(`[Fxggxt] Getting streams for: ${url}`);
 
     const extracted = await extractFxggxtStreams(url);
-    const streams: StremioStream[] = extracted.map(s => {
-      if (s.externalUrl && !s.url) {
-        return {
-          name: s.name,
-          title: `${s.name} - Open in Browser`,
-          externalUrl: s.externalUrl,
-        };
-      }
-
-      let streamUrl = s.url!;
-      if (baseUrl) {
-        const params = new URLSearchParams({ url: streamUrl });
-        if (s.referer) params.set("referer", s.referer);
-        streamUrl = `${baseUrl}/proxy/stream?${params.toString()}`;
-      }
-
-      const hints: any = { notWebReady: false };
-      return {
-        name: s.name,
-        title: s.quality ? `${s.name} - ${s.quality}` : s.name,
-        url: streamUrl,
-        behaviorHints: hints,
-      };
-    });
-
+    const streams = await mapStreamsForStremio(extracted, baseUrl);
     return streams;
   } catch (err: any) {
     if (isDebug()) console.error(`[Fxggxt] Stream error:`, err.message);

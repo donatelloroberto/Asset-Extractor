@@ -1,22 +1,12 @@
-import { createApp } from "./app.js";
-import { log } from "./log.js";
-
-export { log };
-
-declare module "http" {
-  interface IncomingMessage {
-    rawBody: unknown;
-  }
-}
+import { app, httpServer } from "./app";
+import { log } from "./logger";
+import { serveStatic } from "./static";
 
 (async () => {
-  const { app, httpServer } = await createApp();
-
   if (process.env.NODE_ENV === "production") {
-    const { serveStatic } = await import("./static.js");
     serveStatic(app);
   } else {
-    const { setupVite } = await import("./vite.js");
+    const { setupVite } = await import("./vite");
     await setupVite(httpServer, app);
   }
 

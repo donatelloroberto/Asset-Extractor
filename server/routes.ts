@@ -1,24 +1,24 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import axios from "axios";
-import { buildManifest } from "./stremio/manifest.js";
-import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider.js";
-import { buildNurgayManifest } from "./nurgay/manifest.js";
-import { getNurgayCatalog, searchNurgayContent, getNurgayMeta, getNurgayStreams } from "./nurgay/provider.js";
-import { buildFxggxtManifest } from "./fxggxt/manifest.js";
-import { getFxggxtCatalog, searchFxggxtContent, getFxggxtMeta, getFxggxtStreams } from "./fxggxt/provider.js";
-import { buildJustthegaysManifest } from "./justthegays/manifest.js";
-import { getJustthegaysCatalog, searchJustthegaysContent, getJustthegaysMeta, getJustthegaysStreams } from "./justthegays/provider.js";
-import { buildBesthdgaypornManifest } from "./besthdgayporn/manifest.js";
-import { getBesthdgaypornCatalog, searchBesthdgaypornContent, getBesthdgaypornMeta, getBesthdgaypornStreams } from "./besthdgayporn/provider.js";
-import { buildBoyfriendtvManifest } from "./boyfriendtv/manifest.js";
-import { getBoyfriendtvCatalog, searchBoyfriendtvContent, getBoyfriendtvMeta, getBoyfriendtvStreams } from "./boyfriendtv/provider.js";
-import { buildGaycock4uManifest } from "./gaycock4u/manifest.js";
-import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGaycock4uStreams } from "./gaycock4u/provider.js";
-import { buildGaystreamManifest } from "./gaystream/manifest.js";
-import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider.js";
-import { getCacheStats, clearAllCaches } from "./stremio/cache.js";
-import { log } from "./log.js";
+import { buildManifest } from "./stremio/manifest";
+import { getCatalog, searchContent, getMeta, getStreams } from "./stremio/provider";
+import { buildNurgayManifest } from "./nurgay/manifest";
+import { getNurgayCatalog, searchNurgayContent, getNurgayMeta, getNurgayStreams } from "./nurgay/provider";
+import { buildFxggxtManifest } from "./fxggxt/manifest";
+import { getFxggxtCatalog, searchFxggxtContent, getFxggxtMeta, getFxggxtStreams } from "./fxggxt/provider";
+import { buildJustthegaysManifest } from "./justthegays/manifest";
+import { getJustthegaysCatalog, searchJustthegaysContent, getJustthegaysMeta, getJustthegaysStreams } from "./justthegays/provider";
+import { buildBesthdgaypornManifest } from "./besthdgayporn/manifest";
+import { getBesthdgaypornCatalog, searchBesthdgaypornContent, getBesthdgaypornMeta, getBesthdgaypornStreams } from "./besthdgayporn/provider";
+import { buildBoyfriendtvManifest } from "./boyfriendtv/manifest";
+import { getBoyfriendtvCatalog, searchBoyfriendtvContent, getBoyfriendtvMeta, getBoyfriendtvStreams } from "./boyfriendtv/provider";
+import { buildGaycock4uManifest } from "./gaycock4u/manifest";
+import { getGaycock4uCatalog, searchGaycock4uContent, getGaycock4uMeta, getGaycock4uStreams } from "./gaycock4u/provider";
+import { buildGaystreamManifest } from "./gaystream/manifest";
+import { getGaystreamCatalog, searchGaystreamContent, getGaystreamMeta, getGaystreamStreams } from "./gaystream/provider";
+import { getCacheStats, clearAllCaches } from "./stremio/cache";
+import { log } from "./logger";
 
 const startTime = Date.now();
 
@@ -974,40 +974,253 @@ export async function registerRoutes(
     }
   });
 
+  app.get("/api/imgproxy", async (req, res) => {
+    try {
+      const imageUrl = req.query.url as string;
+      if (!imageUrl) return res.status(400).send("Missing url");
+
+      const response = await axios.get(imageUrl, {
+        responseType: "stream",
+        timeout: 10000,
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "image/*,*/*",
+          "Referer": new URL(imageUrl).origin + "/",
+        },
+      });
+
+      const contentType = response.headers["content-type"] || "image/jpeg";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Cache-Control", "public, max-age=86400");
+      response.data.pipe(res);
+    } catch {
+      res.status(404).send("Image not found");
+    }
+  });
+
+  app.get("/api/proxy/m3u8", async (req, res) => {
+    const urlParam = req.query.url as string;
+    const refParam = req.query.ref as string;
+    if (!urlParam) return res.status(400).send("Missing url");
+
+    let m3u8Url: string;
+    let referer: string;
+    try {
+      m3u8Url = Buffer.from(urlParam, "base64url").toString("utf8");
+      referer = refParam ? Buffer.from(refParam, "base64url").toString("utf8") : m3u8Url;
+    } catch {
+      return res.status(400).send("Invalid url encoding");
+    }
+
+    try {
+      const response = await axios.get(m3u8Url, {
+        responseType: "text",
+        timeout: 15000,
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Referer": referer,
+          "Origin": new URL(referer).origin,
+          "Accept": "*/*",
+        },
+        maxRedirects: 5,
+      });
+
+      const m3u8Text: string = response.data;
+      const baseM3u8Url = m3u8Url.substring(0, m3u8Url.lastIndexOf("/") + 1);
+      const host = `${req.protocol}://${req.get("host")}`;
+
+      const rewritten = m3u8Text.split("\n").map((line: string) => {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#")) {
+          // Rewrite URI= attributes in tags like #EXT-X-KEY:URI="..."
+          return line.replace(/URI="([^"]+)"/gi, (_match: string, uri: string) => {
+            const absUri = uri.startsWith("http") ? uri : uri.startsWith("//") ? `https:${uri}` : `${baseM3u8Url}${uri}`;
+            const params = new URLSearchParams({ url: absUri, referer: m3u8Url });
+            return `URI="${host}/proxy/stream?${params.toString()}"`;
+          });
+        }
+        // It's a segment or sub-playlist URL
+        const absUrl = trimmed.startsWith("http") ? trimmed : trimmed.startsWith("//") ? `https:${trimmed}` : `${baseM3u8Url}${trimmed}`;
+        const isSubPlaylist = absUrl.includes(".m3u8");
+        if (isSubPlaylist) {
+          const encoded = Buffer.from(absUrl).toString("base64url");
+          const refEncoded = Buffer.from(m3u8Url).toString("base64url");
+          return `${host}/api/proxy/m3u8?url=${encoded}&ref=${refEncoded}`;
+        }
+        const params = new URLSearchParams({ url: absUrl, referer: m3u8Url });
+        return `${host}/proxy/stream?${params.toString()}`;
+      }).join("\n");
+
+      res.setHeader("Content-Type", "application/vnd.apple.mpegurl");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Cache-Control", "no-cache");
+      res.send(rewritten);
+    } catch (err: any) {
+      log(`M3U8 proxy error: ${err.message}`, "stremio");
+      res.status(502).send("Failed to fetch m3u8");
+    }
+  });
+
+  app.get("/api/embed", async (req, res) => {
+    const raw = req.query.url as string;
+    if (!raw) return res.status(400).send("Missing url");
+
+    let embedUrl: string;
+    try {
+      const decoded = Buffer.from(raw, "base64url").toString("utf8");
+      embedUrl = decoded.startsWith("http") ? decoded : raw;
+    } catch {
+      embedUrl = raw;
+    }
+
+    const AD_BLOCK_DOMAINS = [
+      "googlesyndication", "doubleclick", "adnxs", "adnxs.com",
+      "popads", "popcash", "trafficjunky", "exoclick", "juicyads",
+      "ero-advertising", "plugrush", "hilltopads", "propellerads",
+      "adcash", "bidvertiser", "clickadu", "adsterra", "monetag",
+      "mgid", "revcontent", "taboola", "outbrain", "pmulink",
+      "rubiconproject", "pubmatic", "appnexus", "openx",
+    ];
+
+    const AD_BLOCK_CSS = `
+<style id="sf-adblock">
+  /* StreamFlix AdBlock: hide ad containers */
+  ins.adsbygoogle,.adsbygoogle,[id^="google_ads"],[id^="aswift"],
+  [class*="ad-banner"],[class*="ad-container"],[class*="adBox"],
+  [id*="ad-banner"],[id*="ad-container"],[id*="adBox"],
+  [class*="popup"],[class*="pop-up"],[class*="popunder"],
+  [id*="popup"],[id*="pop-up"],[id*="popunder"],
+  [class*="overlay"]:not(video *):not(.jw-overlays):not(.plyr__control),
+  iframe[src*="googlesyndication"],iframe[src*="doubleclick"],
+  iframe[src*="exoclick"],iframe[src*="juicyads"],
+  a[href*="trafficjunky"],a[href*="exoclick"],
+  .OUTBRAIN,.taboola-widget
+  { display:none!important; visibility:hidden!important; pointer-events:none!important; }
+</style>`;
+
+    const AD_BLOCK_JS = `
+<script id="sf-adblock-js">
+(function(){
+  // Block window.open (popup/popunder ads)
+  window.open = function(){ return {focus:function(){},blur:function(){},closed:false,location:{href:''}}; };
+  // Block onbeforeunload redirect tricks
+  window.onbeforeunload = null;
+  Object.defineProperty(window,'onbeforeunload',{set:function(){}});
+  // Prevent location redirect used by some ad scripts
+  var _loc = window.location;
+  try {
+    Object.defineProperty(window,'location',{
+      get:function(){ return _loc; },
+      set:function(v){
+        var s=String(v);
+        var adDomains=${JSON.stringify(AD_BLOCK_DOMAINS)};
+        var isAd=adDomains.some(function(d){ return s.indexOf(d)!==-1; });
+        if(!isAd) _loc.href=s;
+      }
+    });
+  } catch(e){}
+  // Remove ad elements periodically
+  var adSelectors=[
+    'ins.adsbygoogle','.adsbygoogle',
+    '[id^="google_ads"],[id^="aswift"]',
+    'iframe[src*="googlesyndication"]','iframe[src*="doubleclick"]',
+    'iframe[src*="exoclick"]','iframe[src*="juicyads"]',
+    '[class*="popunder"],[class*="pop-up-"]'
+  ];
+  function removeAds(){
+    adSelectors.forEach(function(sel){
+      try{ document.querySelectorAll(sel).forEach(function(el){ el.remove(); }); }catch(e){}
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',removeAds);
+  } else { removeAds(); }
+  setInterval(removeAds,1500);
+})();
+</script>`;
+
+    try {
+      log(`Embed proxy: ${embedUrl}`, "stremio");
+
+      const response = await axios.get(embedUrl, {
+        responseType: "arraybuffer",
+        timeout: 15000,
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.9",
+          "Referer": new URL(embedUrl).origin + "/",
+          "Sec-Fetch-Dest": "iframe",
+          "Sec-Fetch-Mode": "navigate",
+          "Sec-Fetch-Site": "cross-site",
+          "Upgrade-Insecure-Requests": "1",
+        },
+        maxRedirects: 5,
+      });
+
+      const contentType = response.headers["content-type"] || "text/html";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Cache-Control", "no-store");
+      res.removeHeader("X-Frame-Options");
+      res.setHeader("X-Frame-Options", "ALLOWALL");
+      res.removeHeader("Content-Security-Policy");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+
+      const body = Buffer.from(response.data as ArrayBuffer).toString("utf8");
+
+      // Detect Cloudflare challenges / bot-detection pages — redirect browser to handle directly
+      const isCfChallenge =
+        body.includes("__cf_chl_opt") ||
+        body.includes("cf-browser-verification") ||
+        body.includes("cf_chl_prog") ||
+        body.includes("challenge-platform") ||
+        (response.headers["cf-mitigated"] === "challenge") ||
+        (body.includes("Verifying") && body.includes("Cloudflare")) ||
+        (response.status === 403 && !!response.headers["cf-ray"]);
+
+      if (isCfChallenge) {
+        log(`Cloudflare challenge detected, redirecting directly: ${embedUrl}`, "stremio");
+        return res.redirect(302, embedUrl);
+      }
+
+      const embedOrigin = new URL(embedUrl).origin;
+
+      // Strip framing restrictions and CSP meta tags
+      let cleaned = body
+        .replace(/<meta[^>]*http-equiv=["']?X-Frame-Options["']?[^>]*>/gi, "")
+        .replace(/<meta[^>]*content-security-policy[^>]*>/gi, "");
+
+      // Remove known ad network script tags
+      for (const domain of AD_BLOCK_DOMAINS) {
+        const adScriptRe = new RegExp(`<script[^>]+src=["'][^"']*${domain.replace(".", "\\.")}[^"']*["'][^>]*>[\\s\\S]*?<\\/script>`, "gi");
+        cleaned = cleaned.replace(adScriptRe, "<!-- sf-adblocked -->");
+        const adScriptSelf = new RegExp(`<script[^>]+src=["'][^"']*${domain.replace(".", "\\.")}[^"']*["'][^>]*\\/?>`, "gi");
+        cleaned = cleaned.replace(adScriptSelf, "<!-- sf-adblocked />");
+      }
+
+      // Inject base tag + ad-blocking CSS + ad-blocking JS right after <head>
+      const injection = `<base href="${embedOrigin}/">${AD_BLOCK_CSS}${AD_BLOCK_JS}`;
+      let final: string;
+      if (cleaned.includes("<base ")) {
+        final = cleaned.replace(/<head([^>]*)>/i, `<head$1>${AD_BLOCK_CSS}${AD_BLOCK_JS}`);
+      } else {
+        final = cleaned.replace(/<head([^>]*)>/i, `<head$1>${injection}`);
+      }
+      if (!final.includes("<head")) {
+        final = AD_BLOCK_CSS + AD_BLOCK_JS + final;
+      }
+
+      res.send(final);
+    } catch (err: any) {
+      log(`Embed proxy failed (${err.response?.status ?? err.code}), redirecting: ${embedUrl}`, "stremio");
+      // Fall back to a redirect so the browser loads the page directly (video still works)
+      res.redirect(302, embedUrl);
+    }
+  });
+
   app.post("/api/cache/clear", (_req, res) => {
     clearAllCaches();
     res.json({ success: true });
-  });
-
-  app.get("/api/stream-check", async (req, res) => {
-    const streamUrl = req.query.url as string;
-    if (!streamUrl) {
-      return res.status(400).json({ valid: false, error: "Missing url parameter" });
-    }
-    try {
-      const response = await axios.head(streamUrl, {
-        timeout: 8000,
-        maxRedirects: 5,
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          "Accept": "*/*",
-          ...(req.query.referer ? { Referer: req.query.referer as string } : {}),
-        },
-        validateStatus: () => true,
-      });
-      const contentType = response.headers["content-type"] || "";
-      const status = response.status;
-      const isVideo = contentType.includes("video") || contentType.includes("application/vnd.apple.mpegurl") || contentType.includes("application/x-mpegURL") || streamUrl.includes(".mp4") || streamUrl.includes(".m3u8");
-      res.json({
-        valid: status >= 200 && status < 400,
-        status,
-        contentType,
-        isVideo,
-        url: streamUrl,
-      });
-    } catch (err: any) {
-      res.json({ valid: false, error: err.message, url: streamUrl });
-    }
   });
 
   return httpServer;

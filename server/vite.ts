@@ -1,7 +1,7 @@
 import { type Express } from "express";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
-import viteConfig from "../vite.config.js";
+import viteConfig from "../vite.config";
 import fs from "fs";
 import path from "path";
 import { nanoid } from "nanoid";
@@ -21,6 +21,11 @@ export async function setupVite(server: Server, app: Express) {
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
+        // Pre-transform errors (e.g. query-string version cache busting) are non-fatal
+        if (msg.includes("Pre-transform error")) {
+          viteLogger.warn(msg, options);
+          return;
+        }
         viteLogger.error(msg, options);
         process.exit(1);
       },
