@@ -65,3 +65,7 @@ app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
 });
 
 export { app, httpServer };
+
+export async function buildApp() {
+  return app;
+}
