@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 
 interface AddonInfo {
+  key: string;
   name: string;
   version: string;
   catalogs: number;
@@ -145,6 +146,17 @@ function AddonCard({ addon, baseUrl }: { addon: AddonInfo; baseUrl: string }) {
           >
             <ExternalLink className="w-3.5 h-3.5" />
             View JSON
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="gap-1.5"
+            onClick={() => window.open(`${baseUrl}/nfo/export?addons=${addon.key}&server=${encodeURIComponent(baseUrl)}`, "_blank")}
+            data-testid={`button-download-nfo-${addon.name.toLowerCase()}`}
+            title="Scrape this add-on and download NFO files"
+          >
+            <Database className="w-3.5 h-3.5" />
+            NFO ZIP
           </Button>
         </div>
       </CardContent>

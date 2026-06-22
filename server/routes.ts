@@ -854,14 +854,14 @@ export async function registerRoutes(
 
   app.get("/api/status", (_req, res) => {
     const allManifests = [
-      { manifest: buildManifest(), path: "/manifest.json" },
-      { manifest: buildNurgayManifest(), path: "/nurgay/manifest.json" },
-      { manifest: buildFxggxtManifest(), path: "/fxggxt/manifest.json" },
-      { manifest: buildJustthegaysManifest(), path: "/justthegays/manifest.json" },
-      { manifest: buildBesthdgaypornManifest(), path: "/besthdgayporn/manifest.json" },
-      { manifest: buildBoyfriendtvManifest(), path: "/boyfriendtv/manifest.json" },
-      { manifest: buildGaycock4uManifest(), path: "/gaycock4u/manifest.json" },
-      { manifest: buildGaystreamManifest(), path: "/gaystream/manifest.json" },
+      { key: "gxtapes", manifest: buildManifest(), path: "/manifest.json" },
+      { key: "nurgay", manifest: buildNurgayManifest(), path: "/nurgay/manifest.json" },
+      { key: "fxggxt", manifest: buildFxggxtManifest(), path: "/fxggxt/manifest.json" },
+      { key: "justthegays", manifest: buildJustthegaysManifest(), path: "/justthegays/manifest.json" },
+      { key: "besthdgayporn", manifest: buildBesthdgaypornManifest(), path: "/besthdgayporn/manifest.json" },
+      { key: "boyfriendtv", manifest: buildBoyfriendtvManifest(), path: "/boyfriendtv/manifest.json" },
+      { key: "gaycock4u", manifest: buildGaycock4uManifest(), path: "/gaycock4u/manifest.json" },
+      { key: "gaystream", manifest: buildGaystreamManifest(), path: "/gaystream/manifest.json" },
     ];
     const cacheStats = getCacheStats();
     const totalCatalogs = allManifests.reduce((sum, m) => sum + m.manifest.catalogs.length, 0);
@@ -871,7 +871,8 @@ export async function registerRoutes(
       uptime: Math.floor((Date.now() - startTime) / 1000),
       catalogs: totalCatalogs,
       cacheStats,
-      addons: allManifests.map(({ manifest, path }) => ({
+      addons: allManifests.map(({ key, manifest, path }) => ({
+        key,
         name: manifest.name,
         version: manifest.version,
         catalogs: manifest.catalogs.length,
@@ -884,6 +885,8 @@ export async function registerRoutes(
         { path: "/catalog/movie/{catalogId}.json", description: "Browse catalogs" },
         { path: "/meta/movie/{id}.json", description: "Content metadata" },
         { path: "/stream/movie/{id}.json", description: "Stream links" },
+        { path: "/nfo/{addon}/{encodedId}.nfo", description: "Download one scraped NFO file" },
+        { path: "/nfo/export?addons=gxtapes,nurgay", description: "Download scraped NFO ZIP" },
       ]),
     });
   });
