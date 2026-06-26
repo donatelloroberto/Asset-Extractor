@@ -236,37 +236,73 @@ export default function VideoPlayer({ streams, title, onClose }: VideoPlayerProp
     const isHls = url.includes(".m3u8") || url.includes("m3u8");
 
     if (isHls && Hls.isSupported()) {
-      const hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: false,
-        maxBufferLength: 60,
-        maxMaxBufferLength: 120,
-        xhrSetup: (xhr) => {
-          xhr.withCredentials = false;
-        },
-      });
-      hlsRef.current = hls;
-      hls.loadSource(url);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, (_e, data) => {
+      const startHls = (srcUrl: string) => {
+        if (hlsRef.current) { hlsRef.current.destroy(); hlsRef.current = null; }
         if (!mountedRef.current) return;
-        setHlsLevels(data.levels.map((l, i) => ({ height: l.height, index: i })));
-        setLoading(false);
-        safePlay(video);
-        setPlaying(true);
-      });
-      hls.on(Hls.Events.ERROR, (_e, data) => {
+        const hls = new Hls({
+          enableWorker: true,
+          lowLatencyMode: false,
+          maxBufferLength: 60,
+          maxMaxBufferLength: 120,
+          xhrSetup: (xhr) => { xhr.withCredentials = false; },
+        });
+        hlsRef.current = hls;
+        hls.loadSource(srcUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, (_e, data) => {
+          if (!mountedRef.current) return;
+          setHlsLevels(data.levels.map((l, i) => ({ height: l.height, index: i })));
+          setLoading(false);
+          safePlay(video);
+          setPlaying(true);
+        });
+        hls.on(Hls.Events.ERROR, (_e, data) => {
+          if (!mountedRef.current) return;
+          console.error("[HLS] error", data.type, data.details, data.fatal, data.url, data.response?.code);
+          if (data.fatal) {
+            // manifestIncompatibleCodecsError: browser MediaSource can't verify codecs
+            // (common in headless/sandboxed envs). Bypass by fetching the master m3u8
+            // ourselves and loading the first quality sub-playlist directly.
+            if (data.details === "manifestIncompatibleCodecsError") {
+              hls.destroy();
+              hlsRef.current = null;
+              fetch(srcUrl)
+                .then((r) => r.text())
+                .then((text) => {
+                  const subUrl = text.split("\n").find(
+                    (l) => l.trim() && !l.startsWith("#")
+                  );
+                  if (subUrl) {
+                    const resolvedSub = subUrl.startsWith("http")
+                      ? subUrl
+                      : subUrl.startsWith("/")
+                      ? `${window.location.origin}${subUrl}`
+                      : new URL(subUrl, srcUrl).href;
+                    startHls(resolvedSub);
+                  } else {
+                    advanceStream();
+                  }
+                })
+                .catch(() => advanceStream());
+              return;
+            }
+            advanceStream();
+          }
+        });
+      };
+
+      const advanceStream = () => {
         if (!mountedRef.current) return;
-        if (data.fatal) {
-          setStreamIdx((i) => {
-            const next = i + 1;
-            if (next < streams.length) return next;
-            setError("Stream failed to load. Try another source.");
-            setLoading(false);
-            return i;
-          });
-        }
-      });
+        setStreamIdx((i) => {
+          const next = i + 1;
+          if (next < streams.length) return next;
+          setError("Stream failed to load. Try another source.");
+          setLoading(false);
+          return i;
+        });
+      };
+
+      startHls(url);
     } else if (video.canPlayType("application/vnd.apple.mpegurl") && isHls) {
       video.src = url;
       video.addEventListener("loadedmetadata", () => {

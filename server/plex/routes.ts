@@ -1,5 +1,5 @@
 import type { Express, Request, Response } from "express";
-import { ZipArchive } from "archiver";
+import archiver from "archiver";
 import axios from "axios";
 import { log } from "../logger.js";
 
@@ -118,107 +118,13 @@ function escXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-interface NfoMetadata {
-  id: string;
-  title: string;
-  addonKey: string;
-  addonName: string;
-  sourceUrl?: string;
-  poster?: string;
-  background?: string;
-  description?: string;
-  genres?: string[];
-  releaseInfo?: string;
-  runtime?: string;
-  streamUrl?: string;
-}
-
-function decodeSourceUrl(encodedId: string): string | undefined {
-  try {
-    const decoded = Buffer.from(encodedId, "base64url").toString("utf-8");
-    return /^https?:\/\//i.test(decoded) ? decoded : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-function tag(name: string, value?: string): string {
-  const v = value?.trim();
-  return v ? `  <${name}>${escXml(v)}</${name}>\n` : "";
-}
-
-function generateNfo(meta: NfoMetadata): string {
-  const poster = meta.poster || meta.background;
+function generateNfo(title: string, poster?: string, description?: string): string {
   let nfo = `<?xml version="1.0" encoding="UTF-8"?>\n<movie>\n`;
-  nfo += tag("title", meta.title);
-  nfo += tag("originaltitle", meta.title);
-  nfo += tag("plot", meta.description);
-  nfo += tag("outline", meta.description);
-  nfo += tag("runtime", meta.runtime);
-  nfo += tag("year", meta.releaseInfo);
-  nfo += tag("studio", meta.addonName);
-  nfo += `  <uniqueid type="${escXml(meta.addonKey)}" default="true">${escXml(meta.id)}</uniqueid>\n`;
-  nfo += tag("website", meta.sourceUrl);
+  nfo += `  <title>${escXml(title)}</title>\n`;
+  if (description) nfo += `  <plot>${escXml(description)}</plot>\n`;
   if (poster) nfo += `  <thumb aspect="poster">${escXml(poster)}</thumb>\n`;
-  if (meta.background) nfo += `  <fanart><thumb>${escXml(meta.background)}</thumb></fanart>\n`;
-  if (meta.streamUrl) nfo += `  <fileinfo><streamdetails><video><streamurl>${escXml(meta.streamUrl)}</streamurl></video></streamdetails></fileinfo>\n`;
-  for (const genre of meta.genres || []) nfo += tag("genre", genre);
-  nfo += `  <tag>${escXml(meta.addonName)}</tag>\n`;
   nfo += `</movie>\n`;
   return nfo;
-}
-
-async function scrapeNfoMetadata(addonKey: string, encodedId: string, serverUrl?: string): Promise<NfoMetadata | null> {
-  const addon = ADDON_REGISTRY[addonKey];
-  if (!addon) return null;
-
-  const fullId = `${addonKey}:${encodedId}`;
-  const meta = await addon.getMeta(fullId);
-  const sourceUrl = decodeSourceUrl(encodedId);
-  const streamUrl = serverUrl ? `${serverUrl.replace(/\/+$/, "")}/plex/stream/${addonKey}/${encodedId}` : undefined;
-
-  return {
-    id: fullId,
-    title: meta?.name || sourceUrl?.split("/").filter(Boolean).pop()?.replace(/[-_]/g, " ") || "Untitled",
-    addonKey,
-    addonName: addon.name,
-    sourceUrl,
-    poster: meta?.poster,
-    background: meta?.background,
-    description: meta?.description,
-    genres: meta?.genres,
-    releaseInfo: meta?.releaseInfo,
-    runtime: meta?.runtime,
-    streamUrl,
-  };
-}
-
-async function collectAddonItems(addonKey: string, catalogParam?: string, limit: number = 0): Promise<CatalogItem[]> {
-  const addon = ADDON_REGISTRY[addonKey];
-  if (!addon) return [];
-  const catalogIds = (catalogParam ? catalogParam.split(",") : Object.keys(addon.catalogMap))
-    .map((c) => c.trim())
-    .filter((c) => c && c in addon.catalogMap);
-  const seen = new Set<string>();
-  const items: CatalogItem[] = [];
-  const PARALLEL = 6;
-
-  for (let i = 0; i < catalogIds.length; i += PARALLEL) {
-    const batch = catalogIds.slice(i, i + PARALLEL);
-    const results = await Promise.allSettled(batch.map((cid) => addon.getCatalog(cid, 0)));
-    for (const result of results) {
-      if (result.status !== "fulfilled") continue;
-      for (const item of result.value) {
-        if (!seen.has(item.id)) {
-          seen.add(item.id);
-          items.push(item);
-          if (limit > 0 && items.length >= limit) return items;
-        }
-      }
-    }
-  }
-
-  return items;
 }
 
 function streamScore(s: StremioStream): number {
@@ -323,7 +229,6 @@ ${addonList}
 <div class="actions">
 <label class="addon-item" style="margin-bottom:12px"><input type="checkbox" id="includePosters" checked> Include poster images <span class="count">recommended for Plex</span></label>
 <button class="btn-primary" id="exportBtn" onclick="exportLibrary()">Download Library (.zip)</button>
-<button class="btn-secondary" onclick="exportNfoOnly()">Download NFO Only (.zip)</button>
 <button class="btn-secondary" onclick="copyStreamUrl()">Copy Stream Test URL</button>
 </div>
 
@@ -355,8 +260,6 @@ ${addonList}
 <p><code>GET /plex/configure</code> — This page</p>
 <p><code>GET /plex/stream/:addon/:id</code> — Stream resolver (resolves &amp; redirects)</p>
 <p><code>GET /plex/export?addons=gxtapes,nurgay&amp;server=URL</code> — Download STRM/NFO library ZIP</p>
-<p><code>GET /nfo/export?addons=gxtapes,nurgay&amp;server=URL</code> — Scrape media pages and download NFO-only ZIP</p>
-<p><code>GET /nfo/{addon}/{encodedId}.nfo</code> — Scrape one title and download one NFO file</p>
 <p><code>GET /plex/api/library?addons=gxtapes,nurgay</code> — JSON catalog for custom sync scripts</p>
 </div>
 
@@ -526,99 +429,6 @@ function copyStreamUrl(){
     res.json({ addons });
   });
 
-  app.get("/nfo/api/:addon", async (req: Request, res: Response) => {
-    const addonKey = req.params.addon as string;
-    const addonDef = ADDON_REGISTRY[addonKey];
-    if (!addonDef) return res.status(404).json({ error: "Unknown addon" });
-
-    const limit = Math.max(0, parseInt((req.query.limit as string) || "0", 10) || 0);
-    const catalogs = req.query.catalogs as string | undefined;
-    const serverUrl = ((req.query.server as string) || getRequestBaseUrl(req)).replace(/\/+$/, "");
-    const items = await collectAddonItems(addonKey, catalogs, limit);
-
-    const SCRAPE_PARALLEL = 5;
-    const nfoItems: NfoMetadata[] = [];
-    for (let i = 0; i < items.length; i += SCRAPE_PARALLEL) {
-      const batch = items.slice(i, i + SCRAPE_PARALLEL);
-      const result = await Promise.allSettled(
-        batch.map((item) => scrapeNfoMetadata(addonKey, item.id.replace(`${addonKey}:`, ""), serverUrl)),
-      );
-      for (const r of result) {
-        if (r.status === "fulfilled" && r.value) nfoItems.push(r.value);
-      }
-    }
-
-    res.json({ addon: addonKey, name: addonDef.name, count: nfoItems.length, items: nfoItems });
-  });
-
-  app.get("/nfo/:addon/:encodedId.nfo", async (req: Request, res: Response) => {
-    const addonKey = req.params.addon as string;
-    const encodedId = req.params.encodedId as string;
-    if (!ADDON_REGISTRY[addonKey]) return res.status(404).send("Unknown addon");
-
-    try {
-      const serverUrl = ((req.query.server as string) || getRequestBaseUrl(req)).replace(/\/+$/, "");
-      const meta = await scrapeNfoMetadata(addonKey, encodedId, serverUrl);
-      if (!meta) return res.status(404).send("NFO metadata not found");
-
-      const safeName = sanitizeFilename(meta.title);
-      res.setHeader("Content-Type", "application/xml; charset=utf-8");
-      res.setHeader("Content-Disposition", `attachment; filename="${safeName}.nfo"`);
-      res.send(generateNfo(meta));
-    } catch (err: any) {
-      log(`NFO single export error: ${err.message}`, "nfo");
-      res.status(500).send("NFO generation failed");
-    }
-  });
-
-  app.get("/nfo/export", async (req: Request, res: Response) => {
-    const addonKeys = ((req.query.addons as string) || Object.keys(ADDON_REGISTRY).join(","))
-      .split(",")
-      .map((k) => k.trim())
-      .filter((k) => k in ADDON_REGISTRY);
-    const limit = Math.max(0, parseInt((req.query.limit as string) || "0", 10) || 0);
-    const catalogs = req.query.catalogs as string | undefined;
-    const serverUrl = ((req.query.server as string) || getRequestBaseUrl(req)).replace(/\/+$/, "");
-
-    if (addonKeys.length === 0) return res.status(400).json({ error: "No valid addons specified" });
-
-    log(`NFO export: scraping NFO metadata for ${addonKeys.join(", ")}`, "nfo");
-    res.setHeader("Content-Type", "application/zip");
-    res.setHeader("Content-Disposition", 'attachment; filename="scraped-nfo-library.zip"');
-
-    const archive = new ZipArchive({ zlib: { level: 6 } });
-    archive.pipe(res);
-    archive.on("error", (err: Error) => log(`NFO export error: ${err.message}`, "nfo"));
-
-    let total = 0;
-    for (const addonKey of addonKeys) {
-      const addon = ADDON_REGISTRY[addonKey];
-      const items = await collectAddonItems(addonKey, catalogs, limit);
-      const SCRAPE_BATCH = 4;
-
-      for (let i = 0; i < items.length; i += SCRAPE_BATCH) {
-        const batch = items.slice(i, i + SCRAPE_BATCH);
-        const metas = await Promise.allSettled(
-          batch.map((item) => scrapeNfoMetadata(addonKey, item.id.replace(`${addonKey}:`, ""), serverUrl)),
-        );
-
-        for (const result of metas) {
-          if (result.status !== "fulfilled" || !result.value) continue;
-          const meta = result.value;
-          const safeName = sanitizeFilename(meta.title);
-          const folderPath = `${addon.name}/${safeName}`;
-          archive.append(generateNfo(meta), { name: `${folderPath}/${safeName}.nfo` });
-          total++;
-        }
-      }
-
-      log(`NFO export: ${addon.name} done (${total} NFO files so far)`, "nfo");
-    }
-
-    await archive.finalize();
-    log(`NFO export completed: ${total} files`, "nfo");
-  });
-
   app.get("/plex/api/library/:addon", async (req: Request, res: Response) => {
     const addonKey = req.params.addon as string;
     const addonDef = ADDON_REGISTRY[addonKey];
@@ -693,7 +503,7 @@ function copyStreamUrl(){
     res.setHeader("Content-Type", "application/zip");
     res.setHeader("Content-Disposition", 'attachment; filename="plex-stremio-library.zip"');
 
-    const archive = new ZipArchive({ zlib: { level: 5 } });
+    const archive = archiver("zip", { zlib: { level: 5 } });
     archive.pipe(res);
 
     archive.on("error", (err: Error) => {
@@ -761,7 +571,7 @@ function copyStreamUrl(){
           });
 
           const posterProxyUrl = `${serverUrl}/plex/poster/${addonKey}/${idPart}`;
-          archive.append(generateNfo({ id: item.id, title: item.name, addonKey, addonName: addon.name, poster: posterProxyUrl, streamUrl: `${serverUrl}/plex/stream/${addonKey}/${idPart}`, sourceUrl: decodeSourceUrl(idPart) }), {
+          archive.append(generateNfo(item.name, posterProxyUrl, undefined), {
             name: `${folderPath}/${safeName}.nfo`,
           });
 

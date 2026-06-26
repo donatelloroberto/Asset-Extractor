@@ -89,6 +89,19 @@ export default function Watch() {
       if (!res.ok) throw new Error("Failed to load streams");
       return res.json();
     },
+    // `select` runs on every access (fresh + cached), converting proxy paths to
+    // absolute URLs using the browser's real origin so HLS.js can load them.
+    select: (data: StreamsResponse) => ({
+      ...data,
+      streams: data.streams?.map((s: any) => ({
+        ...s,
+        url: s.url
+          ? s.url.startsWith("/")
+            ? `${window.location.origin}${s.url}`
+            : s.url.replace(/^https?:\/\/[^/]+/, window.location.origin)
+          : s.url,
+      })),
+    }),
     staleTime: 2 * 60 * 1000,
     retry: 1,
     enabled: !!videoId,

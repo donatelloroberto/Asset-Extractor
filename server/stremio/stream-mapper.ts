@@ -17,12 +17,15 @@ function toBase64Url(input: string): string {
   return Buffer.from(input).toString("base64url");
 }
 
-function buildM3u8ProxyUrl(baseUrl: string, url: string, referer: string): string {
-  return `${baseUrl}/api/proxy/m3u8?url=${toBase64Url(url)}&ref=${toBase64Url(referer)}`;
+// Return path-only URLs — never embed the server host, because the server
+// sees localhost:5000 but browsers need the real public origin.
+// The client rewrites these to absolute using window.location.origin.
+function buildM3u8ProxyUrl(_baseUrl: string, url: string, referer: string): string {
+  return `/api/proxy/m3u8?url=${toBase64Url(url)}&ref=${toBase64Url(referer)}`;
 }
 
-function buildMp4ProxyUrl(baseUrl: string, url: string, referer: string): string {
-  return `${baseUrl}/proxy/stream?url=${encodeURIComponent(url)}&referer=${encodeURIComponent(referer)}`;
+function buildMp4ProxyUrl(_baseUrl: string, url: string, referer: string): string {
+  return `/proxy/stream?url=${encodeURIComponent(url)}&referer=${encodeURIComponent(referer)}`;
 }
 
 async function resolveWithCache(url: string, referer?: string): Promise<ResolvedStream> {

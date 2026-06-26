@@ -4,6 +4,7 @@ import { makeId, extractUrl } from "./ids";
 import { getCached, setCached } from "./cache";
 import { extractStreams } from "./extractors";
 import { CATALOG_MAP } from "./manifest";
+import { mapStreamsForStremio } from "./stream-mapper";
 import type { StremioMeta, StremioStream, CatalogItem } from "../../shared/schema";
 
 const BASE_URL = "https://gay.xtapes.tw";
@@ -156,8 +157,8 @@ export async function getMeta(id: string): Promise<StremioMeta | null> {
   }
 }
 
-export async function getStreams(id: string): Promise<StremioStream[]> {
-  const cacheKey = `stream:${id}`;
+export async function getStreams(id: string, baseUrl?: string): Promise<StremioStream[]> {
+  const cacheKey = `stream:${id}:${baseUrl ?? ""}`;
   const cached = getCached<StremioStream[]>("stream", cacheKey);
   if (cached) return cached;
 
@@ -166,18 +167,15 @@ export async function getStreams(id: string): Promise<StremioStream[]> {
     if (isDebug()) console.log(`[Provider] Getting streams for: ${url}`);
 
     const extracted = await extractStreams(url);
-    const streams: StremioStream[] = extracted.map(s => {
-      const hints: any = { notWebReady: true };
-      if (s.referer) {
-        hints.proxyHeaders = { request: { Referer: s.referer } };
-      }
-      return {
+    const streams = await mapStreamsForStremio(
+      extracted.map(s => ({
         name: s.name,
         title: s.quality ? `${s.name} - ${s.quality}` : s.name,
         url: s.url,
-        behaviorHints: hints,
-      };
-    });
+        referer: s.referer,
+      })),
+      baseUrl
+    );
 
     if (streams.length > 0) {
       setCached("stream", cacheKey, streams);
